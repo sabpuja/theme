@@ -20,6 +20,14 @@
 - Wired the Diwali and Navratri hero WebPs into the staging homepage kit cards.
 - Added expandable demo-contents previews for both festival kits.
 - Added `assets/sabpuja-kits.css` for kit media/card presentation.
+- Uploaded all 25 approved Sabpuja product WebPs to Shopify Files with alt text; live product media was not changed.
+- Replaced the active legacy Kala product route with a staging-only Sabpuja product template.
+- Removed old Kala product testimonials, recently-viewed/related promotional stack and fake urgency widgets from the active staging product route.
+- Product handle now maps to approved Sabpuja WebP, staging SKU, staging pack size, staging inventory and conservative Sabpuja copy.
+- Product pages no longer render legacy `product.vendor` or legacy `product.description`, preventing Shraddha Bhakti copy and unsupported claims from surfacing on staging.
+- Real Shopify product form/cart behavior is retained where the underlying product is safe to purchase.
+- Cotton Wicks is explicitly blocked from purchase on staging and shown at the demo staging price ₹100 because the shared live catalog price remains ₹0.
+- Sandalwood Stick is explicitly blocked from purchase on staging because the shared live inventory remains 0.
 
 ## Festival-kit Shopify Files
 - Diwali hero: `https://cdn.shopify.com/s/files/1/0923/1381/3308/files/diwali-puja-kit-hero-01.webp?v=1789514510`
@@ -27,9 +35,9 @@
 - Navratri hero: `https://cdn.shopify.com/s/files/1/0923/1381/3308/files/navratri-puja-kit-hero-01.webp?v=1789514535`
 - Navratri contents: `https://cdn.shopify.com/s/files/1/0923/1381/3308/files/navratri-puja-kit-contents-01.webp?v=1789514546`
 
-These files are stored globally in Shopify Files but are referenced only by the unpublished staging theme. Live product media was not changed.
+The full 25-product CDN mapping is maintained in `docs/product-media-cdn-map.md`.
 
-## Shopify files changed
+## Shopify theme files changed
 - `sections/theme-header4.liquid`
 - `sections/theme-footer5.liquid`
 - `sections/sabpuja-home.liquid`
@@ -37,25 +45,38 @@ These files are stored globally in Shopify Files but are referenced only by the 
 - `sections/theme-menu-mobile.liquid`
 - `assets/sabpuja-staging.css`
 - `assets/sabpuja-kits.css`
+- `templates/product.liquid`
+- `sections/sabpuja-product.liquid`
+- `assets/sabpuja-product.css`
 
-## Verification
-Latest Shopify verification after kit-media integration:
+## Latest product-page verification
+Shopify verified after the product-template write:
 - Theme name: `Sabpuja Staging — Rebrand 2026`
 - Role: `UNPUBLISHED`
 - `processing=false`
 - `processingFailed=false`
-- `assets/sabpuja-kits.css` checksum: `d366e3e5ceafe08e546ef1691345a615`
-- `sections/sabpuja-home.liquid` checksum: `01149302d38f4b37e2a4d5a0e3e356a9`
-- `sections/theme-header4.liquid` checksum: `a348663cf0f1d59cf8aaf603f2d04cf1`
-- `sections/theme-footer5.liquid` checksum: `bdd319e140a8b76017882bca8c1252b2`
+- `templates/product.liquid`: 73 bytes, checksum `9af8fc1da823ab0e9f0308cb6bc11353`
+- `sections/sabpuja-product.liquid`: 14896 bytes, checksum `359cec24fb739b854b235c0b3e957dab`
+- `assets/sabpuja-product.css`: 5414 bytes, checksum `4eec98f8f6cdbed411f13d45d4840724`
+
+## Catalog behavior in staging
+The product page uses the practical staging demo baseline from `sabpuja/content/docs/catalog/product-catalog-master-data.md`. Supplier verification remains a pre-live reconciliation task rather than a staging blocker.
+
+Shared Shopify product records have deliberately not been mass-rewritten yet because catalog records are global across themes. The following remain cutover tasks after staging approval:
+- vendor `Shraddha Bhakti` → `Sabpuja`
+- apply final SKUs
+- replace legacy product descriptions
+- attach approved Sabpuja media directly to product records
+- fix Cotton Wicks live price
+- resolve Sandalwood Stick live inventory/restock
 
 ## Next implementation pass
-1. Upload/map the 25 approved Sabpuja product WebPs into Shopify Files without changing live product media.
-2. Build a staging-only product page presentation that maps product handle → Sabpuja image/demo SKU/pack data and removes legacy Kala widgets/claims.
-3. Rebuild collection/search/cart visual layer.
-4. Apply Sabpuja content to About, Contact, FAQ, policies/help pages.
-5. Audit old-brand/demo strings in remaining staging-theme files.
-6. Mobile/desktop visual QA and cart → checkout QA.
+1. Rebuild collection/search/cart visual layer for staging.
+2. Apply Sabpuja content presentation to About, Contact, FAQ and help/policy surfaces without unnecessarily mutating shared live page records.
+3. Audit the remaining active staging paths for `Shraddha Bhakti`, `Kala`, old demo claims and broken links.
+4. Verify navigation and policy links.
+5. Run mobile/desktop storefront QA and cart → checkout QA.
+6. Only after staging approval, execute the shared catalog cutover and publish the theme.
 
 ## Safety rule
 Do not publish this theme until staging QA and explicit cutover approval.
