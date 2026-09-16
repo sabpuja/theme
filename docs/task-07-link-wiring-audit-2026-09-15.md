@@ -80,9 +80,29 @@ External destinations also resolved:
 - YouTube `@SabPuja`;
 - WhatsApp number `+91 96678 19241`.
 
+## Continuation fixes from complete customer-facing link crawl
+A follow-up crawl on the same unpublished theme found and corrected two additional staging-only presentation/wiring issues:
+
+1. **Collections index Puja Kit destination**
+   - `/collections` previously exposed a card linking to the currently empty `/collections/puja-kit` collection.
+   - The card was changed to `/#puja-kits`, matching the working header/homepage Puja Kits destination instead of sending customers to an empty collection.
+
+2. **Homepage title / Open Graph title**
+   - The homepage inherited global shop title `Sab Puja` in the page title path.
+   - `layout/theme.liquid` now explicitly renders `Sabpuja — Your Puja, Prepared with Care.` for the homepage title/OG title while preserving Sabpuja-safe route metadata elsewhere.
+
+Follow-up rendered verification confirmed:
+- About staging copy and metadata are Sabpuja-specific;
+- Contact staging copy and metadata are Sabpuja-specific;
+- `og:site_name` is `Sabpuja`;
+- no remaining `Shraddha Bhakti` string was found in the rendered About/Contact staging checks.
+
+The interactive 404/cart/checkout workflow evidence is recorded separately in `docs/task-08-storefront-workflow-qa-2026-09-15.md`.
+
 ## Non-broken launch notes
 These are not broken links, but should be kept visible during final cutover QA:
 - Shopify's hosted customer-account sign-in currently displays the global shop name as `Sab Puja` (two words). Canonical storefront brand remains `Sabpuja`; global shop/account naming should be reconciled at launch if approved.
+- The Shopify-managed Privacy Policy contains shared/global `Sab Puja` wording in places. The policy link itself works; the policy record was intentionally not changed because it is shared with the live storefront.
 - The verified WhatsApp number currently resolves to a profile named `Logarithm Media Solutions`. This matches the supplied operating contact, but the external profile identity should be reviewed for customer-brand consistency.
 - Product Open Graph images can still reference shared legacy product media because shared product-media cutover is intentionally deferred until staging approval.
 
