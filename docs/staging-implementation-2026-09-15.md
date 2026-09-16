@@ -3,7 +3,7 @@
 ## Target
 - Shopify theme: **Sabpuja Staging — Rebrand 2026**
 - Theme ID: `gid://shopify/OnlineStoreTheme/188428157244`
-- Role verified after Task 08: `UNPUBLISHED`
+- Role verified after Task 10 carousel write: `UNPUBLISHED`
 - Live/main theme was not intentionally modified.
 
 ## Completed in staging
@@ -20,6 +20,11 @@
 - Wired the Diwali and Navratri hero WebPs into the staging homepage kit cards.
 - Added expandable demo-contents previews for both festival kits.
 - Added `assets/sabpuja-kits.css` for kit media/card presentation.
+- Replaced the previous single homepage hero with a three-slide manual staging carousel for Diwali, Navratri and evergreen Puja Essentials.
+- Added `assets/sabpuja-carousel.css` for the carousel structure, responsive layout and controls.
+- Kept Diwali/Navratri primary seasonal actions non-clickable while their Task 11 destination pages do not yet exist; no dead seasonal page links were introduced.
+- Wired the evergreen carousel CTA to the verified `/collections/all` destination.
+- Passed focused desktop and 375px mobile carousel interaction/layout QA; final purpose-built responsive campaign WebPs remain pending.
 - Uploaded all 25 approved Sabpuja product WebPs to Shopify Files with alt text; live product media was not changed.
 - Replaced the active legacy Kala product route with a staging-only Sabpuja product template.
 - Removed old Kala product testimonials, recently-viewed/related promotional stack and fake urgency widgets from the active staging product route.
@@ -31,7 +36,7 @@
 - Replaced the active legacy collection route with `sections/sabpuja-collection.liquid`.
 - Removed the legacy collection sidebar/category/brand/filter presentation from the active staging collection route.
 - Added `snippets/sabpuja-product-card.liquid`, mapping all 25 existing products to approved Sabpuja WebPs in Shopify Files rather than shared legacy featured images.
-- Replaced the active legacy search route with `sections/sabpuja-search.liquid`, using the same Sabpuja product-card/media mapping.
+- Replaced the active legacy search route with `sections/sabpuja-search.liquid`, using the same Sabpuja product card/media mapping.
 - Added `assets/sabpuja-catalog.css` for responsive collection/search cards and grids.
 - Enlarged the product hero image within its square media frame via `assets/sabpuja-product.css`; desktop uses a stronger crop/zoom and mobile a lighter zoom to reduce empty internal image margin.
 - Replaced the active legacy cart route with `sections/sabpuja-cart.liquid` and `assets/sabpuja-cart.css`.
@@ -66,6 +71,7 @@ The full 25-product CDN mapping is maintained in `docs/product-media-cdn-map.md`
 - `sections/theme-menu-mobile.liquid`
 - `assets/sabpuja-staging.css`
 - `assets/sabpuja-kits.css`
+- `assets/sabpuja-carousel.css`
 - `templates/product.liquid`
 - `sections/sabpuja-product.liquid`
 - `assets/sabpuja-product.css`
@@ -145,6 +151,45 @@ Two apparent visual-agent discrepancies were independently cleared:
 
 Detailed evidence: `docs/task-08-storefront-workflow-qa-2026-09-15.md`.
 
+## Task 10 carousel implementation + QA
+Task 10's **carousel structure** is implemented and QA-passed; Task 10 itself remains in progress because its six final purpose-built responsive campaign WebPs are still pending.
+
+Shopify post-write verification:
+- theme role: `UNPUBLISHED`;
+- `processing=false`;
+- `processingFailed=false`;
+- `sections/sabpuja-home.liquid`: 11276 bytes, checksum `f52ba9bb2eb287fcbddb7135fba06048`;
+- `assets/sabpuja-carousel.css`: 4067 bytes, checksum `f428621254e5ef3240cbdcf1e51750af`.
+
+CTA safeguards:
+- Diwali primary seasonal action is a non-clickable `Seasonal page in preparation` status;
+- Navratri primary seasonal action is a non-clickable `Seasonal page in preparation` status;
+- neither `/pages/diwali-puja` nor `/pages/navratri-puja` is linked from the rendered carousel;
+- evergreen `Shop Puja Essentials` is wired to the verified `/collections/all` route;
+- current-kit secondary links use the existing `#puja-kits` anchor.
+
+A direct rendered-DOM check confirmed the only carousel anchor destinations are `#puja-kits` and `/collections/all`.
+
+Desktop focused QA run `624f984c-18b6-4b26-ac26-ce02c795a22e` passed with zero issues:
+- Diwali → Navratri → Evergreen sequence;
+- Previous control;
+- all three direct-selection dots;
+- seasonal non-navigation;
+- evergreen collection navigation;
+- carousel/trust-strip layout.
+
+375px mobile focused QA run `d78a8005-8e50-4092-9004-1444a1f8c017` passed with zero issues:
+- all three slides;
+- previous/next and dot controls;
+- seasonal non-navigation;
+- evergreen collection navigation;
+- responsive visual layout;
+- trust strip integrity.
+
+An earlier exploratory run `3a9c3f25-823b-45e9-bf6c-ff98494d92ff` returned only its last screenshot instruction rather than a usable final QA report and is deliberately not counted as evidence.
+
+Detailed evidence: `docs/task-10-homepage-carousel-implementation-2026-09-15.md`.
+
 ## Catalog behavior in staging
 The product page, product cards and cart media use the practical staging demo baseline from `sabpuja/content/docs/catalog/product-catalog-master-data.md`. Supplier verification remains a pre-live reconciliation task rather than a staging blocker.
 
@@ -173,12 +218,22 @@ Active source-of-truth:
 - `sabpuja/content/assets/product-images/kits/astrology-remedy-kits/hero-generation-briefs.md`
 
 ### TASK-10 — Homepage hero carousel
-The asset program is active for three initial campaign slides:
-- Diwali;
-- Navratri;
-- evergreen Sabpuja / Puja Essentials.
+The carousel structure is now implemented and desktop/mobile QA-passed on unpublished staging.
 
-Each slide has planned desktop + mobile WebP variants. Diwali/Navratri artwork may proceed, but CTA wiring remains blocked until Task 11 creates and verifies dedicated destination pages. The evergreen slide can target the existing `/collections/all` route after its final asset passes QA.
+Current staging presentation:
+- Diwali temporarily reuses the existing staging Diwali kit hero WebP;
+- Navratri temporarily reuses the existing staging Navratri kit hero WebP;
+- evergreen uses the current Sabpuja brand illustration treatment.
+
+These are not final launch campaign assets. The following purpose-built WebPs remain pending:
+- `sabpuja-diwali-hero-desktop-01.webp`;
+- `sabpuja-diwali-hero-mobile-01.webp`;
+- `sabpuja-navratri-hero-desktop-01.webp`;
+- `sabpuja-navratri-hero-mobile-01.webp`;
+- `sabpuja-puja-essentials-hero-desktop-01.webp`;
+- `sabpuja-puja-essentials-hero-mobile-01.webp`.
+
+Diwali/Navratri final CTA wiring remains blocked until Task 11 creates and verifies dedicated destination pages. The evergreen CTA is currently wired to and QA-verified for `/collections/all`.
 
 Active source-of-truth:
 - `sabpuja/content/assets/homepage/hero-carousel/README.md`
@@ -196,10 +251,10 @@ These paths must not be wired from the homepage carousel until the pages actuall
 
 ## Next implementation pass
 1. Produce and review the first sealed-package hero concepts for the 12 Astrology Remedy Kits under Task 09 without depicting unapproved contents.
-2. Produce and review desktop/mobile Diwali, Navratri and evergreen hero-carousel concepts under Task 10.
+2. Produce and review the six purpose-built desktop/mobile Diwali, Navratri and evergreen hero-carousel WebPs under Task 10.
 3. Export approved candidates as WebP, store them in GitHub/DAM, add alt text and record Shopify Files CDN references.
-4. Wire only the evergreen carousel slide until seasonal destination pages exist.
-5. Build and QA Task 11 Diwali/Navratri sales pages when BOM/offer inputs are ready, then wire seasonal CTAs.
+4. Replace the current Task 10 temporary staging visuals with approved responsive assets and repeat desktop/mobile crop QA.
+5. Build and QA Task 11 Diwali/Navratri sales pages when BOM/offer inputs are ready, then wire seasonal primary CTAs.
 6. Keep all 12 Astrology Remedy Kit products unpublished until contents, claims, commercial data and final images are approved.
 7. Execute shared catalog/content cutover and publish the staging theme only after explicit launch approval.
 
