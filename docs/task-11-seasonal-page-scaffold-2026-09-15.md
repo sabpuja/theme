@@ -110,6 +110,15 @@ Homepage CTA regression QA: **PASS**
 - Diwali/Navratri primary actions remain disabled `<span>` controls;
 - staging theme remained `UNPUBLISHED`, `processing=false`, `processingFailed=false`.
 
+Final live safety verification: **PASS**
+- `Sabpuja Staging — Rebrand 2026` re-queried after Task 09/11 repository reconciliation;
+- theme role remains `UNPUBLISHED`;
+- `processing=false`;
+- `processingFailed=false`;
+- Diwali Page `gid://shopify/Page/160331399484` remains `isPublished=false`, `publishedAt=null`, template suffix `diwali-puja`;
+- Navratri Page `gid://shopify/Page/160331432252` remains `isPublished=false`, `publishedAt=null`, template suffix `navratri-puja`;
+- page query returned both expected records and `hasNextPage=false`.
+
 Public-route visual QA is intentionally **not yet applicable** because both Page shells are unpublished. This is a safety condition, not a failed test. The pages must not be published merely to obtain visual QA while commercial data is still unapproved.
 
 ## Remaining genuine Task 11 blocker
