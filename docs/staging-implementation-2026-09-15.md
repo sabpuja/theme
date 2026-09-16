@@ -3,7 +3,7 @@
 ## Target
 - Shopify theme: **Sabpuja Staging — Rebrand 2026**
 - Theme ID: `gid://shopify/OnlineStoreTheme/188428157244`
-- Role re-verified after Task 10 final asset wiring: `UNPUBLISHED`
+- Role re-verified after Task 11 scaffold write: `UNPUBLISHED`
 - `processing=false`; `processingFailed=false`.
 - Live/main theme was not intentionally modified.
 
@@ -11,15 +11,17 @@
 - Renamed duplicated theme to `Sabpuja Staging — Rebrand 2026`.
 - Replaced active Header Style #4 and Footer Style #5 with controlled Sabpuja presentation.
 - Replaced the legacy homepage section stack with `sections/sabpuja-home.liquid`.
-- Added Sabpuja staging, kit, carousel, catalog, product, cart and page CSS assets.
+- Added Sabpuja staging, kit, carousel, catalog, product, cart, page and seasonal CSS assets.
 - Disabled the legacy Kala mobile menu and legacy homepage promotional dependencies.
 - Replaced false/demo announcement content with verified Delhi NCR delivery, ₹100 flat shipping and prepaid-order messaging.
 - Added approved Sabpuja positioning, support details, address, payment facts and official social links.
 - Uploaded four festival-kit staging WebPs for the homepage kit cards and expandable demo-contents previews.
 - Replaced the former single hero with a three-slide manual Diwali → Navratri → Evergreen carousel.
 - Produced, uploaded, wired and QA-verified all six final responsive Task 10 campaign WebPs.
-- Kept Diwali/Navratri primary seasonal actions non-clickable while Task 11 destination pages and commercial offers remain unapproved.
+- Kept Diwali/Navratri primary seasonal actions non-clickable while Task 11 commercial offers remain unapproved.
 - Kept evergreen `Shop Puja Essentials` wired to verified `/collections/all`; current-kit secondary links use `#puja-kits`.
+- Added Task 11 shared seasonal page section/CSS and dedicated Diwali/Navratri page templates to the unpublished theme.
+- Created real Diwali/Navratri Shopify Page shells as unpublished records with their dedicated template suffixes.
 - Uploaded all 25 approved Sabpuja product WebPs to Shopify Files with alt text; live product media was not changed.
 - Replaced the active legacy product route with a staging-only Sabpuja product template and removed legacy Kala testimonials, recently viewed/related promotional stack and fake urgency widgets.
 - Product pages no longer render legacy `product.vendor` or `product.description`; staging product copy/media/SKU/pack-size/inventory presentation is controlled by Sabpuja mappings.
@@ -62,7 +64,13 @@ Real Shopify Page routes created for staging:
 - `/pages/astrology-remedy-kits`
 - `/pages/sun-sign-vs-rashi`
 
-These created records resolve normally but use `seo.hidden = 1` while the rebrand remains in staging. The Shopify-managed Privacy Policy remains untouched.
+Those support/guide records resolve normally and use `seo.hidden = 1` while the rebrand remains in staging.
+
+Task 11 adds two real Shopify Page shells that intentionally **do not resolve publicly yet** because they remain unpublished:
+- `/pages/diwali-puja` — Page `gid://shopify/Page/160331399484`, `isPublished=false`, template suffix `diwali-puja`;
+- `/pages/navratri-puja` — Page `gid://shopify/Page/160331432252`, `isPublished=false`, template suffix `navratri-puja`.
+
+The Shopify-managed Privacy Policy remains untouched.
 
 ## Task 07 route/link QA
 Task 07 is complete. Browser verification covered homepage, search, cart, collections/index, About, Contact, all support/help/guide routes, safe auxiliary routes, all 25 active product URLs, Privacy Policy, and verified official social/support destinations.
@@ -126,6 +134,38 @@ Evidence:
 - structural implementation history: `docs/task-10-homepage-carousel-implementation-2026-09-15.md`;
 - final asset/QA completion: `docs/task-10-homepage-carousel-final-assets-2026-09-15.md`.
 
+## Task 11 seasonal page scaffold
+Task 11 is **IN PROGRESS — NON-COMMERCIAL STRUCTURE IMPLEMENTED / COMMERCIAL OFFER BLOCKED**.
+
+Theme files on unpublished staging:
+- `assets/sabpuja-seasonal.css` — 2,634 bytes, MD5 `5dba715f34c2482557291cef4466b41e`;
+- `sections/sabpuja-seasonal-page.liquid` — 4,733 bytes, MD5 `580fcc569edf2dfb577bedbe36a0074a`;
+- `templates/page.diwali-puja.liquid` — 38 bytes, MD5 `f6ed3fb8bd6452b3283d732227f87827`;
+- `templates/page.navratri-puja.liquid` — 38 bytes, MD5 `f6ed3fb8bd6452b3283d732227f87827`.
+
+The shared section switches by page handle and reuses the final Task 10 responsive Diwali/Navratri campaign artwork. It includes only verified delivery/payment/support facts and safe links to current Puja Essentials or support.
+
+It intentionally contains no:
+- seasonal selling price or compare-at price;
+- discount/urgency claim;
+- exact BOM or contents list;
+- inventory/scarcity promise;
+- product/bundle-model assertion;
+- Buy Now button;
+- checkout link;
+- guaranteed spiritual or future-outcome claim.
+
+Post-write verification passed:
+- theme remained `UNPUBLISHED`;
+- `processing=false`;
+- `processingFailed=false`;
+- all four files re-queried with matching checksums/sizes;
+- both seasonal Page records re-queried with `isPublished=false` and `publishedAt=null`.
+
+Public-route visual QA is intentionally not yet applicable because publishing the unfinished Page shells solely for QA would weaken the commercial-safety gate. Do not publish them until the offer inputs are approved.
+
+Evidence: `docs/task-11-seasonal-page-scaffold-2026-09-15.md`.
+
 ## Catalog behavior in staging
 Product, collection/search cards and cart media use the practical staging demo baseline from `sabpuja/content/docs/catalog/product-catalog-master-data.md`. Supplier verification remains a pre-live reconciliation task rather than a staging blocker.
 
@@ -155,22 +195,29 @@ Active source-of-truth:
 
 The current image-generation path has repeatedly returned an unrelated carousel/status-board raster instead of the requested Aries sealed-package hero. Those rasters are rejected and are not committed/uploaded/countable Task 09 assets. This is a generation-tool-path failure, not a BOM blocker for sealed-package heroes.
 
-## TASK-11 seasonal pages
-Diwali and Navratri remain demo-only commercial offers until exact BOM, approved selling price/discount state, product-or-bundle model, inventory/fulfillment, exclusions and approved claims/context are supplied.
+## TASK-11 remaining commercial gate
+Before either seasonal Page can become a real conversion page, required approvals remain:
+- exact BOM/quantities;
+- approved selling price and compare-at/discount state;
+- SKU/product/bundle model;
+- inventory and fulfillment state;
+- exclusions;
+- approved traditional/context claims;
+- decision whether each page sells a product, collection, bundle or informational offer.
 
-Planned destinations remain:
-- `/pages/diwali-puja`
-- `/pages/navratri-puja`
-
-Do not wire seasonal primary CTAs or add Buy Now/checkout actions until the corresponding page and offer pass QA. Campaign artwork is not blocked by this gate; commercial conversion content is.
+Until those exist:
+- keep both seasonal Page records unpublished;
+- keep homepage Diwali/Navratri primary actions non-clickable;
+- do not add Buy Now/checkout;
+- do not elevate ₹799/₹699 demo staging values into approved selling prices.
 
 ## Next implementation pass
 1. Keep Task 10 closed; only regression-fix if later storefront changes break its final evidence.
 2. Advance Task 09 sealed-package hero production using a compliant production path; keep BOM-dependent contents/detail imagery blocked.
-3. If Task 09 visual generation remains tool-path blocked, continue non-commercial Task 11 page structure/content scaffolding only where it does not invent BOM, price, inventory, bundle or outcome facts.
-4. Wire Diwali/Navratri primary CTAs only after Task 11 dedicated pages and commercial offers are real and QA-passed.
+3. Keep Task 11 unpublished scaffold intact and enrich only with additional verified non-commercial content if available.
+4. When Task 11 commercial inputs are approved, populate offers, publish/QA the dedicated pages, then wire the homepage seasonal primary CTAs.
 5. Keep all 12 Astrology products unpublished until contents, claims, commercial data and final images are approved.
 6. Execute shared catalog/content cutover and publish staging only after explicit launch approval.
 
 ## Safety rule
-Do not publish this theme or globally rewrite shared live catalog/media solely because staging QA has passed. Explicit cutover approval is still required.
+Do not publish this theme, publish the Task 11 seasonal Page shells, or globally rewrite shared live catalog/media solely because staging QA has passed. Explicit cutover approval is still required.
