@@ -178,22 +178,29 @@ Shared Shopify product records have deliberately not been mass-rewritten because
 - Sandalwood Stick inventory/restock resolution.
 
 ## Active image program — TASK-09 Astrology Remedy Kits
-All 12 sun-sign remedy kit shells remain unpublished Shopify `DRAFT` products with stable `SP-AST-*` SKUs, price `0.00`, inventory 0 and media count 0.
+Task 09 sealed-package hero production is complete; BOM-dependent contents/detail production remains blocked.
 
-Rules:
-- sealed-package primary hero production may proceed without depicting physical contents;
+All 12 sun-sign remedy kit shells are still unpublished Shopify `DRAFT` products. Live verification after the final cleanup confirms for all 12:
+- vendor `Sabpuja`;
+- exactly one matching 1400×1400 sealed-package hero as featured media;
+- stable `SP-AST-*` SKU;
+- price `0.00 INR`;
+- inventory 0;
+- updated internal description stating the hero is attached while contents/commercial approvals remain pending.
+
+The family was completed using a deterministic raster/vector production path after the generative image path repeatedly returned an unrelated carousel/status-board raster. The failed generative outputs were rejected and never uploaded. Deterministic candidates were still reviewed: Aries v1 was rejected for cramped lower text, Leo v1 for a sunburst-like motif, and Pisces v1 for an eye-like motif; corrected versions were used.
+
+Rules still in force:
 - contents/detail images remain blocked until the applicable row in `docs/catalog/kit-bom-approval-register.md` is at least `APPROVED FOR STAGING` with exact included items and quantities;
-- no unverified packaging fact or guaranteed outcome claim may be generated;
-- final storefront raster assets must be WebP;
-- no generated asset authorizes product publication.
+- no unverified packaging fact or guaranteed outcome claim may be added;
+- final sellable copy, instructions, claims/context, SEO, price, inventory and publication remain approval-gated;
+- no hero asset authorizes product publication.
 
 Active source-of-truth:
 - `sabpuja/content/assets/product-images/kits/astrology-remedy-kits/README.md`
 - `sabpuja/content/assets/product-images/kits/astrology-remedy-kits/astrology-remedy-kits-manifest.json`
 - `sabpuja/content/assets/product-images/kits/astrology-remedy-kits/hero-generation-briefs.md`
 - `sabpuja/content/assets/product-images/kits/astrology-remedy-kits/production-pass-01.md`
-
-The current image-generation path has repeatedly returned an unrelated carousel/status-board raster instead of the requested Aries sealed-package hero. Those rasters are rejected and are not committed/uploaded/countable Task 09 assets. This is a generation-tool-path failure, not a BOM blocker for sealed-package heroes.
 
 ## TASK-11 remaining commercial gate
 Before either seasonal Page can become a real conversion page, required approvals remain:
@@ -212,12 +219,12 @@ Until those exist:
 - do not elevate ₹799/₹699 demo staging values into approved selling prices.
 
 ## Next implementation pass
-1. Keep Task 10 closed; only regression-fix if later storefront changes break its final evidence.
-2. Advance Task 09 sealed-package hero production using a compliant production path; keep BOM-dependent contents/detail imagery blocked.
-3. Keep Task 11 unpublished scaffold intact and enrich only with additional verified non-commercial content if available.
-4. When Task 11 commercial inputs are approved, populate offers, publish/QA the dedicated pages, then wire the homepage seasonal primary CTAs.
-5. Keep all 12 Astrology products unpublished until contents, claims, commercial data and final images are approved.
+1. Keep Task 10 closed; regression-fix only if later storefront changes break its final evidence.
+2. Keep Task 09 hero work closed; resume contents/detail production only after the relevant BOM row reaches `APPROVED FOR STAGING`.
+3. Keep Task 11 unpublished scaffold intact; populate commercial fields only after approved BOM/price/inventory/product-model inputs arrive.
+4. Once Task 11 commercial inputs are approved, publish/QA the dedicated pages and only then wire the homepage seasonal primary CTAs.
+5. Keep all 12 Astrology products unpublished until contents, claims, commercial data and launch state are approved.
 6. Execute shared catalog/content cutover and publish staging only after explicit launch approval.
 
 ## Safety rule
-Do not publish this theme, publish the Task 11 seasonal Page shells, or globally rewrite shared live catalog/media solely because staging QA has passed. Explicit cutover approval is still required.
+Do not publish this theme, publish the Task 11 seasonal Page shells, publish any Astrology Remedy Kit, or globally rewrite shared live catalog/media solely because staging QA has passed. Explicit cutover approval is still required.
