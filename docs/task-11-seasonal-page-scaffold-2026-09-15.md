@@ -103,6 +103,13 @@ Structural/write QA: **PASS**
 - both Page records were re-queried and remain unpublished;
 - target theme remains unpublished and healthy.
 
+Homepage CTA regression QA: **PASS**
+- `sections/sabpuja-home.liquid` re-queried after Page-shell creation;
+- checksum remains `a77945c76d92073e0d6efd6bb0db7857`;
+- no `/pages/diwali-puja` or `/pages/navratri-puja` anchor is present in the carousel;
+- Diwali/Navratri primary actions remain disabled `<span>` controls;
+- staging theme remained `UNPUBLISHED`, `processing=false`, `processingFailed=false`.
+
 Public-route visual QA is intentionally **not yet applicable** because both Page shells are unpublished. This is a safety condition, not a failed test. The pages must not be published merely to obtain visual QA while commercial data is still unapproved.
 
 ## Remaining genuine Task 11 blocker
