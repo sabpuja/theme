@@ -39,6 +39,11 @@
 - Preserved real Shopify cart mechanics: quantity updates, item removal, order notes and the native checkout submit flow.
 - Added verified cart reassurance only: Delhi NCR delivery, 1–3 business days, ₹100 flat shipping, prepaid payment methods, support phone and email.
 - Added cart-level checkout protection for Cotton Wicks and Sandalwood Stick while their known shared-catalog price/inventory blockers remain unresolved.
+- Replaced the staging About and Contact custom templates with the approved Sabpuja information-page presentation.
+- Added `sections/sabpuja-info-page.liquid` and `assets/sabpuja-pages.css` for responsive About, Contact, FAQ, policy/support and Help & Guide presentation.
+- Added staging-only virtual routes for FAQ, Help, Shipping & Payments, Returns & Order Issues, five core puja guides and two astrology explainers.
+- The staging 404 template now routes the approved virtual `/pages/...` paths into the Sabpuja information-page section and shows a branded 404 for unknown paths.
+- No shared Shopify Page body was rewritten and no Shopify policy record was modified during this pass.
 
 ## Festival-kit Shopify Files
 - Diwali hero: `https://cdn.shopify.com/s/files/1/0923/1381/3308/files/diwali-puja-kit-hero-01.webp?v=1789514510`
@@ -68,16 +73,41 @@ The full 25-product CDN mapping is maintained in `docs/product-media-cdn-map.md`
 - `templates/cart.liquid`
 - `sections/sabpuja-cart.liquid`
 - `assets/sabpuja-cart.css`
+- `assets/sabpuja-pages.css`
+- `sections/sabpuja-info-page.liquid`
+- `templates/page.about.liquid`
+- `templates/page.contact.liquid`
+- `templates/404.liquid`
 
-## Latest cart verification
-Shopify verified after the cart write:
+## Latest content-page verification
+Shopify verified after the Task 06 theme write:
 - Theme name: `Sabpuja Staging — Rebrand 2026`
 - Role: `UNPUBLISHED`
 - `processing=false`
 - `processingFailed=false`
-- `assets/sabpuja-cart.css`: 9487 bytes, checksum `6005b1d7dc98b2301103f530c5c2eb79`
-- `sections/sabpuja-cart.liquid`: 11853 bytes, checksum `ee726c48d9cb606f0735fa67ed746492`
-- `templates/cart.liquid`: 29 bytes, checksum `920fd14d444c95ac2d86ce6e3ddb0e13`
+- `assets/sabpuja-pages.css`: 4196 bytes, checksum `9dc08fe0f62988134563f31ba0ff15d4`
+- `sections/sabpuja-info-page.liquid`: 30616 bytes, checksum `5a3a97e23ce5b7b43449b7f44ddcb033`
+- `templates/page.about.liquid`: 33 bytes, checksum `9d928fbc02c3b0292ccfa8b26a6ac29c`
+- `templates/page.contact.liquid`: 33 bytes, checksum `9d928fbc02c3b0292ccfa8b26a6ac29c`
+- `templates/404.liquid`: 33 bytes, checksum `9d928fbc02c3b0292ccfa8b26a6ac29c`
+
+## Task 06 staging route model
+Only two shared Shopify Pages currently exist: `about-us` and `contact-us`. They remain shared records, but staging now ignores their legacy page-body presentation and uses approved Sabpuja content through their existing custom template suffixes.
+
+The following content routes are intentionally virtual on the unpublished staging theme so the live store is not changed by creating/publishing global Shopify Pages:
+- `/pages/faq`
+- `/pages/help`
+- `/pages/shipping-payments`
+- `/pages/returns-order-issues`
+- `/pages/how-to-read-product-pages`
+- `/pages/puja-preparation-checklist`
+- `/pages/common-puja-essentials`
+- `/pages/storage-and-care`
+- `/pages/how-to-choose-puja-kit`
+- `/pages/astrology-remedy-kits`
+- `/pages/sun-sign-vs-rashi`
+
+This is staging isolation only. Before launch, approved virtual routes should be replaced by real Shopify Pages or another deliberate production content model. The existing Shopify-managed Privacy Policy remains untouched.
 
 ## Catalog behavior in staging
 The product page, product cards and cart media use the practical staging demo baseline from `sabpuja/content/docs/catalog/product-catalog-master-data.md`. Supplier verification remains a pre-live reconciliation task rather than a staging blocker.
@@ -97,11 +127,11 @@ Diwali and Navratri remain demo-only during the current core staging sequence. B
 All 12 zodiac/sun-sign remedy kit shells already exist as unpublished Shopify DRAFT products with stable SKUs and must remain unpublished. Demo commercial metadata and Sabpuja WebP image generation are intentionally deferred until the current rebrand staging pass and QA are complete. Exact ritual/remedy contents and customer-facing remedy claims require owner review before publication. The active execution record is maintained in `sabpuja/core/docs/roadmap/staging-execution-checklist-2026-09-15.md`.
 
 ## Next implementation pass
-1. Apply Sabpuja content presentation to About, Contact, FAQ and help/policy surfaces without unnecessarily mutating shared live page records.
-2. Audit the remaining active staging paths for `Shraddha Bhakti`, `Kala`, old demo claims and broken links.
-3. Verify navigation and policy links.
+1. Audit active staging routes for unintended `Shraddha Bhakti`, `shraddhabhakti.com`, `Kala`, `Ralph Lauren`, demo claims and placeholder strings.
+2. Repair any customer-facing staging references found without deleting historical evidence from docs/audits.
+3. Verify navigation and policy/help links.
 4. Run mobile/desktop storefront QA and cart → checkout QA.
-5. Only after staging approval, execute the shared catalog cutover and publish the theme.
+5. Only after staging approval, execute the shared catalog/content cutover and publish the theme.
 
 ## Safety rule
 Do not publish this theme until staging QA and explicit cutover approval.
