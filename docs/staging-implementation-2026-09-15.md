@@ -3,56 +3,40 @@
 ## Target
 - Shopify theme: **Sabpuja Staging — Rebrand 2026**
 - Theme ID: `gid://shopify/OnlineStoreTheme/188428157244`
-- Role verified after Task 10 carousel write: `UNPUBLISHED`
+- Role re-verified after Task 10 final asset wiring: `UNPUBLISHED`
+- `processing=false`; `processingFailed=false`.
 - Live/main theme was not intentionally modified.
 
 ## Completed in staging
 - Renamed duplicated theme to `Sabpuja Staging — Rebrand 2026`.
-- Replaced active Header Style #4 implementation with the controlled Sabpuja header.
-- Replaced active Footer Style #5 implementation with the controlled Sabpuja footer.
+- Replaced active Header Style #4 and Footer Style #5 with controlled Sabpuja presentation.
 - Replaced the legacy homepage section stack with `sections/sabpuja-home.liquid`.
-- Added `assets/sabpuja-staging.css` using the approved Sabpuja color system.
-- Disabled the legacy Kala mobile-menu section; responsive navigation is handled by the Sabpuja header.
-- Replaced false/demo announcement content with truthful Delhi NCR delivery, ₹100 shipping and prepaid-order messaging.
-- Added approved Sabpuja positioning, tagline, support details, payments, address and social links.
-- Removed the old homepage dependency on the legacy Kala/Shraddha promotional section stack.
-- Uploaded four festival-kit WebP assets to Shopify Files for staging use.
-- Wired the Diwali and Navratri hero WebPs into the staging homepage kit cards.
-- Added expandable demo-contents previews for both festival kits.
-- Added `assets/sabpuja-kits.css` for kit media/card presentation.
-- Replaced the previous single homepage hero with a three-slide manual staging carousel for Diwali, Navratri and evergreen Puja Essentials.
-- Added `assets/sabpuja-carousel.css` for the carousel structure, responsive layout and controls.
-- Kept Diwali/Navratri primary seasonal actions non-clickable while their Task 11 destination pages do not yet exist; no dead seasonal page links were introduced.
-- Wired the evergreen carousel CTA to the verified `/collections/all` destination.
-- Passed focused desktop and 375px mobile carousel interaction/layout QA; final purpose-built responsive campaign WebPs remain pending.
+- Added Sabpuja staging, kit, carousel, catalog, product, cart and page CSS assets.
+- Disabled the legacy Kala mobile menu and legacy homepage promotional dependencies.
+- Replaced false/demo announcement content with verified Delhi NCR delivery, ₹100 flat shipping and prepaid-order messaging.
+- Added approved Sabpuja positioning, support details, address, payment facts and official social links.
+- Uploaded four festival-kit staging WebPs for the homepage kit cards and expandable demo-contents previews.
+- Replaced the former single hero with a three-slide manual Diwali → Navratri → Evergreen carousel.
+- Produced, uploaded, wired and QA-verified all six final responsive Task 10 campaign WebPs.
+- Kept Diwali/Navratri primary seasonal actions non-clickable while Task 11 destination pages and commercial offers remain unapproved.
+- Kept evergreen `Shop Puja Essentials` wired to verified `/collections/all`; current-kit secondary links use `#puja-kits`.
 - Uploaded all 25 approved Sabpuja product WebPs to Shopify Files with alt text; live product media was not changed.
-- Replaced the active legacy Kala product route with a staging-only Sabpuja product template.
-- Removed old Kala product testimonials, recently-viewed/related promotional stack and fake urgency widgets from the active staging product route.
-- Product handle now maps to approved Sabpuja WebP, staging SKU, staging pack size, staging inventory and conservative Sabpuja copy.
-- Product pages no longer render legacy `product.vendor` or legacy `product.description`, preventing Shraddha Bhakti copy and unsupported claims from surfacing on staging.
-- Real Shopify product form/cart behavior is retained where the underlying product is safe to purchase.
-- Cotton Wicks is explicitly blocked from purchase on staging and shown at the demo staging price ₹100 because the shared live catalog price remains ₹0.
-- Sandalwood Stick is explicitly blocked from purchase on staging because shared live inventory remains 0.
-- Replaced the active legacy collection route with `sections/sabpuja-collection.liquid`.
-- Removed the legacy collection sidebar/category/brand/filter presentation from the active staging collection route.
-- Added `snippets/sabpuja-product-card.liquid`, mapping all 25 existing products to approved Sabpuja WebPs in Shopify Files rather than shared legacy featured images.
-- Replaced the active legacy search route with `sections/sabpuja-search.liquid`, using the same Sabpuja product card/media mapping.
-- Added `assets/sabpuja-catalog.css` for responsive collection/search cards and grids.
-- Enlarged the product hero image within its square media frame via `assets/sabpuja-product.css`; desktop uses a stronger crop/zoom and mobile a lighter zoom to reduce empty internal image margin.
-- Replaced the active legacy cart route with `sections/sabpuja-cart.liquid` and `assets/sabpuja-cart.css`.
-- Cart line items now use the approved 25-product Sabpuja WebP mapping instead of legacy shared product thumbnails.
-- Preserved real Shopify cart mechanics: quantity updates, item removal, order notes and the native checkout submit flow.
-- Added verified cart reassurance only: Delhi NCR delivery, 1–3 business days, ₹100 flat shipping, prepaid payment methods, support phone and email.
-- Added cart-level checkout protection for Cotton Wicks and Sandalwood Stick while their known shared-catalog price/inventory blockers remain unresolved.
-- Replaced the staging About and Contact custom templates with the approved Sabpuja information-page presentation.
-- Added `sections/sabpuja-info-page.liquid` and `assets/sabpuja-pages.css` for responsive About, Contact, FAQ, support/policy and Help & Guide presentation.
-- Created real Shopify Page records for FAQ, Help, Shipping & Payments, Returns & Order Issues, five core puja guides and two astrology explainers; these routes use the Sabpuja information-page template and `seo.hidden = 1` while staging is in progress.
-- The staging 404 template now serves a branded Sabpuja not-found experience for genuinely unknown routes.
-- Replaced unsafe auxiliary Page/Blog/Article/List Collections presentation with simple Sabpuja staging-safe templates.
-- Updated `layout/theme.liquid` with Sabpuja-safe metadata for active routes; About/Contact no longer surface Shraddha Bhakti SEO text in staging.
-- Corrected the homepage title/OG title to `Sabpuja — Your Puja, Prepared with Care.` instead of inheriting the global `Sab Puja` shop title.
-- Corrected the `/collections` Puja Kits card so it links to the working `/#puja-kits` homepage section instead of the currently empty `/collections/puja-kit` collection.
-- No Shopify-managed Privacy Policy record was modified during this staging pass.
+- Replaced the active legacy product route with a staging-only Sabpuja product template and removed legacy Kala testimonials, recently viewed/related promotional stack and fake urgency widgets.
+- Product pages no longer render legacy `product.vendor` or `product.description`; staging product copy/media/SKU/pack-size/inventory presentation is controlled by Sabpuja mappings.
+- Real Shopify product form/cart behavior remains for safe products.
+- Cotton Wicks remains checkout-blocked on staging because the shared live price is ₹0; staging display is ₹100.
+- Sandalwood Stick remains checkout-blocked because shared inventory remains 0.
+- Replaced collection/search routes with Sabpuja presentation and shared approved product-card/media mapping.
+- Enlarged representative product hero presentation with responsive product CSS.
+- Rebuilt cart presentation while preserving native quantity update, removal, order notes and checkout submit mechanics.
+- Cart media uses approved Sabpuja WebPs and includes only verified delivery/payment/support reassurance.
+- Replaced About/Contact staging templates and created the Sabpuja information-page presentation.
+- Created real Shopify Page records for FAQ, Help, Shipping & Payments, Returns & Order Issues, five core puja guides and two astrology explainers; new records use `seo.hidden = 1` during staging.
+- Added a branded staging 404 and safe auxiliary Page/Blog/Article/List Collections templates.
+- Updated active-route metadata; About/Contact no longer surface Shraddha Bhakti SEO text in staging.
+- Corrected homepage title/OG title to `Sabpuja — Your Puja, Prepared with Care.`.
+- Corrected `/collections` Puja Kits destination to `/#puja-kits`.
+- Shopify-managed Privacy Policy was not modified.
 
 ## Festival-kit Shopify Files
 - Diwali hero: `https://cdn.shopify.com/s/files/1/0923/1381/3308/files/diwali-puja-kit-hero-01.webp?v=1789514510`
@@ -60,42 +44,12 @@
 - Navratri hero: `https://cdn.shopify.com/s/files/1/0923/1381/3308/files/navratri-puja-kit-hero-01.webp?v=1789514535`
 - Navratri contents: `https://cdn.shopify.com/s/files/1/0923/1381/3308/files/navratri-puja-kit-contents-01.webp?v=1789514546`
 
-The full 25-product CDN mapping is maintained in `docs/product-media-cdn-map.md`.
-
-## Shopify theme files changed
-- `layout/theme.liquid`
-- `sections/theme-header4.liquid`
-- `sections/theme-footer5.liquid`
-- `sections/sabpuja-home.liquid`
-- `templates/index.liquid`
-- `sections/theme-menu-mobile.liquid`
-- `assets/sabpuja-staging.css`
-- `assets/sabpuja-kits.css`
-- `assets/sabpuja-carousel.css`
-- `templates/product.liquid`
-- `sections/sabpuja-product.liquid`
-- `assets/sabpuja-product.css`
-- `snippets/sabpuja-product-card.liquid`
-- `sections/sabpuja-collection.liquid`
-- `templates/collection.liquid`
-- `sections/sabpuja-search.liquid`
-- `templates/search.liquid`
-- `assets/sabpuja-catalog.css`
-- `templates/cart.liquid`
-- `sections/sabpuja-cart.liquid`
-- `assets/sabpuja-cart.css`
-- `assets/sabpuja-pages.css`
-- `sections/sabpuja-info-page.liquid`
-- `templates/page.about.liquid`
-- `templates/page.contact.liquid`
-- `templates/404.liquid`
-- `templates/list-collections.liquid`
-- safe auxiliary Page/Blog/Article templates added during Task 07.
+The full 25-product CDN mapping remains in `docs/product-media-cdn-map.md`.
 
 ## Current content-page model
-The existing shared `about-us` and `contact-us` Shopify Page records remain shared records. Their staging presentation and metadata are supplied by the Sabpuja theme rather than legacy page-body presentation.
+Existing shared `about-us` and `contact-us` records remain shared records. Staging presentation/metadata come from the Sabpuja theme rather than legacy page-body presentation.
 
-The following approved content paths now have real Shopify Page records and are no longer virtual 404-routed staging paths:
+Real Shopify Page routes created for staging:
 - `/pages/faq`
 - `/pages/help`
 - `/pages/shipping-payments`
@@ -108,155 +62,115 @@ The following approved content paths now have real Shopify Page records and are 
 - `/pages/astrology-remedy-kits`
 - `/pages/sun-sign-vs-rashi`
 
-These created Page records resolve normally but use `seo.hidden = 1` while the rebrand remains in staging. The Shopify-managed Privacy Policy remains untouched.
+These created records resolve normally but use `seo.hidden = 1` while the rebrand remains in staging. The Shopify-managed Privacy Policy remains untouched.
 
 ## Task 07 route/link QA
-Task 07 is complete. The audited staging surface covered:
-- homepage;
-- search;
-- cart;
-- collections and collections index;
-- About and Contact;
-- all support/help/guide routes listed above;
-- safe blog/auxiliary routes;
-- all 25 active product URLs;
-- Privacy Policy;
-- verified Instagram, Facebook, YouTube and support destinations.
+Task 07 is complete. Browser verification covered homepage, search, cart, collections/index, About, Contact, all support/help/guide routes, safe auxiliary routes, all 25 active product URLs, Privacy Policy, and verified official social/support destinations.
 
 No active rendered occurrences of `Shraddha Bhakti`, `shraddhabhakti.com`, `Kala`, `Ralph Lauren` or `WELCOME15` were found in the audited route set.
 
-Detailed evidence: `docs/task-07-link-wiring-audit-2026-09-15.md`.
+Evidence: `docs/task-07-link-wiring-audit-2026-09-15.md`.
 
 ## Task 08 visual + workflow QA
 Task 08 is complete.
 
-Interactive QA run `0076156a-c53d-4985-a943-514eed15cf28` passed:
-- branded 404 recovery links;
-- safe-product add-to-cart;
-- quantity update 1 → 2;
-- cart subtotal/total update;
-- item removal;
-- empty-cart state;
-- re-add;
-- Shopify checkout handoff;
-- final cart cleanup.
+Interactive run `0076156a-c53d-4985-a943-514eed15cf28` passed branded 404 recovery, Roli Kumkum add-to-cart, quantity 1→2, amount update, removal, empty state, re-add, Shopify checkout handoff and final cart cleanup. No customer data, order or payment was submitted.
 
-No customer data was entered, no order was placed and no payment was attempted.
+Responsive run `5bb7c6f0-92d4-45cf-9f9a-834febd5dcff` covered desktop/mobile homepage, collections, representative products, search, cart, help, About, Contact, FAQ, Shipping & Payments, Returns & Order Issues and 404 with no critical responsive defect.
 
-Responsive visual QA run `5bb7c6f0-92d4-45cf-9f9a-834febd5dcff` covered desktop and mobile homepage, collections, representative products, search, cart, help, About, Contact, FAQ, Shipping & Payments, Returns & Order Issues and 404 routes with no critical responsive defect.
+Two apparent visual-agent discrepancies were independently cleared: the Returns sentence is complete, and fresh footer-only renders/source confirm only the controlled Sabpuja footer.
 
-Two apparent visual-agent discrepancies were independently cleared:
-- the Returns cancellation paragraph is complete in the rendered page; the report had captured it at the viewport edge;
-- fresh footer-only renders and `sections/theme-footer5.liquid` confirm the controlled Sabpuja footer only—no inherited My Account/Wishlist/Terms/Twitter/`info@sabpuja.com` links are rendered.
+Evidence: `docs/task-08-storefront-workflow-qa-2026-09-15.md`.
 
-Detailed evidence: `docs/task-08-storefront-workflow-qa-2026-09-15.md`.
+## Task 10 carousel final implementation + QA
+Task 10 is **DONE — FINAL ASSETS WIRED / RESPONSIVE QA PASSED**.
 
-## Task 10 carousel implementation + QA
-Task 10's **carousel structure** is implemented and QA-passed; Task 10 itself remains in progress because its six final purpose-built responsive campaign WebPs are still pending.
+### Final responsive assets
+All six final campaign WebPs are READY in Shopify Files and wired through `<picture>` sources:
+- `sabpuja-diwali-hero-desktop-01.webp` — 1440×1080
+- `sabpuja-diwali-hero-mobile-01.webp` — 900×1200
+- `sabpuja-navratri-hero-desktop-01.webp` — 1440×1080
+- `sabpuja-navratri-hero-mobile-01.webp` — 900×1200
+- `sabpuja-puja-essentials-hero-desktop-01.webp` — 1440×1080
+- `sabpuja-puja-essentials-hero-mobile-01.webp` — 900×1200
 
-Shopify post-write verification:
-- theme role: `UNPUBLISHED`;
+Canonical Media IDs, byte sizes, CDN URLs and alt text are recorded in `sabpuja/content/assets/homepage/hero-carousel/hero-carousel-manifest.json`.
+
+Final theme verification:
+- role `UNPUBLISHED`;
 - `processing=false`;
 - `processingFailed=false`;
-- `sections/sabpuja-home.liquid`: 11276 bytes, checksum `f52ba9bb2eb287fcbddb7135fba06048`;
-- `assets/sabpuja-carousel.css`: 4067 bytes, checksum `f428621254e5ef3240cbdcf1e51750af`.
+- `sections/sabpuja-home.liquid`: 11,926 bytes, MD5 `a77945c76d92073e0d6efd6bb0db7857`;
+- `assets/sabpuja-carousel.css`: 4,067 bytes, MD5 `f428621254e5ef3240cbdcf1e51750af`.
 
-CTA safeguards:
-- Diwali primary seasonal action is a non-clickable `Seasonal page in preparation` status;
-- Navratri primary seasonal action is a non-clickable `Seasonal page in preparation` status;
-- neither `/pages/diwali-puja` nor `/pages/navratri-puja` is linked from the rendered carousel;
-- evergreen `Shop Puja Essentials` is wired to the verified `/collections/all` route;
-- current-kit secondary links use the existing `#puja-kits` anchor.
+### Responsive-source regression and resolution
+The first responsive-source QA correctly found desktop WebPs being selected in the mobile test environment. Failed regression run: `581ec6bf-3d8c-4e62-a297-4f88029c515d`.
 
-A direct rendered-DOM check confirmed the only carousel anchor destinations are `#puja-kits` and `/collections/all`.
+The `<picture>` source breakpoint was changed from 640px to 980px to match the carousel stacked-layout breakpoint. Coverage was not weakened.
 
-Desktop focused QA run `624f984c-18b6-4b26-ac26-ce02c795a22e` passed with zero issues:
-- Diwali → Navratri → Evergreen sequence;
-- Previous control;
-- all three direct-selection dots;
-- seasonal non-navigation;
-- evergreen collection navigation;
-- carousel/trust-strip layout.
+Final passing evidence:
+- desktop interaction run `d27c135b-87b9-4043-a709-07845edde0fc` — sequence, Previous, dots, seasonal non-navigation, evergreen navigation, kit anchors, trust strip and visual layout passed with `issues=[]`;
+- post-fix mobile run `7655a7c3-093f-452b-846b-e844d21b436e` — mobile sources, interaction and visual layout passed with `issues=[]`;
+- post-fix desktop-source run `5666f823-d995-49a6-ab5b-99805fb71eb8` — all three desktop WebPs selected above 980px, no broken images, `issues=[]`.
 
-375px mobile focused QA run `d78a8005-8e50-4092-9004-1444a1f8c017` passed with zero issues:
-- all three slides;
-- previous/next and dot controls;
-- seasonal non-navigation;
-- evergreen collection navigation;
-- responsive visual layout;
-- trust strip integrity.
+Malformed terminal-report runs `43e7050c-c2db-42af-9647-6633c0c53278` and `f6fbed7a-6f6a-405c-9c20-b520fefd38b0` are deliberately not counted as pass evidence.
 
-An earlier exploratory run `3a9c3f25-823b-45e9-bf6c-ff98494d92ff` returned only its last screenshot instruction rather than a usable final QA report and is deliberately not counted as evidence.
+CTA safeguards remain:
+- Diwali primary seasonal action: non-clickable;
+- Navratri primary seasonal action: non-clickable;
+- `/pages/diwali-puja` and `/pages/navratri-puja`: not linked until Task 11 passes its own gates;
+- evergreen `Shop Puja Essentials`: `/collections/all`;
+- current-kit secondary links: `#puja-kits`.
 
-Detailed evidence: `docs/task-10-homepage-carousel-implementation-2026-09-15.md`.
+Evidence:
+- structural implementation history: `docs/task-10-homepage-carousel-implementation-2026-09-15.md`;
+- final asset/QA completion: `docs/task-10-homepage-carousel-final-assets-2026-09-15.md`.
 
 ## Catalog behavior in staging
-The product page, product cards and cart media use the practical staging demo baseline from `sabpuja/content/docs/catalog/product-catalog-master-data.md`. Supplier verification remains a pre-live reconciliation task rather than a staging blocker.
+Product, collection/search cards and cart media use the practical staging demo baseline from `sabpuja/content/docs/catalog/product-catalog-master-data.md`. Supplier verification remains a pre-live reconciliation task rather than a staging blocker.
 
-Shared Shopify product records have deliberately not been mass-rewritten because catalog records are global across themes. The following remain cutover tasks after staging approval:
+Shared Shopify product records have deliberately not been mass-rewritten because catalog records are global across themes. Cutover work after staging approval still includes:
 - vendor `Shraddha Bhakti` → `Sabpuja`;
-- apply final SKUs where shared active products still need catalog cutover;
-- replace legacy product descriptions;
-- attach approved Sabpuja media directly to shared product records;
-- fix Cotton Wicks live price;
-- resolve Sandalwood Stick live inventory/restock.
+- final SKU reconciliation where needed;
+- legacy description replacement;
+- attaching approved Sabpuja media to shared product records;
+- Cotton Wicks live price correction;
+- Sandalwood Stick inventory/restock resolution.
 
-## Active image programs
+## Active image program — TASK-09 Astrology Remedy Kits
+All 12 sun-sign remedy kit shells remain unpublished Shopify `DRAFT` products with stable `SP-AST-*` SKUs, price `0.00`, inventory 0 and media count 0.
 
-### TASK-09 — 12 Astrology Remedy Kits
-All 12 sun-sign remedy kit shells were re-verified in Shopify as unpublished `DRAFT` products with stable `SP-AST-*` SKUs, price `0.00`, inventory 0 and media count 0.
-
-Their source content brief intentionally keeps exact kit contents TBD. Accordingly:
-- sealed-package primary hero production is active and may use only verified brand/product naming with no physical contents depicted as included;
-- contents/detail images remain blocked until exact per-kit BOM and quantities are approved;
-- no outcome claim or unverified packaging fact may be generated;
-- all final storefront raster assets must be WebP.
+Rules:
+- sealed-package primary hero production may proceed without depicting physical contents;
+- contents/detail images remain blocked until the applicable row in `docs/catalog/kit-bom-approval-register.md` is at least `APPROVED FOR STAGING` with exact included items and quantities;
+- no unverified packaging fact or guaranteed outcome claim may be generated;
+- final storefront raster assets must be WebP;
+- no generated asset authorizes product publication.
 
 Active source-of-truth:
 - `sabpuja/content/assets/product-images/kits/astrology-remedy-kits/README.md`
 - `sabpuja/content/assets/product-images/kits/astrology-remedy-kits/astrology-remedy-kits-manifest.json`
 - `sabpuja/content/assets/product-images/kits/astrology-remedy-kits/hero-generation-briefs.md`
+- `sabpuja/content/assets/product-images/kits/astrology-remedy-kits/production-pass-01.md`
 
-### TASK-10 — Homepage hero carousel
-The carousel structure is now implemented and desktop/mobile QA-passed on unpublished staging.
+The current image-generation path has repeatedly returned an unrelated carousel/status-board raster instead of the requested Aries sealed-package hero. Those rasters are rejected and are not committed/uploaded/countable Task 09 assets. This is a generation-tool-path failure, not a BOM blocker for sealed-package heroes.
 
-Current staging presentation:
-- Diwali temporarily reuses the existing staging Diwali kit hero WebP;
-- Navratri temporarily reuses the existing staging Navratri kit hero WebP;
-- evergreen uses the current Sabpuja brand illustration treatment.
+## TASK-11 seasonal pages
+Diwali and Navratri remain demo-only commercial offers until exact BOM, approved selling price/discount state, product-or-bundle model, inventory/fulfillment, exclusions and approved claims/context are supplied.
 
-These are not final launch campaign assets. The following purpose-built WebPs remain pending:
-- `sabpuja-diwali-hero-desktop-01.webp`;
-- `sabpuja-diwali-hero-mobile-01.webp`;
-- `sabpuja-navratri-hero-desktop-01.webp`;
-- `sabpuja-navratri-hero-mobile-01.webp`;
-- `sabpuja-puja-essentials-hero-desktop-01.webp`;
-- `sabpuja-puja-essentials-hero-mobile-01.webp`.
-
-Diwali/Navratri final CTA wiring remains blocked until Task 11 creates and verifies dedicated destination pages. The evergreen CTA is currently wired to and QA-verified for `/collections/all`.
-
-Active source-of-truth:
-- `sabpuja/content/assets/homepage/hero-carousel/README.md`
-- `sabpuja/content/assets/homepage/hero-carousel/hero-carousel-manifest.json`
-- `sabpuja/content/assets/homepage/hero-carousel/campaign-generation-briefs.md`
-
-## TASK-11 seasonal sales pages
-Diwali and Navratri remain demo-only offers until their BOM, commercial offer and dedicated pages are ready.
-
-Planned destinations:
+Planned destinations remain:
 - `/pages/diwali-puja`
 - `/pages/navratri-puja`
 
-These paths must not be wired from the homepage carousel until the pages actually exist and pass QA. No misleading Buy Now/checkout CTA is allowed while offers remain demo-only.
+Do not wire seasonal primary CTAs or add Buy Now/checkout actions until the corresponding page and offer pass QA. Campaign artwork is not blocked by this gate; commercial conversion content is.
 
 ## Next implementation pass
-1. Produce and review the first sealed-package hero concepts for the 12 Astrology Remedy Kits under Task 09 without depicting unapproved contents.
-2. Produce and review the six purpose-built desktop/mobile Diwali, Navratri and evergreen hero-carousel WebPs under Task 10.
-3. Export approved candidates as WebP, store them in GitHub/DAM, add alt text and record Shopify Files CDN references.
-4. Replace the current Task 10 temporary staging visuals with approved responsive assets and repeat desktop/mobile crop QA.
-5. Build and QA Task 11 Diwali/Navratri sales pages when BOM/offer inputs are ready, then wire seasonal primary CTAs.
-6. Keep all 12 Astrology Remedy Kit products unpublished until contents, claims, commercial data and final images are approved.
-7. Execute shared catalog/content cutover and publish the staging theme only after explicit launch approval.
+1. Keep Task 10 closed; only regression-fix if later storefront changes break its final evidence.
+2. Advance Task 09 sealed-package hero production using a compliant production path; keep BOM-dependent contents/detail imagery blocked.
+3. If Task 09 visual generation remains tool-path blocked, continue non-commercial Task 11 page structure/content scaffolding only where it does not invent BOM, price, inventory, bundle or outcome facts.
+4. Wire Diwali/Navratri primary CTAs only after Task 11 dedicated pages and commercial offers are real and QA-passed.
+5. Keep all 12 Astrology products unpublished until contents, claims, commercial data and final images are approved.
+6. Execute shared catalog/content cutover and publish staging only after explicit launch approval.
 
 ## Safety rule
 Do not publish this theme or globally rewrite shared live catalog/media solely because staging QA has passed. Explicit cutover approval is still required.
