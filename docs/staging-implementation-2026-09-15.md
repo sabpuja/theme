@@ -34,6 +34,11 @@
 - Replaced the active legacy search route with `sections/sabpuja-search.liquid`, using the same Sabpuja product card/media mapping.
 - Added `assets/sabpuja-catalog.css` for responsive collection/search cards and grids.
 - Enlarged the product hero image within its square media frame via `assets/sabpuja-product.css`; desktop uses a stronger crop/zoom and mobile a lighter zoom to reduce empty internal image margin.
+- Replaced the active legacy cart route with `sections/sabpuja-cart.liquid` and `assets/sabpuja-cart.css`.
+- Cart line items now use the approved 25-product Sabpuja WebP mapping instead of legacy shared product thumbnails.
+- Preserved real Shopify cart mechanics: quantity updates, item removal, order notes and the native checkout submit flow.
+- Added verified cart reassurance only: Delhi NCR delivery, 1–3 business days, ₹100 flat shipping, prepaid payment methods, support phone and email.
+- Added cart-level checkout protection for Cotton Wicks and Sandalwood Stick while their known shared-catalog price/inventory blockers remain unresolved.
 
 ## Festival-kit Shopify Files
 - Diwali hero: `https://cdn.shopify.com/s/files/1/0923/1381/3308/files/diwali-puja-kit-hero-01.webp?v=1789514510`
@@ -60,23 +65,22 @@ The full 25-product CDN mapping is maintained in `docs/product-media-cdn-map.md`
 - `sections/sabpuja-search.liquid`
 - `templates/search.liquid`
 - `assets/sabpuja-catalog.css`
+- `templates/cart.liquid`
+- `sections/sabpuja-cart.liquid`
+- `assets/sabpuja-cart.css`
 
-## Latest catalog/search/media verification
-Shopify verified after the collection/search/media write:
+## Latest cart verification
+Shopify verified after the cart write:
 - Theme name: `Sabpuja Staging — Rebrand 2026`
 - Role: `UNPUBLISHED`
 - `processing=false`
 - `processingFailed=false`
-- `assets/sabpuja-catalog.css`: 4397 bytes, checksum `91268658a0a3cd043052ae2408ab2b78`
-- `assets/sabpuja-product.css`: 5570 bytes, checksum `babba71cc32a99d60e343e0938046abe`
-- `sections/sabpuja-collection.liquid`: 2050 bytes, checksum `872c2aabbc4a1ce7a34b668d2231730b`
-- `sections/sabpuja-search.liquid`: 2314 bytes, checksum `6004e2de42deae945e2ffc89256b1a9c`
-- `snippets/sabpuja-product-card.liquid`: 5552 bytes, checksum `e4cb79342d3bfa4fa8f45797e187eac8`
-- `templates/collection.liquid`: checksum `a7bb6666bd2e6c336eabea57e1a87063`
-- `templates/search.liquid`: checksum `084239bca2e388a27f252fd91e07de9a`
+- `assets/sabpuja-cart.css`: 9487 bytes, checksum `6005b1d7dc98b2301103f530c5c2eb79`
+- `sections/sabpuja-cart.liquid`: 11853 bytes, checksum `ee726c48d9cb606f0735fa67ed746492`
+- `templates/cart.liquid`: 29 bytes, checksum `920fd14d444c95ac2d86ce6e3ddb0e13`
 
 ## Catalog behavior in staging
-The product page and product cards use the practical staging demo baseline from `sabpuja/content/docs/catalog/product-catalog-master-data.md`. Supplier verification remains a pre-live reconciliation task rather than a staging blocker.
+The product page, product cards and cart media use the practical staging demo baseline from `sabpuja/content/docs/catalog/product-catalog-master-data.md`. Supplier verification remains a pre-live reconciliation task rather than a staging blocker.
 
 Shared Shopify product records have deliberately not been mass-rewritten yet because catalog records are global across themes. The following remain cutover tasks after staging approval:
 - vendor `Shraddha Bhakti` → `Sabpuja`
@@ -86,16 +90,18 @@ Shared Shopify product records have deliberately not been mass-rewritten yet bec
 - fix Cotton Wicks live price
 - resolve Sandalwood Stick live inventory/restock
 
+## Deferred festival sales work
+Diwali and Navratri remain demo-only during the current core staging sequence. Before seasonal sales launch, each needs a dedicated sales/landing page. The homepage single demo hero should later become a carousel with purposeful campaign imagery, valid CTAs and verified Sabpuja trust factors. This work is recorded in the core execution checklist and is intentionally deferred until the current content/QA sequence unless launch timing requires reprioritization.
+
 ## Deferred product expansion — 12 Astrology Remedy Kits
 All 12 zodiac/sun-sign remedy kit shells already exist as unpublished Shopify DRAFT products with stable SKUs and must remain unpublished. Demo commercial metadata and Sabpuja WebP image generation are intentionally deferred until the current rebrand staging pass and QA are complete. Exact ritual/remedy contents and customer-facing remedy claims require owner review before publication. The active execution record is maintained in `sabpuja/core/docs/roadmap/staging-execution-checklist-2026-09-15.md`.
 
 ## Next implementation pass
-1. Rebuild the cart visual layer for staging while preserving real Shopify cart and checkout mechanics.
-2. Apply Sabpuja content presentation to About, Contact, FAQ and help/policy surfaces without unnecessarily mutating shared live page records.
-3. Audit the remaining active staging paths for `Shraddha Bhakti`, `Kala`, old demo claims and broken links.
-4. Verify navigation and policy links.
-5. Run mobile/desktop storefront QA and cart → checkout QA.
-6. Only after staging approval, execute the shared catalog cutover and publish the theme.
+1. Apply Sabpuja content presentation to About, Contact, FAQ and help/policy surfaces without unnecessarily mutating shared live page records.
+2. Audit the remaining active staging paths for `Shraddha Bhakti`, `Kala`, old demo claims and broken links.
+3. Verify navigation and policy links.
+4. Run mobile/desktop storefront QA and cart → checkout QA.
+5. Only after staging approval, execute the shared catalog cutover and publish the theme.
 
 ## Safety rule
 Do not publish this theme until staging QA and explicit cutover approval.
