@@ -1,0 +1,94 @@
+{{ 'sabpuja-home-hero.css' | asset_url | stylesheet_tag }}
+
+<section class="sp2026-hero" data-sp2026-carousel="{{ section.id }}" role="region" aria-roledescription="carousel" aria-label="Sabpuja featured campaigns" tabindex="0">
+  <div class="sp2026-hero__inner">
+    <div class="sp2026-hero__stage" data-sp2026-stage>
+      <article class="sp2026-hero__slide is-active" data-sp2026-slide role="group" aria-roledescription="slide" aria-label="1 of 3: Navratri Puja Kit" aria-hidden="false" style="--cta-left:7.7%;--cta-width:25.8%;">
+        <img class="sp2026-hero__image" src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-banner.webp?v=1789562975" width="1672" height="941" alt="Sabpuja Navratri Puja Kit festive collection" loading="eager" fetchpriority="high">
+        <a class="sp2026-hero__cta-hotspot" data-sp2026-cta href="{{ all_products['navratri-puja-kit'].url }}" aria-label="Explore the Navratri Puja Kit"></a>
+      </article>
+
+      <article class="sp2026-hero__slide" data-sp2026-slide role="group" aria-roledescription="slide" aria-label="2 of 3: Diwali Puja Kit" aria-hidden="true" style="--cta-left:10.1%;--cta-width:24.1%;">
+        <img class="sp2026-hero__image" src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-diwali-hero-banner.webp?v=1789562993" width="1672" height="941" alt="Sabpuja Diwali Puja Kit festive collection" loading="lazy" decoding="async">
+        <a class="sp2026-hero__cta-hotspot" data-sp2026-cta href="{{ all_products['diwali-puja-kit'].url }}" aria-label="Explore the Diwali Puja Kit" tabindex="-1"></a>
+      </article>
+
+      <article class="sp2026-hero__slide" data-sp2026-slide role="group" aria-roledescription="slide" aria-label="3 of 3: 12 Zodiac Remedy Kits" aria-hidden="true" style="--cta-left:9.1%;--cta-width:24.8%;">
+        <img class="sp2026-hero__image" src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-12-zodiac-remedy-kits-hero-banner.webp?v=1789563017" width="1672" height="941" alt="Sabpuja 12 Zodiac Remedy Kits collection" loading="lazy" decoding="async">
+        <a class="sp2026-hero__cta-hotspot" data-sp2026-cta href="{{ routes.all_products_collection_url }}" aria-label="Find your Sabpuja Zodiac Remedy Kit" tabindex="-1"></a>
+      </article>
+
+      <button class="sp2026-hero__arrow sp2026-hero__arrow--prev" type="button" data-sp2026-prev aria-label="Previous campaign">‹</button>
+      <button class="sp2026-hero__arrow sp2026-hero__arrow--next" type="button" data-sp2026-next aria-label="Next campaign">›</button>
+
+      <div class="sp2026-hero__dots" role="group" aria-label="Choose a campaign">
+        <button class="sp2026-hero__dot" type="button" data-sp2026-dot="0" aria-label="Show Navratri Puja Kit" aria-current="true"></button>
+        <button class="sp2026-hero__dot" type="button" data-sp2026-dot="1" aria-label="Show Diwali Puja Kit" aria-current="false"></button>
+        <button class="sp2026-hero__dot" type="button" data-sp2026-dot="2" aria-label="Show 12 Zodiac Remedy Kits" aria-current="false"></button>
+      </div>
+    </div>
+    <p class="sp2026-sr-only" data-sp2026-status aria-live="polite">{{ 'sabpuja_final.hero_initial_status' | t }}</p>
+  </div>
+</section>
+
+<script>
+(() => {
+  const root = document.querySelector('[data-sp2026-carousel="{{ section.id }}"]');
+  if (!root || root.dataset.sp2026Ready === 'true') return;
+  root.dataset.sp2026Ready = 'true';
+
+  const slides = Array.from(root.querySelectorAll('[data-sp2026-slide]'));
+  const dots = Array.from(root.querySelectorAll('[data-sp2026-dot]'));
+  const prev = root.querySelector('[data-sp2026-prev]');
+  const next = root.querySelector('[data-sp2026-next]');
+  const status = root.querySelector('[data-sp2026-status]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const labels = ['Navratri Puja Kit', 'Diwali Puja Kit', '12 Zodiac Remedy Kits'];
+  let active = 0;
+  let timer = null;
+
+  function show(index, announce = true) {
+    active = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      const isActive = i === active;
+      slide.classList.toggle('is-active', isActive);
+      slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      const cta = slide.querySelector('[data-sp2026-cta]');
+      if (cta) cta.tabIndex = isActive ? 0 : -1;
+    });
+    dots.forEach((dot, i) => dot.setAttribute('aria-current', i === active ? 'true' : 'false'));
+    if (announce && status) status.textContent = `Slide ${active + 1} of ${slides.length}: ${labels[active]}`;
+  }
+
+  function scheduleAutoplay() {
+    if (timer) window.clearTimeout(timer);
+    timer = null;
+    if (reduceMotion || document.hidden || slides.length < 2) return;
+    timer = window.setTimeout(() => {
+      show(active + 1, false);
+      scheduleAutoplay();
+    }, 4800);
+  }
+
+  prev?.addEventListener('click', () => { show(active - 1); scheduleAutoplay(); });
+  next?.addEventListener('click', () => { show(active + 1); scheduleAutoplay(); });
+  dots.forEach((dot, i) => dot.addEventListener('click', () => { show(i); scheduleAutoplay(); }));
+
+  root.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') { event.preventDefault(); show(active - 1); scheduleAutoplay(); }
+    if (event.key === 'ArrowRight') { event.preventDefault(); show(active + 1); scheduleAutoplay(); }
+  });
+
+  document.addEventListener('visibilitychange', scheduleAutoplay);
+  show(0, false);
+  scheduleAutoplay();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Sabpuja 2026 hero",
+  "settings": [],
+  "presets": [{ "name": "Sabpuja 2026 hero" }]
+}
+{% endschema %}

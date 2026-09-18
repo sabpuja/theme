@@ -1,0 +1,629 @@
+<link href="{{ 'sabpuja-product.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+
+{% assign sp_variant = product.selected_or_first_available_variant %}
+{% assign sp_is_astrology = false %}
+{% assign sp_special = '' %}
+{% assign sp_context = '' %}
+{% assign sp_copy = 'sabpuja_custom.fixed.product_default_copy' | t %}
+{% assign sp_purchase_blocked = false %}
+{% assign sp_block_message = '' %}
+{% assign sp_demo_price = '' %}
+
+{% if product.type == 'Astrological Remedy Kit' or product.tags contains 'Astrology Remedy Kit' %}
+  {% assign sp_is_astrology = true %}
+  {% case product.handle %}
+    {% when 'aries-mesha-astrological-remedy-kit' %}
+      {% assign sp_special = 'Mangal Yantra, 3 Mukhi Rudraksha, Hanuman Chalisa, Red Chandan and Sindoor' %}
+      {% assign sp_context = 'Traditionally associated with courage, initiative and focused devotional practice.' %}
+    {% when 'taurus-vrishabha-astrological-remedy-kit' %}
+      {% assign sp_special = 'Shukra Yantra, 6 Mukhi Rudraksha, White Chandan, Lotus Seeds and Rose Incense' %}
+      {% assign sp_context = 'Traditionally associated with steadiness, harmony and a grounded devotional routine.' %}
+    {% when 'gemini-mithuna-astrological-remedy-kit' %}
+      {% assign sp_special = 'Budh Yantra, 4 Mukhi Rudraksha, Green Cloth, Cardamom and Saraswati Card' %}
+      {% assign sp_context = 'Traditionally associated with clarity, learning and thoughtful devotional practice.' %}
+    {% when 'cancer-karka-astrological-remedy-kit' %}
+      {% assign sp_special = 'Chandra Yantra, 2 Mukhi Rudraksha, White Cloth, Pearl Shell and Chandra Mantra' %}
+      {% assign sp_context = 'Traditionally associated with reflection, calm and a nurturing devotional routine.' %}
+    {% when 'leo-simha-astrological-remedy-kit' %}
+      {% assign sp_special = 'Surya Yantra, 12 Mukhi Rudraksha, Copper Surya Symbol and Aditya Hridayam' %}
+      {% assign sp_context = 'Traditionally associated with confidence, purpose and solar devotional practice.' %}
+    {% when 'virgo-kanya-astrological-remedy-kit' %}
+      {% assign sp_special = 'Budh Yantra, 4 Mukhi Rudraksha, Green Cloth, Tulsi Seeds and Saraswati Card' %}
+      {% assign sp_context = 'Traditionally associated with practical wisdom, clarity and disciplined devotional practice.' %}
+    {% when 'libra-tula-astrological-remedy-kit' %}
+      {% assign sp_special = 'Shukra Yantra, 6 Mukhi Rudraksha, White Cloth, Lakshmi Coin and Rose Incense' %}
+      {% assign sp_context = 'Traditionally associated with balance, harmony and graceful devotional practice.' %}
+    {% when 'scorpio-vrishchika-astrological-remedy-kit' %}
+      {% assign sp_special = 'Mangal Yantra, 3 Mukhi Rudraksha, Hanuman Image and Red Cloth' %}
+      {% assign sp_context = 'Traditionally associated with resolve, transformation and focused devotional practice.' %}
+    {% when 'sagittarius-dhanu-astrological-remedy-kit' %}
+      {% assign sp_special = 'Guru Yantra, 5 Mukhi Rudraksha, Yellow Cloth, Turmeric and Vishnu Mantra' %}
+      {% assign sp_context = 'Traditionally associated with wisdom, faith and purposeful devotional practice.' %}
+    {% when 'capricorn-makara-astrological-remedy-kit' %}
+      {% assign sp_special = 'Shani Yantra, 7 Mukhi Rudraksha, Black Cloth, Black Sesame and Shanti Mantra' %}
+      {% assign sp_context = 'Traditionally associated with discipline, steadiness and reflective devotional practice.' %}
+    {% when 'aquarius-kumbha-astrological-remedy-kit' %}
+      {% assign sp_special = 'Shani Yantra, 7 Mukhi Rudraksha, Black Cloth, Black Sesame and Shani Chalisa' %}
+      {% assign sp_context = 'Traditionally associated with reflection, service and structured devotional practice.' %}
+    {% when 'pisces-meena-astrological-remedy-kit' %}
+      {% assign sp_special = 'Guru Yantra, 5 Mukhi Rudraksha, Yellow Cloth, Turmeric and Vishnu Sahasranama' %}
+      {% assign sp_context = 'Traditionally associated with faith, compassion and contemplative devotional practice.' %}
+  {% endcase %}
+  {% assign sp_copy = sp_context %}
+{% else %}
+  {% case product.handle %}
+    {% when 'roli-kumkum' %}{% assign sp_copy = 'Traditional red ritual powder used for tilak and everyday puja preparation.' %}
+    {% when 'chandan-powder' %}{% assign sp_copy = 'Chandan powder format presented for traditional puja preparation and tilak use.' %}
+    {% when 'haldi-turmeric-powder' %}{% assign sp_copy = 'Turmeric powder format for traditional puja preparation and auspicious ritual use.' %}
+    {% when 'sindoor' %}{% assign sp_copy = 'Traditional sindoor product prepared for ritual use and puja arrangements.' %}
+    {% when 'panchmeva' %}{% assign sp_copy = 'Mixed offering format for puja and prasad preparation. Final blend details will be confirmed before launch.' %}
+    {% when 'ganga-jal' %}{% assign sp_copy = 'Liquid ritual-use product for traditional puja preparation and ceremonial use.' %}
+    {% when 'gomutra' %}{% assign sp_copy = 'Liquid ritual-use product for traditional puja preparation. No medicinal claims are made.' %}
+    {% when 'havan-samidha' %}{% assign sp_copy = 'Dry samidha format for traditional havan preparation.' %}
+    {% when 'dhoop-sticks' %}{% assign sp_copy = 'Dhoop sticks for fragrance during traditional puja and aarti.' %}
+    {% when 'kapoor-camphor' %}{% assign sp_copy = 'Camphor-format product for aarti and traditional puja use.' %}
+    {% when 'honey-sacred-puja-use' %}{% assign sp_copy = 'Honey-format offering product for traditional puja and panchamrit preparation.' %}
+    {% when 'ghee-clarified-butter' %}{% assign sp_copy = 'Ghee-format offering for traditional diya, havan and puja preparation.' %}
+    {% when 'guggul-resin' %}{% assign sp_copy = 'Resin-format product for traditional havan and dhuni use.' %}
+    {% when 'janeu-sacred-thread' %}{% assign sp_copy = 'Sacred thread product for traditional ritual and puja use.' %}
+    {% when 'supari-betel-nut' %}{% assign sp_copy = 'Betel nut offering for traditional puja preparation.' %}
+    {% when 'akshat-rice' %}{% assign sp_copy = 'Rice offering used in traditional puja preparation.' %}
+    {% when 'cotton-wicks-batti' %}{% assign sp_copy = 'Cotton wicks for traditional diya lighting and everyday puja preparation.' %}
+    {% when 'red-cloth-lal-chunari' %}{% assign sp_copy = 'Red puja cloth for traditional altar, deity and ritual preparation.' %}
+    {% when 'white-cloth' %}{% assign sp_copy = 'White puja cloth for traditional altar and ritual preparation.' %}
+    {% when 'yellow-cloth' %}{% assign sp_copy = 'Yellow puja cloth for traditional altar and ritual preparation.' %}
+    {% when 'coconut' %}{% assign sp_copy = 'Whole coconut presented as a traditional puja offering.' %}
+    {% when 'navagraha-samagri' %}{% assign sp_copy = 'Assorted samagri concept for Navagraha puja preparation. Final contents will be confirmed before launch.' %}
+    {% when 'clove' %}{% assign sp_copy = 'Clove offering for traditional puja and havan preparation.' %}
+    {% when 'mishri' %}{% assign sp_copy = 'Rock sugar offering for traditional puja, bhog and prasad preparation.' %}
+    {% when 'sandalwood-stick' %}{% assign sp_copy = 'Sandalwood stick product presented for traditional ritual preparation.' %}
+    {% when 'daily-puja-kit' %}{% assign sp_copy = 'A compact kit designed to keep everyday home puja preparation simple, organized and easy to repeat.' %}
+    {% when 'navratri-puja-kit' %}{% assign sp_copy = 'A festival-ready Navratri puja kit designed for organized home worship and thoughtful presentation.' %}
+    {% when 'diwali-puja-kit' %}{% assign sp_copy = 'A premium Diwali puja kit prepared for festive worship, family gatherings and meaningful gifting.' %}
+  {% endcase %}
+{% endif %}
+
+{% if request.locale.iso_code == 'hi' %}
+  {% assign sp_localized_description = product.description | strip_html | strip %}
+  {% if sp_localized_description != blank %}
+    {% assign sp_copy = sp_localized_description %}
+    {% if sp_is_astrology %}{% assign sp_context = sp_localized_description %}{% endif %}
+  {% endif %}
+{% endif %}
+
+{% if product.handle == 'cotton-wicks-batti' %}
+  {% assign sp_purchase_blocked = true %}
+  {% assign sp_demo_price = '₹100' %}
+  {% assign sp_block_message = 'sabpuja_polish.pricing_update' | t %}
+{% elsif product.handle == 'sandalwood-stick' %}
+  {% assign sp_purchase_blocked = true %}
+  {% assign sp_block_message = 'sabpuja_polish.inventory_reconcile' | t %}
+{% endif %}
+
+{% assign sp_compare = sp_variant.compare_at_price %}
+{% assign sp_discount = 0 %}
+{% if sp_compare and sp_compare > sp_variant.price %}
+  {% assign sp_savings = sp_compare | minus: sp_variant.price %}
+  {% assign sp_discount = sp_savings | times: 100 | divided_by: sp_compare %}
+{% endif %}
+
+<div class="sp-pdp" data-sp-pdp>
+  <div class="sp-pdp__offerbar">
+    {% if sp_is_astrology %}
+      <span>{{ 'sabpuja_custom.auto.s177' | t }}</span>
+    {% else %}
+      <span>{{ 'sabpuja_custom.auto.s185' | t }}</span>
+    {% endif %}
+  </div>
+
+  <div class="sp-pdp__container">
+    <nav class="sp-pdp__breadcrumb" aria-label="{{ 'sabpuja_custom.auto.s025' | t }}">
+      <a href="{{ routes.root_url }}">{{ 'sabpuja_custom.auto.s124' | t }}</a><span>/</span>
+      {% if sp_is_astrology %}<a href="{{ collections['astrology-remedy-kits'].url }}">{{ 'sabpuja_custom.auto.s020' | t }}</a>{% else %}<a href="{{ routes.all_products_collection_url }}">{{ 'sabpuja_custom.auto.s236' | t }}</a>{% endif %}
+      <span>/</span><span>{{ product.title }}</span>
+    </nav>
+
+    <section class="sp-pdp__hero">
+      <div class="sp-pdp__gallery sp-pdp__surface">
+        <div class="sp-pdp__main-media">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | img_url: '1400x' }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" width="1200" height="1000" loading="eager" data-sp-main-image>
+          {% endif %}
+          {% if sp_is_astrology %}<span class="sp-pdp__media-chip">{{ 'sabpuja_custom.auto.s298' | t }}</span>{% endif %}
+        </div>
+        {% if product.images.size > 1 %}
+          <div class="sp-pdp__thumbs" aria-label="{{ 'sabpuja_custom.auto.s193' | t }}">
+            {% for image in product.images limit: 6 %}
+              <button class="sp-pdp__thumb{% if forloop.first %} is-active{% endif %}" type="button" data-sp-thumb data-full="{{ image | img_url: '1400x' }}" data-alt="{{ image.alt | default: product.title | escape }}">
+                <img src="{{ image | img_url: '180x' }}" alt="" width="82" height="82" loading="lazy" decoding="async">
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="sp-pdp__summary sp-pdp__surface">
+        <p class="sp-pdp__eyebrow">{{ product.type | default: 'Puja Essential' }}</p>
+        <h1>{{ product.title }}</h1>
+        <div class="sp-pdp__meta-line">
+          <span>Sabpuja</span>
+          {% if sp_variant.sku != blank %}<span>SKU {{ sp_variant.sku }}</span>{% endif %}
+          {% if sp_is_astrology %}<span>Astrology Remedy Kit</span>{% endif %}
+        </div>
+
+        <div class="sp-pdp__price-card">
+          <div class="sp-pdp__price">
+            {% if sp_demo_price != blank %}<strong>{{ sp_demo_price }}</strong>{% else %}<strong>{{ sp_variant.price | money }}</strong>{% endif %}
+            {% if sp_compare and sp_compare > sp_variant.price and sp_demo_price == blank %}
+              <s>{{ sp_compare | money }}</s>
+              <span class="sp-pdp__discount">{{ sp_discount }}% off</span>
+            {% endif %}
+          </div>
+          {% if sp_is_astrology %}<small>{{ 'sabpuja_custom.auto.s188' | t }}</small>{% elsif sp_demo_price != blank %}<small>{{ 'sabpuja_custom.auto.s078' | t }}</small>{% endif %}
+        </div>
+
+        <p class="sp-pdp__intro">{{ sp_copy }}</p>
+
+        <div class="sp-pdp__trust-list">
+          {% if sp_is_astrology %}
+            <span>{{ 'sabpuja_custom.auto.s176' | t }}</span>
+            <span>{{ 'sabpuja_custom.auto.s239' | t }}</span>
+            <span>{{ 'sabpuja_custom.auto.s240' | t }}</span>
+          {% else %}
+            <span>{{ 'sabpuja_custom.auto.s046' | t }}</span>
+            <span>{{ 'sabpuja_custom.auto.s036' | t }}</span>
+            <span>{{ 'sabpuja_custom.auto.s223' | t }}</span>
+          {% endif %}
+        </div>
+
+        <div class="sp-pdp__buybox">
+          {% if sp_purchase_blocked %}
+            <div class="sp-pdp__notice"><strong>{{ 'sabpuja_custom.auto.s200' | t }}</strong><span>{{ sp_block_message }}</span></div>
+          {% elsif sp_is_astrology %}
+            <div class="sp-pdp__demo-purchase">
+              <div class="sp-pdp__demo-price"><span>{{ 'sabpuja_custom.auto.s021' | t }}</span><strong>{{ 'sabpuja_custom.auto.s064' | t }}</strong></div>
+              <button type="button" class="sp-pdp__primary sp-pdp__primary--demo" disabled>{{ 'sabpuja_custom.auto.s242' | t }}</button>
+              <p>{{ 'sabpuja_custom.auto.s175' | t }}</p>
+            </div>
+          {% else %}
+            {% form 'product', product, class: 'sp-pdp__form', data-sp-product-form: '' %}
+              {% if product.variants.size > 1 %}
+                <label class="sp-pdp__select-label" for="spVariant-{{ section.id }}">{{ 'sabpuja_custom.auto.s042' | t }}</label>
+                <select id="spVariant-{{ section.id }}" name="id" class="sp-pdp__select">
+                  {% for variant in product.variants %}
+                    <option value="{{ variant.id }}" {% if variant == sp_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>
+                  {% endfor %}
+                </select>
+              {% else %}
+                <input type="hidden" name="id" value="{{ sp_variant.id }}">
+              {% endif %}
+
+              <div class="sp-pdp__purchase-row">
+                <div class="sp-pdp__qty-wrap">
+                  <span>{{ 'sabpuja_custom.auto.s202' | t }}</span>
+                  <div class="sp-pdp__qty">
+                    <button type="button" data-sp-qty-minus aria-label="{{ 'sabpuja_custom.auto.s069' | t }}">−</button>
+                    <input type="number" name="quantity" value="1" min="1" inputmode="numeric" data-sp-qty-input aria-label="{{ 'sabpuja_custom.auto.s202' | t }}">
+                    <button type="button" data-sp-qty-plus aria-label="{{ 'sabpuja_custom.auto.s131' | t }}">+</button>
+                  </div>
+                </div>
+                <div class="sp-pdp__total"><span>{{ 'sabpuja_custom.auto.s262' | t }}</span><strong data-sp-total>{{ sp_variant.price | money }}</strong></div>
+              </div>
+
+              <div class="sp-pdp__actions">
+                <button type="submit" name="add" class="sp-pdp__primary" {% unless sp_variant.available %}disabled{% endunless %}>{% render 'sabpuja-icon', name: 'shop' %}<span>{% if sp_variant.available %}{{ 'sabpuja_polish.add_to_cart' | t }}{% else %}{{ 'sabpuja_polish.sold_out' | t }}{% endif %}</span></button>
+                <button type="button" class="sp-pdp__secondary" data-sp-buy-now {% unless sp_variant.available %}disabled{% endunless %}>{% render 'sabpuja-icon', name: 'arrow-right' %}<span>{{ 'sabpuja_custom.auto.s030' | t }}</span></button>
+              </div>
+            {% endform %}
+          {% endif %}
+        </div>
+
+        <div class="sp-pdp__support-row">
+          <div><strong>{{ 'sabpuja_custom.auto.s148' | t }}</strong><span>{{ 'sabpuja_custom.auto.s256' | t }}</span></div>
+          <div class="sp-pdp__support-links"><a href="tel:+919667819241">{% render 'sabpuja-icon', name: 'phone' %}<span>{{ 'sabpuja_custom.auto.s031' | t }}</span></a><a href="mailto:support@sabpuja.com">{% render 'sabpuja-icon', name: 'mail' %}<span>{{ 'sabpuja_custom.auto.s083' | t }}</span></a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sp-pdp__compact-grid">
+      <article class="sp-pdp__surface sp-pdp__info-card">
+        <div class="sp-pdp__tabs" role="tablist" aria-label="{{ 'sabpuja_custom.auto.s194' | t }}">
+          <button type="button" class="is-active" data-sp-tab="specs" role="tab" aria-selected="true">{% render 'sabpuja-icon', name: 'info' %}<span>{{ 'sabpuja_custom.auto.s143' | t }}</span></button>
+          <button type="button" data-sp-tab="shipping" role="tab" aria-selected="false">{% render 'sabpuja-icon', name: 'truck' %}<span>{{ 'sabpuja_custom.auto.s235' | t }}</span></button>
+        </div>
+        <div class="sp-pdp__tab-panel is-active" data-sp-tab-panel="specs">
+          <dl class="sp-pdp__specs">
+            <div><dt>{{ 'sabpuja_custom.auto.s024' | t }}</dt><dd>Sabpuja</dd></div>
+            <div><dt>{{ 'sabpuja_custom.auto.s195' | t }}</dt><dd>{{ product.type | default: 'Puja Essential' }}</dd></div>
+            {% if sp_variant.sku != blank %}<div><dt>SKU</dt><dd>{{ sp_variant.sku }}</dd></div>{% endif %}
+            {% if sp_is_astrology %}
+              <div><dt>{{ 'sabpuja_custom.auto.s170' | t }}</dt><dd>355 × 255 × 90 mm magnetic rigid box</dd></div>
+              <div><dt>{{ 'sabpuja_custom.auto.s105' | t }}</dt><dd>Matte with gold-foil detailing</dd></div>
+              <div><dt>{{ 'sabpuja_custom.auto.s132' | t }}</dt><dd>Custom die-cut EVA insert</dd></div>
+            {% else %}
+              <div><dt>{{ 'sabpuja_custom.auto.s021' | t }}</dt><dd>{% if sp_variant.available %}{{ 'sabpuja_polish.available' | t }}{% else %}{{ 'sabpuja_polish.unavailable' | t }}{% endif %}</dd></div>
+              <div><dt>{{ 'sabpuja_custom.auto.s278' | t }}</dt><dd>Sabpuja</dd></div>
+            {% endif %}
+          </dl>
+        </div>
+        <div class="sp-pdp__tab-panel" data-sp-tab-panel="shipping" hidden>
+          <div class="sp-pdp__shipping-copy">
+            <strong>{{ 'sabpuja_custom.auto.s073' | t }}</strong>
+            <p>{{ 'sabpuja_custom.auto.s107' | t }}</p>
+            <p>{{ 'sabpuja_polish.questions' | t }} <a href="mailto:support@sabpuja.com">support@sabpuja.com</a></p>
+          </div>
+        </div>
+      </article>
+
+      <article class="sp-pdp__surface sp-pdp__highlight-card">
+        <p class="sp-pdp__section-kicker">{% if sp_is_astrology %}{{ 'sabpuja_polish.traditional_context' | t }}{% else %}{{ 'sabpuja_polish.shopping_confidence' | t }}{% endif %}</p>
+        <h2>{% if sp_is_astrology %}{{ 'sabpuja_polish.premium_presentation' | t }}{% else %}{{ 'sabpuja_polish.purchase_close' | t }}{% endif %}</h2>
+        <ul class="sp-pdp__benefits">
+          {% if sp_is_astrology %}
+            <li>{{ sp_context }}</li>
+            <li>{{ 'sabpuja_custom.auto.s059' | t }}</li>
+            <li>{{ 'sabpuja_custom.auto.s263' | t }}</li>
+          {% else %}
+            <li>{{ 'sabpuja_custom.auto.s189' | t }}</li>
+            <li>{{ 'sabpuja_custom.auto.s159' | t }}</li>
+            <li>{{ 'sabpuja_custom.auto.s047' | t }}</li>
+          {% endif %}
+        </ul>
+      </article>
+    </section>
+
+    {% if sp_is_astrology %}
+      <section class="sp-pdp__compact-grid">
+        <article class="sp-pdp__surface sp-pdp__content-card">
+          <p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s246' | t }}</p>
+          <h2>{{ product.title }}</h2>
+          <p>{{ sp_context }} The guidance explains devotional use without promising health, financial, protective or future outcomes.</p>
+        </article>
+        <article class="sp-pdp__surface sp-pdp__content-card sp-pdp__content-card--cream">
+          <p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s137' | t }}</p>
+          <h2>{{ 'sabpuja_custom.auto.s241' | t }}</h2>
+          <p>{{ sp_special }}.</p>
+          <div class="sp-pdp__source-note">{{ 'sabpuja_custom.auto.s056' | t }}</div>
+        </article>
+      </section>
+
+      <section class="sp-pdp__surface sp-pdp__steps">
+        <div class="sp-pdp__section-head">
+          <div><p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s218' | t }}</p><h2>{{ 'sabpuja_custom.auto.s008' | t }}</h2></div>
+          <p>{{ 'sabpuja_custom.auto.s011' | t }}</p>
+        </div>
+        <ol class="sp-pdp__step-list">
+          <li><span>1</span><div><strong>{{ 'sabpuja_custom.auto.s216' | t }}</strong><p>{{ 'sabpuja_custom.auto.s039' | t }}</p></div></li>
+          <li><span>2</span><div><strong>{{ 'sabpuja_custom.auto.s182' | t }}</strong><p>{{ 'sabpuja_custom.auto.s017' | t }}</p></div></li>
+          <li><span>3</span><div><strong>{{ 'sabpuja_custom.auto.s205' | t }}</strong><p>{{ 'sabpuja_custom.auto.s275' | t }}</p></div></li>
+          <li><span>4</span><div><strong>{{ 'sabpuja_custom.auto.s172' | t }}</strong><p>{{ 'sabpuja_custom.auto.s110' | t }}</p></div></li>
+          <li><span>5</span><div><strong>{{ 'sabpuja_custom.auto.s052' | t }}</strong><p>{{ 'sabpuja_custom.auto.s274' | t }}</p></div></li>
+          <li><span>6</span><div><strong>{{ 'sabpuja_custom.auto.s250' | t }}</strong><p>{{ 'sabpuja_custom.auto.s214' | t }}</p></div></li>
+        </ol>
+      </section>
+
+      <section class="sp-pdp__compact-grid">
+        <article class="sp-pdp__surface sp-pdp__content-card sp-pdp__content-card--cream">
+          <p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s117' | t }}</p>
+          <h2>{{ 'sabpuja_custom.auto.s077' | t }}</h2>
+          <p>{{ 'sabpuja_custom.auto.s118' | t }}</p>
+          <div class="sp-pdp__mini-list"><span>{{ 'sabpuja_custom.auto.s119' | t }}</span><span>{{ 'sabpuja_custom.auto.s201' | t }}</span><span>{{ 'sabpuja_custom.auto.s171' | t }}</span><span>{{ 'sabpuja_custom.auto.s225' | t }}</span></div>
+        </article>
+        <article class="sp-pdp__surface sp-pdp__faq-card">
+          <p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s114' | t }}</p>
+          <h2>{{ 'sabpuja_custom.auto.s023' | t }}</h2>
+          <details open><summary>{{ 'sabpuja_custom.auto.s284' | t }}</summary><p>This zodiac kit includes {{ sp_special }}.</p></details>
+          <details><summary>{{ 'sabpuja_custom.auto.s127' | t }}</summary><p>{{ 'sabpuja_custom.auto.s259' | t }}</p></details>
+          <details><summary>{{ 'sabpuja_custom.auto.s016' | t }}</summary><p>{{ 'sabpuja_custom.auto.s160' | t }}</p></details>
+          <details><summary>{{ 'sabpuja_custom.auto.s035' | t }}</summary><p>{{ 'sabpuja_custom.auto.s111' | t }}</p></details>
+        </article>
+      </section>
+    {% else %}
+      <section class="sp-pdp__compact-grid">
+        <article class="sp-pdp__surface sp-pdp__content-card">
+          <p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s192' | t }}</p>
+          <h2>{{ 'sabpuja_custom.auto.s287' | t }}</h2>
+          <p>{{ sp_copy }}</p>
+        </article>
+        <article class="sp-pdp__surface sp-pdp__content-card sp-pdp__content-card--cream">
+          <p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s128' | t }}</p>
+          <h2>{{ 'sabpuja_custom.auto.s135' | t }}</h2>
+          <p>{{ 'sabpuja_custom.auto.s272' | t }}</p>
+        </article>
+      </section>
+
+      <section class="sp-pdp__compact-grid">
+        <article class="sp-pdp__surface sp-pdp__content-card sp-pdp__content-card--cream">
+          <p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s181' | t }}</p>
+          <h2>{{ 'sabpuja_custom.auto.s022' | t }}</h2>
+          <div class="sp-pdp__mini-list"><span>{{ 'sabpuja_custom.auto.s206' | t }}</span><span>{{ 'sabpuja_custom.auto.s249' | t }}</span><span>{{ 'sabpuja_custom.auto.s273' | t }}</span><span>{{ 'sabpuja_custom.auto.s136' | t }}</span></div>
+        </article>
+        <article class="sp-pdp__surface sp-pdp__faq-card">
+          <p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s114' | t }}</p>
+          <h2>{{ 'sabpuja_custom.auto.s123' | t }}</h2>
+          <details open><summary>{{ 'sabpuja_custom.auto.s286' | t }}</summary><p>{{ 'sabpuja_custom.auto.s258' | t }}</p></details>
+          <details><summary>{{ 'sabpuja_custom.auto.s125' | t }}</summary><p>{{ 'sabpuja_custom.auto.s075' | t }}</p></details>
+          <details><summary>{{ 'sabpuja_custom.auto.s034' | t }}</summary><p>{{ 'sabpuja_custom.auto.s289' | t }}</p></details>
+        </article>
+      </section>
+    {% endif %}
+
+    <section class="sp-pdp__surface sp-pdp__reviews" id="sp-product-reviews-{{ section.id }}">
+      <div class="sp-pdp__section-head">
+        <div>
+          <p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s067' | t }}</p>
+          <h2>{{ 'sabpuja_custom.auto.s282' | t }}</h2>
+        </div>
+        <div class="sp-pdp__review-controls">
+          <button type="button" data-sp-review-prev aria-label="{{ 'sabpuja_custom.auto.s187' | t }}">←</button>
+          <button type="button" data-sp-review-next aria-label="{{ 'sabpuja_custom.auto.s154' | t }}">→</button>
+        </div>
+      </div>
+      {% assign sp_review_numbers = '01,02,03,04,05,06' | split: ',' %}
+      <div class="sp-pdp__review-track" data-sp-review-track tabindex="0" aria-label="{{ 'sabpuja_custom.auto.s067' | t }}">
+        {% for review_number in sp_review_numbers %}
+          {% capture review_asset %}sabpuja-customer-review-{{ review_number }}.webp{% endcapture %}
+          <article class="sp-pdp__review-card">
+            <img src="{{ review_asset | asset_url }}" width="1448" height="1086" loading="lazy" decoding="async" alt="Illustrative Sabpuja customer review card {{ forloop.index }} of 6">
+          </article>
+        {% endfor %}
+      </div>
+      <p class="sp-pdp__review-disclosure">{{ 'sabpuja_custom.auto.s130' | t }}</p>
+    </section>
+
+    <section class="sp-pdp__assurance">
+      <div class="sp-pdp__assurance-card"><strong>{{ 'sabpuja_custom.auto.s244' | t }}</strong><span>{{ 'sabpuja_custom.auto.s139' | t }}</span></div>
+      <div class="sp-pdp__assurance-card"><strong>{{ 'sabpuja_custom.auto.s054' | t }}</strong><span>{{ 'sabpuja_custom.auto.s268' | t }}</span></div>
+      <div class="sp-pdp__assurance-card"><strong>{{ 'sabpuja_custom.auto.s254' | t }}</strong><span>{{ 'sabpuja_custom.auto.s032' | t }}</span></div>
+    </section>
+
+    <section class="sp-pdp__surface sp-pdp__related">
+      <div class="sp-pdp__section-head">
+        <div><p class="sp-pdp__section-kicker">{{ 'sabpuja_custom.auto.s057' | t }}</p><h2>{{ 'sabpuja_custom.auto.s210' | t }}</h2></div>
+        <p>{{ 'sabpuja_custom.auto.s092' | t }}</p>
+      </div>
+
+      {% if product.type == 'Puja Kit' %}
+        {% assign sp_related_handles = 'daily-puja-kit,navratri-puja-kit,diwali-puja-kit' | split: ',' %}
+      {% elsif sp_is_astrology %}
+        {% assign sp_related_handles = 'aries-mesha-astrological-remedy-kit,taurus-vrishabha-astrological-remedy-kit,gemini-mithuna-astrological-remedy-kit,cancer-karka-astrological-remedy-kit,leo-simha-astrological-remedy-kit,virgo-kanya-astrological-remedy-kit,libra-tula-astrological-remedy-kit,scorpio-vrishchika-astrological-remedy-kit,sagittarius-dhanu-astrological-remedy-kit,capricorn-makara-astrological-remedy-kit,aquarius-kumbha-astrological-remedy-kit,pisces-meena-astrological-remedy-kit' | split: ',' %}
+      {% else %}
+        {% assign sp_related_handles = 'akshat-rice,cotton-wicks-batti,dhoop-sticks,gomutra,red-cloth-lal-chunari' | split: ',' %}
+      {% endif %}
+
+      <div class="sp-pdp__related-grid">
+        {% assign sp_related_count = 0 %}
+        {% for sp_related_handle in sp_related_handles %}
+          {% assign related = all_products[sp_related_handle] %}
+          {% if related != blank and related.id != product.id %}
+            {% assign related_image = related.featured_image %}
+            {% if sp_is_astrology and related.images.size > 1 %}{% assign related_image = related.images[1] %}{% endif %}
+            <article class="sp-pdp__related-card">
+              <a href="{{ related.url }}" class="sp-pdp__related-media">
+                {% if related_image %}<img src="{{ related_image | img_url: '560x560' }}" alt="{{ related.title | escape }}" width="560" height="560" loading="lazy" decoding="async">{% endif %}
+              </a>
+              <div>
+                <h3><a href="{{ related.url }}">{{ related.title }}</a></h3>
+                {% if related.handle == 'cotton-wicks-batti' %}<p>₹100</p>{% else %}<p>{{ related.price | money }}</p>{% endif %}
+                <a class="sp-pdp__related-link" href="{{ related.url }}">{% render 'sabpuja-icon', name: 'arrow-right' %}<span>{{ 'sabpuja_custom.auto.s279' | t }}</span></a>
+              </div>
+            </article>
+            {% assign sp_related_count = sp_related_count | plus: 1 %}
+            {% if sp_related_count >= 3 %}{% break %}{% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+
+  <div class="sp-cart-drawer" data-sp-cart-drawer aria-hidden="true">
+    <button class="sp-cart-drawer__backdrop" type="button" data-sp-cart-close aria-label="{{ 'sabpuja_custom.auto.s049' | t }}"></button>
+    <aside class="sp-cart-drawer__panel" aria-label="{{ 'sabpuja_custom.auto.s290' | t }}">
+      <div class="sp-cart-drawer__head">
+        <div><p>{{ 'sabpuja_custom.auto.s290' | t }}</p><span data-sp-cart-count>{{ 'sabpuja_custom.auto.s004' | t }}</span></div>
+        <button type="button" data-sp-cart-close aria-label="{{ 'sabpuja_custom.auto.s049' | t }}">×</button>
+      </div>
+      <div class="sp-cart-drawer__shipping">{{ 'sabpuja_custom.auto.s106' | t }}</div>
+      <div class="sp-cart-drawer__item">
+        <img data-sp-cart-image src="" alt="" width="86" height="86">
+        <div><strong data-sp-cart-title></strong><span data-sp-cart-qty></span></div>
+        <strong data-sp-cart-line-price></strong>
+      </div>
+      <div class="sp-cart-drawer__summary"><span>{{ 'sabpuja_custom.auto.s038' | t }}</span><strong data-sp-cart-total></strong></div>
+      <a class="sp-cart-drawer__checkout" href="{{ routes.root_url }}checkout">{{ 'sabpuja_custom.auto.s191' | t }}</a>
+      <p class="sp-cart-drawer__secure">{{ 'sabpuja_custom.auto.s040' | t }}</p>
+    </aside>
+  </div>
+
+  
+</div>
+
+<script>
+(() => {
+  const root = document.querySelector('[data-sp-pdp]');
+  if (!root || root.dataset.ready === 'true') return;
+  root.dataset.ready = 'true';
+
+  const mainImage = root.querySelector('[data-sp-main-image]');
+  root.querySelectorAll('[data-sp-thumb]').forEach((thumb) => {
+    thumb.addEventListener('click', () => {
+      root.querySelectorAll('[data-sp-thumb]').forEach((item) => item.classList.remove('is-active'));
+      thumb.classList.add('is-active');
+      if (mainImage) {
+        mainImage.src = thumb.dataset.full || mainImage.src;
+        mainImage.alt = thumb.dataset.alt || mainImage.alt;
+      }
+    });
+  });
+
+  root.querySelectorAll('[data-sp-tab]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const tab = button.dataset.spTab;
+      root.querySelectorAll('[data-sp-tab]').forEach((item) => {
+        const active = item === button;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      root.querySelectorAll('[data-sp-tab-panel]').forEach((panel) => {
+        const active = panel.dataset.spTabPanel === tab;
+        panel.classList.toggle('is-active', active);
+        panel.hidden = !active;
+      });
+    });
+  });
+
+  const reviewTrack = root.querySelector('[data-sp-review-track]');
+  const reviewSection = root.querySelector('.sp-pdp__reviews');
+  const reviewReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const REVIEW_AUTOPLAY_MS = 2200;
+  let reviewTimer = null;
+  let reviewRestartTimer = null;
+  let reviewVisible = true;
+
+  const reviewStep = () => {
+    const card = reviewTrack?.querySelector('.sp-pdp__review-card');
+    if (!card || !reviewTrack) return 320;
+    const styles = getComputedStyle(reviewTrack);
+    const gap = parseFloat(styles.columnGap || styles.gap || 0) || 0;
+    return card.getBoundingClientRect().width + gap;
+  };
+
+  const moveReview = (direction) => {
+    if (!reviewTrack) return;
+    const behavior = reviewReducedMotion ? 'auto' : 'smooth';
+    const atEnd = reviewTrack.scrollLeft + reviewTrack.clientWidth >= reviewTrack.scrollWidth - 8;
+    const atStart = reviewTrack.scrollLeft <= 8;
+
+    if (direction > 0 && atEnd) {
+      reviewTrack.scrollTo({left:0,behavior});
+    } else if (direction < 0 && atStart) {
+      reviewTrack.scrollTo({left:Math.max(0,reviewTrack.scrollWidth-reviewTrack.clientWidth),behavior});
+    } else {
+      reviewTrack.scrollBy({left:direction * reviewStep(),behavior});
+    }
+  };
+
+  const stopReviewAuto = () => {
+    if (reviewTimer) window.clearInterval(reviewTimer);
+    reviewTimer = null;
+    if (reviewRestartTimer) window.clearTimeout(reviewRestartTimer);
+    reviewRestartTimer = null;
+  };
+
+  const startReviewAuto = () => {
+    if (reviewReducedMotion || !reviewTrack || !reviewVisible || document.hidden) return;
+    if (reviewTimer) window.clearInterval(reviewTimer);
+    reviewTimer = window.setInterval(() => moveReview(1), REVIEW_AUTOPLAY_MS);
+  };
+
+  const restartReviewAutoSoon = () => {
+    stopReviewAuto();
+    if (reviewReducedMotion || !reviewVisible || document.hidden) return;
+    reviewRestartTimer = window.setTimeout(startReviewAuto, 900);
+  };
+
+  root.querySelector('[data-sp-review-prev]')?.addEventListener('click', () => {
+    moveReview(-1);
+    restartReviewAutoSoon();
+  });
+  root.querySelector('[data-sp-review-next]')?.addEventListener('click', () => {
+    moveReview(1);
+    restartReviewAutoSoon();
+  });
+
+  reviewTrack?.addEventListener('pointerdown', stopReviewAuto);
+  reviewTrack?.addEventListener('pointerup', restartReviewAutoSoon);
+  reviewTrack?.addEventListener('pointercancel', restartReviewAutoSoon);
+
+  reviewSection?.addEventListener('focusin', stopReviewAuto);
+  reviewSection?.addEventListener('focusout', restartReviewAutoSoon);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopReviewAuto();
+    else startReviewAuto();
+  });
+
+  if ('IntersectionObserver' in window && reviewSection) {
+    const reviewObserver = new IntersectionObserver((entries) => {
+      reviewVisible = Boolean(entries[0]?.isIntersecting);
+      if (reviewVisible) startReviewAuto();
+      else stopReviewAuto();
+    }, {threshold:0.18});
+    reviewObserver.observe(reviewSection);
+  } else {
+    startReviewAuto();
+  }
+
+  const form = root.querySelector('[data-sp-product-form]');
+  const qtyInput = root.querySelector('[data-sp-qty-input]');
+  const total = root.querySelector('[data-sp-total]');
+  const priceCents = {{ sp_variant.price | default: 0 }};
+  const money = (cents) => new Intl.NumberFormat('en-IN', {style:'currency',currency:'INR',maximumFractionDigits:2}).format(cents / 100);
+
+  const refreshTotal = () => {
+    if (!qtyInput || !total) return;
+    const qty = Math.max(1, parseInt(qtyInput.value || '1', 10));
+    qtyInput.value = qty;
+    total.textContent = money(priceCents * qty);
+  };
+  root.querySelector('[data-sp-qty-minus]')?.addEventListener('click', () => { qtyInput.value = Math.max(1, parseInt(qtyInput.value || '1', 10) - 1); refreshTotal(); });
+  root.querySelector('[data-sp-qty-plus]')?.addEventListener('click', () => { qtyInput.value = Math.max(1, parseInt(qtyInput.value || '1', 10) + 1); refreshTotal(); });
+  qtyInput?.addEventListener('change', refreshTotal);
+
+  const drawer = root.querySelector('[data-sp-cart-drawer]');
+  const closeDrawer = () => { drawer?.classList.remove('is-open'); drawer?.setAttribute('aria-hidden','true'); document.documentElement.classList.remove('sp-cart-open'); };
+  const openDrawer = () => { drawer?.classList.add('is-open'); drawer?.setAttribute('aria-hidden','false'); document.documentElement.classList.add('sp-cart-open'); };
+  root.querySelectorAll('[data-sp-cart-close]').forEach((button) => button.addEventListener('click', closeDrawer));
+
+  const renderCart = (cart) => {
+    if (!drawer || !cart) return;
+    const item = cart.items && cart.items[cart.items.length - 1];
+    drawer.querySelector('[data-sp-cart-count]').textContent = cart.item_count + (cart.item_count === 1 ? ' item' : ' items');
+    drawer.querySelector('[data-sp-cart-total]').textContent = money(cart.total_price || 0);
+    if (item) {
+      const img = drawer.querySelector('[data-sp-cart-image]');
+      img.src = item.image || '';
+      img.alt = item.product_title || '';
+      drawer.querySelector('[data-sp-cart-title]').textContent = item.product_title || '';
+      drawer.querySelector('[data-sp-cart-qty]').textContent = 'Qty ' + item.quantity;
+      drawer.querySelector('[data-sp-cart-line-price]').textContent = money(item.final_line_price || item.line_price || 0);
+    }
+  };
+
+  if (form) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const button = form.querySelector('[name="add"]');
+      if (!button || button.disabled) return;
+      const original = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Adding…';
+      try {
+        const response = await fetch('/cart/add.js', {method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});
+        if (!response.ok) throw new Error('Cart add failed');
+        const cartResponse = await fetch('/cart.js', {headers:{'Accept':'application/json'}});
+        if (!cartResponse.ok) throw new Error('Cart fetch failed');
+        renderCart(await cartResponse.json());
+        openDrawer();
+      } catch (error) {
+        form.submit();
+        return;
+      } finally {
+        button.disabled = false;
+        button.textContent = original;
+      }
+    });
+
+    root.querySelector('[data-sp-buy-now]')?.addEventListener('click', () => {
+      const idField = form.querySelector('[name="id"]');
+      const qtyField = form.querySelector('[name="quantity"]');
+      if (!idField) return;
+      const qty = Math.max(1, parseInt(qtyField?.value || '1', 10));
+      window.location.href = '/cart/' + encodeURIComponent(idField.value) + ':' + qty + '?checkout';
+    });
+  }})();
+</script>
+
+{% schema %}
+{"name":"Sabpuja Product","settings":[]}
+{% endschema %}

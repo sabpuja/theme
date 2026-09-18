@@ -1,0 +1,530 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+{% endstyle %}
+<div data-section-id="{{ section.id }}" data-section-type="banner" data-section-name="index-banners-custom9">
+  <div class="{{ section.settings.display }} spacing-{{ section.id }}">
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    <div class="grid-container">
+    {% endunless %}
+    {% endif %}
+      <div class="section-content">
+        <div class="box border-none index-banner-grid-container">
+          <div class="box-content">
+            {% if section.settings.ba %}
+            <div class="top-banner">
+              <img class="imgbkg" src="{% if section.settings.img %}{{ section.settings.img | img_url:'master' }}{% else %}{{'1920x400.png' | asset_url }}{% endif %}" alt="{{ section.settings.img.alt }}"/>
+              <div class="caption">{{section.settings.title}}</div>
+            </div>
+            {% endif %}
+            <div class="bottom-banners">
+              <div class="banners-slider">
+                <div class="carousel" data-carousel-param='{"effect": "{{ section.settings.effect }}", "autoplay": "{{ section.settings.autoplay }}", "autoplaySpeed": "{{ section.settings.autoplay_speed }}", "space": "{{ section.settings.space }}", "column_small": "{{ section.settings.column_small }}", "column_medium": "{{ section.settings.column_medium }}", "column_large": "{{ section.settings.column_large }}", "column_xlarge": "{{ section.settings.column_xlarge }}", "column_xxlarge": "{{ section.settings.column_xxlarge }}", "column_xxxlarge": "{{ section.settings.column_xxxlarge }}", "row": "1"}' data-carousel>
+                  <div class="carousel-wrapper carousel-{{ section.settings.navigation_position }}">
+                    <div class="swiper-container" data-carousel-container>
+                      <div class="swiper-wrapper grid-margin-x small-up-{{ section.settings.column_small }} medium-up-{{ section.settings.column_medium }} large-up-{{ section.settings.column_large }} xlarge-up-{{ section.settings.column_xlarge }} xxlarge-up-{{ section.settings.column_xxlarge }} xxxlarge-up-{{ section.settings.column_xxxlarge }}">
+                        {% for block in section.blocks %}
+                          <div class="swiper-slide cell" data-carousel-item>
+                            <div class="index-banner-custom-item effect-scope effect">
+                              <a href="{{ block.settings.banner1_link }}" class="index-banner-grid-image display-block">
+                                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{% if block.settings.banner1_image  %}{{ block.settings.banner1_image | img_url: 'master' }}{% else %}{{ '440x530.png' | asset_url }}{% endif %}" class="width-100 lazyload" alt="{{ block.settings.banner1_image.alt }}" />
+                                <div class="title">{{ block.settings.title }}</div>
+                              </a>
+                            </div>  
+                        </div>
+                	  {% endfor %} 
+                      </div>
+                    </div>
+                    {%- if section.settings.navigation -%}
+                    <!-- If we need navigation buttons -->
+                    <div class="carousel-navigation carousel-nav-prev" data-carousel-nav-prev><em class="sli sli-arrow-left"></em></div>
+                    <div class="carousel-navigation carousel-nav-next" data-carousel-nav-next><em class="sli sli-arrow-right"></em></div>
+                    {%- endif -%}
+                  </div>
+                  {%- if section.settings.pagination -%}
+                  <!-- If we need pagination -->
+                  <div class="carousel-pagination" data-carousel-pagination></div>
+                  {%- endif -%}
+                </div>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    </div>
+    {% endunless %}
+    {% endif %}
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Banners Custom #9",
+  "class": "index-section index-banner-custom9",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+	{
+      "type": "paragraph",
+      "content": "View [Mockup of Section layout](https:\/\/i.imgur.com\/kS21ax1.png)"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },
+	{
+      "type": "checkbox",
+      "id": "full",
+      "label": "Show Full width"
+    },
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,60,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,50,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,30,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "header",
+      "content": "Top banner"
+    },
+	{
+      "type": "checkbox",
+      "id": "ba",
+      "label": "Show it",
+	  "default":true
+    },
+	{
+      "type": "image_picker",
+      "id": "img",
+      "label": "Image Background"
+    },
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Caption"
+    },
+	{
+      "type": "header",
+      "content": "Bottom banners slider"
+    },
+	{
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-play slides",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "autoplay_speed",
+      "label": "Change slides every",
+      "options": [
+        {
+          "value": "3000",
+          "label": "3 seconds"
+        },
+        {
+          "value": "4000",
+          "label": "4 seconds"
+        },
+        {
+          "value": "5000",
+          "label": "5 seconds"
+        },
+        {
+          "value": "6000",
+          "label": "6 seconds"
+        },
+        {
+          "value": "7000",
+          "label": "7 seconds"
+        },
+        {
+          "value": "8000",
+          "label": "8 seconds"
+        },
+        {
+          "value": "9000",
+          "label": "9 seconds"
+        },
+        {
+          "value": "10000",
+          "label": "10 seconds"
+        }
+      ],
+      "default": "5000"
+    },
+    {
+      "type": "select",
+      "id": "effect",
+      "label": "Slide effect",
+      "options": [
+        {
+          "value": "slide",
+          "label": "Sliding"
+        },
+        {
+          "value": "fade",
+          "label": "Fading"
+        },
+        {
+          "value": "cube",
+          "label": "Cube"
+        },
+        {
+          "value": "flip",
+          "label": "Flipping"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "number",
+      "id": "space",
+      "label": "Space between images",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Responsive columns"
+    },
+    {
+      "type": "select",
+      "id": "column_small",
+      "label": "Products per row",
+      "info": "For small screen (0px - 550px)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "column_medium",
+      "label": "Products per row",
+      "info": "For medium screen (551px - 800px)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "column_large",
+      "label": "Products per row",
+      "info": "For large screen (801px - 1260px)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "column_xlarge",
+      "label": "Products per row",
+      "info": "For xlarge screen (1261px - 1440px)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "column_xxlarge",
+      "label": "Products per row",
+      "info": "For xxlarge screen (1441px - 1680px)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "column_xxxlarge",
+      "label": "Products per row",
+      "info": "For xxxlarge screen (1681px - infinity)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "checkbox",
+      "id": "navigation",
+      "label": "Enable Navigaiton",
+      "default": true
+    },    
+    {
+      "type": "checkbox",
+      "id": "pagination",
+      "label": "Enable Pagination",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner_small",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "banner1_image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "banner1_link",
+          "label": "Link",
+		  "default":"/collections/all"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+	  ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banners Custom #9",
+      "category": "Image"
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

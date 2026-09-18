@@ -1,0 +1,30 @@
+{%- include 'amp-detector' -%}
+{%- unless googleamp -%}
+  {%- include 'theme-header8' -%}
+{%- else -%}
+  {%- include 'amp-theme-header' -%}
+{%- endunless -%}
+{% schema %}
+{
+  "name": "Top Header Style #8",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "welcome_message",
+      "label": "Welcome Message"
+    },
+	{
+      "type": "color",
+      "id": "color_text",
+      "label": "Color Text",
+      "default": "#ffffff"
+    },
+	{
+      "type": "color",
+      "id": "background_text",
+      "label": "Background Section",
+      "default": "#ff1b71"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,15 @@
+<link href="{{ 'sabpuja-catalog.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<section class="sp-catalog-page sp-search-page"><div class="sp-container">
+  <nav class="sp-catalog-breadcrumb" aria-label="{{ 'sabpuja_custom.auto.s025' | t }}"><a href="{{ routes.root_url }}">{{ 'sabpuja_custom.auto.s124' | t }}</a><span>/</span><span>{{ 'sabpuja_custom.auto.s227' | t }}</span></nav>
+  <header class="sp-catalog-head"><div><span class="sp-eyebrow">{{ 'sabpuja_custom.auto.s104' | t }}</span><h1>{{ 'sabpuja_custom.auto.s231' | t }}</h1></div></header>
+  <form class="sp-search-form" action="/search" method="get" role="search"><input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'sabpuja_custom.auto.s230' | t }}" aria-label="{{ 'sabpuja_custom.auto.s227' | t }}"><button type="submit">{{ 'sabpuja_custom.auto.s227' | t }}</button></form>
+  {% paginate search.results by 20 %}
+    {% if search.performed %}<div class="sp-catalog-toolbar"><span>{{ search.results_count }} result{% unless search.results_count == 1 %}s{% endunless %} for “{{ search.terms }}”</span></div>{% endif %}
+    <div class="sp-catalog-grid">{% for item in search.results %}{% if item.object_type == 'product' %}{% include 'sabpuja-product-card', product: item %}{% endif %}{% endfor %}</div>
+    {% assign sp_non_product = 0 %}{% for item in search.results %}{% unless item.object_type == 'product' %}{% assign sp_non_product = sp_non_product | plus: 1 %}{% endunless %}{% endfor %}
+    {% if sp_non_product > 0 %}<div class="sp-search-other"><h2>{{ 'sabpuja_custom.auto.s120' | t }}</h2>{% for item in search.results %}{% unless item.object_type == 'product' %}<a href="{{ item.url }}"><strong>{{ item.title }}</strong><span>{{ item.content | strip_html | truncate: 120 }}</span></a>{% endunless %}{% endfor %}</div>{% endif %}
+    {% if search.performed and search.results_count == 0 %}<div class="sp-search-empty"><h2>{{ 'sabpuja_custom.auto.s158' | t }}</h2><p>{{ 'sabpuja_custom.auto.s264' | t }}</p><a href="{{ routes.all_products_collection_url }}">{{ 'sabpuja_custom.auto.s026' | t }}</a></div>{% endif %}
+    {% if paginate.pages > 1 %}<div class="sp-catalog-pagination">{% if paginate.previous %}<a href="{{ paginate.previous.url }}">{{ 'sabpuja_custom.auto.s186' | t }}</a>{% endif %}<span>Page {{ paginate.current_page }} of {{ paginate.pages }}</span>{% if paginate.next %}<a href="{{ paginate.next.url }}">{{ 'sabpuja_custom.auto.s153' | t }}</a>{% endif %}</div>{% endif %}
+  {% endpaginate %}
+</div></section>
+{% schema %}{"name":"Sabpuja Search","settings":[]}{% endschema %}

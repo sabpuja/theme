@@ -1,0 +1,667 @@
+<!-- /sections/blog-template.liquid -->
+{% include 'blog-template' %}
+
+{% schema %}
+{
+  "name": "Blog pages",
+  "class": "blog",
+  "max_blocks": 30,
+  "settings": [
+    {
+      "type": "number",
+      "id": "limit",
+      "label": "Pagination limit",
+      "default": 12
+    },
+    {
+      "type": "number",
+      "id": "image_width",
+      "label": "Image Width",
+      "info": "Must be set a non-zero number",
+      "default": 450
+    },
+    {
+      "type": "number",
+      "id": "image_height",
+      "label": "Image Height",
+      "info": "Must be set a non-zero number",
+      "default": 281
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Custom Menu",
+      "type": "blog-link-list",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Name",
+          "info": "Name this section, it will help to control the section more easily."
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "top_container",
+              "label": "Top Container"
+            },
+            {
+              "value": "top_content",
+              "label": "Top Content"
+            },
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            },
+            {
+              "value": "bottom_content",
+              "label": "Bottom Content"
+            },
+            {
+              "value": "bottom_container",
+              "label": "Bottom Container"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "link_list",
+          "id": "link_list",
+          "label": "Link List"
+        }
+      ]
+    },
+    {
+      "name": "Featured Articles",
+      "type": "blog-article",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Name",
+          "info": "Name this section, it will help to control the section more easily."
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "top_container",
+              "label": "Top Container"
+            },
+            {
+              "value": "top_content",
+              "label": "Top Content"
+            },
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            },
+            {
+              "value": "bottom_content",
+              "label": "Bottom Content"
+            },
+            {
+              "value": "bottom_container",
+              "label": "Bottom Container"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "blog",
+          "id": "blog",
+          "label": "Collection article"
+        },
+        {
+          "type": "header",
+          "content": "Responsive columns"
+        },
+        {
+          "type": "select",
+          "id": "column_small",
+          "label": "Articles per row",
+          "info": "For small screen (0px - 550px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "select",
+          "id": "column_medium",
+          "label": "Articles per row",
+          "info": "For medium screen (551px - 800px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            }
+          ],
+          "default": "2"
+        },
+        {
+          "type": "select",
+          "id": "column_large",
+          "label": "Articles per row",
+          "info": "For large screen (801px - 1260px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "3"
+        },
+        {
+          "type": "select",
+          "id": "column_xlarge",
+          "label": "Articles per row",
+          "info": "For xlarge screen (1261px - 1440px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "column_xxlarge",
+          "label": "Articles per row",
+          "info": "For xxlarge screen (1441px - 1680px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "column_xxxlarge",
+          "label": "Articles per row",
+          "info": "For xxxlarge screen (1681px - infinity)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "number",
+          "id": "limit",
+          "label": "Limit article show",
+          "default": 4
+        }
+      ]
+    },
+    {
+      "name": "Banner",
+      "type": "blog-banner",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Name",
+          "info": "Name this section, it will help to control the section more easily."
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "top_container",
+              "label": "Top Container"
+            },
+            {
+              "value": "top_content",
+              "label": "Top Content"
+            },
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            },
+            {
+              "value": "bottom_content",
+              "label": "Bottom Content"
+            },
+            {
+              "value": "bottom_container",
+              "label": "Bottom Container"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "number",
+          "id": "image_width",
+          "label": "Image width",
+          "default": 200
+        },
+        {
+          "type": "number",
+          "id": "image_height",
+          "label": "Image height",
+          "default": 200
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Tags",
+      "type": "blog-tag",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Name",
+          "info": "Name this section, it will help to control the section more easily."
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "top_container",
+              "label": "Top Container"
+            },
+            {
+              "value": "top_content",
+              "label": "Top Content"
+            },
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            },
+            {
+              "value": "bottom_content",
+              "label": "Bottom Content"
+            },
+            {
+              "value": "bottom_container",
+              "label": "Bottom Container"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        }
+      ]
+    },
+	{
+      "name": "Facebook Chat",
+      "type": "blog-facebookchat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "id",
+          "label": "Username Facebook",
+		  "default":"papathemes"
+        },
+		{
+          "type": "text",
+          "id": "id2",
+          "label": "Username Display",
+		  "default":"Papathemes"
+        }, 
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        }
+      ]
+    },
+    {
+      "name": "HTML",
+      "type": "blog-html",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Name",
+          "info": "Name this section, it will help to control the section more easily."
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "top_container",
+              "label": "Top Container"
+            },
+            {
+              "value": "top_content",
+              "label": "Top Content"
+            },
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            },
+            {
+              "value": "bottom_content",
+              "label": "Bottom Content"
+            },
+            {
+              "value": "bottom_container",
+              "label": "Bottom Container"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "html",
+          "id": "html",
+          "label": "HTML"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

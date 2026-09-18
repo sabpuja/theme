@@ -1,0 +1,496 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+  {% if section.settings.bkgmode %}
+    .spacing-{{ section.id }}{	
+	  background-image: linear-gradient({{ section.settings.color}}, {{ section.settings.color3}});
+	}
+  {% endif %}
+{% endstyle %}
+<div data-section-id="{{ section.id }}" data-section-type="advanced" data-section-name="index-information">
+  <div class="{{ section.settings.display }} {% if section.settings.bkg %}have-bkg{% else %}no-bkg{% endif %} spacing-{{ section.id }}" style="{% if section.settings.bkgp == '1'%} {% if section.settings.bkg %}background-image:url({{ section.settings.bkg | img_url: 'master' }});{% endif %} background-color:{{ section.settings.color }}{% endif %}">
+	{% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    <div class="grid-container">
+    {% endunless %}
+    {% endif %}
+      <div class="section-content" style="{% if section.settings.bkgp == '2'%} {% if section.settings.bkg %}background-image:url({{ section.settings.bkg | img_url: 'master' }});{% endif %} background-color:{{ section.settings.color }}{% endif %}">
+        {%- if section.settings.title != blank or section.settings.sub_title != blank -%}
+        <div class="box-divider blog-title">
+          <h2 class="box-title width-100">{{ section.settings.title }}</h2>
+        </div>
+        {%- endif -%}
+        <div class="index-information-grid-container {% if section.settings.color != '' %}have-colorbkg{% endif %}">
+        {%- if section.blocks.size > 0 -%}
+        <div class="box-content {% if section.settings.border %}have-border{% endif %} {% if section.settings.border2 %}have-border-each{% endif %}{% if section.settings.border3 %}have-between{% endif %}">
+          <div class="index-information-grid-list grid-x align-{{ section.settings.layout2 }}">
+            {%- for block in section.blocks -%}
+            <div class="index-information-item {% if block.settings.border %}have-border{% endif %} cell small-{{ block.settings.column_small }} medium-{{ block.settings.column_medium }} large-{{ block.settings.column_large }} xlarge-{{ block.settings.column_xlarge }}" style="background-color:{{ block.settings.color }}">
+              <div class="effect effect-scope layout-{{ section.settings.layout }}" style="color:{{ section.settings.color2 }}">
+                <div class="info-icon">                 
+                  {% if block.settings.image %}
+                  <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}"/>
+                  {% elsif block.settings.icon != '' %}
+                  <em class="sli sli-{{ block.settings.icon }}"></em>
+                  {% else %}
+                  {{ block.settings.iconsvg }}
+                  {% endif %}               
+                </div>
+                <div class="info-text">
+                  {%- if block.settings.title != blank -%}
+                  <div class="title">{{ block.settings.title }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.title2 != blank -%}
+                  <div class="sub-title">{{ block.settings.title2 }}</div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        {%- endif -%}
+      </div>
+      </div>
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    </div>
+    {% endunless %}
+    {% endif %}
+  </div>
+</div>  
+
+
+{% schema %}
+{
+  "name": "Information",
+  "class": "index-section index-information-grid",
+  "settings": [
+	{
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },
+	{
+        "type": "checkbox",
+        "id": "full",
+        "label": "Show Full width"
+      },
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,60,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,50,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,30,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "header",
+      "content": "Section settings"
+    },
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+	{
+      "type": "image_picker",
+      "id": "bkg",
+      "label": "Image Background"
+    },
+	{
+      "type": "select",
+      "id": "bkgp",
+      "label": "Background Position",
+      "options": [
+        {
+          "value": "1",
+          "label": "Outer ther container"
+        },
+        {
+          "value": "2",
+          "label": "Inner the container"
+        }
+      ],
+      "default": "1"
+    },
+	{
+      "type": "select",
+      "id": "bkgmode",
+      "label": "Background mode",
+      "options": [
+        {
+          "value": "single",
+          "label": "single background"
+        },
+        {
+          "value": "gradient",
+          "label": "Gradient Background"
+        }
+      ],
+      "default": "single"
+    },
+	{
+      "type": "color",
+      "id": "color",
+      "label": "Color Background"
+    },
+	{
+      "type": "color",
+      "id": "color3",
+      "label": "Color Background Gradient"
+    },
+	{
+      "type": "color",
+      "id": "color2",
+      "label": "Color Text"
+    },    
+	{
+      "type": "checkbox",
+      "id": "border3",
+      "label": "Border between these item"
+    },
+	{
+      "type": "checkbox",
+      "id": "border2",
+      "label": "Border each item"
+    },
+	{
+      "type": "checkbox",
+      "id": "border",
+      "label": "Border Group"
+    },
+	{
+      "type": "select",
+      "id": "layout",
+      "label": "Information Layout",
+      "options": [
+        {
+          "value": "1",
+          "label": "Icon in Left, Text in Right"
+        },
+        {
+          "value": "2",
+          "label": "Icon in Top, Text in Bottom"
+        },
+		{
+          "value": "3",
+          "label": "Icon in Right, Text in Left"
+        }
+      ],
+      "default": "1"
+    },
+	{
+      "type": "select",
+      "id": "layout2",
+      "label": "Align Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "information",
+      "name": "Information",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon image"
+        },
+		{
+          "type": "text",
+          "id": "icon",
+          "label": "Icon Text"
+        },
+		{
+          "type": "textarea",
+          "id": "iconsvg",
+          "label": "Icon SVG"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "text",
+          "id": "title2",
+          "label": "Sub Title"
+        },
+        {
+          "type": "header",
+          "content": "Responsive width"
+        },
+        {
+          "type": "select",
+          "id": "column_small",
+          "label": "Width",
+          "info": "For small screen (0px - 550px)",
+          "options": [
+            {
+              "value": "12",
+              "label": "1/1"
+            },
+            {
+              "value": "6",
+              "label": "1/2"
+            },
+            {
+              "value": "4",
+              "label": "1/3"
+            },
+            {
+              "value": "3",
+              "label": "1/4"
+            },
+            {
+              "value": "2-4",
+              "label": "1/5"
+            },
+            {
+              "value": "2",
+              "label": "1/6"
+            },
+            {
+              "value": "8",
+              "label": "2/3"
+            },
+            {
+              "value": "9",
+              "label": "3/4"
+            },
+            {
+              "value": "10",
+              "label": "5/6"
+            }
+          ],
+          "default": "12"
+        },
+        {
+          "type": "select",
+          "id": "column_medium",
+          "label": "Width",
+          "info": "For medium screen (551px - 800px)",
+          "options": [
+            {
+              "value": "12",
+              "label": "1/1"
+            },
+            {
+              "value": "6",
+              "label": "1/2"
+            },
+            {
+              "value": "4",
+              "label": "1/3"
+            },
+            {
+              "value": "3",
+              "label": "1/4"
+            },
+            {
+              "value": "2-4",
+              "label": "1/5"
+            },
+            {
+              "value": "2",
+              "label": "1/6"
+            },
+            {
+              "value": "8",
+              "label": "2/3"
+            },
+            {
+              "value": "9",
+              "label": "3/4"
+            },
+            {
+              "value": "10",
+              "label": "5/6"
+            }
+          ],
+          "default": "6"
+        },
+        {
+          "type": "select",
+          "id": "column_large",
+          "label": "Width",
+          "info": "For large screen (801px - 1260px)",
+          "options": [
+            {
+              "value": "12",
+              "label": "1/1"
+            },
+            {
+              "value": "6",
+              "label": "1/2"
+            },
+            {
+              "value": "4",
+              "label": "1/3"
+            },
+            {
+              "value": "3",
+              "label": "1/4"
+            },
+            {
+              "value": "2-4",
+              "label": "1/5"
+            },
+            {
+              "value": "2",
+              "label": "1/6"
+            },
+            {
+              "value": "8",
+              "label": "2/3"
+            },
+            {
+              "value": "9",
+              "label": "3/4"
+            },
+            {
+              "value": "10",
+              "label": "5/6"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "column_xlarge",
+          "label": "Width",
+          "info": "For xlarge screen (1261px - infinity)",
+          "options": [
+            {
+              "value": "12",
+              "label": "1/1"
+            },
+            {
+              "value": "6",
+              "label": "1/2"
+            },
+            {
+              "value": "4",
+              "label": "1/3"
+            },
+            {
+              "value": "3",
+              "label": "1/4"
+            },
+            {
+              "value": "2-4",
+              "label": "1/5"
+            },
+            {
+              "value": "2",
+              "label": "1/6"
+            },
+            {
+              "value": "8",
+              "label": "2/3"
+            },
+            {
+              "value": "9",
+              "label": "3/4"
+            },
+            {
+              "value": "10",
+              "label": "5/6"
+            }
+          ],
+          "default": "3"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Information",
+      "category": "Advanced"
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

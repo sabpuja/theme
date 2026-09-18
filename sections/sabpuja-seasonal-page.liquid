@@ -1,0 +1,82 @@
+<link href="{{ 'sabpuja-seasonal.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+
+{% assign seasonal_name = 'Diwali' %}
+{% assign seasonal_heading = 'Prepare for Diwali with clarity.' %}
+{% assign seasonal_intro = 'A calm preparation space for Sabpuja’s Diwali campaign. Final commercial offer details are still being approved, so this page does not present a selling price, kit contents, inventory promise or checkout action.' %}
+{% assign seasonal_desktop = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-diwali-hero-desktop-01.webp?v=1789524851' %}
+{% assign seasonal_mobile = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-diwali-hero-mobile-01.webp?v=1789524859' %}
+{% assign seasonal_alt = 'Sabpuja Diwali puja preparation campaign with warm diya and festive devotional details.' %}
+
+{% if page.handle == 'navratri-puja' %}
+  {% assign seasonal_name = 'Navratri' %}
+  {% assign seasonal_heading = 'Prepare for Navratri with confidence.' %}
+  {% assign seasonal_intro = 'A calm preparation space for Sabpuja’s Navratri campaign. Final commercial offer details are still being approved, so this page does not present a selling price, kit contents, inventory promise or checkout action.' %}
+  {% assign seasonal_desktop = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-desktop-01.webp?v=1789524868' %}
+  {% assign seasonal_mobile = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-mobile-01.webp?v=1789524880' %}
+  {% assign seasonal_alt = 'Sabpuja Navratri puja preparation campaign with warm floral and devotional details.' %}
+{% endif %}
+
+<section class="sp-seasonal" aria-labelledby="sp-seasonal-title">
+  <div class="sp-container">
+    <div class="sp-seasonal-hero">
+      <div class="sp-seasonal-copy">
+        <div class="sp-eyebrow">{{ seasonal_name }} preparation</div>
+        <h1 id="sp-seasonal-title">{{ seasonal_heading }}</h1>
+        <p>{{ seasonal_intro }}</p>
+
+        <div class="sp-seasonal-status" role="status">
+          <strong>{{ 'sabpuja_custom.auto.s232' | t }}</strong>
+          <span>{{ 'sabpuja_custom.auto.s089' | t }}</span>
+        </div>
+
+        <div class="sp-seasonal-actions">
+          <a class="sp-btn sp-btn-primary" href="{{ routes.all_products_collection_url }}">{{ 'sabpuja_custom.auto.s093' | t }}</a>
+          <a class="sp-btn sp-btn-secondary" href="mailto:support@sabpuja.com">{{ 'sabpuja_custom.auto.s018' | t }}</a>
+        </div>
+      </div>
+
+      <div class="sp-seasonal-media">
+        <picture>
+          <source media="(max-width: 980px)" srcset="{{ seasonal_mobile }}">
+          <img src="{{ seasonal_desktop }}" alt="{{ seasonal_alt }}" width="1440" height="1080" fetchpriority="high">
+        </picture>
+      </div>
+    </div>
+
+    <div class="sp-seasonal-grid">
+      <article class="sp-seasonal-card">
+        <h2>{{ 'sabpuja_custom.auto.s174' | t }}</h2>
+        <p>{{ 'sabpuja_custom.auto.s053' | t }}</p>
+      </article>
+
+      <article class="sp-seasonal-card">
+        <h2>{{ 'sabpuja_custom.auto.s283' | t }}</h2>
+        <ul>
+          <li>{{ 'sabpuja_custom.auto.s076' | t }}</li>
+          <li>{{ 'sabpuja_custom.auto.s266' | t }}</li>
+          <li>{{ 'sabpuja_custom.auto.s108' | t }}</li>
+          <li>{{ 'sabpuja_custom.auto.s168' | t }}</li>
+        </ul>
+      </article>
+
+      <article class="sp-seasonal-card">
+        <h2>{{ 'sabpuja_custom.auto.s149' | t }}</h2>
+        <p>{{ 'sabpuja_custom.auto.s224' | t }}</p>
+        <p><a href="tel:+919667819241">{{ 'sabpuja_custom.auto.s033' | t }}</a> · <a href="mailto:support@sabpuja.com">{{ 'sabpuja_custom.auto.s085' | t }}</a></p>
+      </article>
+    </div>
+
+    <div class="sp-seasonal-trust" aria-label="{{ 'sabpuja_custom.auto.s221' | t }}">
+      <div><strong>Delhi NCR</strong><span>{{ 'sabpuja_custom.auto.s060' | t }}</span></div>
+      <div><strong>1–3 business days</strong><span>{{ 'sabpuja_custom.auto.s267' | t }}</span></div>
+      <div><strong>{{ 'sabpuja_custom.auto.s002' | t }}</strong><span>{{ 'sabpuja_custom.auto.s063' | t }}</span></div>
+      <div><strong>{{ 'sabpuja_custom.auto.s178' | t }}</strong><span>{{ 'sabpuja_custom.auto.s062' | t }}</span></div>
+    </div>
+
+    
+  </div>
+</section>
+
+{% schema %}
+{"name":"Sabpuja seasonal page","settings":[]}
+{% endschema %}

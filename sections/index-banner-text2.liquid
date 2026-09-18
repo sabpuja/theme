@@ -1,0 +1,383 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+{% endstyle %}
+<div data-section-id="{{ section.id }}" data-section-type="banner" data-section-name="index-banner-text2">
+  <div class="{{ section.settings.display }} spacing-{{ section.id }}">
+    <div class="grid-container bkg_{{ section.id }} _position-{{ section.settings.position}}" style="{% if section.settings.bkg %}background-image:url({{ section.settings.bkg | img_url: 'master' }});{% endif %} padding-left:{{ section.settings.margin4}}px;padding-right:{{ section.settings.margin4}}px;">
+    <div class="section-content">
+      <div class="box border-none index-text-banner-grid-container">
+        <div class="box-content">
+          <div class="grid-x">          
+            {% for block in section.blocks %}
+            {% if block.type == 'text' %}
+            <div class="text-area cell small-12 medium-6 large-6 xlarge-6">
+              <div class="index-text-content {{ column }}">
+                {% if block.settings.title != '' %}<div class="text-heading" style="font-size:{{ block.settings.titlesize}}px;">{{ block.settings.title }}</div>{% endif %}
+                {% if block.settings.desc != '' %}<div class="text-desc" style="font-size:{{ block.settings.titlesize2}}px;">{{ block.settings.desc }}</div> {% endif %}
+                {% if block.settings.action != '' %}<div class="text-action"><a href="{{ block.settings.link }}">{{ block.settings.action }}</a></div> {% endif %}
+              </div>
+            </div>
+            {% elsif block.type == 'banner' %}
+            <div class="banner-area effect-{{section.settings.effect}} effect  cell small-12 medium-6 large-6 xlarge-6">
+              {%- unless block.settings.image == blank -%}
+              <a href="{{ block.settings.link }}" class="index-banner-grid-image display-block">
+                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.image | img_url: image_size }}" class="width-100 lazyload" alt="{{ block.settings.image.alt }}" />
+              </a>
+              {% else %}
+              <a href="{{ block.settings.link }}" class="index-banner-grid-image display-block">                
+                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ '625x500.png' | asset_url }}" class="width-100 lazyload" alt="{{ block.settings.image.alt }}" />
+              </a>
+              {%- endunless -%}
+            </div>
+            {% endif %}
+            {% endfor %}          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<style>
+.bkg_{{ section.id }}:after{
+  background: {{ section.settings.color }};
+}
+</style>
+  
+{% schema %}
+{
+  "name": "Banner & Caption #1",
+  "class": "index-section index-text-banner index-text2-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },	
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,60,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,50,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,30,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin4",
+      "label": "Margin Left/Right in pixel",
+	  "default":"200"
+    },
+	{
+      "type": "select",
+      "id": "position",
+      "label": "Set position for Banner",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left Text"
+        },
+        {
+          "value": "right",
+          "label": "Right Text"
+        }
+      ],
+      "default": "left"
+    },	
+	{
+      "type": "color",
+      "id": "color",
+      "label": "Background color"
+    },
+	{
+      "type": "image_picker",
+      "id": "bkg",
+      "label": "Background Image"
+    },
+	{    
+      "type": "select",
+      "id": "effect",
+      "label": "Hover Effect",
+      "options": [
+        {
+          "value": "scope",
+          "label": "Scope"
+        },       
+        {
+          "value": "pulse",
+          "label": "Pulse"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },       
+        {
+          "value": "blur",
+          "label": "Blur"
+        },
+        {
+          "value": "grayscale",
+          "label": "Gray scale"
+        },
+        {
+          "value": "line-image",
+          "label": "Line 1"        
+        }, 
+        {
+          "value": "scope3",
+          "label": "Line 2"
+        },              
+        {
+          "value": "zoom",
+          "label": "Zoom"        
+        },
+        {
+          "value": "zoom-opacity",
+          "label": "Zoom Opacity"        
+        },
+        {
+          "value": "apollo",
+          "label": "Apollo"        
+        },
+        {
+          "value": "jazz",
+          "label": "Jazz"        
+        },
+        {
+          "value": "ming",
+          "label": "Ming"        
+        },
+        {
+          "value": "bounce",
+          "label": "Bounce"        
+        },
+        {
+          "value": "flash",
+          "label": "Flash"        
+        },
+        {
+          "value": "animate-pulse",
+          "label": "Animate Pulse"        
+        },
+        {
+          "value": "heartBeat",
+          "label": "Heart Beat"        
+        },
+        {
+          "value": "backInDown",
+          "label": "Back In Down"        
+        },                
+        {
+          "value": "bounceInUp",
+          "label": "Bounce In Up"        
+        },        
+        {
+          "value": "bounceInRight",
+          "label": "Bounce In Right"        
+        },
+        {
+          "value": "bounceInLeft",
+          "label": "Bounce In Left"        
+        },
+        {
+          "value": "bounceInDown",
+          "label": "Bounce In Down"        
+        },
+        {
+          "value": "bounceIn",
+          "label": "Bounce In"        
+        },        
+        {
+          "value": "rotateInUpRight",
+          "label": "Rotate In Up Right"        
+        },
+        {
+          "value": "rotateInUpLeft",
+          "label": "Rotate In Up Left"        
+        },
+        {
+          "value": "rotateInDownRight",
+          "label": "Rotate In Down Right"        
+        },
+        {
+          "value": "rotateInDownLeft",
+          "label": "Rotate In Down Left"        
+        },
+        {
+          "value": "rotateIn",
+          "label": "Rotate In"        
+        },        
+        {
+          "value": "lightSpeedInLeft",
+          "label": "Light Speed InLeft"        
+        },        
+        {
+          "value": "flipInY",
+          "label": "Flip In Y"        
+        },
+        {
+          "value": "flipInX",
+          "label": "Flip In X"        
+        },
+        {
+          "value": "flip",
+          "label": "Flip"        
+        },
+        {
+          "value": "jackInTheBox",
+          "label": "Jack In The Box"        
+        }                                                    
+      ],
+      "default": "scope"      
+    }
+  ],
+  "max_blocks": 2,
+  "blocks": [
+  	{
+      "type": "text",
+      "name": "Text",
+      "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+		{
+          "type":   "range",
+          "id":     "titlesize",
+          "min":       12,
+          "max":       90,
+          "step":      1,
+          "unit":      "px",
+          "label":     "Heading - Font size",
+          "default":   65
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Description"
+        },
+		{
+          "type":   "range",
+          "id":     "titlesize2",
+          "min":       10,
+          "max":       90,
+          "step":      1,
+          "unit":      "px",
+          "label":     "Description - Font size",
+          "default":   20
+        },
+		{
+          "type": "text",
+          "id": "action",
+          "label": "Action Text"
+        },
+		{
+          "type": "url",
+          "id": "link",
+          "label": "Action link"
+        }
+      ]
+    },
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }     
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner & Caption #1",
+      "category": "Image"
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

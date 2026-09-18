@@ -1,0 +1,15 @@
+<link href="{{ 'sabpuja-catalog.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<section class="sp-catalog-page">
+  <div class="sp-container">
+    <nav class="sp-catalog-breadcrumb" aria-label="{{ 'sabpuja_custom.auto.s025' | t }}"><a href="{{ routes.root_url }}">{{ 'sabpuja_custom.auto.s124' | t }}</a><span>/</span><span>{{ collection.title }}</span></nav>
+    <header class="sp-catalog-head"><div><span class="sp-eyebrow">{{ 'sabpuja_custom.auto.s220' | t }}</span><h1>{{ collection.title }}</h1>{% if collection.description != blank %}<div class="sp-catalog-description">{{ collection.description }}</div>{% endif %}</div>
+      <form class="sp-catalog-sort" method="get" action="{{ collection.url }}"><label for="SortBy">{{ 'sabpuja_custom.auto.s243' | t }}</label><select id="SortBy" name="sort_by" onchange="this.form.submit()">{% assign sort_by = collection.sort_by | default: collection.default_sort_by %}{% for option in collection.sort_options %}<option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>{% endfor %}</select></form>
+    </header>
+    {% paginate collection.products by 20 %}
+      <div class="sp-catalog-toolbar"><span>Showing {{ paginate.current_offset | plus: 1 }}–{% assign sp_page_end = paginate.current_offset | plus: paginate.page_size %}{% if sp_page_end > collection.products_count %}{{ collection.products_count }}{% else %}{{ sp_page_end }}{% endif %} of {{ collection.products_count }} products</span></div>
+      <div class="sp-catalog-grid">{% for product in collection.products %}{% include 'sabpuja-product-card', product: product %}{% else %}<p>{{ 'sabpuja_custom.auto.s157' | t }}</p>{% endfor %}</div>
+      {% if paginate.pages > 1 %}<div class="sp-catalog-pagination">{% if paginate.previous %}<a href="{{ paginate.previous.url }}">{{ 'sabpuja_custom.auto.s186' | t }}</a>{% endif %}<span>Page {{ paginate.current_page }} of {{ paginate.pages }}</span>{% if paginate.next %}<a href="{{ paginate.next.url }}">{{ 'sabpuja_custom.auto.s153' | t }}</a>{% endif %}</div>{% endif %}
+    {% endpaginate %}
+  </div>
+</section>
+{% schema %}{"name":"Sabpuja Collection","settings":[]}{% endschema %}

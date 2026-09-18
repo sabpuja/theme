@@ -1,0 +1,307 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+{% endstyle %}
+<div data-section-id="{{ section.id }}" data-section-type="banner" data-section-name="index-banners-links2">
+  <div class="{{ section.settings.display }} spacing-{{ section.id }}">
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    <div class="grid-container">
+    {% endunless %}
+    {% endif %}
+      <div class="section-content">        
+        <div class="banners-content box-content">
+          <div class="banner-top effect-{{section.settings.effect}} effect">
+            <a href="{{ section.settings.url }}" title="">                
+              <img class="" src="{% if section.settings.image %}{{ section.settings.image | img_url: 'master' }}{% else %}{{ '1170x170.png' | asset_url }}{% endif %}" alt="{{ section.settings.image.alt }}" />
+            </a>
+          </div>
+          <div class="links-bottom">
+            {% if section.blocks.size > 0 %}
+            <div class="grid-x grid-margin-x grid-margin-y">
+              {%- for block in section.blocks -%}
+              <div class="link-element"> 
+                <a href="{{ block.settings.link }}">                
+                  {{ block.settings.title }}
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    </div>
+    {% endunless %}
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner  & Links #2",
+  "class": "index-section index-banners-links2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },
+	{
+      "type": "checkbox",
+      "id": "full",
+      "label": "Show Full width"
+    },
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,60,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,50,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,30,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "header",
+      "content": "Section Settings"
+    },
+	{
+      "type": "image_picker",
+      "id": "image",
+      "label": "Upload Banner"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Link to",
+	  "default":"/collections/all"
+    },
+	{    
+      "type": "select",
+      "id": "effect",
+      "label": "Hover Effect",
+      "options": [
+        {
+          "value": "scope",
+          "label": "Scope"
+        },       
+        {
+          "value": "pulse",
+          "label": "Pulse"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },       
+        {
+          "value": "blur",
+          "label": "Blur"
+        },
+        {
+          "value": "grayscale",
+          "label": "Gray scale"
+        },
+        {
+          "value": "line-image",
+          "label": "Line 1"        
+        },                      
+        {
+          "value": "zoom",
+          "label": "Zoom"        
+        },
+        {
+          "value": "zoom-opacity",
+          "label": "Zoom Opacity"        
+        },       
+        {
+          "value": "ming",
+          "label": "Ming"        
+        },
+        {
+          "value": "bounce",
+          "label": "Bounce"        
+        },
+        {
+          "value": "flash",
+          "label": "Flash"        
+        },
+        {
+          "value": "animate-pulse",
+          "label": "Animate Pulse"        
+        },
+        {
+          "value": "heartBeat",
+          "label": "Heart Beat"        
+        },
+        {
+          "value": "backInDown",
+          "label": "Back In Down"        
+        },                
+        {
+          "value": "bounceInUp",
+          "label": "Bounce In Up"        
+        },        
+        {
+          "value": "bounceInRight",
+          "label": "Bounce In Right"        
+        },
+        {
+          "value": "bounceInLeft",
+          "label": "Bounce In Left"        
+        },
+        {
+          "value": "bounceInDown",
+          "label": "Bounce In Down"        
+        },
+        {
+          "value": "bounceIn",
+          "label": "Bounce In"        
+        },        
+        {
+          "value": "rotateInUpRight",
+          "label": "Rotate In Up Right"        
+        },
+        {
+          "value": "rotateInUpLeft",
+          "label": "Rotate In Up Left"        
+        },
+        {
+          "value": "rotateInDownRight",
+          "label": "Rotate In Down Right"        
+        },
+        {
+          "value": "rotateInDownLeft",
+          "label": "Rotate In Down Left"        
+        },
+        {
+          "value": "rotateIn",
+          "label": "Rotate In"        
+        },        
+        {
+          "value": "lightSpeedInLeft",
+          "label": "Light Speed InLeft"        
+        },        
+        {
+          "value": "flipInY",
+          "label": "Flip In Y"        
+        },
+        {
+          "value": "flipInX",
+          "label": "Flip In X"        
+        },
+        {
+          "value": "flip",
+          "label": "Flip"        
+        },
+        {
+          "value": "jackInTheBox",
+          "label": "Jack In The Box"        
+        }                                                    
+      ],
+      "default": "scope"      
+    }
+  ],
+  "blocks": [	
+	{
+      "type": "image",
+      "name": "Banner",
+      "settings": [        
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Link Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link t0",
+		  "default":"/collections/all"
+        }
+  	  ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banners & Links #2",
+      "category": "Image"
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

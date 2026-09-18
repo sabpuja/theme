@@ -1,0 +1,261 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+{% endstyle %}
+<div data-section-id="{{ section.id }}" data-section-type="advanced" data-section-name="index-information-custom4">
+  <div class="{{ section.settings.display }} spacing-{{ section.id }}" style="background-color:{{ section.settings.colorbkg }};">
+	{% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    <div class="grid-container">
+    {% endunless %}
+    {% endif %}
+      <div class="section-content">
+        <div class="index-information-grid-container {% if section.settings.color != '' %}have-colorbkg{% endif %}">        
+          {%- if section.blocks.size > 0 -%}
+          <div class="box-content">
+            <div class="index-information-grid-list grid-x grid-margin-x align-center">
+              <div class="left-area">
+                {%- for block in section.blocks -%}
+                  {% if block.type == 'information1' %}
+                  <div class="index-information-grid-item">
+                    <div class="info-icon">                 
+                      <a href="{{ block.settings.link }}">
+                        {% if block.settings.image %}
+                        <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}"/>
+                        {% else %}
+                        <img src="{{ '70x50.png' | asset_url }}" alt="" />
+                        {% endif %}
+                      </a>                  
+                    </div>
+                    <div class="info-text">
+                      {%- if block.settings.title != blank -%}
+                      <div class="title">{{ block.settings.title }}</div>
+                      {%- endif -%}
+                      {%- if block.settings.title2 != blank -%}
+                      <div class="sub-title">{{ block.settings.title2 }}</div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <div class="middle-area">
+                {%- for block in section.blocks -%}
+                  {% if block.type == 'information3' %}
+                  <div class="index-information-grid-item">
+                    <div class="info-icon">                 
+                      <a href="{{ block.settings.link }}">
+                        {% if block.settings.image %}
+                        <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}"/>
+                        {% else %}
+                        <img src="{{ '675x675.png' | asset_url }}" alt="" />
+                        {% endif %}
+                      </a>                  
+                    </div>
+                  </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <div class="right-area">
+                {%- for block in section.blocks -%}
+                  {% if block.type == 'information2' %}
+                  <div class="index-information-grid-item">
+                    <div class="info-icon">                 
+                      <a href="{{ block.settings.link }}">
+                        {% if block.settings.image %}
+                        <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}"/>
+                        {% else %}
+                        <img src="{{ '70x50.png' | asset_url }}" alt="" />
+                        {% endif %}
+                      </a>                  
+                    </div>
+                    <div class="info-text">
+                      {%- if block.settings.title != blank -%}
+                      <div class="title">{{ block.settings.title }}</div>
+                      {%- endif -%}
+                      {%- if block.settings.title2 != blank -%}
+                      <div class="sub-title">{{ block.settings.title2 }}</div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                  {% endif %}
+                {% endfor %}
+              </div>              
+            </div>
+          </div>
+          {%- endif -%}        
+      </div>
+      </div>
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    </div>
+    {% endunless %}
+    {% endif %}
+  </div>
+</div> 
+
+
+{% schema %}
+{
+  "name": "Information Custom #4",
+  "class": "index-section index-information-custom4",
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "View [Mockup of Section layout](https:\/\/i.imgur.com\/Pm3OmMh.png)"
+    },
+	{
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,60,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,50,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,30,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "information1",
+      "name": "Information in Left",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon background"
+        },		
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+		{
+          "type": "text",
+          "id": "title2",
+          "label": "Sub Title"
+        }
+      ]
+    },
+	{
+      "type": "information2",
+      "name": "Information in Right",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon background"
+        },		
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+		{
+          "type": "text",
+          "id": "title2",
+          "label": "Sub Title"
+        }
+      ]
+    },
+	{
+      "type": "information3",
+      "name": "Image in Middle",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon background"
+        },		
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Information Custom #4",
+      "category": "Advanced"
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

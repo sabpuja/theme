@@ -1,0 +1,418 @@
+{% include 'index-group-blocks3' %}
+{% schema %}
+  {
+    "name": "Group Middle Blocks",
+	"class": "index-section index-group-blocks3",
+    "settings": [
+	  {
+        "type": "paragraph",
+        "content": "View [Mockup of Section layout](https:\/\/i.imgur.com\/tRZmYj9.png)"
+      },
+	  {
+        "type": "header",
+        "content": "Layout Settings"
+      },
+      {
+        "type": "select",
+        "id": "display",
+        "label": "Display on",
+        "options": [
+          {
+            "value": "",
+            "label": "Desktop & Mobile"
+          },
+          {
+            "value": "show-for-large",
+            "label": "Desktop only"
+          },
+          {
+            "value": "hide-for-large",
+            "label": "Mobile only"
+          }
+        ],
+        "default": ""
+      },
+      {
+        "type": "checkbox",
+        "id": "full",
+        "label": "Show Full width"
+      },
+      {
+        "type": "text",
+        "id": "margin1",
+        "label": "Desktop: Section Spacing value",
+        "default":"0,60,0,0",
+        "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+      },
+      {
+        "type": "text",
+        "id": "margin2",
+        "label": "Tablet: Section Spacing value",
+        "default":"0,50,0,0",
+        "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+      },
+      {
+        "type": "text",
+        "id": "margin3",
+        "label": "Mobile: Section Spacing value",
+        "default":"0,30,0,0",
+        "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+      }
+	],
+	"blocks": [	
+	  {
+        "type": "product",
+        "name": "Left - Products Grid",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "color",
+            "id": "bkg-color",
+            "label": "Color",
+            "default": "#ccc"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Upload banner in Left"
+          },
+		  {    
+      "type": "select",
+      "id": "effect",
+      "label": "Hover Effect",
+      "options": [
+        {
+          "value": "scope",
+          "label": "Scope"
+        },       
+        {
+          "value": "pulse",
+          "label": "Pulse"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },       
+        {
+          "value": "blur",
+          "label": "Blur"
+        },
+        {
+          "value": "grayscale",
+          "label": "Gray scale"
+        },
+        {
+          "value": "line-image",
+          "label": "Line 1"        
+        }, 
+        {
+          "value": "scope3",
+          "label": "Line 2"
+        },              
+        {
+          "value": "zoom",
+          "label": "Zoom"        
+        },
+        {
+          "value": "zoom-opacity",
+          "label": "Zoom Opacity"        
+        },
+        {
+          "value": "apollo",
+          "label": "Apollo"        
+        },       
+        {
+          "value": "ming",
+          "label": "Ming"        
+        },
+        {
+          "value": "bounce",
+          "label": "Bounce"        
+        },
+        {
+          "value": "flash",
+          "label": "Flash"        
+        },
+        {
+          "value": "animate-pulse",
+          "label": "Animate Pulse"        
+        },
+        {
+          "value": "heartBeat",
+          "label": "Heart Beat"        
+        },
+        {
+          "value": "backInDown",
+          "label": "Back In Down"        
+        },                
+        {
+          "value": "bounceInUp",
+          "label": "Bounce In Up"        
+        },        
+        {
+          "value": "bounceInRight",
+          "label": "Bounce In Right"        
+        },
+        {
+          "value": "bounceInLeft",
+          "label": "Bounce In Left"        
+        },
+        {
+          "value": "bounceInDown",
+          "label": "Bounce In Down"        
+        },
+        {
+          "value": "bounceIn",
+          "label": "Bounce In"        
+        },        
+        {
+          "value": "rotateInUpRight",
+          "label": "Rotate In Up Right"        
+        },
+        {
+          "value": "rotateInUpLeft",
+          "label": "Rotate In Up Left"        
+        },
+        {
+          "value": "rotateInDownRight",
+          "label": "Rotate In Down Right"        
+        },
+        {
+          "value": "rotateInDownLeft",
+          "label": "Rotate In Down Left"        
+        },
+        {
+          "value": "rotateIn",
+          "label": "Rotate In"        
+        },        
+        {
+          "value": "lightSpeedInLeft",
+          "label": "Light Speed InLeft"        
+        },        
+        {
+          "value": "flipInY",
+          "label": "Flip In Y"        
+        },
+        {
+          "value": "flipInX",
+          "label": "Flip In X"        
+        },
+        {
+          "value": "flip",
+          "label": "Flip"        
+        },
+        {
+          "value": "jackInTheBox",
+          "label": "Jack In The Box"        
+        }                                                    
+      ],
+      "default": "scope"      
+    },
+		      {
+            "type": "url",
+            "id": "link",
+            "label": "Link to"
+          },
+		      {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection to show products"
+          }
+        ]
+      },
+	  {
+        "type": "productcol",
+        "name": "Right - Products Column",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },		  
+		  {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection to show products"
+          },
+		  {
+            "type": "text",
+            "id": "limit",
+            "label": "Limit products",
+          "default": "1"
+          }
+        ]
+      },
+	  {
+        "type": "banner",
+        "name": "Right - Banner",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Upload banner"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link to"
+          },
+		  {    
+      "type": "select",
+      "id": "effect",
+      "label": "Hover Effect",
+      "options": [
+        {
+          "value": "scope",
+          "label": "Scope"
+        },       
+        {
+          "value": "pulse",
+          "label": "Pulse"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },       
+        {
+          "value": "blur",
+          "label": "Blur"
+        },
+        {
+          "value": "grayscale",
+          "label": "Gray scale"
+        },
+        {
+          "value": "line-image",
+          "label": "Line 1"        
+        }, 
+        {
+          "value": "scope3",
+          "label": "Line 2"
+        },              
+        {
+          "value": "zoom",
+          "label": "Zoom"        
+        },
+        {
+          "value": "zoom-opacity",
+          "label": "Zoom Opacity"        
+        },
+        {
+          "value": "apollo",
+          "label": "Apollo"        
+        },
+        {
+          "value": "jazz",
+          "label": "Jazz"        
+        },
+        {
+          "value": "ming",
+          "label": "Ming"        
+        },
+        {
+          "value": "bounce",
+          "label": "Bounce"        
+        },
+        {
+          "value": "flash",
+          "label": "Flash"        
+        },
+        {
+          "value": "animate-pulse",
+          "label": "Animate Pulse"        
+        },
+        {
+          "value": "heartBeat",
+          "label": "Heart Beat"        
+        },
+        {
+          "value": "backInDown",
+          "label": "Back In Down"        
+        },                
+        {
+          "value": "bounceInUp",
+          "label": "Bounce In Up"        
+        },        
+        {
+          "value": "bounceInRight",
+          "label": "Bounce In Right"        
+        },
+        {
+          "value": "bounceInLeft",
+          "label": "Bounce In Left"        
+        },
+        {
+          "value": "bounceInDown",
+          "label": "Bounce In Down"        
+        },
+        {
+          "value": "bounceIn",
+          "label": "Bounce In"        
+        },        
+        {
+          "value": "rotateInUpRight",
+          "label": "Rotate In Up Right"        
+        },
+        {
+          "value": "rotateInUpLeft",
+          "label": "Rotate In Up Left"        
+        },
+        {
+          "value": "rotateInDownRight",
+          "label": "Rotate In Down Right"        
+        },
+        {
+          "value": "rotateInDownLeft",
+          "label": "Rotate In Down Left"        
+        },
+        {
+          "value": "rotateIn",
+          "label": "Rotate In"        
+        },        
+        {
+          "value": "lightSpeedInLeft",
+          "label": "Light Speed InLeft"        
+        },        
+        {
+          "value": "flipInY",
+          "label": "Flip In Y"        
+        },
+        {
+          "value": "flipInX",
+          "label": "Flip In X"        
+        },
+        {
+          "value": "flip",
+          "label": "Flip"        
+        },
+        {
+          "value": "jackInTheBox",
+          "label": "Jack In The Box"        
+        }                                                    
+      ],
+      "default": "scope"      
+    }
+        ]
+      }
+	],
+	"presets": [
+      {
+        "name": "Group Blocks #3",
+        "category": "Advanced"
+      }
+    ],
+  "templates": ["index","page"]
+  }
+{% endschema %}

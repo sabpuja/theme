@@ -1,0 +1,678 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+{% endstyle %}
+<div data-section-id="{{ section.id }}" data-section-type="blogs" data-section-name="index-blogs-custom">
+  <div class="{{ section.settings.display }} {% if section.settings.bkg %}have-bkg{% else %}no-bkg{% endif %} spacing-{{ section.id }}">
+    <div class="bg4" {% if section.settings.bkg %}style="background-image:url({{ section.settings.bkg | img_url: 'master' }})"{% endif %}></div>
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    <div class="grid-container">
+    {% endunless %}
+    {% endif %}
+      <div class="section-content">   
+        <div class="bg1" style="background-color: {{ section.settings.bkg_color }}">
+          <div class="bg3"></div>
+          <div class="bg2"></div>                          
+        </div>
+        <div class="index-blogs-container isb-product box border-none">
+          {%- if section.settings.title != blank or section.settings.sub_title != blank -%}
+          <div class="box-divider position-{{ section.settings.title_position }}">
+            {%- if section.settings.title != blank -%}
+            <h2 class="box-title width-100" style="color:{{ section.settings.color }}">{{ section.settings.title }}</h2>
+            {%- endif -%}
+          </div>
+          {%- endif -%}
+          <div class="box-content">
+            <div class="index-blogs-content">
+              <div class="carousel" data-carousel-param='{"effect": "{{ section.settings.effect }}", "direction": "{{ section.settings.direction }}", "autoplay": "{{ section.settings.autoplay }}", "autoplaySpeed": "{{ section.settings.autoplay_speed }}", "space": "{{ section.settings.space }}", "column_small": "{{ section.settings.column_small }}", "column_medium": "{{ section.settings.column_medium }}", "column_large": "{{ section.settings.column_large }}", "column_xlarge": "{{ section.settings.column_xlarge }}", "column_xxlarge": "{{ section.settings.column_xxlarge }}", "column_xxxlarge": "{{ section.settings.column_xxxlarge }}", "row": "{{ section.settings.row }}", "center": "{{ section.settings.center }}"}' data-carousel>
+                <div class="carousel-wrapper carousel-{{ section.settings.navigation_position }} carousel-nav-visible">
+                  {%- assign image_size = section.settings.image_width | append: 'x' | append: section.settings.image_height -%}
+                  {% assign readmore = section.settings.readmore %}
+                  <div class="swiper-container" data-carousel-container>
+                    <div class="swiper-wrapper small-up-{{ section.settings.column_small }} medium-up-{{ section.settings.column_medium }} large-up-{{ section.settings.column_large }} xlarge-up-{{ section.settings.column_xlarge }} xxlarge-up-{{ section.settings.column_xxlarge }} xxxlarge-up-{{ section.settings.column_xxxlarge }}">
+                      {% for article in blogs[section.settings.select_blog].articles limit:section.settings.limit %}
+                      <div class="swiper-slide" data-carousel-item>
+                        <div class="index-blogs-item width-{{ section.settings.layout }}">
+                          {%- include 'index-article-item' -%}
+                        </div>
+                      </div>
+                      {% else %}
+                      {% for i in (1..section.settings.limit) %}
+                      <div class="swiper-slide" data-carousel-item>
+                        <div class="index-blogs-item">
+                          <div class="article-item grid-x">
+                            <div class="article-image effect effect-scope cell medium-6">
+                              <a href="javascript:void(0);" class="display-block">
+                                <img src="{{ '470x320.png' | asset_url }}" class="article-item-image" alt="{{ article.title }}"/>
+                              </a>
+                            </div>
+                            <div class="article-information cell medium-auto">                
+                              <h2 class="article-item-title">
+                                <a href="{{ article.url }}">{{ 'homepage.onboarding.blog_title' |t }}</a>
+                              </h2>
+                              <div class="article-item-info">       
+                                <span class="article-item-date">March 25, 2018</span>
+                              </div>
+                              <div class="article-content">
+                                Your post content
+                              </div>
+                              <a class="article-readmore" href="{{ article.url }}">{{ section.settings.readmore }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                  {%- if section.settings.navigation -%}
+                  <!-- If we need navigation buttons -->
+                  <div class="carousel-navigation carousel-nav-prev" data-carousel-nav-prev><em class="sli sli-arrow-left"></em></div>
+                  <div class="carousel-navigation carousel-nav-next" data-carousel-nav-next><em class="sli sli-arrow-right"></em></div>
+                  {%- endif -%}
+                </div>
+                {%- if section.settings.pagination -%}
+                <!-- If we need pagination -->
+                <div class="carousel-pagination" data-carousel-pagination></div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    </div>
+    {% endunless %}
+    {% endif %}
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Blogs Slider Custom #1",
+  "class": "index-section index-blogs-custom",
+  "settings": [
+	{
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },
+	{
+      "type": "checkbox",
+      "id": "full",
+      "label": "Show Full width"
+    },
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,60,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,50,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,30,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "color",
+      "id": "bkg_color",
+      "label": "Color Background",
+	  "default": "#161532"
+    },
+	{
+      "type": "image_picker",
+      "id": "bkg",
+      "label": "Image Background"
+    },
+	{
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+	{
+      "type": "color",
+      "id": "color",
+      "label": "Title Color",
+	  "default":"#000"
+    },
+    {
+      "type": "select",
+      "id": "title_position",
+      "label": "Title Position",
+      "options": [
+        {
+          "value": "full-left",
+          "label": "Left"
+        },
+        {
+          "value": "full-center",
+          "label": "Center"
+        },
+        {
+          "value": "full-right",
+          "label": "Right"
+        }
+      ],
+      "default": "full-left"
+    },
+    {
+      "type": "blog",
+      "id": "select_blog",
+      "label": "Select blogs"
+    },    
+    {
+      "type": "text",
+      "id": "limit",
+      "label": "Limit article show",
+      "default": "4"
+    },
+	{
+      "type": "text",
+      "id": "readmore",
+      "label": "Read more text",
+      "default": "Read More"
+    },	
+	{
+      "type": "select",
+      "id": "layout",
+      "label": "Image layout",
+      "options": [
+        {
+          "value": "12",
+          "label": "Image One-whole"
+        },
+        {
+          "value": "6",
+          "label": "Image One-half"
+        }
+      ],
+      "default": "12"
+    },
+	{
+      "type": "header",
+      "content": "Carousel settings"
+    },
+	{
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-play slides",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "autoplay_speed",
+      "label": "Change slides every",
+      "options": [
+        {
+          "value": "3000",
+          "label": "3 seconds"
+        },
+        {
+          "value": "4000",
+          "label": "4 seconds"
+        },
+        {
+          "value": "5000",
+          "label": "5 seconds"
+        },
+        {
+          "value": "6000",
+          "label": "6 seconds"
+        },
+        {
+          "value": "7000",
+          "label": "7 seconds"
+        },
+        {
+          "value": "8000",
+          "label": "8 seconds"
+        },
+        {
+          "value": "9000",
+          "label": "9 seconds"
+        },
+        {
+          "value": "10000",
+          "label": "10 seconds"
+        }
+      ],
+      "default": "5000"
+    },
+    {
+      "type": "select",
+      "id": "effect",
+      "label": "Slide effect",
+      "options": [
+        {
+          "value": "slide",
+          "label": "Sliding"
+        },
+        {
+          "value": "fade",
+          "label": "Fading"
+        },
+        {
+          "value": "cube",
+          "label": "Cube"
+        },
+        {
+          "value": "flip",
+          "label": "Flipping"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Slide direction",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        }
+      ],
+      "default": "horizontal"
+    },
+    {
+      "type": "checkbox",
+      "id": "center",
+      "label": "Center mode",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "space",
+      "label": "Space between images",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Responsive columns"
+    },
+    {
+      "type": "select",
+      "id": "column_small",
+      "label": "Items per row",
+      "info": "For small screen (0px - 550px)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "column_medium",
+      "label": "Items per row",
+      "info": "For medium screen (551px - 800px)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "column_large",
+      "label": "Items per row",
+      "info": "For large screen (801px - 1260px)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "column_xlarge",
+      "label": "Items per row",
+      "info": "For xlarge screen (1261px - 1440px)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "column_xxlarge",
+      "label": "Items per row",
+      "info": "For xxlarge screen (1441px - 1680px)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "column_xxxlarge",
+      "label": "Items per row",
+      "info": "For xxxlarge screen (1681px - infinity)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        },
+        {
+          "value": "9",
+          "label": "9"
+        },
+        {
+          "value": "10",
+          "label": "10"
+        },
+        {
+          "value": "11",
+          "label": "11"
+        },
+        {
+          "value": "12",
+          "label": "12"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "number",
+      "id": "row",
+      "label": "Number of rows",
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "navigation",
+      "label": "Enable Navigaiton",
+      "default": true
+    },    
+    {
+      "type": "select",
+      "id": "navigation_position",
+      "label": "Navigation position",
+      "options": [
+        {
+          "value": "nav-top",
+          "label": "Top"
+        },
+        {
+          "value": "nav-top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "nav-top-right",
+          "label": "Top Right"
+        },
+        {
+          "value": "nav-middle",
+          "label": "Middle"
+        },
+        {
+          "value": "nav-bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "nav-bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "nav-bottom-right",
+          "label": "Bottom Right"
+        },
+        {
+          "value": "nav-top-bottom-left",
+          "label": "Top Bottom Left"
+        },
+        {
+          "value": "nav-top-bottom-right",
+          "label": "Top Bottom Right"
+        }
+      ],
+      "default": "nav-middle"
+    },
+    {
+      "type": "checkbox",
+      "id": "pagination",
+      "label": "Enable Pagination",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blogs Slider Custom #1",
+      "category": "Blogs"
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

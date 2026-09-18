@@ -1,0 +1,216 @@
+<link href="{{ 'sabpuja-staging.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<link href="{{ 'sabpuja-header.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<link href="{{ 'sabpuja-header-interactions.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<script src="{{ 'sabpuja-header.js' | asset_url }}" defer></script>
+
+<div class="sp-announcement" role="status">
+  <div class="sp-container">Delhi NCR delivery in 1–3 business days <span aria-hidden="true">•</span> ₹100 flat shipping <span aria-hidden="true">•</span> Prepaid orders</div>
+</div>
+
+<header class="sp-site-header sp-site-header-v2{% if section.settings.header_sticky %} sp-header-sticky{% endif %}">
+  <div class="sp-header-shell">
+    <div class="sp-header-main">
+      <a class="sp-header-logo" href="{{ routes.root_url }}" aria-label="Sabpuja home">
+        {% if section.settings.logo != blank %}
+          <img src="{{ section.settings.logo | image_url: width: 420 }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" alt="Sabpuja" loading="eager">
+        {% else %}
+          <span class="sp-brand-word">Sabpuja</span>
+        {% endif %}
+      </a>
+
+      <nav class="sp-header-nav" aria-label="{{ 'sabpuja_custom.auto.s141' | t }}">
+        <a class="sp-header-nav-link{% if template.name == 'index' %} is-active{% endif %}" href="{{ routes.root_url }}">{% render 'sabpuja-icon', name: 'home' %}<span>{{ 'sabpuja_custom.auto.s124' | t }}</span></a>
+        <a class="sp-header-nav-link{% if request.path == '/collections/all' %} is-active{% endif %}" href="{{ routes.all_products_collection_url }}">{% render 'sabpuja-icon', name: 'shop' %}<span>{{ 'sabpuja_custom.auto.s236' | t }}</span></a>
+
+        <div class="sp-collections-menu">
+          <a class="sp-header-nav-link sp-collections-trigger{% if template.name == 'collection' and request.path != '/collections/all' %} is-active{% endif %}" href="{{ routes.all_products_collection_url }}" aria-haspopup="true" aria-expanded="false">
+            {% render 'sabpuja-icon', name: 'grid' %}<span>{{ 'sabpuja_custom.auto.s051' | t }}</span>{% render 'sabpuja-icon', name: 'chevron-down', class: 'sp-icon sp-icon-sm' %}
+          </a>
+          <div class="sp-collections-dropdown" role="menu" aria-label="{{ 'sabpuja_custom.auto.s051' | t }}">
+            <div class="sp-collections-dropdown-inner">
+              <a role="menuitem" href="{{ routes.all_products_collection_url }}?sort_by=best-selling">
+                <span class="sp-menu-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"/></svg></span>
+                <span><strong>{{ 'sabpuja_custom.auto.s098' | t }}</strong><small>{{ 'sabpuja_custom.auto.s169' | t }}</small></span>
+              </a>
+              <a role="menuitem" href="{{ collections['puja-kit'].url }}">
+                <span class="sp-menu-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7Z"/><path d="M12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7Z"/></svg></span>
+                <span><strong>{{ 'sabpuja_custom.auto.s199' | t }}</strong><small>{{ 'sabpuja_custom.auto.s184' | t }}</small></span>
+              </a>
+              <a role="menuitem" class="sp-menu-subitem" href="{{ all_products['daily-puja-kit'].url }}">
+                <span class="sp-menu-icon">{% render 'sabpuja-icon', name: 'calendar' %}</span>
+                <span><strong>{{ 'sabpuja_custom.auto.s068' | t }}</strong><small>{{ 'sabpuja_custom.auto.s088' | t }}</small></span>
+              </a>
+              <a role="menuitem" class="sp-menu-subitem" href="{{ all_products['navratri-puja-kit'].url }}">
+                <span class="sp-menu-icon">{% render 'sabpuja-icon', name: 'sparkles' %}</span>
+                <span><strong>{{ 'sabpuja_custom.auto.s146' | t }}</strong><small>{{ 'sabpuja_custom.auto.s100' | t }}</small></span>
+              </a>
+              <a role="menuitem" class="sp-menu-subitem" href="{{ all_products['diwali-puja-kit'].url }}">
+                <span class="sp-menu-icon">{% render 'sabpuja-icon', name: 'gift' %}</span>
+                <span><strong>{{ 'sabpuja_custom.auto.s080' | t }}</strong><small>{{ 'sabpuja_custom.auto.s081' | t }}</small></span>
+              </a>
+              <a role="menuitem" href="{{ collections['astrology-remedy-kits'].url }}">
+                <span class="sp-menu-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/><path d="m5.6 5.6 12.8 12.8m0-12.8L5.6 18.4"/></svg></span>
+                <span><strong>{{ 'sabpuja_custom.auto.s020' | t }}</strong><small>{{ 'sabpuja_custom.auto.s007' | t }}</small></span>
+              </a>
+              <a role="menuitem" href="{{ routes.all_products_collection_url }}?sort_by=created-descending">
+                <span class="sp-menu-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M3 12h18"/><path d="m5.6 5.6 12.8 12.8"/><path d="m18.4 5.6-12.8 12.8"/></svg></span>
+                <span><strong>{{ 'sabpuja_custom.auto.s151' | t }}</strong><small>{{ 'sabpuja_custom.auto.s209' | t }}</small></span>
+              </a>
+              <a role="menuitem" href="{{ collections['puja-items'].url }}">
+                <span class="sp-menu-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></span>
+                <span><strong>{{ 'sabpuja_custom.auto.s197' | t }}</strong><small>{{ 'sabpuja_custom.auto.s087' | t }}</small></span>
+              </a>
+              <a role="menuitem" class="sp-menu-all" href="{{ routes.all_products_collection_url }}">
+                <span><strong>{{ 'sabpuja_custom.auto.s238' | t }}</strong><small>{{ 'sabpuja_custom.auto.s029' | t }}</small></span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-icon"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <form class="sp-header-search" action="{{ routes.search_url }}" method="get" role="search">
+        <input type="hidden" name="type" value="product">
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'sabpuja_custom.auto.s229' | t }}" aria-label="{{ 'sabpuja_custom.auto.s228' | t }}">
+      </form>
+
+      <div class="sp-header-controls">
+        <div class="sp-language-switcher sp-language-native" aria-label="{{ 'sabpuja_polish.language_selector' | t }}">
+          {% form 'localization', id: 'sp-language-en' %}
+            <input type="hidden" name="locale_code" value="en">
+            <button
+              class="sp-language-option{% if request.locale.iso_code == 'en' %} is-active{% endif %}"
+              type="submit"
+              data-sp-language-choice="en"
+              aria-pressed="{% if request.locale.iso_code == 'en' %}true{% else %}false{% endif %}"
+              lang="en"
+              title="English"
+            >EN</button>
+          {% endform %}
+          {% form 'localization', id: 'sp-language-hi' %}
+            <input type="hidden" name="locale_code" value="hi">
+            <button
+              class="sp-language-option{% if request.locale.iso_code == 'hi' %} is-active{% endif %}"
+              type="submit"
+              data-sp-language-choice="hi"
+              aria-pressed="{% if request.locale.iso_code == 'hi' %}true{% else %}false{% endif %}"
+              lang="hi"
+              title="हिंदी"
+            >हिं</button>
+          {% endform %}
+        </div>
+
+        <details class="sp-header-utility sp-header-notifications">
+          <summary class="sp-icon-button" aria-label="{{ 'sabpuja_custom.auto.s161' | t }}" title="{{ 'sabpuja_custom.auto.s161' | t }}">
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-icon"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+          </summary>
+          <div class="sp-header-utility-panel" role="status">
+            <strong>{{ 'sabpuja_custom.auto.s156' | t }}</strong>
+            <p>{{ 'sabpuja_custom.auto.s165' | t }}</p>
+          </div>
+        </details>
+
+        <a class="sp-icon-button sp-account-icon-button" href="/account" aria-label="{{ 'sabpuja_custom.auto.s014' | t }}" title="{{ 'sabpuja_custom.auto.s014' | t }}">
+          <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-icon"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+
+        <details class="sp-header-utility sp-header-wishlist">
+          <summary class="sp-icon-button" aria-label="{{ 'sabpuja_custom.auto.s288' | t }}" title="{{ 'sabpuja_custom.auto.s288' | t }}">
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-icon"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+          </summary>
+          <div class="sp-header-utility-panel">
+            <strong>{{ 'sabpuja_custom.auto.s296' | t }}</strong>
+            <p>{{ 'sabpuja_custom.auto.s226' | t }}</p>
+            <a href="{{ routes.all_products_collection_url }}">{{ 'sabpuja_polish.browse_products' | t }} <span aria-hidden="true">→</span></a>
+          </div>
+        </details>
+
+        <a class="sp-icon-button sp-cart-icon-button" href="{{ routes.cart_url }}" aria-label="{{ 'sabpuja_polish.cart_with_items' | t: count: cart.item_count }}" title="{{ 'sabpuja_polish.cart' | t }}">
+          <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-icon"><path d="M6 8h12l1 13H5L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
+          {% if cart.item_count > 0 %}<span class="sp-cart-count">{{ cart.item_count }}</span>{% endif %}
+        </a>
+
+        <details class="sp-mobile-menu">
+          <summary class="sp-icon-button" aria-label="{{ 'sabpuja_custom.auto.s162' | t }}">
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-icon"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+          </summary>
+          <div class="sp-mobile-menu-panel">
+            <button type="button" class="sp-mobile-menu-action" data-sp-language-open>
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-ui-icon"><path d="M4 5h10M9 3v2M6 8c1.4 3.1 3.7 5.6 6.8 7.2M12 8c-1.4 3.1-3.8 5.6-6.8 7.2"/><path d="m14 19 3.5-9 3.5 9M15.3 16h4.4"/></svg>
+              <span>{{ 'sabpuja_custom.auto.s140' | t }}</span>
+            </button>
+            <a href="{{ routes.root_url }}">{% render 'sabpuja-icon', name: 'home' %}<span>{{ 'sabpuja_custom.auto.s124' | t }}</span></a>
+            <a href="{{ routes.all_products_collection_url }}">{% render 'sabpuja-icon', name: 'shop' %}<span>{{ 'sabpuja_custom.auto.s236' | t }}</span></a>
+            <div class="sp-mobile-menu-label">{{ 'sabpuja_custom.auto.s051' | t }}</div>
+            <a href="{{ routes.all_products_collection_url }}?sort_by=best-selling">{{ 'sabpuja_custom.auto.s098' | t }}</a>
+            <a href="{{ collections['puja-kit'].url }}">{% render 'sabpuja-icon', name: 'package' %}<span>{{ 'sabpuja_custom.auto.s199' | t }}</span></a>
+            <a href="{{ all_products['daily-puja-kit'].url }}">{% render 'sabpuja-icon', name: 'calendar' %}<span>{{ 'sabpuja_custom.auto.s068' | t }}</span></a>
+            <a href="{{ all_products['navratri-puja-kit'].url }}">{% render 'sabpuja-icon', name: 'sparkles' %}<span>{{ 'sabpuja_custom.auto.s146' | t }}</span></a>
+            <a href="{{ all_products['diwali-puja-kit'].url }}">{% render 'sabpuja-icon', name: 'gift' %}<span>{{ 'sabpuja_custom.auto.s080' | t }}</span></a>
+            <a href="{{ collections['astrology-remedy-kits'].url }}">{% render 'sabpuja-icon', name: 'sparkles' %}<span>{{ 'sabpuja_custom.auto.s020' | t }}</span></a>
+            <a href="{{ routes.all_products_collection_url }}?sort_by=created-descending">{{ 'sabpuja_custom.auto.s151' | t }}</a>
+            <a href="{{ collections['puja-items'].url }}">{% render 'sabpuja-icon', name: 'grid' %}<span>{{ 'sabpuja_custom.auto.s197' | t }}</span></a>
+            <a href="{{ routes.all_products_collection_url }}">{{ 'sabpuja_custom.auto.s238' | t }}</a>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <form class="sp-header-search sp-header-search-mobile" action="{{ routes.search_url }}" method="get" role="search">
+      <input type="hidden" name="type" value="product">
+      <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'sabpuja_custom.auto.s229' | t }}" aria-label="{{ 'sabpuja_custom.auto.s228' | t }}">
+    </form>
+  </div>
+</header>
+<!-- Sabpuja first-visit language chooser -->
+<div class="sp-language-modal" id="sp-language-modal" hidden aria-hidden="true">
+  <div class="sp-language-modal__backdrop" data-sp-language-close></div>
+  <section class="sp-language-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="sp-language-title" aria-describedby="sp-language-subtitle">
+    <button class="sp-language-modal__close" type="button" data-sp-language-close aria-label="{{ 'sabpuja_custom.auto.s050' | t }}">×</button>
+    <div class="sp-language-modal__emblem" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 5h10M9 3v2M6 8c1.4 3.1 3.7 5.6 6.8 7.2M12 8c-1.4 3.1-3.8 5.6-6.8 7.2"/><path d="m14 19 3.5-9 3.5 9M15.3 16h4.4"/></svg>
+    </div>
+    <h2 id="sp-language-title">{{ 'sabpuja_custom.auto.s281' | t }}</h2>
+    <p id="sp-language-subtitle">Choose your language / अपनी भाषा चुनें</p>
+
+    <div class="sp-language-choice-grid">
+      {% form 'localization', id: 'sp-modal-language-en' %}
+        <input type="hidden" name="locale_code" value="en">
+        <button class="sp-language-choice{% if request.locale.iso_code == 'en' %} is-active{% endif %}" type="submit" data-sp-language-choice="en" lang="en">
+          <span class="sp-language-choice__glyph">Aa</span>
+          <strong>English</strong>
+          <small>Read &amp; shop in English</small>
+          {% if request.locale.iso_code == 'en' %}<span class="sp-language-choice__status">{{ 'sabpuja_custom.auto.s061' | t }}</span>{% endif %}
+        </button>
+      {% endform %}
+
+      {% form 'localization', id: 'sp-modal-language-hi' %}
+        <input type="hidden" name="locale_code" value="hi">
+        <button class="sp-language-choice{% if request.locale.iso_code == 'hi' %} is-active{% endif %}" type="submit" data-sp-language-choice="hi" lang="hi">
+          <span class="sp-language-choice__glyph sp-language-choice__glyph--devanagari">अ</span>
+          <strong>हिंदी</strong>
+          <small>हिंदी में पढ़ें और खरीदें</small>
+          {% if request.locale.iso_code == 'hi' %}<span class="sp-language-choice__status">वर्तमान भाषा</span>{% endif %}
+        </button>
+      {% endform %}
+    </div>
+
+    <p class="sp-language-modal__hint">
+      You can switch between English and हिंदी any time from the language selector in the navigation bar.
+    </p>
+  </section>
+</div>
+<!-- /Sabpuja first-visit language chooser -->
+
+{% schema %}
+{
+  "name": "Sabpuja Header",
+  "settings": [
+    {"type":"image_picker","id":"logo","label":"Logo image"},
+    {"type":"image_picker","id":"logo_mobile","label":"Mobile logo image"},
+    {"type":"checkbox","id":"header_sticky","label":"Enable sticky header","default":true}
+  ]
+}
+{% endschema %}

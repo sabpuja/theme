@@ -1,0 +1,401 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+{% endstyle %}
+<div data-section-id="{{ section.id }}" data-section-type="collection" data-section-name="index-categories-link3">
+  <div class="index-categories-link3-bg {{ section.settings.display }} spacing-{{ section.id }}">
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    <div class="grid-container">
+    {% endunless %}
+    {% endif %}
+      <div class="section-content">   
+        <div class="index-categories-container">
+        <div class="box border-none">
+          {%- if section.settings.title != blank-%}
+          <div class="box-divider grid-x">
+            {%- if section.settings.title != blank -%}
+            <h2 class="box-title width-100" style="font-size:{{ section.settings.titlesize }}px;">{{ section.settings.title }}</h2>
+            {%- endif -%}
+          </div>
+          {%- endif -%}
+          <div class="box-content">
+            {% case section.blocks.size %}
+            {% when 1 %}
+            {% assign column = 'small-up-1 medium-up-1 large-up-1 xlarge-up-1 xxlarge-up-1 xxxlarge-up-1' %}
+            {% when 2 %}
+            {% assign column = 'small-up-1 medium-up-2 large-up-2 xlarge-up-2 xxlarge-up-2 xxxlarge-up-2' %}
+            {% when 3 %}
+            {% assign column = 'small-up-1 medium-up-2 large-up-3 xlarge-up-3 xxlarge-up-3 xxxlarge-up-3' %}
+            {% when 4 %}
+            {% assign column = 'small-up-1 medium-up-2 large-up-4 xlarge-up-4 xxlarge-up-4 xxxlarge-up-4' %}
+            {% endcase %}
+            {% if section.blocks.size > 0 %}
+            <div class="grid-x grid-margin-x {{column}}">
+              {% for block in section.blocks %}
+              <div class="cell index-categories-item">
+                <div class="group-left effect-{{section.settings.effect}} effect">
+                  {%- unless block.settings.image == blank -%}
+                  <a href="{{ block.settings.url }}" class="index-top-collection-image display-block">
+                    <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.image | img_url: image_size }}" class="lazyload width-100" alt="{{ collection.title }}" />
+                  </a>
+                  {% else %}
+                  <a href="{{ block.settings.url }}" class="index-banner-grid-image display-block">
+                    <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ '345x345.png' | asset_url }}" class="width-100 lazyload" alt="{{ block.settings.image.alt }}" />
+                  </a>
+                  {%- endunless -%}
+                </div>
+                <div class="group-right">
+                  <h3 class="index-top-collection-title" style="color:{{block.settings.color}}; background-color:{{block.settings.color2 }}">
+                    <a href="{{ block.settings.url }}" style="color:{{block.settings.color}}; font-size:{{ block.settings.titlesize }}px;">
+                      {{ block.settings.title }}
+                    </a>
+                  </h3>
+                  {% if block.settings.link != '' %}
+                  <ul class="no-bullet linklist-accordion-content margin-0">
+                    {%- for link in linklists[block.settings.link].links -%}
+                    <li class="linklist-item">
+                      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                    </li>
+                    {%- endfor -%}
+                  </ul>
+                  {% endif %}
+                  <div class="viewall"><a href="{{ block.settings.url }}">{{ block.settings.viewall }}</a></div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      </div>
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    </div>
+    {% endunless %}
+    {% endif %}
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": "Categories & Links #3",
+  "class": "index-section index-categories-link3",
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "View [Mockup of Section layout](https:\/\/i.imgur.com\/NadWAVC.png)"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },
+	{
+      "type": "checkbox",
+      "id": "full",
+      "label": "Show Full width"
+    },
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,60,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,50,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,30,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+	{
+      "type":   "range",
+      "id":     "titlesize",
+      "min":       12,
+      "max":       40,
+      "step":      1,
+      "unit":      "px",
+      "label":     "Font size",
+      "default":   24
+    },	
+	{    
+      "type": "select",
+      "id": "effect",
+      "label": "Hover Effect",
+      "options": [
+        {
+          "value": "scope",
+          "label": "Scope"
+        },       
+        {
+          "value": "pulse",
+          "label": "Pulse"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },       
+        {
+          "value": "blur",
+          "label": "Blur"
+        },
+        {
+          "value": "grayscale",
+          "label": "Gray scale"
+        },
+        {
+          "value": "line-image",
+          "label": "Line 1"        
+        }, 
+        {
+          "value": "scope3",
+          "label": "Line 2"
+        },              
+        {
+          "value": "zoom",
+          "label": "Zoom"        
+        },
+        {
+          "value": "zoom-opacity",
+          "label": "Zoom Opacity"        
+        },
+        {
+          "value": "apollo",
+          "label": "Apollo"        
+        },
+        {
+          "value": "jazz",
+          "label": "Jazz"        
+        },
+        {
+          "value": "ming",
+          "label": "Ming"        
+        },
+        {
+          "value": "bounce",
+          "label": "Bounce"        
+        },
+        {
+          "value": "flash",
+          "label": "Flash"        
+        },
+        {
+          "value": "animate-pulse",
+          "label": "Animate Pulse"        
+        },
+        {
+          "value": "heartBeat",
+          "label": "Heart Beat"        
+        },
+        {
+          "value": "backInDown",
+          "label": "Back In Down"        
+        },                
+        {
+          "value": "bounceInUp",
+          "label": "Bounce In Up"        
+        },        
+        {
+          "value": "bounceInRight",
+          "label": "Bounce In Right"        
+        },
+        {
+          "value": "bounceInLeft",
+          "label": "Bounce In Left"        
+        },
+        {
+          "value": "bounceInDown",
+          "label": "Bounce In Down"        
+        },
+        {
+          "value": "bounceIn",
+          "label": "Bounce In"        
+        },        
+        {
+          "value": "rotateInUpRight",
+          "label": "Rotate In Up Right"        
+        },
+        {
+          "value": "rotateInUpLeft",
+          "label": "Rotate In Up Left"        
+        },
+        {
+          "value": "rotateInDownRight",
+          "label": "Rotate In Down Right"        
+        },
+        {
+          "value": "rotateInDownLeft",
+          "label": "Rotate In Down Left"        
+        },
+        {
+          "value": "rotateIn",
+          "label": "Rotate In"        
+        },        
+        {
+          "value": "lightSpeedInLeft",
+          "label": "Light Speed InLeft"        
+        },        
+        {
+          "value": "flipInY",
+          "label": "Flip In Y"        
+        },
+        {
+          "value": "flipInX",
+          "label": "Flip In X"        
+        },
+        {
+          "value": "flip",
+          "label": "Flip"        
+        },
+        {
+          "value": "jackInTheBox",
+          "label": "Jack In The Box"        
+        }                                                    
+      ],
+      "default": "scope"      
+    }
+  ],
+  "max_blocks":4,
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type":   "range",
+          "id":     "titlesize",
+          "min":       12,
+          "max":       40,
+          "step":      1,
+          "unit":      "px",
+          "label":     "Font size",
+          "default":   18
+        },
+		{
+          "type": "color",
+          "id": "color",
+          "label": "Title - Color Text",
+		  "default":"#959595"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Link to"
+        },
+        {
+          "type": "link_list",
+          "id": "link",
+          "label": "Link list of sub-collections"
+        }, 
+		{
+          "type": "text",
+          "id": "viewall",
+          "label": "View All Text",
+		  "default":"View All "
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categories & Links #3",
+      "category": "Collection"
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

@@ -1,0 +1,183 @@
+{{ 'sabpuja-cart.css' | asset_url | stylesheet_tag }}
+
+{% assign cart_has_blocked_item = false %}
+{% for item in cart.items %}
+  {% if item.product.handle == 'cotton-wicks-batti' or item.product.handle == 'sandalwood-stick' %}
+    {% assign cart_has_blocked_item = true %}
+  {% endif %}
+{% endfor %}
+
+<section class="sp-cart" aria-labelledby="sp-cart-title">
+  <div class="sp-cart__shell">
+    <header class="sp-cart__header">
+      <div>
+        <p class="sp-cart__eyebrow">{{ 'sabpuja_custom.auto.s294' | t }}</p>
+        <h1 id="sp-cart-title">{{ 'sabpuja_custom.auto.s293' | t }}</h1>
+        {% if cart.item_count > 0 %}
+          <p class="sp-cart__intro">{{ 'sabpuja_custom.auto.s217' | t }}</p>
+        {% else %}
+          <p class="sp-cart__intro">{{ 'sabpuja_custom.auto.s291' | t }}</p>
+        {% endif %}
+      </div>
+      {% if cart.item_count > 0 %}
+        <span class="sp-cart__count">{{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %}</span>
+      {% endif %}
+    </header>
+
+    {% if cart.item_count == 0 %}
+      <div class="sp-cart-empty">
+        <div class="sp-cart-empty__mark" aria-hidden="true">✦</div>
+        <h2>{{ 'sabpuja_custom.auto.s207' | t }}</h2>
+        <p>{{ 'sabpuja_custom.auto.s094' | t }}</p>
+        <a class="sp-btn sp-btn--primary" href="{{ routes.all_products_collection_url }}">{% render 'sabpuja-icon', name: 'shop' %}<span>{{ 'sabpuja_custom.auto.s058' | t }}</span></a>
+      </div>
+    {% else %}
+      <form action="/cart" method="post" novalidate class="sp-cart__form">
+        <div class="sp-cart__layout">
+          <div class="sp-cart__items" aria-label="{{ 'sabpuja_custom.auto.s037' | t }}">
+            {% for item in cart.items %}
+              {% assign cart_image_url = '' %}
+              {% case item.product.handle %}
+                {% when 'roli-kumkum' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/roli-kumkum-01.webp?v=1789514717' %}
+                {% when 'chandan-powder' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/chandan-powder-01.webp?v=1789514728' %}
+                {% when 'haldi-turmeric-powder' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/haldi-turmeric-powder-01.webp?v=1789514739' %}
+                {% when 'sindoor' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sindoor-01.webp?v=1789514753' %}
+                {% when 'panchmeva' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/panchmeva-01.webp?v=1789514763' %}
+                {% when 'ganga-jal' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/ganga-jal-01.webp?v=1789514773' %}
+                {% when 'gomutra' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/gomutra-01.webp?v=1789514783' %}
+                {% when 'havan-samidha' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/havan-samidha-01.webp?v=1789514793' %}
+                {% when 'dhoop-sticks' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/dhoop-sticks-01.webp?v=1789514803' %}
+                {% when 'kapoor-camphor' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/kapoor-camphor-01.webp?v=1789514813' %}
+                {% when 'honey-sacred-puja-use' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/honey-01.webp?v=1789514823' %}
+                {% when 'ghee-clarified-butter' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/ghee-01.webp?v=1789514833' %}
+                {% when 'guggul-resin' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/guggul-01.webp?v=1789514844' %}
+                {% when 'janeu-sacred-thread' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/janeu-01.webp?v=1789514856' %}
+                {% when 'supari-betel-nut' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/supari-01.webp?v=1789514868' %}
+                {% when 'akshat-rice' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/akshat-01.webp?v=1789514878' %}
+                {% when 'cotton-wicks-batti' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/cotton-wicks-01.webp?v=1789514890' %}
+                {% when 'red-cloth-lal-chunari' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/red-cloth-01.webp?v=1789514901' %}
+                {% when 'white-cloth' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/white-cloth-01.webp?v=1789514912' %}
+                {% when 'yellow-cloth' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/yellow-cloth-01.webp?v=1789514925' %}
+                {% when 'coconut' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/coconut-01.webp?v=1789514936' %}
+                {% when 'navagraha-samagri' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/navagraha-samagri-01.webp?v=1789514947' %}
+                {% when 'clove' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/clove-01.webp?v=1789514957' %}
+                {% when 'mishri' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/mishri-01.webp?v=1789514969' %}
+                {% when 'sandalwood-stick' %}{% assign cart_image_url = 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sandalwood-stick-01.webp?v=1789514981' %}
+              {% endcase %}
+
+              {% if cart_image_url == '' and item.image %}
+                {% assign cart_image_url = item.image | img_url: '360x360' %}
+              {% endif %}
+
+              <article class="sp-cart-item{% if item.product.handle == 'cotton-wicks-batti' or item.product.handle == 'sandalwood-stick' %} sp-cart-item--blocked{% endif %}">
+                <a class="sp-cart-item__media" href="{{ item.url }}" aria-label="View {{ item.product.title | escape }}">
+                  {% if cart_image_url != '' %}
+                    <img src="{{ cart_image_url }}" alt="{{ item.product.title | escape }}" loading="lazy" width="360" height="360">
+                  {% else %}
+                    <div class="sp-cart-item__placeholder" aria-hidden="true">Sabpuja</div>
+                  {% endif %}
+                </a>
+
+                <div class="sp-cart-item__body">
+                  <div class="sp-cart-item__topline">
+                    <div>
+                      <p class="sp-cart-item__kicker">{{ 'sabpuja_custom.auto.s196' | t }}</p>
+                      <h2><a href="{{ item.url }}">{{ item.product.title }}</a></h2>
+                      {% unless item.variant.title == 'Default Title' %}
+                        <p class="sp-cart-item__variant">{{ item.variant.title }}</p>
+                      {% endunless %}
+                    </div>
+                    <p class="sp-cart-item__price">{{ item.final_line_price | money }}</p>
+                  </div>
+
+                  {% if item.product.handle == 'cotton-wicks-batti' %}
+                    <p class="sp-cart-item__alert">Cotton Wicks is temporarily unavailable for checkout while its live catalog price is being corrected. Please remove it to continue.</p>
+                  {% elsif item.product.handle == 'sandalwood-stick' %}
+                    <p class="sp-cart-item__alert">Sandalwood Stick is currently unavailable while stock is being verified. Please remove it to continue.</p>
+                  {% endif %}
+
+                  {% unless item.properties == empty %}
+                    <div class="sp-cart-item__properties">
+                      {% for property in item.properties %}
+                        {% assign property_first_char = property.first | slice: 0 %}
+                        {% unless property.last == blank or property_first_char == '_' %}
+                          <span>{{ property.first }}: {{ property.last }}</span>
+                        {% endunless %}
+                      {% endfor %}
+                    </div>
+                  {% endunless %}
+
+                  <div class="sp-cart-item__actions">
+                    <label class="sp-qty">
+                      <span>{{ 'sabpuja_custom.auto.s202' | t }}</span>
+                      <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" aria-label="Quantity for {{ item.product.title | escape }}">
+                    </label>
+                    <a class="sp-cart-item__remove" href="/cart/change?line={{ forloop.index }}&quantity=0">{{ 'sabpuja_custom.auto.s211' | t }}</a>
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+
+            <div class="sp-cart-note">
+              <label for="sp-cart-note">Order note <span>{{ 'sabpuja_custom.auto.s001' | t }}</span></label>
+              <textarea id="sp-cart-note" name="note" rows="3" placeholder="{{ 'sabpuja_custom.auto.s015' | t }}">{{ cart.note }}</textarea>
+            </div>
+
+            <div class="sp-cart__utility">
+              <a class="sp-btn sp-btn--secondary" href="{{ routes.all_products_collection_url }}">{% render 'sabpuja-icon', name: 'shop' %}<span>{{ 'sabpuja_custom.auto.s058' | t }}</span></a>
+              <button class="sp-btn sp-btn--secondary" type="submit" name="update">{% render 'sabpuja-icon', name: 'return' %}<span>{{ 'sabpuja_custom.auto.s270' | t }}</span></button>
+            </div>
+          </div>
+
+          <aside class="sp-cart-summary" aria-label="{{ 'sabpuja_custom.auto.s167' | t }}">
+            <p class="sp-cart-summary__eyebrow">{{ 'sabpuja_custom.auto.s167' | t }}</p>
+            <div class="sp-cart-summary__row">
+              <span>{{ 'sabpuja_custom.auto.s252' | t }}</span>
+              <strong>{{ cart.total_price | money }}</strong>
+            </div>
+            <div class="sp-cart-summary__shipping">
+              <strong>{{ 'sabpuja_custom.auto.s002' | t }}</strong>
+              <span>{{ 'sabpuja_custom.auto.s074' | t }}</span>
+            </div>
+
+            {% if cart_has_blocked_item %}
+              <div class="sp-cart-summary__blocker" role="alert">
+                <strong>{{ 'sabpuja_custom.auto.s041' | t }}</strong>
+                <span>{{ 'sabpuja_custom.auto.s212' | t }}</span>
+              </div>
+              <button class="sp-btn sp-btn--checkout" type="button" disabled>{% render 'sabpuja-icon', name: 'shop' %}<span>{{ 'sabpuja_custom.auto.s191' | t }}</span></button>
+            {% else %}
+              <button class="sp-btn sp-btn--checkout" type="submit" name="checkout">{% render 'sabpuja-icon', name: 'shop' %}<span>{{ 'sabpuja_custom.auto.s191' | t }}</span></button>
+            {% endif %}
+
+            <p class="sp-cart-summary__payment">{{ 'sabpuja_custom.auto.s180' | t }}</p>
+
+            <div class="sp-cart-trust" aria-label="{{ 'sabpuja_custom.auto.s221' | t }}">
+              <div class="sp-cart-trust__item">
+                <span class="sp-cart-trust__icon" aria-hidden="true">{% render 'sabpuja-icon', name: 'truck' %}</span>
+                <div><strong>{{ 'sabpuja_custom.auto.s005' | t }}</strong><p>{{ 'sabpuja_custom.auto.s113' | t }}</p></div>
+              </div>
+              <div class="sp-cart-trust__item">
+                <span class="sp-cart-trust__icon" aria-hidden="true">{% render 'sabpuja-icon', name: 'package' %}</span>
+                <div><strong>{{ 'sabpuja_custom.auto.s048' | t }}</strong><p>{{ 'sabpuja_custom.auto.s003' | t }}</p></div>
+              </div>
+              <div class="sp-cart-trust__item">
+                <span class="sp-cart-trust__icon" aria-hidden="true">{% render 'sabpuja-icon', name: 'help' %}</span>
+                <div><strong>{{ 'sabpuja_custom.auto.s148' | t }}</strong><p><a class="sp-cart-inline-link" href="tel:+919667819241">{% render 'sabpuja-icon', name: 'phone' %}<span>+91 96678 19241</span></a> · Mon–Sat, 10 AM–6 PM IST.</p></div>
+              </div>
+            </div>
+
+            <p class="sp-cart-summary__support">Questions before ordering? <a class="sp-cart-inline-link" href="mailto:support@sabpuja.com">{% render 'sabpuja-icon', name: 'mail' %}<span>support@sabpuja.com</span></a></p>
+          </aside>
+        </div>
+      </form>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja cart",
+  "settings": []
+}
+{% endschema %}

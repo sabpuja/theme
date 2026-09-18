@@ -1,0 +1,34 @@
+<section class="sp2026-support sp2026-support__section sp2026-support__section--white" aria-labelledby="sp2026-reminder-title-{{ section.id }}">
+  <div class="sp2026-support__inner">
+    <div class="sp2026-reminder">
+      <img class="sp2026-reminder__bg" src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-festival-reminders-support-01.webp?v=1789582775" width="2172" height="724" loading="lazy" decoding="async" alt="Sabpuja festival planner, puja box, diya and marigolds in a warm devotional setting">
+      <div class="sp2026-reminder__shade" aria-hidden="true"></div>
+      <div class="sp2026-reminder__content">
+        <p class="sp2026-support__eyebrow">{{ 'sabpuja_custom.auto.s099' | t }}</p>
+        <h2 class="sp2026-reminder__title" id="sp2026-reminder-title-{{ section.id }}">{{ 'sabpuja_custom.auto.s150' | t }}</h2>
+        <p class="sp2026-reminder__copy">{{ 'sabpuja_custom.auto.s134' | t }}</p>
+
+        {% form 'customer', class: 'sp2026-reminder__form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter,festival-reminders">
+          <div class="sp2026-reminder__field">
+            <label class="sp2026-sr-only" for="sp2026-reminder-email-{{ section.id }}">{{ 'sabpuja_custom.auto.s084' | t }}</label>
+            <input class="sp2026-reminder__input" id="sp2026-reminder-email-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" placeholder="{{ 'sabpuja_custom.auto.s292' | t }}" required>
+            <button class="sp2026-reminder__button" type="submit">{{ 'sabpuja_custom.auto.s133' | t }}</button>
+          </div>
+          <label class="sp2026-reminder__consent"><input type="checkbox" required><span>{{ 'sabpuja_custom.auto.s129' | t }}</span></label>
+          {% if form.posted_successfully? %}<p class="sp2026-reminder__success" role="status">{{ 'sabpuja_custom.auto.s257' | t }}</p>{% endif %}
+          {% if form.errors %}<div class="sp2026-reminder__error" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+        {% endform %}
+
+        <div class="sp2026-reminder__channels">
+          <a class="sp2026-reminder__whatsapp" href="mailto:support@sabpuja.com?subject=Festival%20reminders&body=Please%20add%20me%20to%20Sabpuja%20festival%20reminders.">{{ 'sabpuja_custom.auto.s213' | t }}</a>
+          <p class="sp2026-reminder__note">{{ 'sabpuja_custom.auto.s164' | t }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{"name":"Sabpuja reminders","settings":[],"presets":[{"name":"Sabpuja reminders"}]}
+{% endschema %}

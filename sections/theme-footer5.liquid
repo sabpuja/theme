@@ -1,0 +1,59 @@
+<footer class="sp-footer">
+  <div class="sp-container sp-footer-grid">
+    <div class="sp-footer-intro">
+      <div class="sp-footer-brand">Sabpuja</div>
+      <p>{{ 'sabpuja_custom.auto.s294' | t }}</p>
+      <p class="sp-footer-muted">{{ 'sabpuja_custom.auto.s198' | t }}</p>
+      <a class="sp-footer-contact-card" href="{{ pages['contact-us'].url }}">{% render 'sabpuja-icon', name: 'help' %}<span><strong>{{ 'sabpuja_custom.auto.s147' | t }}</strong><small>{{ 'sabpuja_custom.auto.s163' | t }}</small></span>{% render 'sabpuja-icon', name: 'arrow-right' %}</a>
+    </div>
+
+    <div>
+      <h3>{% render 'sabpuja-icon', name: 'shop' %}<span>{{ 'sabpuja_custom.auto.s236' | t }}</span></h3>
+      <a class="sp-footer-link" href="{{ routes.all_products_collection_url }}">{% render 'sabpuja-icon', name: 'grid' %}<span>{{ 'sabpuja_custom.auto.s237' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ collections['puja-kit'].url }}">{% render 'sabpuja-icon', name: 'package' %}<span>{{ 'sabpuja_custom.auto.s199' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ all_products['daily-puja-kit'].url }}">{% render 'sabpuja-icon', name: 'calendar' %}<span>{{ 'sabpuja_custom.auto.s068' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ all_products['navratri-puja-kit'].url }}">{% render 'sabpuja-icon', name: 'sparkles' %}<span>{{ 'sabpuja_custom.auto.s146' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ all_products['diwali-puja-kit'].url }}">{% render 'sabpuja-icon', name: 'gift' %}<span>{{ 'sabpuja_custom.auto.s080' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ collections['astrology-remedy-kits'].url }}">{% render 'sabpuja-icon', name: 'sparkles' %}<span>{{ 'sabpuja_custom.auto.s020' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ collections['puja-items'].url }}">{% render 'sabpuja-icon', name: 'grid' %}<span>{{ 'sabpuja_custom.auto.s197' | t }}</span></a>
+    </div>
+
+    <div>
+      <h3>{% render 'sabpuja-icon', name: 'help' %}<span>{{ 'sabpuja_custom.auto.s122' | t }}</span></h3>
+      <a class="sp-footer-link" href="{{ pages['help'].url }}">{% render 'sabpuja-icon', name: 'book' %}<span>{{ 'sabpuja_custom.auto.s121' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ pages['faq'].url }}">{% render 'sabpuja-icon', name: 'help' %}<span>{{ 'sabpuja_custom.auto.s096' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ pages['shipping-payments'].url }}">{% render 'sabpuja-icon', name: 'truck' %}<span>{{ 'sabpuja_custom.auto.s234' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ pages['returns-order-issues'].url }}">{% render 'sabpuja-icon', name: 'return' %}<span>{{ 'sabpuja_custom.auto.s215' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ pages['about-us'].url }}">{% render 'sabpuja-icon', name: 'info' %}<span>{{ 'sabpuja_custom.auto.s013' | t }}</span></a>
+      <a class="sp-footer-link" href="{{ pages['contact-us'].url }}">{% render 'sabpuja-icon', name: 'mail' %}<span>{{ 'sabpuja_custom.auto.s055' | t }}</span></a>
+    </div>
+
+    <div>
+      <h3>{% render 'sabpuja-icon', name: 'phone' %}<span>{{ 'sabpuja_custom.auto.s253' | t }}</span></h3>
+      <p class="sp-footer-detail">{% render 'sabpuja-icon', name: 'clock' %}<span>{{ 'sabpuja_custom.auto.s144' | t }}</span></p>
+      <a class="sp-footer-link" href="tel:+919667819241">{% render 'sabpuja-icon', name: 'phone' %}<span>+91 96678 19241</span></a>
+      <a class="sp-footer-link" href="tel:+911142147364">{% render 'sabpuja-icon', name: 'phone' %}<span>+91 11 4214 7364</span></a>
+      <a class="sp-footer-link" href="mailto:support@sabpuja.com">{% render 'sabpuja-icon', name: 'mail' %}<span>support@sabpuja.com</span></a>
+      <p class="sp-footer-detail">{% render 'sabpuja-icon', name: 'map-pin' %}<span>133 Westend Marg<br>{{ 'sabpuja_custom.auto.s152' | t }}</span></p>
+    </div>
+  </div>
+
+  <div class="sp-container sp-footer-policy-row">
+    <div class="sp-footer-service">{% render 'sabpuja-icon', name: 'truck' %}<span>{{ 'sabpuja_custom.auto.s070' | t }}</span></div>
+    <div class="sp-footer-links">
+      <a href="{{ pages['privacy-policy'].url }}">{{ 'sabpuja_custom.auto.s190' | t }}</a>
+    </div>
+  </div>
+
+  <div class="sp-container sp-footer-bottom">
+    <span>© {{ 'now' | date: '%Y' }} Sabpuja</span>
+    <nav class="sp-social-links" aria-label="{{ 'sabpuja_custom.auto.s222' | t }}">
+      <a class="sp-social-link" href="https://www.instagram.com/sabpujaofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram @sabpujaofficial">{% render 'sabpuja-icon', name: 'instagram' %}<span>Instagram</span></a>
+      <a class="sp-social-link" href="https://www.facebook.com/profile.php?id=61594153565024" target="_blank" rel="noopener noreferrer" aria-label="Sabpuja on Facebook">{% render 'sabpuja-icon', name: 'facebook' %}<span>Facebook</span></a>
+      <a class="sp-social-link" href="https://www.youtube.com/@SabPuja" target="_blank" rel="noopener noreferrer" aria-label="Sabpuja on YouTube">{% render 'sabpuja-icon', name: 'youtube' %}<span>YouTube</span></a>
+    </nav>
+  </div>
+</footer>
+{% schema %}
+{"name":"Sabpuja Footer","settings":[]}
+{% endschema %}

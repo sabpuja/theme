@@ -1,0 +1,59 @@
+{{ 'sabpuja-home-featured.css' | asset_url | stylesheet_tag }}
+
+<section class="sp2026-featured" aria-labelledby="sp2026-featured-title-{{ section.id }}">
+  <div class="sp2026-featured__inner">
+    <div class="sp2026-featured__head">
+      <div>
+        <p class="sp2026-featured__eyebrow">{{ 'sabpuja_custom.auto.s219' | t }}</p>
+        <h2 class="sp2026-featured__title" id="sp2026-featured-title-{{ section.id }}">{{ 'sabpuja_custom.auto.s097' | t }}</h2>
+      </div>
+      <p class="sp2026-featured__intro">{{ 'sabpuja_custom.auto.s102' | t }}</p>
+    </div>
+
+    <div class="sp2026-featured__grid">
+      <article class="sp2026-featured__card">
+        <a class="sp2026-featured__media" href="{{ all_products['navratri-puja-kit'].url }}" aria-label="Explore the Navratri Puja Kit">
+          <img class="sp2026-featured__image" src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-featured-card.webp?v=1789564037" width="1122" height="1402" loading="lazy" decoding="async" alt="Sabpuja Navratri Puja Kit festive presentation">
+        </a>
+        <div class="sp2026-featured__body">
+          <p class="sp2026-featured__tag">{{ 'sabpuja_custom.auto.s101' | t }}</p>
+          <h3 class="sp2026-featured__name">{{ 'sabpuja_custom.auto.s146' | t }}</h3>
+          <p class="sp2026-featured__copy">{{ 'sabpuja_custom.auto.s010' | t }}</p>
+          <a class="sp2026-featured__cta" href="{{ all_products['navratri-puja-kit'].url }}">{{ 'sabpuja_custom.auto.s095' | t }}</a>
+        </div>
+      </article>
+
+      <article class="sp2026-featured__card">
+        <a class="sp2026-featured__media" href="{{ all_products['diwali-puja-kit'].url }}" aria-label="Explore the Diwali Puja Kit">
+          <img class="sp2026-featured__image" src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-diwali-featured-card.webp?v=1789564055" width="1122" height="1402" loading="lazy" decoding="async" alt="Sabpuja Diwali Puja Kit festive presentation">
+        </a>
+        <div class="sp2026-featured__body">
+          <p class="sp2026-featured__tag">{{ 'sabpuja_custom.auto.s101' | t }}</p>
+          <h3 class="sp2026-featured__name">{{ 'sabpuja_custom.auto.s080' | t }}</h3>
+          <p class="sp2026-featured__copy">{{ 'sabpuja_custom.auto.s009' | t }}</p>
+          <a class="sp2026-featured__cta" href="{{ all_products['diwali-puja-kit'].url }}">{{ 'sabpuja_custom.auto.s095' | t }}</a>
+        </div>
+      </article>
+
+      <article class="sp2026-featured__card">
+        <a class="sp2026-featured__media" href="{{ routes.all_products_collection_url }}" aria-label="Explore the 12 Zodiac Remedy Kits">
+          <img class="sp2026-featured__image" src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-12-zodiac-remedy-kits-featured-card.webp?v=1789564072" width="1122" height="1402" loading="lazy" decoding="async" alt="Sabpuja 12 Zodiac Remedy Kits presentation">
+        </a>
+        <div class="sp2026-featured__body">
+          <p class="sp2026-featured__tag">{{ 'sabpuja_custom.auto.s245' | t }}</p>
+          <h3 class="sp2026-featured__name">{{ 'sabpuja_custom.auto.s006' | t }}</h3>
+          <p class="sp2026-featured__copy">{{ 'sabpuja_custom.auto.s260' | t }}</p>
+          <a class="sp2026-featured__cta" href="{{ routes.all_products_collection_url }}">{{ 'sabpuja_custom.auto.s103' | t }}</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja featured items",
+  "settings": [],
+  "presets": [{ "name": "Sabpuja featured items" }]
+}
+{% endschema %}

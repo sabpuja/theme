@@ -1,0 +1,173 @@
+{%- include 'amp-detector' -%}
+{%- unless googleamp -%}
+  {%- include 'theme-header' -%}
+{%- else -%}
+  {%- include 'amp-theme-header' -%}
+{%- endunless -%}
+{% schema %}
+{
+  "name": "Header Style #1",
+  "max_blocks": 30,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo Shop"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_mobile",
+      "label": "Mobile logo image"
+    },
+    {
+      "type": "textarea",
+      "id": "welcome_message",
+      "label": "Welcome Message"
+    },
+    {
+      "type": "checkbox",
+      "id": "border-bt",
+      "label": "Remove border bottom"
+    },
+    {
+      "type": "header",
+      "content": "Menu Setting"
+    },
+    {
+      "type": "link_list",
+      "id": "link_list",
+      "label": "Main Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_sticky",
+      "label": "Enable sticky header",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Sub Menu Setting",
+      "type": "sub_menu_setting",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Target",
+          "info": "The name of a menu in the first level of main menu"
+        },
+        {
+          "type": "select",
+          "id": "row",
+          "label": "Number of column",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+        {
+          "type": "number",
+          "id": "bg_width",
+          "label": "Background width (px)",
+          "default": 500
+        },
+        {
+          "type": "number",
+          "id": "bg_height",
+          "label": "Background height (px)",
+          "default": 500
+        }
+      ]
+    },
+    {
+      "name": "Sub Menu Content",
+      "type": "sub_menu_content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Target",
+          "info": "The name of a menu in the first level of main menu"
+        },
+        {
+          "type": "link_list",
+          "id": "link_list",
+          "label": "Menu Links 1st Column"
+        },		
+		{
+          "type": "text",
+          "id": "Linklist_title",
+          "label": "Link list Column Title"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+		{
+          "type": "text",
+          "id": "product_title",
+          "label": "Product Column Title"
+        },		
+        {
+          "type": "article",
+          "id": "article",
+          "label": "Article"
+        },
+        {
+          "type": "html",
+          "id": "html",
+          "label": "HTML Block"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_link",
+          "label": "Image Link"
+        },
+		{
+          "type": "text",
+          "id": "image_title",
+          "label": "Image Column Title"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

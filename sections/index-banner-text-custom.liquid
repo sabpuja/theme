@@ -1,0 +1,221 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+{% endstyle %}
+
+<div data-section-id="{{ section.id }}" data-section-type="banner" data-section-name="index-banner-text-custom">
+  <div class="{{ section.settings.display }} spacing-{{ section.id }}">
+    <div class="section-content">
+      <div class="box border-none index-text-banner-grid-container">
+        {%- if section.settings.title != blank or section.settings.sub_title != blank -%}
+        <div class="grid-container">
+          <div class="box-divider blog-title">
+            <h2 class="box-title">{{ section.settings.title }}</h2>
+            <h2 class="box-subtitle">{{ section.settings.stitle }}</h2>
+          </div>          
+        </div>
+        {%- endif -%}
+        <div class="box-content">
+          <div class="top-content">  
+            <div class="grid-container"> 
+                <div class="gr-content">
+                {% for block in section.blocks %}
+                  {% if block.type == 'text' %}
+                  <div class="text-area">
+                    <div class="index-text-content {{ column }}">                  
+                      <div class="text-content">{{ block.settings.desc }}</div>    
+                      {% if block.settings.action != ''  %}<div class="text-action"><a href="{{ block.settings.url }}">{{ block.settings.action }}</a></div>{% endif %}
+                    </div>
+                  </div>
+                  {% elsif block.type == 'banner' %}
+                  <div class="banner-area">                
+                    <a href="{{ block.settings.link }}" class="index-banner-grid-image effect effect-pulse display-block">
+                      {% if block.settings.image %}
+                      <img src="{{ block.settings.image | img_url: image_size }}" class="lazyload" alt="{{ block.settings.image.alt }}" />
+                      {% else %}
+                      <img src="{{ '680x840.png' | asset_url }}" alt="" />
+                      {% endif %}
+                    </a>
+                  </div>
+                  {% endif %}
+                {% endfor %}    
+              </div>
+            </div>                  
+          </div>          
+          <div class="bottom-area">
+            {% if section.settings.bottombanner %}
+            <img src="{{ section.settings.bottombanner | img_url: 'master' }}" alt="{{ section.settings.bottombanner.alt }}"/>
+            {% else %}
+            <img src="{{ '1920x460.png' | asset_url }}" alt="" />
+            {% endif %}
+          </div>          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+{% schema %}
+{
+  "name": "Banner & Text Custom",
+  "class": "index-section index-text-banner-custom",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },
+	{
+      "type": "checkbox",
+      "id": "padding",
+      "label": "Active padding between banners"
+    },
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,60,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,50,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,30,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+	  "default":"About us"
+    },
+	{
+      "type": "text",
+      "id": "stitle",
+      "label": "Sub Title",
+	  "default":"Welcome to our store"
+    },
+	{
+      "type": "image_picker",
+      "id": "bottombanner",
+      "label": "Bottom Banner"
+    }
+  ],
+  "max_blocks": 2,
+  "blocks": [
+  	{
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "action",
+          "label": "Action Text"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Action link",
+		  "default":"/collections/all"
+        }
+      ]
+    },
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }     
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner & Text Custom",
+      "category": "Image"
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

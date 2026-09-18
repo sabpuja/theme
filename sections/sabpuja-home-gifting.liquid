@@ -1,0 +1,39 @@
+{{ 'sabpuja-home-gifting-reviews.css' | asset_url | stylesheet_tag }}
+
+{% assign sp_gift_image = 'sabpuja-festival-gifting-family-01.webp' | asset_url %}
+{% assign sp_gift_link = section.settings.button_link | default: routes.all_products_collection_url %}
+
+<section class="sp2026-extra sp2026-gifting-section" aria-labelledby="sp-gifting-title-{{ section.id }}">
+  <div class="sp2026-extra__inner">
+    <div class="sp2026-gifting-card">
+      <div class="sp2026-gifting-media">
+        <img
+          src="{{ sp_gift_image }}"
+          alt="A family sharing a Sabpuja devotional gift box together in a warm festive home."
+          loading="lazy" decoding="async"
+          width="1672"
+          height="941"
+        >
+      </div>
+      <div class="sp2026-gifting-copy">
+        <p class="sp2026-extra__eyebrow">{{ 'sabpuja_custom.fixed.gifting_eyebrow' | t }}</p>
+        <h2 id="sp-gifting-title-{{ section.id }}" class="sp2026-gifting-title">{{ 'sabpuja_custom.fixed.gifting_title' | t }}</h2>
+        <p class="sp2026-gifting-body">{{ 'sabpuja_custom.fixed.gifting_body' | t }}</p>
+        <a class="sp2026-gifting-cta" href="{{ sp_gift_link | escape }}">{{ 'sabpuja_custom.fixed.gifting_cta' | t }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja Gifting",
+  "settings": [
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"THOUGHTFUL GIFTING"},
+    {"type":"text","id":"title","label":"Heading","default":"Share devotion with the people who matter"},
+    {"type":"textarea","id":"body","label":"Body","default":"Thoughtfully presented puja essentials for festivals, family gatherings, housewarmings and other meaningful occasions."},
+    {"type":"text","id":"button_label","label":"Button label","default":"Explore Puja Essentials"},
+    {"type":"url","id":"button_link","label":"Button link"}
+  ]
+}
+{% endschema %}

@@ -1,0 +1,523 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+{% endstyle %}
+<div data-section-id="{{ section.id }}" data-section-type="products" data-section-name="index-collection-grid-custom3">
+  <div class="index-collection-grid-custom3-bg {{ section.settings.display }} spacing-{{ section.id }}">
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    <div class="grid-container">
+    {% endunless %}
+    {% endif %}
+      <div class="section-content">  
+        <div class="index-collection-grid-container box border-none position-{{ section.settings.title_position }}">
+        {%- if section.settings.title != blank or section.settings.sub_title != blank -%}
+        <div class="box-divider grid-x">
+          {%- if section.settings.title != blank -%}
+          <h2 class="box-title width-100">{{ section.settings.title }}</h2>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+        <div class="box-content">        
+          <div class="products-area grid-x grid-margin-x">                      
+              {%- if  section.settings.image_width and section.settings.image_height -%}
+              {%- assign product_image_size = section.settings.image_width | append: 'x' | append: section.settings.image_height -%}
+              {%- elsif section.settings.image_width -%}
+              {%- assign product_image_size = section.settings.image_width | append: 'x' -%}
+              {%- elsif section.settings.image_height -%}
+              {%- assign product_image_size = 'x' | append: section.settings.image_height -%}
+              {%- else -%}
+              {%- assign product_image_size = 'master' -%}
+              {%- endif -%}
+              {% for product in collections[section.settings.collection].products limit: section.settings.limit %}
+              <div class="product-list cell small-{{ section.settings.column_small }} medium-{{ section.settings.column_medium }} large-{{ section.settings.column_large }} xlarge-{{ section.settings.column_xlarge }} xxlarge-{{ section.settings.column_xxlarge }} xxxlarge-{{ section.settings.column_xxxlarge }}">
+                {% include 'index-product-item-grid' %} 
+              </div>
+              {% else %}
+              {% for i in (1..limit) %}
+              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+              <div class="product-list cell {{ grid }}">
+                <div class="product-item" data-product-item>
+                  <div class="product-item-thumb">
+                    <a href="javascript:void(0);" class="display-block">
+                      {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                    </a>                          
+                  </div>
+                  <div class="product-item-caption">
+                    <div class="grid-x">
+                      <div class="cell auto">
+                        <h4 class="product-item-title">
+                          <a href="javascript:void(0);">{{ 'homepage.onboarding.product_title' | t }}</a>
+                        </h4>
+                      </div>
+                    </div>
+                    <div class="product-item-price">
+                      <span class="product-item-price-sale">$99.00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              {% endfor %}                   
+          </div>
+        </div>
+      </div>
+      </div>
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    </div>
+    {% endunless %}
+    {% endif %}
+  </div>
+</div>  
+  
+
+{% schema %}
+{
+  "name": "Products Grid & Custom 3",
+  "class": "index-section index-collection-grid-custom3",
+  "settings": [
+	{
+      "type": "paragraph",
+      "content": "View [Mockup of Section layout](https:\/\/i.imgur.com\/KCTfPnR.png)"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },
+	{
+      "type": "checkbox",
+      "id": "full",
+      "label": "Show Full width"
+    },
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,60,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,50,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,30,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+	{
+      "type": "select",
+      "id": "title_position",
+      "label": "Title Position",
+      "options": [
+        {
+          "value": "full-left",
+          "label": "One Whole - Left"
+        },
+        {
+          "value": "full-center",
+          "label": "One Whole - Center"
+        },
+        {
+          "value": "onehalf-left",
+          "label": "One Half - Left"
+        }
+      ],
+      "default": "full-left"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+	{
+      "type": "text",
+      "id": "limit",
+      "label": "Limit products",
+      "default": "6"
+    },
+	{
+      "type": "number",
+      "id": "image_width",
+      "label": "Image Width",
+      "info": "Must be set a non-zero number",
+      "default": 450
+    },
+    {
+      "type": "number",
+      "id": "image_height",
+      "label": "Image Height",
+      "info": "Must be set a non-zero number",
+      "default": 577
+    },
+	{
+          "type": "header",
+          "content": "Responsive width"
+        },
+		{
+          "type": "select",
+          "id": "column_small",
+          "label": "Width",
+          "info": "For small screen (0px - 550px)",
+          "options": [
+            {
+              "value": "12",
+              "label": "1/1"
+            },
+            {
+              "value": "6",
+              "label": "1/2"
+            },
+            {
+              "value": "4",
+              "label": "1/3"
+            },
+            {
+              "value": "3",
+              "label": "1/4"
+            },
+            {
+              "value": "2-4",
+              "label": "1/5"
+            },
+            {
+              "value": "2",
+              "label": "1/6"
+            },
+            {
+              "value": "8",
+              "label": "2/3"
+            },
+            {
+              "value": "9",
+              "label": "3/4"
+            },
+            {
+              "value": "10",
+              "label": "5/6"
+            }
+          ],
+          "default": "12"
+        },
+        {
+          "type": "select",
+          "id": "column_medium",
+          "label": "Width",
+          "info": "For medium screen (551px - 800px)",
+          "options": [
+            {
+              "value": "12",
+              "label": "1/1"
+            },
+            {
+              "value": "6",
+              "label": "1/2"
+            },
+            {
+              "value": "4",
+              "label": "1/3"
+            },
+            {
+              "value": "3",
+              "label": "1/4"
+            },
+            {
+              "value": "2-4",
+              "label": "1/5"
+            },
+            {
+              "value": "2",
+              "label": "1/6"
+            },
+            {
+              "value": "8",
+              "label": "2/3"
+            },
+            {
+              "value": "9",
+              "label": "3/4"
+            },
+            {
+              "value": "10",
+              "label": "5/6"
+            }
+          ],
+          "default": "6"
+        },
+        {
+          "type": "select",
+          "id": "column_large",
+          "label": "Width",
+          "info": "For large screen (801px - 1260px)",
+          "options": [
+            {
+              "value": "12",
+              "label": "1/1"
+            },
+            {
+              "value": "6",
+              "label": "1/2"
+            },
+            {
+              "value": "4",
+              "label": "1/3"
+            },
+            {
+              "value": "3",
+              "label": "1/4"
+            },
+            {
+              "value": "2-4",
+              "label": "1/5"
+            },
+            {
+              "value": "2",
+              "label": "1/6"
+            },
+            {
+              "value": "8",
+              "label": "2/3"
+            },
+            {
+              "value": "9",
+              "label": "3/4"
+            },
+            {
+              "value": "10",
+              "label": "5/6"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "column_xlarge",
+          "label": "Width",
+          "info": "For xlarge screen (1261px - 1440px)",
+          "options": [
+            {
+              "value": "12",
+              "label": "1/1"
+            },
+            {
+              "value": "6",
+              "label": "1/2"
+            },
+            {
+              "value": "4",
+              "label": "1/3"
+            },
+            {
+              "value": "3",
+              "label": "1/4"
+            },
+            {
+              "value": "2-4",
+              "label": "1/5"
+            },
+            {
+              "value": "2",
+              "label": "1/6"
+            },
+            {
+              "value": "8",
+              "label": "2/3"
+            },
+            {
+              "value": "9",
+              "label": "3/4"
+            },
+            {
+              "value": "10",
+              "label": "5/6"
+            },
+            {
+              "value": "20",
+              "label": "1/10"
+            }
+          ],
+          "default": "3"
+        },
+        {
+          "type": "select",
+          "id": "column_xxlarge",
+          "label": "Width",
+          "info": "For xxlarge screen (1441px - 1680px)",
+          "options": [
+            {
+              "value": "12",
+              "label": "1/1"
+            },
+            {
+              "value": "6",
+              "label": "1/2"
+            },
+            {
+              "value": "4",
+              "label": "1/3"
+            },
+            {
+              "value": "3",
+              "label": "1/4"
+            },
+            {
+              "value": "2-4",
+              "label": "1/5"
+            },
+            {
+              "value": "2",
+              "label": "1/6"
+            },
+            {
+              "value": "8",
+              "label": "2/3"
+            },
+            {
+              "value": "9",
+              "label": "3/4"
+            },
+            {
+              "value": "10",
+              "label": "5/6"
+            },
+            {
+              "value": "20",
+              "label": "1/10"
+            }
+          ],
+          "default": "3"
+        },
+        {
+          "type": "select",
+          "id": "column_xxxlarge",
+          "label": "Width",
+          "info": "For xxxlarge screen (1681px - infinity)",
+          "options": [
+            {
+              "value": "12",
+              "label": "1/1"
+            },
+            {
+              "value": "6",
+              "label": "1/2"
+            },
+            {
+              "value": "4",
+              "label": "1/3"
+            },
+            {
+              "value": "3",
+              "label": "1/4"
+            },
+            {
+              "value": "2-4",
+              "label": "1/5"
+            },
+            {
+              "value": "2",
+              "label": "1/6"
+            },
+            {
+              "value": "8",
+              "label": "2/3"
+            },
+            {
+              "value": "9",
+              "label": "3/4"
+            },
+            {
+              "value": "10",
+              "label": "5/6"
+            },
+            {
+              "value": "20",
+              "label": "1/10"
+            }
+          ],
+          "default": "3"
+        }
+  ],
+  "presets": [
+    {
+      "name": "Products Grid & Custom 3",
+      "category": "Products"
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

@@ -1,0 +1,1314 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+{% endstyle %}
+<div data-section-id="{{ section.id }}" data-section-type="slideshow" data-section-name="index-slideshow-custom10">
+  <div class="{{ section.settings.display }} spacing-{{ section.id }}">
+    {% if settings.index_style == '1' or template contains 'page' %}
+    <div class="grid-container">
+    {% endif %}
+      <div class="section-content">
+        <div class="index-slideshow-collections-container" data-section-id="{{ section.id }}">
+        <div class="{% if section.settings.banner_active %}have-collections{% else %}no-collections{% endif %} grid-x grid-margin-x">           
+          <div class="slideshow-area cell {% if section.settings.allcoll_active %}small-12 medium-12 large-12 xlarge-8 xxlarge-9{% else %}small-12 medium-12 large-12 xlarge-12{% endif %}">          
+            <div class="index-slideshow-container {{ section.settings.display }} {{ section.settings.navigation_position }}" data-section-id="{{ section.id }}" data-slideshow-param='{"effect": "{{ section.settings.effect }}", "autoplay": "{{ section.settings.autoplay }}", "autoplaySpeed": "{{ section.settings.autoplay_speed }}", "height": "{{ section.settings.slideshow_height }}", "width": "{{ section.settings.slideshow_width }}"}' data-index-slideshow>
+              {%- assign slideshow_size = section.settings.slideshow_width | append: 'x' | append: section.settings.slideshow_height -%}
+              {%- if section.blocks.size > 0 -%}
+              <div class="swiper-container" data-slideshow-container>
+                <div class="swiper-wrapper">
+                  {%- for block in section.blocks -%}
+                  {%- if block.type == 'image' -%}
+                  <div class="swiper-slide" data-slideshow-slide-type="image" data-slideshow-slide>
+                    {%- if block.settings.link != blank and block.settings.action == blank -%}
+                    <a class="index-slideshow-link" href="{{ block.settings.link }}"></a>
+                    {%- endif -%}
+                    <div class="index-slideshow-background">
+                      {%- if forloop.first == true -%}
+                      {% if block.settings.background %}
+                      <img src="{{ block.settings.background | img_url: slideshow_size }}" alt="{{ block.settings.background.alt }}" />
+                      {% else %}
+                      <img src="{{ '1095x500.png' | asset_url }}" alt="" />
+                      {% endif %}
+                      {%- else -%}
+                      {% if block.settings.background %}
+                      <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.background | img_url: slideshow_size }}" alt="{{ block.settings.background.alt }}" class="swiper-lazy" />
+                      {% else %}
+                      <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ '1095x500.png' | asset_url }}" alt="" class="swiper-lazy" />
+                      {% endif %}
+                      {%- endif -%}
+                    </div>
+                    {%- if block.settings.title != blank -%}
+                    <div class="index-slideshow-caption index-slideshow-caption-title {{ block.settings.title_style }}">
+                      <div class="animated" data-slideshow-caption='{"type": "text", "positionX": "{{ block.settings.title_x }}", "positionY": "{{ block.settings.title_y }}", "zIndex": "{{ block.settings.title_z }}", "align" : "{{ block.settings.title_align }}", "entranceEffect": "{{ block.settings.entrance_effect }}", "exitEffect": "{{ block.settings.exit_effect }}"}'>{{ block.settings.title }}</div>
+                    </div>
+                    {%- endif -%}
+                    {%- if block.settings.description != blank -%}
+                    <div class="index-slideshow-caption index-slideshow-caption-description {{ block.settings.description_style }}">
+                      <div class="animated" data-slideshow-caption='{"type": "text", "positionX": "{{ block.settings.description_x }}", "positionY": "{{ block.settings.description_y }}", "zIndex": "{{ block.settings.description_z }}", "align" : "{{ block.settings.description_align }}", "entranceEffect": "{{ block.settings.entrance_effect }}", "exitEffect": "{{ block.settings.exit_effect }}"}'>{{ block.settings.description }}</div>
+                    </div>
+                    {%- endif -%}
+                    {%- if block.settings.action != blank -%}
+                    <div class="index-slideshow-caption index-slideshow-caption-action {{ block.settings.action_style }}">
+                      <a href="{{ block.settings.link }}" class="flex-container align-middle animated" data-slideshow-caption='{"type": "text", "positionX": "{{ block.settings.action_x }}", "positionY": "{{ block.settings.action_y }}", "zIndex": "{{ block.settings.action_z }}", "align" : "{{ block.settings.action_align }}", "entranceEffect": "{{ block.settings.entrance_effect }}", "exitEffect": "{{ block.settings.exit_effect }}"}'>
+                        {{ block.settings.action }}
+                      </a>
+                    </div>
+                    {%- endif -%}
+                    {%- if block.settings.caption_1 != blank -%}
+                    <div class="index-slideshow-caption index-slideshow-caption-image">
+                      <img src="{{ block.settings.caption_1 | img_url: 'master' }}" alt="{{ block.settings.caption_1.alt }}" class="animated" data-slideshow-caption='{"type": "image", "positionX": "{{ block.settings.caption_1_x }}", "positionY": "{{ block.settings.caption_1_y }}", "zIndex": "{{ block.settings.caption_1_z }}", "align" : "{{ block.settings.caption_1_align }}", "entranceEffect": "{{ block.settings.entrance_effect }}", "exitEffect": "{{ block.settings.exit_effect }}"}'/>
+                    </div>
+                    {%- endif -%}
+                    {%- if block.settings.caption_2 != blank -%}
+                    <div class="index-slideshow-caption index-slideshow-caption-image">
+                      <img src="{{ block.settings.caption_2 | img_url: 'master' }}" alt="{{ block.settings.caption_2.alt }}" class="animated" data-slideshow-caption='{"type": "image", "positionX": "{{ block.settings.caption_2_x }}", "positionY": "{{ block.settings.caption_2_y }}", "zIndex": "{{ block.settings.caption_2_z }}", "align" : "{{ block.settings.caption_2_align }}", "entranceEffect": "{{ block.settings.entrance_effect }}", "exitEffect": "{{ block.settings.exit_effect }}"}'/>
+                    </div>
+                    {%- endif -%}
+                    {%- if block.settings.caption_3 != blank -%}
+                    <div class="index-slideshow-caption index-slideshow-caption-image">
+                      <img src="{{ block.settings.caption_3 | img_url: 'master' }}" alt="{{ block.settings.caption_3.alt }}" class="animated" data-slideshow-caption='{"type": "image", "positionX": "{{ block.settings.caption_3_x }}", "positionY": "{{ block.settings.caption_3_y }}", "zIndex": "{{ block.settings.caption_3_z }}", "align" : "{{ block.settings.caption_3_align }}", "entranceEffect": "{{ block.settings.entrance_effect }}", "exitEffect": "{{ block.settings.exit_effect }}"}'/>
+                    </div>
+                    {%- endif -%}
+                    {%- if block.settings.caption_4 != blank -%}
+                    <div class="index-slideshow-caption index-slideshow-caption-image">
+                      <img src="{{ block.settings.caption_4 | img_url: 'master' }}" alt="{{ block.settings.caption_4.alt }}" class="animated" data-slideshow-caption='{"type": "image", "positionX": "{{ block.settings.caption_4_x }}", "positionY": "{{ block.settings.caption_4_y }}", "zIndex": "{{ block.settings.caption_4_z }}", "align" : "{{ block.settings.caption_4_align }}", "entranceEffect": "{{ block.settings.entrance_effect }}", "exitEffect": "{{ block.settings.exit_effect }}"}'/>
+                    </div>
+                    {%- endif -%}
+                    {%- if block.settings.caption_5 != blank -%}
+                    <div class="index-slideshow-caption index-slideshow-caption-image">
+                      <img src="{{ block.settings.caption_5 | img_url: 'master' }}" alt="{{ block.settings.caption_5.alt }}" class="animated" data-slideshow-caption='{"type": "image", "positionX": "{{ block.settings.caption_5_x }}", "positionY": "{{ block.settings.caption_5_y }}", "zIndex": "{{ block.settings.caption_5_z }}", "align" : "{{ block.settings.caption_5_align }}", "entranceEffect": "{{ block.settings.entrance_effect }}", "exitEffect": "{{ block.settings.exit_effect }}"}'/>
+                    </div>
+                    {%- endif -%}
+                    {%- if block.settings.caption_6 != blank -%}
+                    <div class="index-slideshow-caption index-slideshow-caption-image">
+                      <img src="{{ block.settings.caption_6 | img_url: 'master' }}" alt="{{ block.settings.caption_6.alt }}" class="animated" data-slideshow-caption='{"type": "image", "positionX": "{{ block.settings.caption_6_x }}", "positionY": "{{ block.settings.caption_6_y }}", "zIndex": "{{ block.settings.caption_6_z }}", "align" : "{{ block.settings.caption_6_align }}", "entranceEffect": "{{ block.settings.entrance_effect }}", "exitEffect": "{{ block.settings.exit_effect }}"}'/>
+                    </div>
+                    {%- endif -%}
+                  </div>
+                  {%- endif -%}
+                  {%- if block.type == 'video' -%}
+                  <div class="swiper-slide" data-slideshow-slide-type="video" data-slideshow-slide>
+                    <div id="slideshow-video-container-{{ block.id }}" class="index-slideshow-video-container" data-slideshow-video='{"type": "{{ block.settings.video_type }}", "id": "{{ block.settings.video_url.id }}", "autoplay": "{{ block.settings.autoplay }}"}'>
+                      {%- if block.settings.image != blank -%}
+                      {%- if forloop.first == true -%}
+                      <img src="{{ block.settings.image | img_url: slideshow_size }}" alt="{{ block.settings.image.alt }}"/>
+                      {%- else -%}
+                      <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.image | img_url: slideshow_size }}" alt="{{ block.settings.image.alt }}" class="swiper-lazy"/>
+                      {%- endif -%}
+                      {%- endif -%}
+                      <div class="index-slideshow-video-loader"></div>
+                      <div data-id="{{ block.settings.video_url.id }}" data-slideshow-video-place></div>
+                    </div>
+                  </div>
+                  {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+              {%- if section.settings.pagination -%}
+              <!-- If we need pagination -->
+              <div class="index-slideshow-pagination" data-slideshow-pagination></div>
+              {%- endif -%}
+              {%- if section.settings.navigation -%}
+              <!-- If we need navigation buttons -->
+              <div class="index-slideshow-navigation index-slideshow-nav-prev show-for-large" data-slideshow-nav-prev><em class="sli sli-arrow-left"></em></div>
+              <div class="index-slideshow-navigation index-slideshow-nav-next show-for-large" data-slideshow-nav-next><em class="sli sli-arrow-right"></em></div>
+              {%- endif -%}
+              {%- else -%}
+              <div class="text-center">
+                {{ 'homepage.onboarding.no_content' | t }}
+              </div>
+              {%- endif -%}
+            </div>
+          </div>
+          {% if section.settings.allcoll_active %}
+          <div class="case-area cell small-12 medium-12 large-12 xlarge-4 xxlarge-3">
+            <div class="case-title">{{ section.settings.allcoll_title }}</div>
+            <div class="case-content">
+              <ul class="case-list">
+                <li class="case-heading">
+                  <div class="col-1">{{ section.settings.team }}</div>
+                  <div class="col-2">{{ section.settings.p }}</div>
+                  <div class="col-3">{{ section.settings.w }}</div>
+                </li>
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'score' -%}
+                    <li class="case-element">
+                      <div class="col-1">{% if block.settings.banner %}<img src="{{ block.settings.banner | img_url: 'master' }}" alt="{{ block.settings.banner.alt }}"/>{% endif %} {{ block.settings.title }}</div>
+                      <div class="col-2">{{ block.settings.play }}</div>
+                      <div class="col-3">{{ block.settings.win }}</div>
+                	</li>
+                  {% endif %}
+                {% endfor %}
+                <li class="case-bottom">{{ section.settings.bottom }}</li>
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      </div>
+    {% if settings.index_style == '1' or template contains 'page' %}
+    {% unless full %}
+    </div>
+    {% endunless %}
+    {% endif %}
+  </div>
+</div>
+
+  
+{% schema %}
+{
+  "name": "Slideshow & Cases listing",
+  "class": "index-slideshow slideshow-custom10",
+  "max_blocks": 15,
+  "settings": [
+	{
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,0,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,0,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,0,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },	
+	{
+      "type": "header",
+      "content": "Slideshow Settings"
+    },
+    {
+      "type": "select",
+      "id": "effect",
+      "label": "Slide effect",
+      "options": [
+        {
+          "value": "slide",
+          "label": "Sliding"
+        },
+        {
+          "value": "fade",
+          "label": "Fading"
+        },
+        {
+          "value": "cube",
+          "label": "Cube"
+        },
+        {
+          "value": "flip",
+          "label": "Flipping"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "autoplay_speed",
+      "label": "Change slides every",
+      "options": [
+        {
+          "value": "5000",
+          "label": "5 seconds"
+        },
+        {
+          "value": "6000",
+          "label": "6 seconds"
+        },
+        {
+          "value": "7000",
+          "label": "7 seconds"
+        },
+        {
+          "value": "8000",
+          "label": "8 seconds"
+        },
+        {
+          "value": "9000",
+          "label": "9 seconds"
+        },
+        {
+          "value": "10000",
+          "label": "10 seconds"
+        }
+      ],
+      "default": "7000"
+    },
+    {
+      "type": "number",
+      "id": "slideshow_width",
+      "label": "Slide width in px (Desktop)",
+      "default": 1920
+    },
+    {
+      "type": "number",
+      "id": "slideshow_height",
+      "label": "Slide height in px (Desktop)",
+      "default": 1080
+    },
+    {
+      "type": "checkbox",
+      "id": "navigation",
+      "label": "Enable Navigaiton",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "navigation_position",
+      "label": "Navigation Position",
+      "options": [
+        {
+          "value": "index-slideshow-nav-top",
+          "label": "Top"
+        },
+        {
+          "value": "index-slideshow-nav-top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "index-slideshow-nav-top-right",
+          "label": "Top Right"
+        },
+        {
+          "value": "index-slideshow-nav-middle",
+          "label": "Middle"
+        },
+        {
+          "value": "index-slideshow-nav-bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "index-slideshow-nav-bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "index-slideshow-nav-bottom-right",
+          "label": "Bottom Right"
+        },
+        {
+          "value": "index-slideshow-nav-top-bottom-left",
+          "label": "Top Bottom Left"
+        },
+        {
+          "value": "index-slideshow-nav-top-bottom-right",
+          "label": "Top Bottom Right"
+        }
+      ],
+      "default": "index-slideshow-nav-middle"
+    },
+    {
+      "type": "checkbox",
+      "id": "pagination",
+      "label": "Enable Pagination",
+      "default": true
+    },
+	{
+      "type": "header",
+      "content": "Cases listing"
+    },
+	{
+      "type": "checkbox",
+      "id": "allcoll_active",
+      "label": "Show Cases listing",
+      "default": true,
+	  "info":"uncheck means that Slideshow will full"
+    },
+	{
+      "type": "text",
+      "id": "team",
+      "label": "1st Column",
+      "default": "Top 10 countries"
+    },
+	{
+      "type": "text",
+      "id": "p",
+      "label": "Case",
+      "default": "Case"
+    },
+	{
+      "type": "text",
+      "id": "w",
+      "label": "Deaths",
+      "default": "Deaths"
+    },
+	{
+      "type": "text",
+      "id": "bottom",
+      "label": "Bottom Text",
+      "default": "View All"
+    },
+	{
+      "type": "paragraph",
+      "content": "Use Content with type is \"Case\""
+    }
+  ],
+  "blocks": [
+	{
+      "type": "score",
+      "name": "Case",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "banner",
+          "label": "Country Flag"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Country Name"
+        },
+		{
+          "type": "text",
+          "id": "play",
+          "label": "Case"
+        },
+		{
+          "type": "text",
+          "id": "win",
+          "label": "Deaths"
+        }
+	  ]
+	},
+    {
+      "type": "image",
+      "name": "Image slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "background",
+          "label": "Slide Background (Desktop)",
+          "info": "Required"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Slide link"
+        },
+        {
+          "type": "select",
+          "id": "entrance_effect",
+          "label": "Captions Entrances Effect",
+          "options": [
+            {
+              "group": "Bouncing",
+              "value": "bounceIn",
+              "label": "Bouncing"
+            },
+            {
+              "group": "Bouncing",
+              "value": "bounceInDown",
+              "label": "Bouncing Down"
+            },
+            {
+              "group": "Bouncing",
+              "value": "bounceInLeft",
+              "label": "Bouncing Left"
+            },
+            {
+              "group": "Bouncing",
+              "value": "bounceInRight",
+              "label": "Bouncing Right"
+            },
+            {
+              "group": "Bouncing",
+              "value": "bounceInUp",
+              "label": "Bouncing Up"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeIn",
+              "label": "Fade"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeInDown",
+              "label": "Fade Down"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeInDownBig",
+              "label": "Fade Down (Long)"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeInLeft",
+              "label": "Fade Left"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeInLeftBig",
+              "label": "Fade Left (Long)"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeInRight",
+              "label": "Fade Right"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeInRightBig",
+              "label": "Fade Right (Long)"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeInUp",
+              "label": "Fade Up"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeInUpBig",
+              "label": "Fade Up (Long)"
+            },
+            {
+              "group": "Flippers",
+              "value": "flipInX",
+              "label": "Fade (Vertical)"
+            },
+            {
+              "group": "Flippers",
+              "value": "flipInY",
+              "label": "Fade (Horizontal)"
+            },
+            {
+              "group": "Lightspeed",
+              "value": "lightSpeedIn",
+              "label": "Light Speed"
+            },
+            {
+              "group": "Rotating",
+              "value": "rotateIn",
+              "label": "Rotate"
+            },
+            {
+              "group": "Rotating",
+              "value": "rotateInDownLeft",
+              "label": "Rotate Down Left"
+            },
+            {
+              "group": "Rotating",
+              "value": "rotateInDownRight",
+              "label": "Rotate Down Right"
+            },
+            {
+              "group": "Rotating",
+              "value": "rotateInUpLeft",
+              "label": "Rotate Up Left"
+            },
+            {
+              "group": "Rotating",
+              "value": "rotateInUpRight",
+              "label": "Rotate Up Right"
+            },
+            {
+              "group": "Sliding",
+              "value": "slideInUp",
+              "label": "Slide Up"
+            },
+            {
+              "group": "Sliding",
+              "value": "slideInDown",
+              "label": "Slide Down"
+            },
+            {
+              "group": "Sliding",
+              "value": "slideInLeft",
+              "label": "Slide Left"
+            },
+            {
+              "group": "Sliding",
+              "value": "slideInRight",
+              "label": "Slide Right"
+            },
+            {
+              "group": "Zoom",
+              "value": "zoomIn",
+              "label": "Zoom"
+            },
+            {
+              "group": "Zoom",
+              "value": "zoomInDown",
+              "label": "Zoom Down"
+            },
+            {
+              "group": "Zoom",
+              "value": "zoomInLeft",
+              "label": "Zoom Left"
+            },
+            {
+              "group": "Zoom",
+              "value": "zoomInRight",
+              "label": "Zoom Right"
+            },
+            {
+              "group": "Zoom",
+              "value": "zoomInUp",
+              "label": "Zoom Up"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "exit_effect",
+          "label": "Captions Exits Effect",
+          "options": [
+            {
+              "group": "Bouncing",
+              "value": "bounceOut",
+              "label": "Bouncing"
+            },
+            {
+              "group": "Bouncing",
+              "value": "bounceOutDown",
+              "label": "Bouncing Down"
+            },
+            {
+              "group": "Bouncing",
+              "value": "bounceOutLeft",
+              "label": "Bouncing Left"
+            },
+            {
+              "group": "Bouncing",
+              "value": "bounceOutRight",
+              "label": "Bouncing Right"
+            },
+            {
+              "group": "Bouncing",
+              "value": "bounceOutUp",
+              "label": "Bouncing Up"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeOut",
+              "label": "Fade"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeOutDown",
+              "label": "Fade Down"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeOutDownBig",
+              "label": "Fade Down (Long)"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeOutLeft",
+              "label": "Fade Left"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeOutLeftBig",
+              "label": "Fade Left (Long)"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeOutRight",
+              "label": "Fade Right"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeOutRightBig",
+              "label": "Fade Right (Long)"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeOutUp",
+              "label": "Fade Up"
+            },
+            {
+              "group": "Fading",
+              "value": "fadeOutUpBig",
+              "label": "Fade Up (Long)"
+            },
+            {
+              "group": "Flippers",
+              "value": "flipOutX",
+              "label": "Fade (Vertical)"
+            },
+            {
+              "group": "Flippers",
+              "value": "flipOutY",
+              "label": "Fade (Horizontal)"
+            },
+            {
+              "group": "Lightspeed",
+              "value": "lightSpeedOut",
+              "label": "Light Speed"
+            },
+            {
+              "group": "Rotating",
+              "value": "rotateOut",
+              "label": "Rotate"
+            },
+            {
+              "group": "Rotating",
+              "value": "rotateOutDownLeft",
+              "label": "Rotate Down Left"
+            },
+            {
+              "group": "Rotating",
+              "value": "rotateOutDownRight",
+              "label": "Rotate Down Right"
+            },
+            {
+              "group": "Rotating",
+              "value": "rotateOutUpLeft",
+              "label": "Rotate Up Left"
+            },
+            {
+              "group": "Rotating",
+              "value": "rotateOutUpRight",
+              "label": "Rotate Up Right"
+            },
+            {
+              "group": "Sliding",
+              "value": "slideOutUp",
+              "label": "Slide Up"
+            },
+            {
+              "group": "Sliding",
+              "value": "slideOutDown",
+              "label": "Slide Down"
+            },
+            {
+              "group": "Sliding",
+              "value": "slideOutLeft",
+              "label": "Slide Left"
+            },
+            {
+              "group": "Sliding",
+              "value": "slideOutRight",
+              "label": "Slide Right"
+            },
+            {
+              "group": "Zoom",
+              "value": "zoomOut",
+              "label": "Zoom"
+            },
+            {
+              "group": "Zoom",
+              "value": "zoomOutDown",
+              "label": "Zoom Down"
+            },
+            {
+              "group": "Zoom",
+              "value": "zoomOutLeft",
+              "label": "Zoom Left"
+            },
+            {
+              "group": "Zoom",
+              "value": "zoomOutRight",
+              "label": "Zoom Right"
+            },
+            {
+              "group": "Zoom",
+              "value": "zoomOutUp",
+              "label": "Zoom Up"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Title"
+        },
+        {
+          "type": "html",
+          "id": "title",
+          "label": "Title",
+          "info": "HTML is allowed"
+        },
+        {
+          "type": "select",
+          "id": "title_style",
+          "label": "Title Style",
+          "options": [
+            {
+              "value": "dark",
+              "label": "Dark"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            }
+          ],
+          "default": "dark"
+        },
+        {
+          "type": "number",
+          "id": "title_x",
+          "label": "Title horizontal position(x)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "title_align",
+          "label": "Title align with horizontal position",
+          "info": "At the vertical position, the Title will be aligned left, center or right by this position.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "number",
+          "id": "title_y",
+          "label": "Title vertical position(y)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "number",
+          "id": "title_z",
+          "label": "Title layer order(z)",
+          "info": "Integer, greater than 0.",
+          "default": 9
+        },
+        {
+          "type": "header",
+          "content": "Description"
+        },
+        {
+          "type": "html",
+          "id": "description",
+          "label": "Description",
+          "info": "HTML is allowed"
+        },
+        {
+          "type": "select",
+          "id": "description_style",
+          "label": "Description Style",
+          "options": [
+            {
+              "value": "dark",
+              "label": "Dark"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            }
+          ],
+          "default": "dark"
+        },
+        {
+          "type": "number",
+          "id": "description_x",
+          "label": "Description horizontal position(x)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "description_align",
+          "label": "Description align with horizontal position",
+          "info": "At the vertical position, the Description will be aligned left, center or right by this position.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "number",
+          "id": "description_y",
+          "label": "Description vertical position(y)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "number",
+          "id": "description_z",
+          "label": "Description layer order(z)",
+          "info": "Integer, greater than 0.",
+          "default": 9
+        },
+        {
+          "type": "header",
+          "content": "Action"
+        },
+        {
+          "type": "text",
+          "id": "action",
+          "label": "Action"
+        },
+        {
+          "type": "select",
+          "id": "action_style",
+          "label": "Action Style",
+          "options": [
+            {
+              "value": "dark",
+              "label": "Dark"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            }
+          ],
+          "default": "dark"
+        },
+        {
+          "type": "number",
+          "id": "action_x",
+          "label": "Action horizontal position(x)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "action_align",
+          "label": "Action align with horizontal position",
+          "info": "At the vertical position, the Action will be aligned left, center or right by this position.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "number",
+          "id": "action_y",
+          "label": "Action vertical position(y)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "number",
+          "id": "action_z",
+          "label": "Action layer order(z)",
+          "info": "Integer, greater than 0.",
+          "default": 9
+        },
+        {
+          "type": "header",
+          "content": "Caption #1"
+        },
+        {
+          "type": "image_picker",
+          "id": "caption_1",
+          "label": "Caption #1 image"
+        },
+        {
+          "type": "number",
+          "id": "caption_1_x",
+          "label": "Caption #1 horizontal position(x)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "caption_1_align",
+          "label": "Caption #1 align with horizontal position",
+          "info": "At the vertical position, the Caption #1 will be aligned left, center or right by this position.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "number",
+          "id": "caption_1_y",
+          "label": "Caption #1 vertical position(y)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "number",
+          "id": "caption_1_z",
+          "label": "Caption #1 layer order(z)",
+          "info": "Integer, greater than 0.",
+          "default": 9
+        },
+        {
+          "type": "header",
+          "content": "Caption #2"
+        },
+        {
+          "type": "image_picker",
+          "id": "caption_2",
+          "label": "Caption #2 image"
+        },
+        {
+          "type": "number",
+          "id": "caption_2_x",
+          "label": "Caption #2 horizontal position(x)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "caption_2_align",
+          "label": "Caption #2 align with horizontal position",
+          "info": "At the vertical position, the Caption #2 will be aligned left, center or right by this position.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "number",
+          "id": "caption_2_y",
+          "label": "Caption #2 vertical position(y)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "number",
+          "id": "caption_2_z",
+          "label": "Caption #2 layer order(z)",
+          "info": "Integer, greater than 0.",
+          "default": 9
+        },
+        {
+          "type": "header",
+          "content": "Caption #3"
+        },
+        {
+          "type": "image_picker",
+          "id": "caption_3",
+          "label": "Caption #3 image"
+        },
+        {
+          "type": "number",
+          "id": "caption_3_x",
+          "label": "Caption #3 horizontal position(x)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "caption_3_align",
+          "label": "Caption #3 align with horizontal position",
+          "info": "At the vertical position, the Caption #3 will be aligned left, center or right by this position.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "number",
+          "id": "caption_3_y",
+          "label": "Caption #3 vertical position(y)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "number",
+          "id": "caption_3_z",
+          "label": "Caption #3 layer order(z)",
+          "info": "Integer, greater than 0.",
+          "default": 9
+        },
+        {
+          "type": "header",
+          "content": "Caption #4"
+        },
+        {
+          "type": "image_picker",
+          "id": "caption_4",
+          "label": "Caption #4 image"
+        },
+        {
+          "type": "number",
+          "id": "caption_4_x",
+          "label": "Caption #4 horizontal position(x)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "caption_4_align",
+          "label": "Caption #4 align with horizontal position",
+          "info": "At the vertical position, the Caption #4 will be aligned left, center or right by this position.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "number",
+          "id": "caption_4_y",
+          "label": "Caption #4 vertical position(y)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "number",
+          "id": "caption_4_z",
+          "label": "Caption #4 layer order(z)",
+          "info": "Integer, greater than 0.",
+          "default": 9
+        },
+        {
+          "type": "header",
+          "content": "Caption #5"
+        },
+        {
+          "type": "image_picker",
+          "id": "caption_5",
+          "label": "Caption #5 image"
+        },
+        {
+          "type": "number",
+          "id": "caption_5_x",
+          "label": "Caption #5 horizontal position(x)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "caption_5_align",
+          "label": "Caption #5 align with horizontal position",
+          "info": "At the vertical position, the Caption #5 will be aligned left, center or right by this position.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "number",
+          "id": "caption_5_y",
+          "label": "Caption #5 vertical position(y)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "number",
+          "id": "caption_5_z",
+          "label": "Caption #5 layer order(z)",
+          "info": "Integer, greater than 0.",
+          "default": 9
+        },
+        {
+          "type": "header",
+          "content": "Caption #6"
+        },
+        {
+          "type": "image_picker",
+          "id": "caption_6",
+          "label": "Caption #6 image"
+        },
+        {
+          "type": "number",
+          "id": "caption_6_x",
+          "label": "Caption #6 horizontal position(x)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "caption_6_align",
+          "label": "Caption #6 align with horizontal position",
+          "info": "At the vertical position, the Caption #6 will be aligned left, center or right by this position.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "number",
+          "id": "caption_6_y",
+          "label": "Caption #6 vertical position(y)",
+          "info": "Unit %. Accept decimal number.",
+          "default": 0
+        },
+        {
+          "type": "number",
+          "id": "caption_6_z",
+          "label": "Caption #6 layer order(z)",
+          "info": "Integer, greater than 0.",
+          "default": 9
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow & Cases listing",
+      "category": "Slideshow",
+      "settings": {
+        "autoplay": true,
+        "autoplay_speed": "5000"
+      }
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

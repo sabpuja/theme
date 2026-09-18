@@ -1,0 +1,226 @@
+{%- assign image_size = 'master' -%}
+{% assign full = section.settings.full %}
+{% assign desktop = section.settings.margin1 | split: ',' %}
+{% assign d1 = desktop[0] %}
+{% assign d2 = desktop[1] %}
+{% assign d3 = desktop[2] %}
+{% assign d4 = desktop[3] %}
+{% assign tablet = section.settings.margin2 | split: ',' %}
+{% assign t1 = tablet[0] %}
+{% assign t2 = tablet[1] %}
+{% assign t3 = tablet[2] %}
+{% assign t4 = tablet[3] %}
+{% assign mobile = section.settings.margin3 | split: ',' %}
+{% assign m1 = mobile[0] %}
+{% assign m2 = mobile[1] %}
+{% assign m3 = mobile[2] %}
+{% assign m4 = mobile[3] %}
+
+{% style %}  
+  @media screen and (min-width: 1261px){
+	.spacing-{{ section.id }}{
+      margin-top: {{d1}}px;
+      margin-bottom: {{d2}}px;
+      padding-top: {{d3}}px;
+      padding-bottom: {{d4}}px;
+    }
+  }
+  @media screen and (min-width: 801px) and (max-width: 1260px){
+    .spacing-{{ section.id }}{
+      margin-top: {{t1}}px;
+      margin-bottom: {{t2}}px;
+      padding-top: {{t3}}px;
+      padding-bottom: {{t4}}px;
+    }
+  }
+  @media screen and (max-width: 800px){
+	.spacing-{{ section.id }}{
+      margin-top: {{m1}}px;
+      margin-bottom: {{m2}}px;
+      padding-top: {{m3}}px;
+      padding-bottom: {{m4}}px;
+    }
+  }
+{% endstyle %}
+
+<div data-section-id="{{ section.id }}" data-section-type="banner" data-section-name="index-banners-custom15">
+  <div class="index-banners-custom15-gr {{ section.settings.display }} spacing-{{ section.id }}" style="{% if section.settings.bkg %}background-image:url({{ section.settings.bkg | img_url: 'master' }}){% endif %}">
+    <div class="section-content">
+      <div class="grid-container">
+        <div class="box border-none index-banner-grid-container">
+          <div class="box-content">
+            <div class="banner-content">     
+              {% for block in section.blocks %}
+              <div class="banner-area grid-x text-position-{{block.settings.pos}}">
+                {% if block.settings.pos == 'left' %}
+                <div class="cell large-4">
+                  <div class="banner-area-group">
+                      {% if section.settings.image %}
+                      <div class="line">
+                        <img src="{{ section.settings.image | img_url: 'master' }}" alt=""/>
+                      </div>
+                      {% endif %}
+                      <div class="content">
+                        <div class="title">{{ block.settings.title }}</div>
+                        <div class="desc">{{ block.settings.desc }}</div>
+                        <div class="action"><a href="{{ block.settings.url }}">{{ block.settings.action }}</a></div>
+                      </div>
+                  </div>                  
+                </div>
+                {% endif %}
+                <div class="cell large-8">
+                  <a href="{{ block.settings.url }}">
+                    <img src="{% if block.settings.banner %}{{ block.settings.banner | img_url:'master' }}{% else %}{% endif %}" alt="{{ block.settings.banner.alt }}"/>
+                  </a> 
+                </div>
+                {% if block.settings.pos == 'right' %}
+                <div class="cell large-4">
+                <div class="banner-area-group">
+                    {% if section.settings.image %}
+                      <div class="line">
+                        <img src="{{ section.settings.image | img_url: 'master' }}" alt=""/>
+                      </div>
+                      {% endif %}
+                      <div class="content">
+                        <div class="title">{{ block.settings.title }}</div>
+                        <div class="desc">{{ block.settings.desc }}</div>
+                        <div class="action"><a href="{{ block.settings.url }}">{{ block.settings.action }}</a></div>
+                      </div>
+                </div>                  
+                </div>
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Banners Custom #15",
+  "class": "index-section index-banner-custom15",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+	{
+      "type": "paragraph",
+      "content": "View [Mockup of Section layout](https:\/\/i.imgur.com\/HtZ25SK.png)"
+    },
+    {
+      "type": "select",
+      "id": "display",
+      "label": "Display on",
+      "options": [
+        {
+          "value": "",
+          "label": "Desktop & Mobile"
+        },
+        {
+          "value": "show-for-large",
+          "label": "Desktop only"
+        },
+        {
+          "value": "hide-for-large",
+          "label": "Mobile only"
+        }
+      ],
+      "default": ""
+    },
+	{
+      "type": "text",
+      "id": "margin1",
+      "label": "Desktop: Section Spacing value",
+	  "default":"0,60,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin2",
+      "label": "Tablet: Section Spacing value",
+	  "default":"0,50,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "text",
+      "id": "margin3",
+      "label": "Mobile: Section Spacing value",
+	  "default":"0,30,0,0",
+	  "info":"Margin-Top(px),Margin-Bottom(px), Padding-Top(px),Padding-Bottom(px)"
+    },
+	{
+      "type": "image_picker",
+      "id": "bkg",
+      "label": "Image Background"
+    },
+	{
+      "type": "image_picker",
+      "id": "image",
+      "label": "Line image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+  		{
+          "type": "select",
+          "id": "pos",
+          "label": "set Caption Position",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left"
+        },
+  		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },	
+  		{
+          "type": "textarea",
+          "id": "desc",
+          "label": "Descrption"
+        },	
+  		{
+          "type": "text",
+          "id": "action",
+          "label": "Action text"
+        },	
+  		{
+          "type": "url",
+          "id": "url",
+          "label": "Link",
+		  "default":"/collections/all"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner",
+          "label": "Upload Image"
+        }
+	  ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banners Custom #15",
+      "category": "Image"
+    }
+  ],
+  "templates": ["index","page"]
+}
+{% endschema %}

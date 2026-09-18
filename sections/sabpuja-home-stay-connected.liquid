@@ -1,0 +1,47 @@
+{{ 'sabpuja-home-supporting.css' | asset_url | stylesheet_tag }}
+{{ 'sabpuja-stay-connected-social.css' | asset_url | stylesheet_tag }}
+
+<section class="sp2026-support sp2026-support__section" aria-labelledby="sp2026-connected-title-{{ section.id }}">
+  <div class="sp2026-support__inner">
+    <div class="sp2026-connected">
+      <div class="sp2026-connected__copy">
+        <p class="sp2026-support__eyebrow">{{ 'sabpuja_custom.auto.s248' | t }}</p>
+        <h2 class="sp2026-connected__title" id="sp2026-connected-title-{{ section.id }}">{{ 'sabpuja_custom.auto.s247' | t }}</h2>
+        <p class="sp2026-connected__text">{{ 'sabpuja_custom.auto.s116' | t }}</p>
+
+        <div class="sp2026-connected__actions">
+          <a class="sp2026-connected__action" href="tel:+919667819241" aria-label="Call Sabpuja at +91 96678 19241">{% render 'sabpuja-icon', name: 'phone' %}<span>{{ 'sabpuja_custom.auto.s033' | t }}</span></a>
+          <a class="sp2026-connected__action sp2026-connected__action--secondary" href="mailto:support@sabpuja.com" aria-label="Email Sabpuja support at support@sabpuja.com">{% render 'sabpuja-icon', name: 'mail' %}<span>{{ 'sabpuja_custom.auto.s086' | t }}</span></a>
+        </div>
+
+        <div class="sp2026-connected__contact" aria-label="Sabpuja support contact details">
+          <a class="sp2026-connected__contact-link" href="tel:+919667819241" aria-label="Call Sabpuja at +91 96678 19241">{% render 'sabpuja-icon', name: 'phone' %}<span>+91 96678 19241</span></a>
+          <span class="sp2026-connected__contact-separator" aria-hidden="true">·</span>
+          <a class="sp2026-connected__contact-link" href="tel:+911142147364" aria-label="Call Sabpuja at +91 11 4214 7364">{% render 'sabpuja-icon', name: 'phone' %}<span>+91 11 4214 7364</span></a>
+        </div>
+        <p class="sp2026-connected__note">{% render 'sabpuja-icon', name: 'clock' %}<span>{{ 'sabpuja_custom.auto.s255' | t }}</span></p>
+
+        <p class="sp2026-connected__social-label">{{ 'sabpuja_custom.auto.s109' | t }}</p>
+        <nav class="sp2026-connected__socials" aria-label="{{ 'sabpuja_custom.auto.s222' | t }}">
+          {% if settings.social_instagram_link != blank %}
+            <a class="sp2026-connected__social-link" href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener noreferrer" aria-label="Sabpuja on Instagram, @sabpujaofficial — opens in a new tab">{% render 'sabpuja-icon', name: 'instagram' %}<strong>Instagram</strong><span>@sabpujaofficial</span></a>
+          {% endif %}
+          {% if settings.social_youtube_link != blank %}
+            <a class="sp2026-connected__social-link" href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener noreferrer" aria-label="Sabpuja on YouTube — opens in a new tab">{% render 'sabpuja-icon', name: 'youtube' %}<strong>YouTube</strong><span>Sabpuja</span></a>
+          {% endif %}
+          {% if settings.social_facebook_link != blank %}
+            <a class="sp2026-connected__social-link" href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener noreferrer" aria-label="Sabpuja on Facebook — opens in a new tab">{% render 'sabpuja-icon', name: 'facebook' %}<strong>Facebook</strong><span>Sabpuja</span></a>
+          {% endif %}
+        </nav>
+      </div>
+
+      <div class="sp2026-connected__media">
+        <img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-stay-connected-social-2026.webp?v=1789664793" width="1672" height="941" loading="lazy" decoding="async" alt="Sabpuja social connection scene with a smartphone, diya, flowers and devotional decor">
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{"name":"Sabpuja stay connected","settings":[],"presets":[{"name":"Sabpuja stay connected"}]}
+{% endschema %}

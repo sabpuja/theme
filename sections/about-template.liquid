@@ -1,0 +1,1059 @@
+{% include 'about-template' %}
+
+{% schema %}
+{
+  "name": "About Us Page",
+  "class": "about",  
+  "blocks": [
+	{
+      "type": "text",
+      "name": "Page content",
+      "settings": [        
+        {
+          "type": "paragraph",
+          "content": "Will show content of the Page that you type."
+        }
+      ]
+    },
+	{
+      "type": "slideshow",
+      "name": "Slideshow",
+      "settings": [        
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Auto-play slides",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "autoplay_speed",
+          "label": "Change slides every",
+          "options": [
+            {
+              "value": "3000",
+              "label": "3 seconds"
+            },
+            {
+              "value": "4000",
+              "label": "4 seconds"
+            },
+            {
+              "value": "5000",
+              "label": "5 seconds"
+            },
+            {
+              "value": "6000",
+              "label": "6 seconds"
+            },
+            {
+              "value": "7000",
+              "label": "7 seconds"
+            },
+            {
+              "value": "8000",
+              "label": "8 seconds"
+            },
+            {
+              "value": "9000",
+              "label": "9 seconds"
+            },
+            {
+              "value": "10000",
+              "label": "10 seconds"
+            }
+          ],
+          "default": "5000"
+        },
+        {
+          "type": "select",
+          "id": "effect",
+          "label": "Slide effect",
+          "options": [
+            {
+              "value": "slide",
+              "label": "Sliding"
+            },
+            {
+              "value": "fade",
+              "label": "Fading"
+            },
+            {
+              "value": "cube",
+              "label": "Cube"
+            },
+            {
+              "value": "flip",
+              "label": "Flipping"
+            }
+          ],
+          "default": "slide"
+        },
+        {
+          "type": "checkbox",
+          "id": "navigation",
+          "label": "Enable Navigaiton",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "pagination",
+          "label": "Enable Pagination",
+          "default": true
+        },
+		{
+          "type": "paragraph",
+          "content": "Add new block with type is \"Image Slide\""
+        }
+      ]
+    },
+	{
+      "type": "slide",
+      "name": "Image Slide",
+      "settings": [        
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image Upload"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link to"
+        }
+      ]
+    },
+    {
+      "type": "banner1",
+      "name": "1 Banner",
+      "settings": [        
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image Upload"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link to",
+		  "default":"/collections/all"
+        },
+		{
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption"
+        }
+      ]
+    },
+	{
+      "type": "banner2",
+      "name": "2 Banners",
+      "settings": [ 
+		{
+          "type": "header",
+          "content": "Banner Left"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image Upload"
+        },
+        {
+          "type": "url",
+          "id": "url1",
+          "label": "Link to",
+		  "default":"/collections/all"
+        },
+		{
+          "type": "textarea",
+          "id": "caption1",
+          "label": "Caption"
+        },
+		{
+          "type": "header",
+          "content": "Banner Right"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image Upload"
+        },
+        {
+          "type": "url",
+          "id": "url2",
+          "label": "Link to",
+		  "default":"/collections/all"
+        },
+		{
+          "type": "textarea",
+          "id": "caption2",
+          "label": "Caption"
+        }
+      ]
+    },
+	{
+      "type": "banner3",
+      "name": "3 Banners",
+      "settings": [ 
+		{
+          "type": "header",
+          "content": "Banner Left"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image Upload"
+        },
+        {
+          "type": "url",
+          "id": "url1",
+          "label": "Link to",
+		  "default":"/collections/all"
+        },
+		{
+          "type": "textarea",
+          "id": "caption1",
+          "label": "Caption"
+        },
+		{
+          "type": "header",
+          "content": "Banner Middle"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image Upload"
+        },
+        {
+          "type": "url",
+          "id": "url2",
+          "label": "Link to",
+		  "default":"/collections/all"
+        },
+		{
+          "type": "textarea",
+          "id": "caption2",
+          "label": "Caption"
+        },
+		{
+          "type": "header",
+          "content": "Banner Right"
+        },
+        {
+          "type": "image_picker",
+          "id": "image3",
+          "label": "Image Upload"
+        },
+        {
+          "type": "url",
+          "id": "url3",
+          "label": "Link to",
+		  "default":"/collections/all"
+        },
+		{
+          "type": "textarea",
+          "id": "caption3",
+          "label": "Caption"
+        }
+      ]
+    },
+	{
+      "type": "info",
+      "name": "Information",
+      "settings": [        
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "header",
+          "content": "Information 1"
+        },
+		{
+          "type": "image_picker",
+          "id": "icon1",
+          "label": "Icon"
+        },		
+		{
+          "type": "text",
+          "id": "head1",
+          "label": "Heading"
+        },
+		{
+          "type": "text",
+          "id": "desc1",
+          "label": "Description"
+        },
+		{
+          "type": "header",
+          "content": "Information 2"
+        },
+		{
+          "type": "image_picker",
+          "id": "icon2",
+          "label": "Icon"
+        },		
+		{
+          "type": "text",
+          "id": "head2",
+          "label": "Heading"
+        },
+		{
+          "type": "text",
+          "id": "desc2",
+          "label": "Description"
+        },
+		{
+          "type": "header",
+          "content": "Information 3"
+        },
+		{
+          "type": "image_picker",
+          "id": "icon3",
+          "label": "Icon"
+        },		
+		{
+          "type": "text",
+          "id": "head3",
+          "label": "Heading"
+        },
+		{
+          "type": "text",
+          "id": "desc3",
+          "label": "Description"
+        }
+      ]
+    },
+	{
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": [        
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "text",
+          "id": "desc",
+          "label": "Description"
+        },
+		{
+          "type": "textarea",
+          "id": "actionurl",
+          "label": "Mailchimp Action URL"
+        },
+		{
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder Text"
+        },
+		{
+          "type": "text",
+          "id": "submit",
+          "label": "Submit Text"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Background color"
+        }
+      ]
+    },
+	{
+      "type": "customer",
+      "name": "Customer Stories",
+      "settings": [        
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "text",
+          "id": "desc",
+          "label": "Description"
+        },
+		{
+          "type": "color",
+          "id": "color",
+          "label": "Background color"
+        },
+		{
+          "type": "header",
+          "content": "Slider Settings"
+        },
+		{
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Auto-play slides",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "autoplay_speed",
+          "label": "Change slides every",
+          "options": [
+            {
+              "value": "3000",
+              "label": "3 seconds"
+            },
+            {
+              "value": "4000",
+              "label": "4 seconds"
+            },
+            {
+              "value": "5000",
+              "label": "5 seconds"
+            },
+            {
+              "value": "6000",
+              "label": "6 seconds"
+            },
+            {
+              "value": "7000",
+              "label": "7 seconds"
+            },
+            {
+              "value": "8000",
+              "label": "8 seconds"
+            },
+            {
+              "value": "9000",
+              "label": "9 seconds"
+            },
+            {
+              "value": "10000",
+              "label": "10 seconds"
+            }
+          ],
+          "default": "5000"
+        },
+        {
+          "type": "select",
+          "id": "effect",
+          "label": "Slide effect",
+          "options": [
+            {
+              "value": "slide",
+              "label": "Sliding"
+            },
+            {
+              "value": "fade",
+              "label": "Fading"
+            },
+            {
+              "value": "cube",
+              "label": "Cube"
+            },
+            {
+              "value": "flip",
+              "label": "Flipping"
+            }
+          ],
+          "default": "slide"
+        },
+		{
+          "type": "number",
+          "id": "space",
+          "label": "Space between images",
+          "default": 30
+        },
+		{
+          "type": "select",
+          "id": "column_small",
+          "label": "Products per row",
+          "info": "For small screen (0px - 550px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "select",
+          "id": "column_medium",
+          "label": "Products per row",
+          "info": "For medium screen (551px - 800px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            }
+          ],
+          "default": "2"
+        },
+        {
+          "type": "select",
+          "id": "column_large",
+          "label": "Products per row",
+          "info": "For large screen (801px - 1260px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "3"
+        },
+        {
+          "type": "select",
+          "id": "column_xlarge",
+          "label": "Products per row",
+          "info": "For xlarge screen (1261px - 1440px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "column_xxlarge",
+          "label": "Products per row",
+          "info": "For xxlarge screen (1441px - 1680px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "column_xxxlarge",
+          "label": "Products per row",
+          "info": "For xxxlarge screen (1681px - infinity)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "checkbox",
+          "id": "navigation",
+          "label": "Enable Navigaiton",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "pagination",
+          "label": "Enable Pagination",
+          "default": true
+        },
+		{
+          "type": "paragraph",
+          "content": "Add new block with type is \"Customer Story Element\""
+        }
+      ]
+    },
+	{
+      "type": "customerdata",
+      "name": "Customer Story Element",
+      "settings": [        
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "desc",
+          "label": "Description"
+        },
+        {
+          "type": "textarea",
+          "id": "story",
+          "label": "Story content"
+        }
+      ]
+    },
+	{
+      "type": "partner",
+      "name": "Partner Slider",
+      "settings": [                
+		{
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Auto-play slides",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "autoplay_speed",
+          "label": "Change slides every",
+          "options": [
+            {
+              "value": "3000",
+              "label": "3 seconds"
+            },
+            {
+              "value": "4000",
+              "label": "4 seconds"
+            },
+            {
+              "value": "5000",
+              "label": "5 seconds"
+            },
+            {
+              "value": "6000",
+              "label": "6 seconds"
+            },
+            {
+              "value": "7000",
+              "label": "7 seconds"
+            },
+            {
+              "value": "8000",
+              "label": "8 seconds"
+            },
+            {
+              "value": "9000",
+              "label": "9 seconds"
+            },
+            {
+              "value": "10000",
+              "label": "10 seconds"
+            }
+          ],
+          "default": "5000"
+        },
+        {
+          "type": "select",
+          "id": "effect",
+          "label": "Slide effect",
+          "options": [
+            {
+              "value": "slide",
+              "label": "Sliding"
+            },
+            {
+              "value": "fade",
+              "label": "Fading"
+            },
+            {
+              "value": "cube",
+              "label": "Cube"
+            },
+            {
+              "value": "flip",
+              "label": "Flipping"
+            }
+          ],
+          "default": "slide"
+        },
+		{
+          "type": "number",
+          "id": "space",
+          "label": "Space between images",
+          "default": 30
+        },
+		{
+          "type": "select",
+          "id": "column_small",
+          "label": "Products per row",
+          "info": "For small screen (0px - 550px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "select",
+          "id": "column_medium",
+          "label": "Products per row",
+          "info": "For medium screen (551px - 800px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            }
+          ],
+          "default": "2"
+        },
+        {
+          "type": "select",
+          "id": "column_large",
+          "label": "Products per row",
+          "info": "For large screen (801px - 1260px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "3"
+        },
+        {
+          "type": "select",
+          "id": "column_xlarge",
+          "label": "Products per row",
+          "info": "For xlarge screen (1261px - 1440px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "column_xxlarge",
+          "label": "Products per row",
+          "info": "For xxlarge screen (1441px - 1680px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "column_xxxlarge",
+          "label": "Products per row",
+          "info": "For xxxlarge screen (1681px - infinity)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "checkbox",
+          "id": "navigation",
+          "label": "Enable Navigaiton",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "pagination",
+          "label": "Enable Pagination",
+          "default": true
+        },
+		{
+          "type": "paragraph",
+          "content": "Add new block with type is \"Partner Element\""
+        }
+      ]
+    },
+	{
+      "type": "partnerdata",
+      "name": "Partner Element",
+      "settings": [        
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Avatar"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Name"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

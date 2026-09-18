@@ -1,0 +1,828 @@
+<!-- /section/article-template.liquid -->
+{%- assign new_comment = false -%}
+{%- if comment and comment.created_at -%}
+  {%- assign new_comment = true -%}
+  {%- assign new_comment_id = comment.id -%}
+{%- endif -%}
+
+{%- if new_comment -%}
+  {%- assign duplicate_comment = false -%}
+  {%- for comment in article.comments -%}
+    {%- if comment.id == new_comment_id -%}
+      {%- assign duplicate_comment = true -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if duplicate_comment -%}
+    {%- assign number_of_comments = article.comments_count -%}
+  {%- else -%}
+    {%- assign number_of_comments = article.comments_count | plus: 1 -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign number_of_comments = article.comments_count -%}
+{%- endif -%}
+
+{%- if section.blocks.size > 0 -%}
+  {%- for block in section.blocks -%}
+    {%- if block.settings.position == 'left_sidebar' -%}
+      {%- assign left_sidebar = true -%}
+    {%- elsif block.settings.position == 'right_sidebar' -%}
+      {%- assign right_sidebar = true -%}
+    {%- elsif block.settings.position == 'top_content' -%}
+      {%- assign top_content = true -%}
+    {%- elsif block.settings.position == 'bottom_content' -%}
+      {%- assign bottom_content = true -%}
+    {%- elsif block.settings.position == 'top_container' -%}
+      {%- assign top_container = true -%}
+    {%- elsif block.settings.position == 'bottom_container' -%}
+      {%- assign bottom_container = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{%- include 'breadcrumbs' -%}
+{%- if top_container -%}
+  <div class="grid-container">
+    <div class="layout-top-container">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.position == 'top_container' -%}
+          {%- include block.type -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+<div class="grid-container">
+  <div class="grid-x grid-margin-x">
+    {%- if left_sidebar -%}
+      <div class="cell small-12 large-3 layout-left-sidebar show-for-large" data-layout-left-sidebar>
+        {%- for block in section.blocks -%}
+          {%- if block.settings.position == 'left_sidebar' -%}
+            {%- include block.type -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    <div class="cell small-12 large-9 layout-content">
+      {%- if top_content -%}
+        <div class="layout-top-content">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.position == 'top_content' -%}
+              {%- include block.type -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      <article itemscope itemtype="http://schema.org/Article">
+        <div class="article-heading">
+          <div class="group-title-share">
+            <h1 class="article-title">{{ article.title }}</h1>
+            <div class="right-area">
+              <div class="row1">
+              {%- if section.settings.show_share_buttons -%}
+              {%- include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image -%}
+              {%- endif -%}
+              </div>
+              <div class="row2">
+                {%- if section.settings.blog_show_author -%}
+                <span class="article-author">{{ 'blogs.article.by_author' | t: author: article.author }} </span>
+                {%- endif -%}
+                {%- if section.settings.blog_show_date -%}
+                <span>-</span>
+                <span class="article-date">{{ article.published_at | date: '%b %d, %Y' }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+          {%- if section.settings.blog_show_image -%}
+            <div class="article-image">
+              <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ article.image | img_url: '800x' }}" data-srcset="{{ article.image | img_url: '800x' }} 800w, {{ article.image | img_url: '800x', scale: 2 }} 1440w, {{ article.image | img_url: '800x', scale: 3 }} 1920w" class="lazyload width-100" alt="{{ article.title | escape }}"/>
+            </div>
+          {%- endif -%}
+        </div>
+        <div class="article-content" itemprop="articleBody">
+          {{ article.content }}
+        </div>   
+        {% if section.settings.show_tags %}
+        <div class="article-tags">
+          <div class="tags-heading">{{ 'products.product.tag'|t }}:</div>
+          <ul>
+          {% for tag in article.tags %}
+            <li>
+              <!-- <em class="sli sli-tag"></em> -->
+              <svg class="svg-icon"><use xlink:href="#iconfinder_84-Tag_2672726"></use></svg>
+              {{ tag }}
+            </li>
+          {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </article>
+      {%- if blog.comments_enabled? -%}
+        {%- if number_of_comments > 0 -%}
+          <hr>
+          <div class="article-comment">
+            <h2 class="box-title">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</h2>
+            {%- paginate article.comments by 5 -%}
+              {%- comment -%}
+              #comments is required, it is used as an anchor link by Shopify.
+              {%- endcomment -%}
+              <div id="comments">
+                {%- if new_comment -%}
+                  <div class="callout success">
+                    {%- if blog.moderated? -%}
+                      {{ 'blogs.comments.success_moderated' | t }}
+                    {%- else -%}
+                      {{ 'blogs.comments.success' | t }}
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+                <ul class="article-comment-list no-bullet">
+                  {%- if new_comment -%}
+                    <li class="article-comment-item">
+                      {%- include 'article-comment' -%}
+                    </li>
+                  {%- endif -%}
+                  {%- for comment in article.comments -%}
+                    {%- unless comment.id == new_comment_id -%}
+                      <li class="article-comment-item">
+                        {%- include 'article-comment' -%}
+                      </li>
+                    {%- endunless -%}
+                  {%- endfor -%}
+                </ul>
+                {%- if paginate.pages > 1 -%}
+                  {%- include 'pagination' -%}
+                {%- endif -%}
+              </div>
+            {%- endpaginate -%}
+          </div>
+        {%- endif -%}
+        <hr>
+        <div class="article-comment-form">
+          {%- form 'new_comment', article -%}
+            <h2 class="box-title">{{ 'blogs.comments.title' | t }}</h2>
+            {{ form.errors | default_errors }}
+            <div class="grid-x grid-margin-x">
+              <div class="cell large-6 form-group{% if form.errors contains 'author' %} has-error{% endif %}">
+                <label>{{ 'blogs.comments.name' | t }}</label>
+                <input type="text" name="comment[author]" value="{{ form.author }}" placeholder="{{ 'blogs.comments.name' | t }}" />
+              </div>
+              <div class="cell large-6 form-group {% if form.errors contains 'email' %} has-error{% endif %}">
+                <label>{{ 'blogs.comments.email' | t }}</label>
+                <input type="email" name="comment[email]" value="{{ form.email }}"  autocapitalize="off" placeholder="{{ 'blogs.comments.email' | t }}" />
+              </div>
+              <div class="cell form-group {% if form.errors contains 'body' %} has-error{% endif %}">
+                <label>{{ 'blogs.comments.message' | t }}</label>
+                <textarea name="comment[body]" placeholder="{{ 'blogs.comments.message' | t }}">{{ form.body }}</textarea>
+              </div>
+            </div>
+            {%- if blog.moderated? -%}
+              <p class="article-comment-fine-print">{{ 'blogs.comments.moderated' | t }}</p>
+            {%- endif -%}
+            <input type="submit" class="button primary radius article-comment-form-button" value="{{ 'blogs.comments.post' | t }}">
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+      {%- if bottom_content -%}
+        <div class="layout-bottom-content">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.position == 'bottom_content' -%}
+              {%- include block.type -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if right_sidebar -%}
+      <div class="cell small-12 large-3 layout-right-sidebar" data-layout-right-sidebar>
+        {%- for block in section.blocks -%}
+          {%- if block.settings.position == 'right_sidebar' -%}
+            {%- include block.type -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{%- if bottom_container -%}
+  <div class="grid-container">
+    <div class="article-bottom-container">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.position == 'bottom_container' -%}
+          {%- include block.type -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Posts",
+  "max_blocks": 30,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "blog_show_image",
+      "label": "Show image",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share_buttons",
+      "label": "Show social sharing buttons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "Show Tags",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Custom Menu",
+      "type": "blog-link-list",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Name",
+          "info": "Name this section, it will help to control the section more easily."
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "top_container",
+              "label": "Top Container"
+            },
+            {
+              "value": "top_content",
+              "label": "Top Content"
+            },
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            },
+            {
+              "value": "bottom_content",
+              "label": "Bottom Content"
+            },
+            {
+              "value": "bottom_container",
+              "label": "Bottom Container"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "link_list",
+          "id": "link_list",
+          "label": "Link List"
+        }
+      ]
+    },
+    {
+      "name": "Featured Articles",
+      "type": "blog-article",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Name",
+          "info": "Name this section, it will help to control the section more easily."
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "top_container",
+              "label": "Top Container"
+            },
+            {
+              "value": "top_content",
+              "label": "Top Content"
+            },
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            },
+            {
+              "value": "bottom_content",
+              "label": "Bottom Content"
+            },
+            {
+              "value": "bottom_container",
+              "label": "Bottom Container"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "blog",
+          "id": "blog",
+          "label": "Collection article"
+        },
+        {
+          "type": "header",
+          "content": "Responsive columns"
+        },
+        {
+          "type": "select",
+          "id": "column_small",
+          "label": "Articles per row",
+          "info": "For small screen (0px - 550px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "select",
+          "id": "column_medium",
+          "label": "Articles per row",
+          "info": "For medium screen (551px - 800px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            }
+          ],
+          "default": "2"
+        },
+        {
+          "type": "select",
+          "id": "column_large",
+          "label": "Articles per row",
+          "info": "For large screen (801px - 1260px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "3"
+        },
+        {
+          "type": "select",
+          "id": "column_xlarge",
+          "label": "Articles per row",
+          "info": "For xlarge screen (1261px - 1440px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "column_xxlarge",
+          "label": "Articles per row",
+          "info": "For xxlarge screen (1441px - 1680px)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "column_xxxlarge",
+          "label": "Articles per row",
+          "info": "For xxxlarge screen (1681px - infinity)",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            },
+            {
+              "value": "8",
+              "label": "8"
+            }
+          ],
+          "default": "4"
+        },
+        {
+          "type": "number",
+          "id": "limit",
+          "label": "Limit article show",
+          "default": 4
+        }
+      ]
+    },
+    {
+      "name": "Banner",
+      "type": "blog-banner",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Name",
+          "info": "Name this section, it will help to control the section more easily."
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "top_container",
+              "label": "Top Container"
+            },
+            {
+              "value": "top_content",
+              "label": "Top Content"
+            },
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            },
+            {
+              "value": "bottom_content",
+              "label": "Bottom Content"
+            },
+            {
+              "value": "bottom_container",
+              "label": "Bottom Container"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "number",
+          "id": "image_width",
+          "label": "Image width",
+          "default": 200
+        },
+        {
+          "type": "number",
+          "id": "image_height",
+          "label": "Image height",
+          "default": 200
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Facebook Chat",
+      "type": "blog-facebookchat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "id",
+          "label": "Username Facebook",
+		  "default":"papathemes"
+        },
+		{
+          "type": "text",
+          "id": "id2",
+          "label": "Username Display",
+		  "default":"Papathemes"
+        }, 
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        }
+      ]
+    },
+    {
+      "name": "HTML",
+      "type": "blog-html",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Name",
+          "info": "Name this section, it will help to control the section more easily."
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "top_container",
+              "label": "Top Container"
+            },
+            {
+              "value": "top_content",
+              "label": "Top Content"
+            },
+            {
+              "value": "left_sidebar",
+              "label": "Left Sidebar"
+            },
+            {
+              "value": "right_sidebar",
+              "label": "Right Sidebar"
+            },
+            {
+              "value": "bottom_content",
+              "label": "Bottom Content"
+            },
+            {
+              "value": "bottom_container",
+              "label": "Bottom Container"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Display on",
+          "options": [
+            {
+              "value": "",
+              "label": "Desktop & Mobile"
+            },
+            {
+              "value": "show-for-large",
+              "label": "Desktop only"
+            },
+            {
+              "value": "hide-for-large",
+              "label": "Mobile only"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "html",
+          "id": "html",
+          "label": "HTML"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

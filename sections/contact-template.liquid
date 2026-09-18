@@ -1,0 +1,156 @@
+<!-- /sections/contact-template.liquid -->
+{%- include 'breadcrumbs' -%}
+<div class="page-content">
+  <div class="grid-container">
+    {%- if section.settings.map_enable -%}
+    <div class="maps-area">
+      {{ section.settings.map_caption }}
+    </div>
+    {%- endif -%}
+    <div class="content-area grid-x grid-margin-x">      
+      <div class="cell large-4">
+        <div class="">
+          <div class="contact-info">
+            {%- if section.settings.address != blank -%}
+              <div class="contact-info-address">
+                <span class="icon"><em class="sli sli-location-pin"></em></span>
+                <div class="content">
+                  <strong>{{ section.settings.address }}</strong> 
+                  <span>{{ section.settings.address2 }}</span>
+                </div>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.phone != blank -%}
+              <div class="contact-info-phone">
+                <span class="icon"><em class="sli sli-phone"></em></span>
+                <div class="content">
+                  <strong>{{ section.settings.phone }}</strong> 
+                  <span>{{ section.settings.phone2 }}</span>
+                </div>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.email != blank -%}
+              <div class="contact-info-email">
+                <span class="icon"><em class="sli sli-envelope"></em></span>
+                <div class="content">
+                  <strong>{{ section.settings.email }}</strong> 
+                  <span>{{ section.settings.email2 }}</span>
+                </div>
+              </div>
+            {%- endif -%}
+			{%- if section.settings.fax != blank -%}
+              <div class="contact-info-fax">
+                <span class="icon"><em class="sli sli-phone"></em></span>
+                <div class="content">
+                  <strong>{{ section.settings.fax }}</strong> 
+                  <span>{{ section.settings.fax2 }}</span>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+          {%- if page.content != blank -%}
+            <div class="contact-description">{{ page.content }}</div>
+          {%- endif -%}          
+        </div>
+      </div>
+      <div class="cell large-8">
+        {%- form 'contact' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="callout success">
+              {{ 'contact.form.post_success' | t }}
+            </div>
+          {%- endif -%}
+          {%- if form.errors -%}
+            <div class="callout alert">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+          <div class="grid-x grid-margin-x">
+            <div class="form-group cell large-6">
+              <label class="form-group-label">{{ 'contact.form.name' | t }}</label>
+              <input type="text" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="{{ 'contact.form.name' | t }}" class="form-group-field" />
+            </div>
+            <div class="form-group{% if form.errors contains 'email' %} has-error{% endif %}  cell large-6">
+              <label class="form-group-label">{{ 'contact.form.email' | t }}</label>
+              <input type="email" name="contact[email]"  autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'contact.form.email' | t }}" class="form-group-field" />
+            </div>
+            <div class="form-group cell large-12">
+              <label class="form-group-label">{{ 'contact.form.phone' | t }}</label>
+              <input type="text" name="contact[phone]" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="{{ 'contact.form.phone' | t }}" class="form-group-field" />
+            </div>
+            <div class="form-group cell large-12">
+              <label class="form-group-label">{{ 'contact.form.message' | t }}</label>
+              <textarea name="contact[body]" placeholder="{{ 'contact.form.message' | t }}" class="form-group-field">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+              <input type="submit" class="button form-button" value="{{ 'contact.form.submit' | t }}"/>
+            </div>
+           
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Contact Page",
+  "class": "contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Address Heading"
+    },
+	{
+      "type": "text",
+      "id": "address2",
+      "label": "Address Text"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "EMail Heading"
+    },
+	{
+      "type": "text",
+      "id": "email2",
+      "label": "EMail Text"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Heading"
+    },
+	{
+      "type": "text",
+      "id": "phone2",
+      "label": "Phone Text"
+    },
+    {
+      "type": "text",
+      "id": "fax",
+      "label": "FAX Heading"
+    },
+	{
+      "type": "text",
+      "id": "fax2",
+      "label": "FAX Text"
+    },
+    {
+      "type": "header",
+      "content": "Google Map"
+    },
+    {
+      "type": "checkbox",
+      "id": "map_enable",
+      "label": "Set active this block",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "map_caption",
+      "label": "Iframe Map",
+      "info": "[Where do I get my Iframe?](https://developers.google.com/maps/documentation/embed/guide)"
+    }
+  ]
+}
+{% endschema %}

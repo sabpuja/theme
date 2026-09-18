@@ -1,0 +1,74 @@
+{%- include 'breadcrumbs' -%}
+{% include 'faqs-template' %}
+
+{% schema %}
+{
+  "name": "FAQs Page",
+  "class": "faqs",  
+  "settings": [
+	{
+      "type": "header",
+      "content": "FAQs content"
+    },
+	{
+      "type": "checkbox",
+      "id": "faqs",
+	  "label":"Show FAQs content"
+    },
+	{
+      "type": "text",
+      "id": "faqs_text",
+	  "label":"More Text",
+	  "default":"Unable to find satisfactory answers?"
+    },
+	{
+      "type": "text",
+      "id": "faqs_btext",
+	  "label":"Button Text",
+	  "default":"Contact Support"
+    },
+	{
+      "type": "paragraph",
+      "content": "Add new block content for FAQs elements"
+    },
+	{
+      "type": "header",
+      "content": "Contact content"
+    },
+	{
+      "type": "checkbox",
+      "id": "contact",
+	  "label":"Show Contact content"
+    },
+	{
+      "type": "text",
+      "id": "title",
+	  "label":"Title"
+    },
+	{
+      "type": "textarea",
+      "id": "desc",
+	  "label":"Description"
+    }
+	
+  ],
+  "blocks": [	
+	{
+      "type": "faqs",
+      "name": "FAQs Element",
+      "settings": [        
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer!"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

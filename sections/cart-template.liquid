@@ -1,0 +1,169 @@
+<!-- /sections/cart-template.liquid -->
+{%- include 'breadcrumbs' -%}
+<div class="cart">
+  <div class="grid-container">
+    <!-- <div class="page-heading show-for-large">
+      <h1 class="page-title">{{ 'cart.general.title' | t }}</h1>
+    </div> -->
+    <div class="page-content">
+      {%- if cart.item_count > 0 -%}
+        <form action="/cart" method="post" class="cart">
+          <div class="cart-table">
+            <div class="grid-x grid-margin-x">
+              <div class="cell large-12">
+                <div class="cart-thead flex-container show-for-large">
+                 
+                  <div class="cart-product-image"></div>
+                  <div class="cart-product-info flex-container">
+                    <div class="cart-product-title">{{ 'cart.label.product' | t }}</div>
+                    <div class="cart-product-price">{{ 'cart.label.price' | t }}</div>
+                    <div class="cart-product-quantity">{{ 'cart.label.quantity' | t }}</div>
+                    <div class="cart-product-subtotal">{{ 'cart.label.total' | t }}</div>
+                  </div>
+                  <div class="cart-product-remove"></div>
+                </div>
+                <div class="cart-tbody">
+                  {%- for item in cart.items -%}
+                    <div class="cart-tr flex-container">
+                      <div class="cart-product-image">
+                        <a href="{{ item.url | within: collections.all }}">
+                          <img  src="{{ item | img_url: '100x' }}" alt="{{ item.title | escape }}"/>
+                        </a>
+                      </div>
+                      <div class="cart-product-info">
+                        <div class="cart-product-title">
+                          <a href="{{ item.url }}">{{ item.product.title }}</a>
+                          {%- unless item.variant.title contains 'Default' -%}
+                            <div class="cart-product-option">
+                              {%- for option in item.product.options -%}
+                                <div class="cart-product-option-item">
+                                  <span>{{ option }}:</span> {{ item.variant.options[forloop.index0] }}
+                                </div>
+                              {%- endfor -%}
+                            </div>
+                          {%- endunless -%}
+                        </div>
+                        <div class="cart-product-price">
+                          <span class="hide-for-large">{{ 'cart.label.price' | t }}:</span> {{ item.price | money }}
+                          {%- for discount in item.discounts -%}
+                            <div class="cart-product-discount">{{ discount.title }}</div>
+                          {%- endfor -%}
+                        </div>
+                        <div class="cart-product-quantity">
+                          <span class="hide-for-large">{{ 'cart.label.quantity' | t }}:</span>
+                          <div class="display-inline-block">
+                            <div class="input-group margin-bottom-0" data-number-group data-min="0">
+                              <span class="input-group-label align-center-middle padding-0 pointer" data-minus>
+                                <!-- <em class="sli sli-minus"></em> -->
+                                <svg class="svg-icon">
+                                  <use xlink:href="#icon-minus"></use>
+                                </svg>
+                              </span>
+                              <input type="text" name="updates[]" class="input-group-field text-center" value="{{ item.quantity }}" data-number/>
+                              <span class="input-group-label align-center-middle padding-0 pointer" data-plus>
+                                <!-- <em class="sli sli-plus"></em> -->
+                                <svg class="svg-icon">
+                                  <use xlink:href="#icon-plus"></use>
+                                </svg>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="cart-product-subtotal">
+                          <span class="hide-for-large">{{ 'cart.label.total' | t }}:</span> {{ item.line_price | money }}
+                        </div>
+                        <div class="cart-product-remove hide-for-large">
+                          <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart-product-remove-button">
+                            <!-- {{ 'cart.general.remove' | t }} -->
+                            <em class="sli sli-trash"></em>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="cart-product-remove flex-container align-center-middle show-for-large">
+                          <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart-product-remove-button">
+                            <em class="sli sli-trash"></em>
+                          </a>
+                        </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+                <div class="cart-footer">
+                  <div class="cart-total-item cart-total-subtotal">
+                    <div class="cart-total-title large-auto">{{ 'cart.general.subtotal' | t }}:</div>
+                    <div class="cart-total-value large-shrink">{{ cart.total_price | money }}</div>
+                  </div>
+                </div>
+                <div class="cart-buttons hide-for-large">
+                  <input type="submit" name="update" class="button" value="{{ 'cart.general.update' | t }}"/>
+                  <input type="submit" name="checkout" class="button" value="{{ 'cart.general.checkout' | t }}"/>
+                  {%- if additional_checkout_buttons -%}
+                    <div class="cart-total-button-additional">{{ content_for_additional_checkout_buttons }}</div>
+                  {%- endif -%}
+                </div>
+              </div>
+              <div class="cell large-12">
+                <div class="cart-tfoot">
+                  <div class="cart-tfoot-container">
+                    <div class="cart-total">
+                      <div class="cart-total-item cart-total-shipping">
+                        {{ 'cart.general.shipping_at_checkout' | t }}
+                      </div>
+                      {%- if section.settings.cart_notes_enable -%}
+                        <div class="cart-total-item">
+                          <label>{{ 'cart.general.note' | t }}</label>
+                          <div class="textarea-button-cart ">
+                            <textarea name="note" class="cart-note margin-0">{{ cart.note }}</textarea>
+                            <div class="cart-buttons show-for-large">
+                              <input type="submit" name="update" class="button" value="{{ 'cart.general.update' | t }}"/>
+                              <input type="submit" name="checkout" class="button" value="{{ 'cart.general.checkout' | t }}"/>
+                              {%- if additional_checkout_buttons -%}
+                                <div class="cart-total-button-additional">{{ content_for_additional_checkout_buttons }}</div>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                        </div>
+                      {%- endif -%}
+                
+                      {%- if cart.total_discounts > 0 -%}
+                        <div class="cart-total-item cart-total-discount grid-x">
+                          <div class="cart-total-title cell small-6 large-auto">{{ 'cart.general.savings' | t }}:</div>
+                          <div class="cart-total-value cell small-6 large-shrink">{{ cart.total_discounts | money }}</div>
+                        </div>
+                      {%- endif -%}
+                   
+                    </div>
+               
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      {%- else -%}
+        <div class="cart-empty">
+          <div class="text-center">
+            <p class="cart-empty-message">{{ 'cart.general.empty' | t }}</p>
+            <p class="cookie-message">{{ 'cart.general.cookies_required' | t }}</p>
+          </div>
+          <div class="flex-container align-right show-for-large">
+            <a href="/" class="button primary">{{ 'general.404.link' | t }}</a>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Cart page",
+  "class": "cart",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "cart_notes_enable",
+      "label": "Enable cart notes",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
