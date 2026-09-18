@@ -1,0 +1,50 @@
+name: Complete Shopify staging asset snapshot
+on:
+  push:
+    branches: [staging-2026]
+    paths:
+      - .github/workflows/sync-shopify-large-assets.yml
+permissions:
+  contents: write
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: staging-2026
+      - name: Download and verify Shopify assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets
+          curl -fL --retry 3 --retry-delay 1 'https://shopify-shop-assets.storage.googleapis.com/s/files/1/d/0f0f/0923/1381/3308/t/5/assets/password-bg.jpg?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=merchant-assets%40shopify-tiers.iam.gserviceaccount.com%2F20260918%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260918T180608Z&X-Goog-Expires=300&X-Goog-SignedHeaders=host&X-Goog-Signature=8045d692cda44d6537bf00473c129b3c7975f067e25b9dc5b61acc0d5809bdfeb6f9d35bbbcf6edf2fb2031483bd35b7af7e1acd5fee59ca41aa8bb93f2d2cc9b50d9328b2862e500e7edb2bf1b55714968960ab9b0e950e60eaae1c4559f3b5b64328d655000ddaf1eca00f4a2ad28624f6a1a31bae711f1b4f96202f3d6bfedb54a42ed7bafab1c1bf07aa1774b6a2b873d1e55e147866029c8a073b1f493b6e870cb033b7d96d89bdbdbd158abc3f1a24e99e7892fbe09c90f623a0c945d3845b8432df2c552e0f727e588c387ecbba22a1ec129a732816b829df14d108f3c5db22150d3f2853a47742a186338969c7f7b197e24a0888eac90a30b80168fd' -o 'assets/password-bg.jpg'
+          test "$(md5sum 'assets/password-bg.jpg' | awk '{print $1}')" = 'e79f9c686f307e19a2410979a9d1f784'
+          curl -fL --retry 3 --retry-delay 1 'https://shopify-shop-assets.storage.googleapis.com/s/files/1/d/1ffb/0923/1381/3308/t/5/assets/sabpuja-festival-gifting-family-01.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=merchant-assets%40shopify-tiers.iam.gserviceaccount.com%2F20260918%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260918T180608Z&X-Goog-Expires=300&X-Goog-SignedHeaders=host&X-Goog-Signature=1b908e64910043d9fc8387a2d02f6018cf30041a7013ae9b6e3f072d7c9355414e372009f280b8d6cbbbf34d31e8404e4a959fe374bf228c68787ee8374eb0fd4c1987007a6c6dbf7f7fb79fb01d2cdfa4cb7e43f932e116e16e709af0ea2a2d18efa75abe8c30cc1a0137c8ef0a579ce9c0efcdd92c8acf8850b43ac5fad15940bdc2636563183f67ec895baf1d72fed6139689c1816dd4af9518ee6aa2eda352f2c2cd4d0ac40a8de331cddbaa91e8779a1dcec963a15559fd758250a8d0b14e6439f479592f719994df8a4c34fcdd4ba7fb9275ba15cec1d3dab7d219cf949fd18c8cac3aaa8999b454fd6288ab1b00743e0f5f0c011f2314c5007b62c46c' -o 'assets/sabpuja-festival-gifting-family-01.webp'
+          test "$(md5sum 'assets/sabpuja-festival-gifting-family-01.webp' | awk '{print $1}')" = 'e0eb03a95ace032e745864fee2f474f2'
+          curl -fL --retry 3 --retry-delay 1 'https://shopify-shop-assets.storage.googleapis.com/s/files/1/d/e080/0923/1381/3308/t/5/assets/sabpuja-how-it-works-step-01-browse-on-store.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=merchant-assets%40shopify-tiers.iam.gserviceaccount.com%2F20260918%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260918T180608Z&X-Goog-Expires=300&X-Goog-SignedHeaders=host&X-Goog-Signature=32eceb26dbccd235ea429a7e174d19bdf354bbbd4a99e173f62a9e542d092398dd5f1efd7dd9281e3d31dfa8d0f0f49f5770c44525e233dd91331162124a3b11bc290c4910b5eebf97c1209d50463159bb29666579c40a3cb08b80d6d90a268a197cab0cbeb64bc3e1fe8950418cfd2a4002c797b04fdd6f9807ebdc612ccc7c46fba67b3dd44d512c6eba734946bebf7e577bb22d16c00d1ee04d5acaf5bc43ecedbcc2d2a67c37101ff273cc7fc6e6cf873cc98e0b0f076c542cf7b03060bdc19426d7ea802533569296a6e2a9845006b0bd1e03723b39f1568e51d541dac1f51ee9d8a0bbdb9c1ae45adcb6c86f31ba8db98adf7b7961f207901db4838a8c' -o 'assets/sabpuja-how-it-works-step-01-browse-on-store.webp'
+          test "$(md5sum 'assets/sabpuja-how-it-works-step-01-browse-on-store.webp' | awk '{print $1}')" = '558f0ab6b0ff92a54b879af305575e4f'
+          curl -fL --retry 3 --retry-delay 1 'https://shopify-shop-assets.storage.googleapis.com/s/files/1/d/0d04/0923/1381/3308/t/5/assets/sabpuja-how-it-works-step-02-kit-arrives.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=merchant-assets%40shopify-tiers.iam.gserviceaccount.com%2F20260918%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260918T180608Z&X-Goog-Expires=300&X-Goog-SignedHeaders=host&X-Goog-Signature=26f6e2e386135fed40fc2dc537d921fae84088b6d464a1072f5315456777455dca6bda5823ce7647aa76ee02f2ce1ad1d0f7649ebaeee608cd0bc1c46aac8e62799edb1c6960e538033837e6eb495783652ce0236d79cb1b9a83aab41fe9aa20d977ce8dcf4501715bd755c01432a7839d3e480d2290d2dc8b9c15d10ad5a640747c788abe9a8d456a7140425832c6e594cf453c072588541f7aec256ffc045c314723c72e4bfd4d2d7447c5ff07eeaf6a9989929acce6fa010cdd9b01373333274b35ff55db703204b367a1c75bbef62490f88b4fc3c53d33c251cd03dce34b5272248d821f7c8bfd4a3a4d4606ac7d71eb8e2cc0f29acdb1267281308132a3' -o 'assets/sabpuja-how-it-works-step-02-kit-arrives.webp'
+          test "$(md5sum 'assets/sabpuja-how-it-works-step-02-kit-arrives.webp' | awk '{print $1}')" = '8ceda46c7c7ad25b25f6dac338f3f9c0'
+          curl -fL --retry 3 --retry-delay 1 'https://shopify-shop-assets.storage.googleapis.com/s/files/1/d/ffb8/0923/1381/3308/t/5/assets/sabpuja-how-it-works-step-03-guide-and-qr.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=merchant-assets%40shopify-tiers.iam.gserviceaccount.com%2F20260918%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260918T180608Z&X-Goog-Expires=300&X-Goog-SignedHeaders=host&X-Goog-Signature=322f6925e4e80869e6c1f74c7ad53f5bc19e08b4aaf4c5cf515459f434d7109e11a50eaf962591fa2eb94ba7bf9b498799336391d6690d9a4aead25a6ef14dc4e71522965563e0e48caca34bae78bbfac616b2f4f53e87040ce36bcee254816edb7b994c133ef7d93c43d3dbf38532efb862dba791151a93294c8f272463a381f2be488b3548a2ccf6e7e2b80b9616c1a4346248fc49686b4726d65b69fb20787460302c0affe4a66bdcde9a1aa49ae4a4d5397b6d0e36defc495f652583983e28ad8819630d56fe56bd88d0ed1a031a585e29dc15410153eb8c052646c84d647598f5d58d233910461d826977277171de29a4236b6d05abf2c57699d6bd4953' -o 'assets/sabpuja-how-it-works-step-03-guide-and-qr.webp'
+          test "$(md5sum 'assets/sabpuja-how-it-works-step-03-guide-and-qr.webp' | awk '{print $1}')" = 'f150da5628cad195566fc9d96eeadc82'
+          curl -fL --retry 3 --retry-delay 1 'https://shopify-shop-assets.storage.googleapis.com/s/files/1/d/fff1/0923/1381/3308/t/5/assets/sabpuja-upcoming-festivals-diwali-01.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=merchant-assets%40shopify-tiers.iam.gserviceaccount.com%2F20260918%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260918T180608Z&X-Goog-Expires=300&X-Goog-SignedHeaders=host&X-Goog-Signature=1d3f0e3aab87d991b9fbcb73018bf4a96ef8efc03f569c5541ff18abc8576abfb2a840c74bfac11d30002fb4ad33ade2bc681a430711410a8198449932cd479351fc89bd85a4bccab9a190168689c98e07318e04ac6878e1474a54f7533eb20d7431a037a1b52735c68797d37b89c5aee11678b212fe93dc7fc55db17a74f184afdaa02e0b1d038d9c64410b778b78716bc672a10e90c19e2312a182a503f28729b29278164571f5c45bc5f1ffbb57dc1b069e381c4784633d368b43755ac6d5ae57f7bf9daa169a8bff3a8ae81fc7b84d2f16956badeef55e05d81d490eb6b721f8c09a4c84c146e4c73a31739db2310ffe68c8271eb5069c25446b90ae3ed3' -o 'assets/sabpuja-upcoming-festivals-diwali-01.webp'
+          test "$(md5sum 'assets/sabpuja-upcoming-festivals-diwali-01.webp' | awk '{print $1}')" = 'cfe2c96422f10e3ce0104d6ec96879bc'
+          curl -fL --retry 3 --retry-delay 1 'https://shopify-shop-assets.storage.googleapis.com/s/files/1/d/7a92/0923/1381/3308/t/5/assets/sabpuja-upcoming-festivals-dussehra-01.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=merchant-assets%40shopify-tiers.iam.gserviceaccount.com%2F20260918%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260918T180608Z&X-Goog-Expires=300&X-Goog-SignedHeaders=host&X-Goog-Signature=1ea81704027f02cfb0acbe8f267369c1c8e9265a8d2f662e5cb0c48e367dce327042e8afc3a3d2a81b205734f2598f4ff68c6f86e9803bac1635f10951deb2dc2cdd2ba1fe9b5e9dc99ca12d2010214f746d255c2d5f30ce9e623415576fe989c799a8da6be4dd13ee6c383b5e9edc9ae58292af91c6ab60612ffcea2aa6c6d8359084ad60a782170cfa51bb2c87be93e70d3feba51dad5022f2567a2b1d6bc146f60b4b5bc00a3bd39e6ea818e2d526d68a22d886115fed6869be7b40b83d49a38f3849ea3210c642785b82fd7e28f9cfb9b6459096ba5453ea35c47160d10405fb3b7fccfd11e467ee45a3c4fb70b6bf111827792cd4f3dde91822074e69ef' -o 'assets/sabpuja-upcoming-festivals-dussehra-01.webp'
+          test "$(md5sum 'assets/sabpuja-upcoming-festivals-dussehra-01.webp' | awk '{print $1}')" = '257edff0ec98b77fbabf62419d413772'
+          curl -fL --retry 3 --retry-delay 1 'https://shopify-shop-assets.storage.googleapis.com/s/files/1/d/c827/0923/1381/3308/t/5/assets/sabpuja-upcoming-festivals-navratri-01.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=merchant-assets%40shopify-tiers.iam.gserviceaccount.com%2F20260918%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260918T180608Z&X-Goog-Expires=300&X-Goog-SignedHeaders=host&X-Goog-Signature=6b32f628fcf41e51123cb62826e6fe946652e197069fb26c6dd001aa62ff58e45529a3a798082fb26c8cdf89c6351ecbc26af2d399349738a5116309f02af3ec79b25c3a9e0b9468556cbeaa272151304e1d6c2dc5aed21d9a28b6ac42c72c08e52939ee535a269a7d7edfce3ea3135824aa179aa475aeab61191bb25350404e38cb79f69579214fef02134aca74d3f6aed0ae222982fa41f0ab04ec45649c1724d7a6de1af0af412582ce6e94f2ab99bc157bc217d7396f358c7a2bb841df01541671065839d3905291643d94c8f8e57a283cf12a70423dd49eb30fc599575fda2f631d90a0f994fe49ccf6339ffc2dc0608a93ba9bd4119f7572e7f9ebc04b' -o 'assets/sabpuja-upcoming-festivals-navratri-01.webp'
+          test "$(md5sum 'assets/sabpuja-upcoming-festivals-navratri-01.webp' | awk '{print $1}')" = 'c9f68c029ea5abcaed723dad0e5da647'
+      - name: Commit exact asset snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          if git diff --cached --quiet; then
+            echo "No asset changes to commit."
+            exit 0
+          fi
+          git commit -m "Complete Shopify staging large asset snapshot"
+          git push origin HEAD:staging-2026
