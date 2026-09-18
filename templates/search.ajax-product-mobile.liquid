@@ -1,0 +1,43 @@
+<!-- /templates/search.ajax-product-mobile.liquid -->
+{% layout none %}
+{%- paginate search.results by 10 -%}
+  <div class="search-box-ajax-custom">
+    <div class="search-box-ajax-result text-center text-uppercase">
+      {{ search.results_count }} {{ 'general.text.results_with_count' | t }} '{{ search.terms }}'
+    </div>
+    {%- if search.results_count > 10 -%}
+      <div class="search-box-ajax-more">
+        <a href="/search?type=product&q={{ search.terms | url_encode }}">{{ 'general.text.see_all_results' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+  {%- if search.results_count > 0 -%}
+    <div class="search-box-ajax-product">
+      {%- for item in search.results -%}
+        {%- if item.object_type == 'product' -%}
+          {%- assign product = item -%}
+          {% capture sp_search_image %}{% render 'sabpuja-product-image-url', product: product %}{% endcapture %}
+          {% assign sp_search_image = sp_search_image | strip %}
+          <div class="media-object">
+            <div class="media-object-section">
+              <div class="image">
+                <a href="{{ product.url }}">
+                  {% if sp_search_image != blank %}<img src="{{ sp_search_image }}" alt="{{ product.title | escape }} by Sabpuja" loading="lazy" width="200" height="200"/>{% endif %}
+                </a>
+              </div>
+            </div>
+            <div class="media-object-section">
+              <p><a href="{{ product.url }}">{{ product.title }}</a></p>
+              <p>{% if product.price > 0 %}{{ product.price | money }}{% else %}Price coming soon{% endif %}</p>
+            </div>
+          </div>
+        {%- endif -%}
+      {% endfor %}
+    </div>
+  {% endif %}
+  {%- if search.results_count > 10 -%}
+  <div class="search-box-ajax-more">
+    <a href="/search?type=product&q={{ search.terms | url_encode }}">{{ 'general.text.see_all_results' | t }} ({{ search.results_count }})</a>
+  </div>
+  {%- endif -%}
+{%- endpaginate -%}

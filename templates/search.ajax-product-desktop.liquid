@@ -1,0 +1,52 @@
+<!-- /templates/search.ajax-product-desktop.liquid -->
+{% layout none %}
+{%- paginate search.results by 12 -%}
+  <div class="grid-container">
+    <div class="search-box-inner">
+      <div class="search-box-desktop-ajax-result text-center">
+        <p>{{ search.results_count }} {{ 'general.text.results_with_count' | t }} '{{ search.terms }}'</p>
+        <div class="search-box-desktop-ajax-more">
+          <a href="/search?type=product&q={{ search.terms | url_encode }}">
+            <span>{{ 'general.text.see_all_results' | t }} </span>
+            <svg class="svg-icon"><use xlink:href="#icon-arrow-right" /></svg>
+          </a>
+        </div>
+        <a class="close" data-searchbox-close>{{ 'general.search.close' | t }}</a>
+      </div>
+      {%- if search.results_count > 0 -%}
+        <div class="search-box-desktop-ajax-product">
+          <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-5">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {%- assign product = item -%}
+                {% capture sp_search_image %}{% render 'sabpuja-product-image-url', product: product %}{% endcapture %}
+                {% assign sp_search_image = sp_search_image | strip %}
+                <div class="cell search-box-desktop-ajax-product-item">
+                  <div class="product-grid">
+                    <div class="product-item" data-product-item>
+                      <div class="product-item-thumb">
+                        <a href="{{ product.url }}" class="display-block">
+                          {% if sp_search_image != blank %}<img src="{{ sp_search_image }}" alt="{{ product.title | escape }} by Sabpuja" class="product-item-image" loading="lazy" width="450" height="450">{% endif %}
+                        </a>
+                      </div>
+                      <div class="product-item-caption">
+                        <div class="product-item-group grid-x">
+                          <div class="product-item-title-rating cell small-12 medium-7 large-8">
+                            <h4 class="product-item-title"><a href="{{ product.url }}">{{ product.title }}</a></h4>
+                          </div>
+                          <div class="product-item-price cell small-12 medium-5 large-4">
+                            <span class="product-item-price-default">{% if product.price > 0 %}{{ product.price | money }}{% else %}Price coming soon{% endif %}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{%- endpaginate -%}

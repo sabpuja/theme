@@ -1,0 +1,22 @@
+<div class="account-register">
+  <div class="account-register-form">
+    {%- form 'create_customer' -%}
+      <div class="account-register-heading text-center">
+        <h1 class="account-register-title">{{ 'customer.register.title' | t }}</h1>
+        <div class="account-register-subtitle">{{ 'customer.register.subtitle' | t }}</div>
+      </div>
+      {%- if form.errors -%}
+        <div class="callout alert">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+      <input type="text" name="customer[first_name]" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} class="account-field" placeholder="{{ 'customer.register.first_name' | t }}" autofocus/>
+      <input type="text" name="customer[last_name]" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} class="account-field" placeholder="{{ 'customer.register.last_name' | t }}"/>
+      <label></label>
+      <input type="email" name="customer[email]" class="account-field {% if form.errors contains 'email' %} input-error{% endif %}" {% if form.email %} value="{{ form.email }}"{% endif %} placeholder="{{ 'customer.register.email' | t }}"  autocapitalize="off">
+      <label></label>
+      <input type="password" name="customer[password]" class="account-field {% if form.errors contains 'password' %} input--error{% endif %}" placeholder="{{ 'customer.register.password' | t }}">
+      <button type="submit" class="account-register-submit button">{{ 'customer.register.submit' | t }}</button>
+    {%- endform -%}
+  </div>
+</div>

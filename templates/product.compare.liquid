@@ -1,0 +1,77 @@
+<!-- /templates/product.compare.liquid -->
+{% layout none %}
+<td data-type="product" data-compare-handle="{{ product.handle }}">
+  <div class="">
+    <div class="product-item-thumb">
+      <img class="width-100" src="{{ product.featured_image | img_url: '400x' }}"/>
+    </div>
+    <h4 class="product-item-title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h4>
+    <div class="product-item-product-price-box">
+      {%- if product.compare_at_price_max > product.price -%}
+        {%- assign found_one_in_stock = false -%}
+        {%- for variant in product.variants -%}
+          {%- if variant.available and variant.compare_at_price -%}
+            {%- assign found_one_in_stock = true -%}
+            <span class="product-item-price-sale">{{ variant.price | money }}</span>
+            <del class="product-item-price-old"> {{ variant.compare_at_price | money }}</del>
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if found_one_in_stock == false -%}
+          {%- for variant in product.variants -%}
+            {%- if variant.available -%}
+              <span class="product-item-price-sale">
+                {{ variant.price | money }}
+              </span>
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- else -%}
+        <span class="product-item-price-sale">{{ product.price | money }}</span>
+      {%- endif -%}
+    </div>
+    <div class="display-block">
+      {%- if product.available -%}
+        {%- if product.variants.size == 1 -%}
+          <a href="{{product.url}}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}" data-add-cart="{{ product.variants[0].id }}" data-placeholder="{{'general.button.add_to_cart' | t}}" data-adding-message="{{'general.button.adding_to_cart' | t}}" data-added-message="{{'general.button.added_to_cart' | t}}">
+            <em class="sli sli-basket"></em> <span data-product-add-cart-text>{{ 'general.button.add_to_cart' | t }}</span>
+            <small class="progress secondary"><small class="progress-meter"></small></small>
+          </a>
+        {%- else -%}
+          <a href="{{product.url}}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}"><em class="sli sli-basket"></em> <span>{{ 'general.button.add_to_cart' | t }}</span></a>
+        {%- endif -%}
+      {%- else -%}
+        <a class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}" disabled="disabled"><em class="sli sli-basket"></em> <span>{{ 'general.button.add_to_cart' | t }}</span></a>
+      {%- endif -%}
+    </div>
+  </div>
+</td>
+<td data-type="vendor" data-compare-handle="{{ product.handle }}">
+  {{ product.vendor }}
+</td>
+<td data-type="type" data-compare-handle="{{ product.handle }}">
+  {{ product.type }}
+</td>
+<td data-type="available" data-compare-handle="{{ product.handle }}">
+  {% if product.variants[0].available %}
+    {{ 'products.product.in_stock' | t }}
+  {%- else -%}
+    {{ 'products.product.out_stock' | t }}
+  {%- endif -%}
+</td>
+<td data-type="option" data-compare-handle="{{ product.handle }}">
+  {%- unless product.has_only_default_variant -%}
+    {%- for option in product.options_with_values -%}
+      <p><strong>{{ option.name }}</strong>: {{ option.values | join: ', ' }}</p>
+    {%- endfor -%}
+  {%- endunless -%}
+</td>
+<td data-type="remove" data-compare-handle="{{ product.handle }}">
+  <button class="pointer compare-remove" data-compare-remove="{{ product.handle }}">
+    <!-- {{ 'general.button.remove' | t }} -->
+    <em class="sli sli-trash"></em>
+  </button>
+</td>

@@ -1,0 +1,28 @@
+<div class="grid-container">
+    <div class="position-relative" data-collection-content>
+      <div class="box-content">
+        <div class="carousel-area">
+          <div class="carousel" data-carousel-param data-carousel>
+            <div class="carousel-wrapper carousel-nav-middle">
+              <div class="swiper-container" data-carousel-container>
+                <div class="swiper-wrapper small-up-2 medium-up-1 large-up-2 xlarge-up-3 xxlarge-up-3 xxxlarge-up-4">
+                  {% for product in collection.products %}
+                  <div class="swiper-slide cell" data-carousel-item>
+                    <div class="product-grid" data-collection-shop-id="{{ product.id }}">
+                      {% include 'index-product-item' %} 
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <!-- If we need navigation buttons -->
+              <div class="carousel-navigation carousel-nav-prev" data-carousel-nav-prev><em class="sli sli-arrow-left"></em></div>
+              <div class="carousel-navigation carousel-nav-next" data-carousel-nav-next><em class="sli sli-arrow-right"></em></div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="carousel-pagination" data-carousel-pagination></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

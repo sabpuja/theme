@@ -1,0 +1,70 @@
+<div class="account-login padding-bottom-0">
+  <div class="account-login-form" data-login-form>
+    {%- form 'customer_login' -%}
+      <div class="account-login-heading text-center">
+        <h1 class="account-login-title">{{ 'customer.login.title' | t }}</h1>
+        <div class="account-login-subtitle">{{ 'customer.login.subtitle' | t: shop_name: shop.name }}</div>
+      </div>
+      {%- if form.errors -%}
+        <div class="callout alert">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+      <input type="email" name="customer[email]" class="account-field {% if form.errors contains 'email' %} input-error{% endif %}" placeholder="{{ 'customer.login.email' | t }}"  autocapitalize="off" autofocus>
+      {%- if form.password_needed -%}
+        <input type="password" value="" name="customer[password]" class="account-field {% if form.errors contains 'password' %}  input-error{% endif %}" placeholder="{{ 'customer.login.password' | t }}"/>
+      {%- endif -%}
+      {%- if form.password_needed -%}
+        <div class="flex-container align-right">
+          <a class="account-login-recover" data-login-recover>{{ 'customer.login.forgot_password' | t }}</a>
+        </div>
+      {%- endif -%}
+      <button type="submit" class="button account-login-submit">{{ 'customer.login.sign_in' | t }}</button>
+      <div class="text-center margin-bottom-1">
+        <div class="member-text">{{ 'layout.customer.create_account_title' | t }}</div>
+        <a href="/account/register" class="account-login-register">{{ 'layout.customer.create_account' | t }}</a>
+      </div>
+    {%- endform -%}
+  </div>
+  <div class="account-recover-form hide" data-recover-form>
+    <a class="account-recover-back display-inline-block" data-recover-back>
+      <svg class="svg-icon">
+        <use xlink:href="#icon-arrow-left"></use>
+      </svg>
+    </a>
+    <div class="text-center show-for-large">
+      <h1 class="account-recover-form-title">{{ 'customer.recover_password.title' | t }}</h1>
+      <p>{{ 'customer.recover_password.subtext' | t }}</p>
+    </div>
+    {%- form 'recover_customer_password' -%}
+      <input type="email" value="" name="email" class="account-field" placeholder="{{ 'customer.recover_password.email' | t }}"  autocapitalize="off"/>
+      <button type="submit" class="account-recover-submit button">{{ 'customer.recover_password.submit' | t }}</button>
+    {%- endform -%}
+  </div>
+</div>
+<script>
+(function () {
+  var loginForm = document.querySelector('[data-login-form]');
+  var recoverForm = document.querySelector('[data-recover-form]');
+
+  var recover = document.querySelector('[data-login-recover]');
+  if (recover) {
+    recover.addEventListener('click', function() {
+      if (loginForm && recoverForm) {
+        loginForm.classList.add('hide');
+        recoverForm.classList.remove('hide');
+      }
+    });
+  }
+
+  var back = document.querySelector('[data-recover-back]');
+  if (back) {
+    back.addEventListener('click', function() {
+      if (loginForm && recoverForm) {
+        loginForm.classList.remove('hide');
+        recoverForm.classList.add('hide');
+      }
+    });
+  }
+})();
+</script>

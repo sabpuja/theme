@@ -1,0 +1,62 @@
+<div class="grid-container">
+    <div class="position-relative" data-collection-content>
+        <div class="collection-discount-content">
+            <div class="discount-image">
+                <div class="discount-image-item" data-collection-discount-id>
+                    <div class="product-item" data-product-item-first></div>
+                </div>
+                {%- for product in collection.products -%}
+                    <div class="discount-image-item" data-collection-discount-id="{{ product.id }}">
+                        <em class="icon-plus">+</em>
+                        <div class="product-item" data-product-item>
+                            <div class="product-item-thumb">
+                                <label for="discount{{ product.id }}" class="display-block" data-discount-image="discount{{ product.id }}">
+                                {%- if product_image_size == empty or product_image_size == blank -%}
+                                    {%- assign product_image_size = '450x' -%}
+                                {%- endif -%}
+                                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ product.featured_image | product_img_url: product_image_size, crop: 'center' }}" {% if settings.product_item_retina %}data-srcset="{{ product.featured_image | product_img_url: product_image_size, crop: 'center' }} 800w, {{ product.featured_image | product_img_url: product_image_size, crop: 'center', scale: 2 }} 1440w, {{ product.featured_image | product_img_url: product_image_size, crop: 'center', scale: 3 }} 1920w"{% endif %} alt="{{ product.featured_image.alt | escape }}" class="lazyload product-item-image" data-viewed-image />
+                                </label>  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="discount-info">
+                <div class="discount-info-item" data-collection-discount-id>
+                    <label class="checkbox-custom">
+                        <input type="checkbox" class="item-checkbox" data-collection-discount-check-first disabled="disabled" checked="true">
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="item-info">
+                        <label class="product-item-title">
+                            <span data-collection-discount-title-first>
+
+                            </span>
+                            <span class="product-item-price">
+                                <span class="item-price" data-collection-discount-price="" data-collection-discount-price-first></span>
+                            </span>
+                        </label>
+                       
+                    </div>
+                </div>
+                {%- for product in collection.products -%}
+                {%- assign current_variant = product.selected_or_first_available_variant -%}
+                <div class="discount-info-item" data-collection-discount-id="{{ product.id }}">
+                    <label class="checkbox-custom">
+                        <input type="checkbox" id="discount{{ product.id }}"  class="item-checkbox" data-collection-variant data-collection-discount-check="{%- if current_variant.available -%}1{%- else -%}2{%- endif -%}" data-collection-discount-idvariant="{{ current_variant.id }}">
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="item-info">
+                        <label class="product-item-title" for="discount{{ product.id }}">
+                            {{ product.title }}
+                            <span class="product-item-price">
+                                <span class="item-price" data-collection-discount-price="{{ current_variant.price }}">{{ current_variant.price | money }}</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

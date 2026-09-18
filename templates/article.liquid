@@ -1,0 +1,9 @@
+{{ 'sabpuja-pages.css' | asset_url | stylesheet_tag }}
+<article class="sp-page-shell">
+  <div class="sp-page-hero">
+    <p class="sp-page-eyebrow">Sabpuja Guide</p>
+    <h1>{{ article.title }}</h1>
+  </div>
+  <div class="sp-prose rte">{{ article.content }}</div>
+  <div class="sp-page-actions"><a class="sp-btn sp-btn-secondary" href="/pages/help">Back to Help &amp; Guide</a></div>
+</article>

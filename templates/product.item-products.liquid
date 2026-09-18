@@ -1,0 +1,61 @@
+<!-- /templates/product.item-products.liquid -->
+{% layout none %}
+<div class="templates-item-products">
+    <a class="button button-cancel button-cancel-custom  clear text-uppercase" data-popup-item-product-close>
+      {% include 'icon-cross' %}
+    </a>
+    <div class="grid-x">
+      <div class="templates-item-products-left cell small-12 medium-4 large-4">
+        <a href="{{ product.url }}" class="display-block">
+          {%- assign product_image_size = '450x' -%}
+          <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ product.featured_image | product_img_url: product_image_size, crop: 'center' }}" alt="{{ product.featured_image.alt | escape }}" class="lazyload product-item-image" />
+        </a> 
+      </div>
+      <div class="templates-item-products-right cell small-12 medium-8 large-8">
+        <h4 class="templates-product-item-title">
+          <a href="{{ product.url }}">{{ product.title }}</a>
+        </h4>
+        <div class="templates-product-item-price">
+          {%- if product.compare_at_price_max > product.price -%}
+            {%- assign found_one_in_stock = false -%}
+            {%- for variant in product.variants -%}
+              {%- if variant.available -%}
+                {%- assign found_one_in_stock = true -%}
+                <del class="product-item-price-old"> {{ variant.compare_at_price | money }}</del>
+                <span class="product-item-price-sale">{{ variant.price | money }}</span>
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if found_one_in_stock == false -%}
+              {%- for variant in product.variants -%}
+                {%- if variant.available -%}
+                  <span class="product-item-price-default">
+                    {{ variant.price | money }}
+                  </span>
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- else -%}
+            <span class="product-item-price-default">{{ product.price | money }}</span>
+          {%- endif -%}
+        </div>
+        <div class="templates-cart-button bottom-center">
+          <div class="product-item-buttons">
+            {%- if product.available -%}
+              {%- if product.variants.size == 1 -%}
+                <a href="{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}" data-add-cart="{{ product.variants[0].id }}" data-placeholder="{{'general.button.add_to_cart' | t}}" data-adding-message="{{'general.button.adding_to_cart' | t}}" data-added-message="{{'general.button.added_to_cart' | t}}">
+                  <span data-product-add-cart-text>{{ 'general.button.add_to_cart' | t }}</span>
+                  <small class="progress secondary"><small class="progress-meter"></small></small>
+                </a>
+              {%- else -%}
+                <a href="{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}"><span>{{ 'general.button.choose_options' | t }}</span></a>
+              {%- endif -%}
+            {%- else -%}
+              <a href="{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}" disabled="disabled"><span>{{ 'general.button.choose_options' | t }}</span></a>
+            {%- endif -%}        
+          </div>
+    	</div>
+      </div>
+    </div>
+</div>

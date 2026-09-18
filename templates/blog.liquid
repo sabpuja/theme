@@ -1,0 +1,14 @@
+{{ 'sabpuja-pages.css' | asset_url | stylesheet_tag }}
+<section class="sp-page-shell">
+  <div class="sp-page-hero">
+    <p class="sp-page-eyebrow">Sabpuja Guides</p>
+    <h1>{{ blog.title }}</h1>
+    <p class="sp-page-lead">Our customer guidance is organized in the Help &amp; Guide library while the editorial journal is being prepared.</p>
+    <div class="sp-page-actions"><a class="sp-btn sp-btn-primary" href="/pages/help">Visit Help &amp; Guide</a><a class="sp-btn sp-btn-secondary" href="/collections/all">Shop Puja Essentials</a></div>
+  </div>
+  {% if blog.articles_count > 0 %}
+    <div class="sp-help-list">
+      {% for article in blog.articles %}<a class="sp-help-link" href="{{ article.url }}"><strong>{{ article.title }}</strong><span>{{ article.excerpt_or_content | strip_html | truncate: 140 }}</span></a>{% endfor %}
+    </div>
+  {% endif %}
+</section>

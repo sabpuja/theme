@@ -1,0 +1,6 @@
+<!-- /templates/wishlist.liquid -->
+{% layout none %}
+<div class="cell wishlist-item product-grid" data-wishlist-handle="{{ product.handle }}">
+  {%- include 'index-product-item' -%}
+  <button class="pointer wishlist-remove" data-wishlist-remove="{{ product.handle }}">{{ 'general.button.remove' | t }}</button>
+</div>

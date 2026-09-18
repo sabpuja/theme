@@ -1,0 +1,272 @@
+{%- include 'breadcrumbs' -%}
+<div class="grid-container">
+  <div class="grid-x align-center">
+    <div class="cell large-8 xlarge-6">
+      {%- paginate customer.addresses by 5 -%}
+        {%- for address in customer.addresses -%}
+          <div class="card">
+            <div class="card-divider">
+              <h2 class="card-title">{{ address.address1 }} {% if address == customer.default_address %}({{ 'customer.addresses.default' | t }}){% endif %}</h2>
+            </div>
+            <div class="card-section">
+              <div class="address-detail">
+                <ul class="no-bullet">
+                  {%- if address.first_name != blank -%}
+                    <li><strong>{{ 'customer.addresses.first_name' | t }}:</strong> <span>{{ address.first_name }}</span></li>
+                  {%- endif -%}
+                  {%- if address.last_name != blank -%}
+                    <li><strong>{{ 'customer.addresses.last_name' | t }}:</strong> <span>{{ address.last_name }}</span></li>
+                  {%- endif -%}
+                  {%- if address.phone != blank -%}
+                    <li><strong>{{ 'customer.addresses.phone' | t }}:</strong> <span>{{ address.phone }}</span></li>
+                  {%- endif -%}
+                  {%- if address.company != blank -%}
+                    <li><strong>{{ 'customer.addresses.company' | t }}:</strong> <span>{{ address.company }}</span></li>
+                  {%- endif -%}
+                  {%- if address.address1 != blank -%}
+                    <li><strong>{{ 'customer.addresses.address1' | t }}:</strong> <span>{{ address.address1 }}</span></li>
+                  {%- endif -%}
+                  {%- if address.address2 != blank -%}
+                    <li><strong>{{ 'customer.addresses.address2' | t }}:</strong> <span>{{ address.address2 }}</span></li>
+                  {%- endif -%}
+                  {%- if address.city != blank -%}
+                    <li><strong>{{ 'customer.addresses.city' | t }}:</strong> <span>{{ address.city }}</span></li>
+                  {%- endif -%}
+                  {%- if address.province != blank -%}
+                    <li><strong>{{ 'customer.addresses.province' | t }}:</strong> <span>{{ address.province }}</span></li>
+                  {%- endif -%}
+                  {%- if address.country != blank -%}
+                    <li><strong>{{ 'customer.addresses.country' | t }}:</strong> <span>{{ address.country }}</span></li>
+                  {%- endif -%}
+                  {%- if address.zip != blank -%}
+                    <li><strong>{{ 'customer.addresses.zip' | t }}:</strong> <span>{{ address.zip }}</span></li>
+                  {%- endif -%}
+                </ul>
+                <div class="flex-container align-right">
+                  <button type="button" class="button primary radius margin-0" data-toggle="address-edit-form-{{ address.id }}">{{ 'customer.addresses.edit' | t }}</button>
+                  <form
+                        class="address-delete-form"
+                        method="post"
+                        action="/account/addresses/{{ address.id }}"
+                        data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}"
+                        >
+                    <input type="hidden" name="_method" value="delete" />
+                    <button type="submit" class="button alert radius margin-0">
+                      {{ 'customer.addresses.delete' | t }}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="address-edit-form-{{ address.id }}" class="address-edit-form hidden" data-collapse>
+            <div class="card">
+              <div class="card-divider">
+                <h2 class="card-title">{{ 'customer.addresses.edit_address' | t }}</h2>
+              </div>
+              <div class="card-section">
+                {%- form 'customer_address', address -%}
+                  <div class="grid-x grid-margin-x">
+                    <div class="cell medium-6 large-6">
+                      <div class="form-group">
+                        <label for="address-first-name-{{ form.id }}">{{ 'customer.addresses.first_name' | t }}</label>
+                        <input type="text" id="address-first-name-{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}" placeholder="{{ 'customer.addresses.first_name' | t | escape }}" />
+                      </div>
+                    </div>
+                    <div class="cell medium-6 large-6">
+                      <div class="form-group">
+                        <label for="address-last-name-{{ form.id }}">{{ 'customer.addresses.last_name' | t }}</label>
+                        <input type="text" id="address-last-name-{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}" placeholder="{{ 'customer.addresses.last_name' | t | escape }}" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="address-phone-{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
+                    <input type="tel" id="address-phone-{{ form.id }}" name="address[phone]" value="{{ form.phone }}" placeholder="{{ 'customer.addresses.phone' | t | escape }}" />
+                  </div>
+                  <div class="form-group">
+                    <label for="address-company-{{ form.id }}">{{ 'customer.addresses.company' | t }}</label>
+                    <input type="text" id="address-company-{{ form.id }}" name="address[company]" value="{{ form.company }}" placeholder="{{ 'customer.addresses.company' | t | escape }}" />
+                  </div>
+                  <div class="form-group">
+                    <label for="address-address1-{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label>
+                    <input type="text" id="address-address1-{{ form.id }}" name="address[address1]" value="{{ form.address1 }}" placeholder="{{ 'customer.addresses.address1' | t | escape }}" />
+                  </div>
+                  <div class="form-group">
+                    <label for="address-address2-{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label>
+                    <input type="text" id="address-address2-{{ form.id }}" name="address[address2]" value="{{ form.address2 }}" placeholder="{{ 'customer.addresses.address2' | t | escape }}" />
+                  </div>
+                  <div class="grid-x grid-margin-x">
+                    <div class="cell medium-6 large-6">
+                      <div class="form-group">
+                        <label for="address-city-{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
+                        <input type="text" id="address-city-{{ form.id }}" name="address[city]" value="{{ form.city }}" placeholder="{{ 'customer.addresses.city' | t | escape }}" />
+                      </div>
+                    </div>
+                    <div class="cell medium-6 large-6">
+                      <div class="form-group">
+                        <label for="address-country-{{ form.id }}">{{ 'customer.addresses.country' | t }}</label>
+                        <select id="address-country-{{ form.id }}" class="address-country-option" data-form-id="{{ form.id }}" name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="address-province-container-{{ form.id }}" style="display:none">
+                    <div class="form-group">
+                      <label for="address-province-{{ form.id }}">{{ 'customer.addresses.province' | t }}</label>
+                      <select id="address-province-{{ form.id }}" name="address[province]" data-default="{{ form.province }}"></select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="address-zip-{{ form.id }}">{{ 'customer.addresses.zip' | t }}</label>
+                    <input type="text" id="address-zip-{{ form.id }}" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" placeholder="{{ 'customer.addresses.zip' | t | escape }}" />
+                  </div>
+                  <div class="form-group text-center">
+                    <label for="address_default_address_{{ form.id }}" class="pointer">
+                      {{ form.set_as_default_checkbox }}
+                      {{ 'customer.addresses.set_default' | t }}
+                    </label>
+                    <div><button type="submit" class="button primary radius"/>{{ 'customer.addresses.update' | t }}</button></div>
+                    <div><a data-close="address-edit-form-{{ address.id }}">{{ 'customer.addresses.cancel' | t }}</a></div>
+                  </div>
+                {%- endform -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+        {%- if paginate.pages > 1 -%}
+          <div class="flex-container align-right">
+            {%- include 'pagination' -%}
+          </div>
+        {%- endif -%}
+      {%- endpaginate -%}
+      <div class="text-center">
+        <button type="button" class="button primary radius" data-toggle="address-add-form">{{ 'customer.addresses.add_new' | t }}</button>
+      </div>
+      <div id="address-add-form" class="address-add-form hidden" data-collapse>
+        <div class="card">
+          <div class="card-divider">
+            <h2 class="card-title">{{ 'customer.addresses.add_new' | t }}</h2>
+          </div>
+          <div class="card-section">
+            {%- form 'customer_address', customer.new_address -%}
+              <div class="grid-x grid-margin-x">
+                <div class="cell medium-6 large-6">
+                  <div class="form-group">
+                    <label for="address-first-name-new">{{ 'customer.addresses.first_name' | t }}</label>
+                    <input type="text" id="address-first-name-new" name="address[first_name]" value="{{ form.first_name }}" placeholder="{{ 'customer.addresses.first_name' | t | escape }}" />
+                  </div>
+                </div>
+                <div class="cell medium-6 large-6">
+                  <div class="form-group">
+                    <label for="address-last-name-new">{{ 'customer.addresses.last_name' | t }}</label>
+                    <input type="text" id="address-last-name-new" name="address[last_name]" value="{{ form.last_name }}" placeholder="{{ 'customer.addresses.first_name' | t | escape }}" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="address-phone-new">{{ 'customer.addresses.phone' | t }}</label>
+                <input type="tel" id="address-phone-new" name="address[phone]" value="{{ form.phone }}" placeholder="{{ 'customer.addresses.phone' | t | escape }}" />
+              </div>
+              <div class="form-group">
+                <label for="address-company-new">{{ 'customer.addresses.company' | t }}</label>
+                <input type="text" id="address-company-new" name="address[company]" value="{{ form.company }}" placeholder="{{ 'customer.addresses.company' | t | escape }}" />
+              </div>
+              <div class="form-group">
+                <label for="address-address1-new">{{ 'customer.addresses.address1' | t }}</label>
+                <input type="text" id="address-address1-new" name="address[address1]" value="{{ form.address1 }}" placeholder="{{ 'customer.addresses.address1' | t | escape }}" />
+              </div>
+              <div class="form-group">
+                <label for="address-address2-new">{{ 'customer.addresses.address2' | t }}</label>
+                <input type="text" id="address-address2-new" name="address[address2]" value="{{ form.address2 }}" placeholder="{{ 'customer.addresses.address2' | t | escape }}" />
+              </div>
+              <div class="grid-x grid-margin-x">
+                <div class="cell medium-6 large-6">
+                  <div class="form-group">
+                    <label for="address-city-new">{{ 'customer.addresses.city' | t }}</label>
+                    <input type="text" id="address-city-new" name="address[city]" value="{{ form.city }}" placeholder="{{ 'customer.addresses.city' | t | escape }}" />
+                  </div>
+                </div>
+                <div class="cell medium-6 large-6">
+                  <div class="form-group">
+                    <label for="address-country-new">{{ 'customer.addresses.country' | t }}</label>
+                    <select id="address-country-new" name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+                  </div>
+                </div>
+              </div>
+              <div id="address-province-container-new" style="display:none">
+                <div class="form-group">
+                  <label for="address-province-new">{{ 'customer.addresses.province' | t }}</label>
+                  <select id="address-province-new" name="address[province]" data-default="{{ form.province }}"></select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="address-zip-new">{{ 'customer.addresses.zip' | t }}</label>
+                <input type="text" id="address-zip-new" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" placeholder="{{ 'customer.addresses.zip' | t | escape }}" />
+              </div>
+              <div class="form-group text-center">
+                <label for="address_default_address_new" class="pointer">
+                  {{ form.set_as_default_checkbox }}
+                  {{ 'customer.addresses.set_default' | t }}
+                </label>
+                <div><button type="submit" class="button primary radius">{{ 'customer.addresses.add' | t }}</button></div>
+                <div><a type="button" data-close="address-add-form">{{ 'customer.addresses.cancel' | t }}</a></div>
+              </div>
+            {%- endform -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  // Remove address
+  document.querySelectorAll('.address-delete-form').forEach(deleteForm => {
+    deleteForm.addEventListener('submit', event => {
+      const confirmMessage = event.target.getAttribute('data-confirm-message');
+
+      if (
+        !window.confirm(
+          confirmMessage || 'Are you sure you wish to delete this address?'
+        )
+      ) {
+        event.preventDefault();
+      }
+    });
+  });
+  // Document is ready event trigger
+  (function(a,b){"use strict";function c(){if(!f){f=!0;for(var h=0;h<e.length;h++)e[h].fn.call(window,e[h].ctx);e=[]}}function d(){"complete"===document.readyState&&c()}a=a||"docReady",b=b||window;var e=[],f=!1,g=!1;b[a]=function(h,j){if("function"!=typeof h)throw new TypeError("callback for docReady(fn) must be a function");if(f)return void setTimeout(function(){h(j)},1);e.push({fn:h,ctx:j});"complete"!==document.readyState&&(document.attachEvent||"interactive"!==document.readyState)?!g&&(document.addEventListener?(document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",c,!1)):(document.attachEvent("onreadystatechange",d),window.attachEvent("onload",c)),g=!0):setTimeout(c,1)}})("ready",window);
+  // Invoke function for document ready event
+  ready(function() {
+    if (Shopify) {
+      // Get provinces from country in #address-add-form
+      new Shopify.CountryProvinceSelector(
+        'address-country-new',
+        'address-province-new',
+        {
+          hideElement: 'address-province-container-new'
+        }
+      );
+      // Get provinces from country in #address-edit-form
+      var fields = document.querySelectorAll('.address-country-option');
+      if (fields) {
+        for (var i in fields) {
+          var field = fields[i];
+          if (typeof field === 'object') {
+            var id = field.getAttribute('data-form-id');
+            if (id) {
+              new Shopify.CountryProvinceSelector(
+                'address-country-' + id,
+                'address-province-' + id,
+                {
+                  hideElement: 'address-province-container-' + id
+                }
+              );
+            }
+          }
+        }
+      }
+    }
+  });
+})();
+</script>

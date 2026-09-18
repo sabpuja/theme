@@ -1,0 +1,41 @@
+<!-- /templates/page.compare.liquid -->
+{%- include 'breadcrumbs' -%}
+<div class="compare">
+  <div class="grid-container">
+    <div class="page-heading show-for-large">
+      {%- if page.title != blank -%}
+        <h1 class="page-title">{{ page.title }}</h1>
+      {%- endif -%}
+      {%- if page.content != blank -%}
+        <div class="page-subtitle">{{ page.content }}</div>
+      {%- endif -%}
+    </div>
+    <div class="page-content">
+      <div class="compare-empty hide text-center" data-compare-alert>{{ 'compare.general.empty' | t }}</div>
+      <div class="table-scroll">
+        <table class="hide" data-compare-container>
+          <tbody>
+            <tr data-type="product">
+              <td>{{ 'compare.general.product' | t }}</td>
+            </tr>
+            <tr data-type="vendor">
+              <td>{{ 'compare.general.vendor' | t }}</td>
+            </tr>
+            <tr data-type="type">
+              <td>{{ 'compare.general.type' | t }}</td>
+            </tr>
+            <tr data-type="available">
+              <td>{{ 'compare.general.available' | t }}</td>
+            </tr>
+            <tr data-type="option">
+              <td>{{ 'compare.general.option' | t }}</td>
+            </tr>
+            <tr data-type="remove">
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

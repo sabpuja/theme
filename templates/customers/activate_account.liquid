@@ -1,0 +1,15 @@
+<div class="grid-container text-center">
+  <div class="page-heading">
+    <h1 class="page-title">{{ 'customer.activate_account.title' | t }}</h1>
+    <div class="page-subtitle">{{ 'customer.activate_account.subtext' | t }}</div>
+  </div>
+  <div class="paga-content">
+    {%- form 'activate_customer_password' -%}
+      {{ form.errors | default_errors }}
+      <input type="password" value="" name="customer[password]" placeholder="{{ 'customer.activate_account.password' | t }}" class="account-field" />
+      <input type="password" value="" name="customer[password_confirmation]" placeholder="{{ 'customer.activate_account.password_confirm' | t }}" class="account-field" />
+      <input type="submit" value="{{ 'customer.activate_account.submit' | t }}" class="button primary radius" />
+      <input type="submit" name="decline" value="{{ 'customer.activate_account.cancel' | t }}" class="button primary radius" />
+    {%- endform -%}
+  </div>
+</div>

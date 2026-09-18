@@ -1,0 +1,18 @@
+<!-- /templates/page.wish-list.liquid -->
+{%- include 'breadcrumbs' -%}
+<div class="wishlist">
+  <div class="grid-container">
+    <div class="page-heading show-for-large">
+      {%- if page.title != blank -%}
+        <h1 class="page-title">{{ page.title }}</h1>
+      {%- endif -%}
+      {%- if page.content != blank -%}
+        <div class="page-subtitle">{{ page.content }}</div>
+      {%- endif -%}
+    </div>
+    <div class="page-content">
+      <div class="wishlist-empty hide text-center" data-wishlist-alert>{{ 'wishlist.general.empty' | t }}</div>
+      <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4 xlarge-up-5 xxlarge-up-5 xxxlarge-up-5" data-wishlist-container></div>
+    </div>
+  </div>
+</div>

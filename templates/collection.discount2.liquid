@@ -1,0 +1,53 @@
+<div class="grid-container">
+    <div class="position-relative" data-collection-content>
+        <div class="collection-discount-content">
+            {%- for product in collection.products -%}
+            {%- assign current_variant = product.selected_or_first_available_variant -%}
+            <div class="collection-discount-item" data-collection-discount2-id="{{ product.id }}">
+                <div class="item-info">
+                    <div class="info-image">
+                        <div class="product-item" data-product-item>
+                            <div class="product-item-thumb">
+                                <a href="{{ shop.url }}{{ product.url }}" class="display-block" data-collection-discount2-image>
+                                {%- if product_image_size == empty or product_image_size == blank -%}
+                                    {%- assign product_image_size = '450x' -%}
+                                {%- endif -%}
+                                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ product.featured_image | product_img_url: product_image_size, crop: 'center' }}" {% if settings.product_item_retina %}data-srcset="{{ product.featured_image | product_img_url: product_image_size, crop: 'center' }} 800w, {{ product.featured_image | product_img_url: product_image_size, crop: 'center', scale: 2 }} 1440w, {{ product.featured_image | product_img_url: product_image_size, crop: 'center', scale: 3 }} 1920w"{% endif %} alt="{{ product.featured_image.alt | escape }}" class="lazyload product-item-image" data-viewed-image />
+                                </a>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-title">
+                        <h4 class="product-item-title">
+                            <a href="{{ shop.url }}{{ product.url }}">{{ product.title }}</a>
+                        </h4>
+                      <div class="item-variant">
+                        <select class="{%- unless current_variant.available -%}hidden{%- endunless -%} product-id" data-collection-variant style="display: block">
+                          {%- for variant in product.variants -%}
+                          <option data-variant-available="{%- if variant.available -%}1{%- else -%}2{%- endif -%}" data-variant-image="{{ variant.featured_image | product_img_url: product_image_size, crop: 'center' }}" data-variant-price="{{ variant.price }}" {% if variant == current_variant %}selected="selected"{%- endif -%} {% unless variant.available %}disabled="disabled"{% endunless %} value="{{ variant.id }}">
+                            {{ variant.title }}
+                          </option>
+                          {%- endfor -%}
+                        </select>
+                      </div>
+                    </div>
+                </div>
+                <div class="item-variant">
+                    <div class="product-quantity">
+                        <div class="input-group" data-number-group data-collection-variant-qty-group data-min="0">
+                            <span class="input-group-label pointer bot" data-minus><em class="">-</em></span>
+                            <input type="text" value="0" class="input-group-field input-control" data-number data-collection-variant-qty/>
+                            <span class="input-group-label pointer top" data-plus><em class="">+</em></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-prices">
+                    <div class="product-item-price">
+                        <span class="item-price" data-collection-discount2-price="{{ current_variant.price }}">{{ current_variant.price | money }}</span>
+                    </div>
+                </div>
+            </div>
+            {%- endfor -%}
+        </div>
+    </div>
+</div>
