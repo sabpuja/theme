@@ -1,0 +1,67 @@
+{%- if block.settings.position contains 'sidebar' -%}
+  {%- assign layout_class = 'layout-sidebar' -%}
+{%- else -%}
+  {%- assign layout_class = 'layout-content' -%}
+{%- endif -%}
+
+
+<div class="{{ layout_class }}{% if layout_class == 'layout-sidebar' %} isb-article {% endif %} {{ block.settings.display }}">
+  {%- if block.settings.title != blank -%}
+    <div class="{{ layout_class }}-title">
+      <h3>{{ block.settings.title }}</h3>
+    </div>
+  {%- endif -%}
+  <div class="{{ layout_class }}-content">
+    <div class="carousel" data-carousel-param='{"effect": "{{ block.settings.effect }}", "autoplay": "{{ block.settings.autoplay }}", "autoplaySpeed": "{{ block.settings.autoplay_speed }}", "space": "0", "column_small": "1", "column_medium": "1", "column_large": "1", "column_xlarge": "1", "column_xxlarge": "1", "column_xxxlarge": "1", "row": "1"}' data-carousel>
+      <div class="carousel-wrapper carousel-{{ block.settings.navigation_position }}">
+        {%- assign image_size = section.settings.image_width | append: 'x' | append: section.settings.image_height -%}
+        <div class="swiper-container" data-carousel-container>
+          <div class="swiper-wrapper grid-margin-x small-up-1 medium-up-1 large-up-1 xlarge-up-1 xxlarge-up-1 xxxlarge-up-1">
+            {% for article in blogs[block.settings.blog].articles limit:block.settings.limit %}
+            <div class="swiper-slide cell" data-carousel-item>
+              <div class="index-blogs-item article-grid">
+                {%- include 'index-article-item' -%}
+              </div>
+            </div>
+            {% else %}
+            {% for i in (1..block.settings.limit) %}
+            <div class="swiper-slide cell" data-carousel-item>
+              <div class="index-blogs-item article-grid">
+                <div class="article-item">
+                  <div class="article-item-thumb">
+                    <a href="javascript:void(0);" class="display-block">
+                      <img src="{{ '345x250.png' | asset_url }}" class="article-item-image" alt="{{ article.title }}"/>
+                    </a>
+                  </div>
+                  <div class="article-item-caption">                
+                    <h2 class="article-item-title">
+                      <a href="{{ article.url }}">{{ 'homepage.onboarding.blog_title' |t }}</a>
+                    </h2>
+                    <div class="article-item-info">       
+                      <span class="article-item-date">March 25, 2018</span>
+                    </div>
+                    <div class="article-content">
+                      Your post content
+                    </div>
+                    <a class="article-readmore" href="{{ article.url }}">{{ block.settings.readmore }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+          </div>
+        </div>
+        {%- if block.settings.navigation -%}
+        <!-- If we need navigation buttons -->
+        <div class="carousel-navigation carousel-nav-prev" data-carousel-nav-prev><em class="sli sli-arrow-left"></em></div>
+        <div class="carousel-navigation carousel-nav-next" data-carousel-nav-next><em class="sli sli-arrow-right"></em></div>
+        {%- endif -%}
+      </div>
+      {%- if block.settings.pagination -%}
+      <!-- If we need pagination -->
+      <div class="carousel-pagination" data-carousel-pagination></div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

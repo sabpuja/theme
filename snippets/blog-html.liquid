@@ -1,0 +1,11 @@
+<!-- /snippets/blog-html.liquid -->
+{%- if block.settings.position contains 'sidebar' -%}
+  {%- assign layout_class = 'layout-sidebar' -%}
+{%- else -%}
+  {%- assign layout_class = 'layout-content' -%}
+{%- endif -%}
+<div class="{{ layout_class }} blog-html {{ block.settings.display }}">
+  <div class="{{ layout_class }}-content">
+    {{ block.settings.html }}
+  </div>
+</div>

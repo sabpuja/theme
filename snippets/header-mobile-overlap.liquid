@@ -1,0 +1,32 @@
+<!-- /snippets/header-mobile-overlap.liquid -->
+<div class="header header-overlap hide-for-large hide" data-header data-map-to="{{ map_to }}">
+  <div class="grid-container fluid">
+    <div class="grid-x grid-padding-x align-middle">
+      <div class="cell auto">
+        <div class="flex-container align-left">
+          {%- if mobile_header_left -%}
+            <div data-header-left>
+              {{ mobile_header_left }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="cell shrink header-content text-center">
+        {%- if mobile_header_content -%}
+          <div class="is-hide" data-header-content>
+            {{ mobile_header_content }}
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="cell auto">
+        <div class="flex-container align-right">
+          {%- if mobile_header_right -%}
+            <div data-header-right>
+              {{ mobile_header_right }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

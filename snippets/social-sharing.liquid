@@ -1,0 +1,27 @@
+<!-- /snippets/social-sharing.liquid -->
+<div class="social-sharing grid-x">
+  {%- if settings.share_facebook -%}
+    <a target="_blank" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}" class="share-facebook" title="{{ 'general.social.alt_text.share_on_facebook' | t }}">
+      <svg class="svg-icon">
+        <use xlink:href="#iconfinder_facebook_252100"></use>
+      </svg>
+      <span class="share-title" aria-hidden="true">Facebook</span>
+    </a>
+  {%- endif -%}
+  {%- if settings.share_twitter -%}
+    <a target="_blank" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}" class="share-twitter" title="{{ 'general.social.alt_text.share_on_twitter' | t }}">
+      <svg class="svg-icon">
+        <use xlink:href="#iconfinder_twitter_252077"></use>
+      </svg>
+      <span class="share-title" aria-hidden="true">Twitter</span>
+    </a>
+  {%- endif -%}
+  {%- if settings.share_pinterest -%}
+    <a target="_blank" href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}" class="share-pinterest" title="{{ 'general.social.alt_text.share_on_pinterest' | t }}">
+      <svg class="svg-icon">
+        <use xlink:href="#icon-color-pinterest"></use>
+      </svg>
+      <span class="share-title" aria-hidden="true">Pinterest</span>
+    </a>
+  {%- endif -%}
+</div>

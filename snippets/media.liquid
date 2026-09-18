@@ -1,0 +1,19 @@
+<div id="{{ media_wrapper_id }}"
+    class="swiper-slide-item height-100{% if media.media_type == 'video' or media.media_type == 'external_video' %} product-media-type-video{% elsif media.media_type == 'model' %} product-media-type-model{% endif %}"
+    data-product-single-media-wrapper
+    {% if media.media_type == 'external_video' %} data-video-id="{{ media.external_id }}"{% endif %}
+    data-media-id="{{ section.id }}-{{ media.id }}" {{ forloop.index }}>
+{% case media.media_type %}
+  {% when 'image' %}
+    <img src="{{ media | img_url: product_thumb_size, crop: 'center', scale: 2 }}" data-media-item data-carousel-media-image="{{ image_item }}" data-src="{{ media | img_url: product_thumb_size, crop: 'center', scale: 2 }}" data-height="{{ section.settings.image_height }}" data-width="{{ section.settings.image_width }}" class="media-image swiper-lazy width-100" alt="{{ media.alt | escape }}"/>
+    {%- assign image_item = image_item | plus: 1 -%}
+  {% when 'external_video' %}
+    {{ media | external_video_tag: class: 'swiper-lazy width-100 height-100', data-height: '100px', data-media-item:'', data-media-external-video-item:'' }}
+  {% when 'video' %}
+    {{ media | video_tag: controls: true, data-media-item:'', class: 'media-item swiper-lazy width-100 height-100', data-media-video-item:'' }}
+  {% when 'model' %}
+    {{ media | model_viewer_tag: image_size: thumb_size, class: 'media-item swiper-lazy width-100 height-100', reveal: 'interaction', toggleable: true, data-model-id: media.id, data-media-item:'' }}
+  {% else %}
+    {{ media | media_tag: class: 'media-item swiper-lazy width-100 height-100', image_size: thumb_size, data-media-item:'' }}
+  {% endcase %}
+</div>

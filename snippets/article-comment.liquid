@@ -1,0 +1,12 @@
+<!-- /snippets/article-comment.liquid -->
+<div class="article-comment-wrapper">
+  <div class="article-comment-info">
+    <span class="article-comment-author">{{ comment.author }}</span>
+    <span class="article-comment-date">{{ comment.created_at | time_tag: format: 'month_day_year' }}</span>
+  </div>
+  <div class="article-comment-content">
+    {{ comment.content }}
+  </div>
+</div>
+
+

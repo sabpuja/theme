@@ -1,0 +1,432 @@
+<!-- /snippets/theme-menu-mobile.liquid -->
+<div class="mobile-nav hide-for-large position-fixed-bottom" data-mobile-navigation>
+  <div class="grid-container fluid">
+    <div class="grid-x grid-margin-x">
+      <div class="cell auto text-center">
+        <a href="/" class="mobile-nav-link display-block">
+          <span class="mobile-nav-icon display-block"><em class="sli sli-home"></em></span>
+          <span class="mobile-nav-text display-block">{{ 'general.text.home' | t }}</span>
+        </a>
+      </div>
+      <div class="cell auto text-center">
+        <a class="mobile-nav-link display-block" data-toggle="mobile-menu-collections-dropup">
+          <span class="mobile-nav-icon display-block"><em class="sli sli-map"></em></span>
+          <span class="mobile-nav-text display-block">{{ 'general.text.store' | t }}</span>
+        </a>
+      </div>
+      {%- if shop.customer_accounts_enabled -%}
+        <div class="cell auto text-center">
+          {%- if customer  -%}
+            <a class="mobile-nav-link display-block" data-toggle="mobile-menu-logged">
+              <span class="mobile-nav-icon display-block"><em class="sli sli-user"></em></span>
+              <span class="mobile-nav-text display-block">{{ 'general.text.account' | t }}</span>
+            </a>
+          {%- else -%}
+            <a class="mobile-nav-link display-block" data-toggle="mobile-menu-login">
+              <span class="mobile-nav-icon display-block"><em class="sli sli-user"></em></span>
+              <span class="mobile-nav-text display-block">{{ 'general.text.account' | t }}</span>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      <div class="cell auto text-center">
+        <a class="mobile-nav-link display-block" data-toggle="mobile-menu-contact-dropup">
+          <span class="mobile-nav-icon display-block"><em class="sli sli-location-pin"></em></span>
+          <span class="mobile-nav-text display-block">{{ 'general.text.contact' | t }}</span>
+        </a>
+      </div>
+      <div class="cell auto text-center">
+        <a class="mobile-nav-link display-block" data-toggle="mobile-menu-wrap">
+          <span class="mobile-nav-icon display-block"><em class="sli sli-options"></em></span>
+          <span class="mobile-nav-text display-block">{{ 'general.text.more' | t }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  {%- if section.settings.email != blank or section.settings.phone != blank -%}
+    <div id="mobile-menu-contact-dropup" class="dropdown-pane width-100 border-none" data-dropdown data-position="top" data-alignment="center" data-v-offset="25" data-auto-focus="false">
+      <div class="flex-container align-center-middle flex-dir-column text-center">
+        {%- if section.settings.email != blank -%}
+          <div>
+            <a href="mailto:{{ section.settings.email | downcase }}" class="button border-none rounded mobile-menu-contact-button flex-container align-middle">
+              <em class="sli sli-envelope"></em>
+              {{ section.settings.email }}
+            </a>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.phone != blank -%}
+          <div>
+            <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' }}" class="button border-none rounded mobile-menu-contact-button margin-bottom-0 flex-container align-middle">
+              <em class="sli sli-phone"></em>
+              {{ 'general.text.call' | t }}: {{ section.settings.phone }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+<div id="mobile-menu-collections-dropup" class="layout-mobile-overlap reveal full" data-reveal data-overlap-mobile data-v-offset="0" data-h-offset="0" data-overlay="false" data-animation-in="fade-in fast" data-animation-out="fade-out fast" data-enable-padding="true">
+  <div class="left-categories__inner">
+    {% include 'mobile-collections' %}
+  </div>
+</div>
+<div id="mobile-menu-wrap" class="layout-mobile-overlap reveal full" data-reveal data-overlap-mobile data-v-offset="0" data-h-offset="0" data-overlay="false" data-animation-in="fade-in fast" data-animation-out="fade-out fast" data-enable-padding="true">
+  {%- assign map_to = 'mobile-menu-wrap' -%}
+  {%- capture mobile_header_left -%}
+    <a class="header-button-back display-inline-block" data-close="mobile-menu-wrap">
+      <svg class="svg-icon">
+        <use xlink:href="#icon-arrow-left" />
+      </svg>
+    </a>
+    <a class="header-icon-search display-inline-block" data-toggle="search-box"><em class="sli sli-magnifier"></em></a>
+  {%- endcapture -%}
+  {%- capture mobile_header_right -%}
+    
+    <div class="mini-cart display-inline-block">
+      <a class="display-block" data-toggle="mini-cart-info">
+        <em class="mini-cart-icon sli sli-handbag">
+          <span class="mini-cart-total" data-cart-total>{{ cart.item_count }}</span>
+        </em>
+      </a>
+    </div>
+  {%- endcapture -%}
+  {%- include 'header-mobile-overlap' -%}
+  <div class="flex-container align-center-middle overflow-y-scroll overflow-x-hidden height-100" data-reveal-container>
+    <div class="margin-auto width-100">
+      {%- if section.settings.link_list != blank and linklists[section.settings.link_list] != empty -%}
+        <div class="text-center text-uppercase">
+          <ul class="mobile-menu-link vertical menu accordion-menu margin-horizontal-0" data-accordion-menu data-submenu-toggle="false">
+            {%- for link in linklists[section.settings.link_list].links -%}
+              <li>
+                <a href="{{ link.url }}">{{ link.title }}</a>
+                {% if link.links != blank %}
+                  {%- assign child_links = link.links -%}
+                  <ul class="menu vertical nested margin-horizontal-0">
+                    {%- include 'menu-child' -%}
+                  </ul>
+                {%- elsif linklists[link.handle].links != empty and linklists[link.handle].links != blank -%}
+                  {%- assign child_links = linklists[link.handle].links -%}
+                  <ul class="menu vertical nested margin-horizontal-0">
+                    {%- include 'menu-child' -%}
+                  </ul>
+                {%- endif -%}
+                <svg class="svg-icon submenu-parent-icon">
+                  <use xlink:href="#icon-plus"></use>
+                </svg>
+                <svg class="svg-icon submenu-parent-icon submenu-parent-icon-minus">
+                  <use xlink:href="#icon-minus"></use>
+                </svg>
+              </li>
+            {%- endfor -%}
+          </ul>
+          <hr style="margin: 10px 20px;"/>
+      	  {% if settings.currencyactive or settings.langactive %}
+          <div class="mobile-currency-language">
+            {% if settings.currencyactive %}
+            <div class="mobile-currency">
+              <ul class="desktop-currency-dropdown vertical menu accordion-menu margin-horizontal-0" data-accordion-menu data-submenu-toggle="false">
+                <li>
+                  <a><span class="pointer display-block" data-currency-dropdown-title>{{ shop.currency }}</span></a>
+                  <ul class="desktop-currency-dropdown-content menu vertical nested margin-horizontal-0">
+                    {%- capture codes -%}
+                    ,USD,EUR,GBP,CAD,ARS,AUD,BBD,BDT,BSD,BHD,BRL,BOB,BND,BGN,MMK,KYD,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,XPF,FJD,GHS,GTQ,GYD,GEL,HKD,HUF,ISK,INR,IDR,NIS,JMD,JPY,JOD,KZT,KES,KWD,LVL,LTL,MXN,MYR,MUR,MDL,MAD,MNT,MZN,ANG,NZD,NGN,NOK,OMR,PKR,PYG,PEN,PHP,PLN,QAR,RON,RUB,SAR,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TRY,UAH,AED,UYU,VEB,VND,ZMK,
+                    {%- endcapture -%}
+                    {%- assign supported_codes = settings.supported_currencies | split: ' ' -%}
+                    <li class="currency-dropdown-item active" data-currency-dropdown="{{ shop.currency }}">{{ shop.currency }}</li>
+                    {%- for code in supported_codes -%}
+                    {%- if code != shop.currency and codes contains code -%}
+                    <li class="currency-dropdown-item" data-currency-dropdown="{{ code }}">{{ code }}</li>
+                    {%- endif -%}
+                    {%- endfor -%}
+                  </ul>
+                  <svg class="svg-icon submenu-parent-icon">
+                    <use xlink:href="#icon-plus"></use>
+                  </svg>
+                  <svg class="svg-icon submenu-parent-icon submenu-parent-icon-minus">
+                    <use xlink:href="#icon-minus"></use>
+                  </svg>
+                </li>
+              </ul>
+              <select class="top-nav-currency-dropdown margin-0 hide" data-currency>
+                {%- capture codes -%}
+                ,USD,EUR,GBP,CAD,ARS,AUD,BBD,BDT,BSD,BHD,BRL,BOB,BND,BGN,MMK,KYD,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,XPF,FJD,GHS,GTQ,GYD,GEL,HKD,HUF,ISK,INR,IDR,NIS,JMD,JPY,JOD,KZT,KES,KWD,LVL,LTL,MXN,MYR,MUR,MDL,MAD,MNT,MZN,ANG,NZD,NGN,NOK,OMR,PKR,PYG,PEN,PHP,PLN,QAR,RON,RUB,SAR,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TRY,UAH,AED,UYU,VEB,VND,ZMK,
+                {%- endcapture -%}
+                {%- assign supported_codes = settings.supported_currencies | split: ' ' -%}
+                <option value="{{ shop.currency }}" selected="selected">{{ shop.currency }}</option>
+                {%- for code in supported_codes -%}
+                {%- if code != shop.currency and codes contains code -%}
+                <option value="{{ code }}">{{ code }}</option>
+                {%- endif -%}
+                {%- endfor -%}
+              </select>
+            </div>
+            {% endif %}
+            {% if settings.langactive %}
+            <div class="mobile-language">
+              {% include 'gtranslate' with check_gtranslate, check_gtranslate: 'mobile' %} 
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+          <div class="mobile-menu-society grid-x grid-margin-x grid-margin-y align-center">
+            {%- if settings.social_twitter_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_twitter_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-twitter" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_facebook_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_facebook_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-facebook" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_pinterest_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_pinterest_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-pinterest" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_instagram_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_instagram_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-instagram" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_tumblr_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_tumblr_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-tumblr" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_snapchat_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_snapchat_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-snapchat" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_youtube_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_youtube_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-youtube" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_vimeo_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_vimeo_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-vimeo" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{%- if shop.customer_accounts_enabled -%}
+  <div id="mobile-menu-login" class="layout-mobile-overlap reveal full" data-reveal data-overlap-mobile data-v-offset="0" data-h-offset="0" data-overlay="false" data-animation-in="fade-in fast" data-animation-out="fade-out fast" data-enable-padding="true">
+    {%- assign map_to = 'mobile-menu-login' -%}
+    {%- capture mobile_header_left -%}
+      <a class="header-button-back display-inline-block" data-close="mobile-menu-login">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-arrow-left" />
+        </svg>
+      </a>
+      <a class="header-icon-search display-inline-block" data-toggle="search-box"><em class="sli sli-magnifier"></em></a>
+    {%- endcapture -%}
+    {%- capture mobile_header_content -%}
+      <h3 class="header-title">{{ 'customer.account.title' | t }}</h3>
+    {%- endcapture -%}
+    {%- capture mobile_header_right -%}
+      
+      <div class="mini-cart display-inline-block">
+        <a class="display-block" data-toggle="mini-cart-info">
+          <em class="mini-cart-icon sli sli-handbag">
+            <span class="mini-cart-total" data-cart-total>{{ cart.item_count }}</span>
+          </em>
+        </a>
+      </div>
+    {%- endcapture -%}
+    {%- include 'header-mobile-overlap' -%}
+    <div class="account-login">
+      {%- form 'customer_login' -%}
+        <div class="account-login-heading text-center">
+          <h1 class="account-login-title">{{ 'customer.login.title' | t }}</h1>
+          <div class="account-login-subtitle">{{ 'customer.login.subtitle' | t: shop_name: shop.name }}</div>
+        </div>
+        {%- if form.errors -%}
+          <div class="callout alert">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+        <input type="email" name="customer[email]" class="account-field {% if form.errors contains 'email' %} input-error{% endif %}" placeholder="{{ 'customer.login.email' | t }}" autocapitalize="off" autocomplete="email">
+        {%- if form.password_needed -%}
+          <input type="password" value="" name="customer[password]" class="account-field {% if form.errors contains 'password' %}  input-error{% endif %}" placeholder="{{ 'customer.login.password' | t }}" autocomplete="current-password"/>
+        {%- endif -%}
+        {%- if form.password_needed -%}
+          <div class="flex-container align-right">
+            <a data-toggle="mobile-menu-recover" class="account-login-recover">{{ 'customer.login.forgot_password' | t }}</a>
+          </div>
+        {%- endif -%}
+        <button type="submit" class="button account-login-submit">{{ 'customer.login.sign_in' | t }}</button>
+        <div class="text-center margin-bottom-1">
+          <div>{{ 'layout.customer.create_account_title' | t }}</div>
+          <a class="account-login-register" data-toggle="mobile-menu-register">{{ 'layout.customer.create_account' | t }}</a>
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
+  <div id="mobile-menu-register" class="layout-mobile-overlap reveal full" data-reveal data-overlap-mobile data-v-offset="0" data-h-offset="0" data-overlay="false" data-animation-in="fade-in fast" data-animation-out="fade-out fast" data-enable-padding="true">
+    {%- assign map_to = 'mobile-menu-register' -%}
+    {%- capture mobile_header_left -%}
+      <a class="header-button-back display-inline-block" data-close="mobile-menu-register">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-arrow-left" />
+        </svg>
+      </a>
+      <a class="header-icon-search display-inline-block" data-toggle="search-box"><em class="sli sli-magnifier"></em></a>
+    {%- endcapture -%}
+    {%- capture mobile_header_content -%}
+      <h3 class="header-title">{{ 'customer.account.title' | t }}</h3>
+    {%- endcapture -%}
+    {%- capture mobile_header_right -%}
+      
+      <div class="mini-cart display-inline-block">
+        <a class="display-block" data-toggle="mini-cart-info">
+          <em class="mini-cart-icon sli sli-handbag">
+            <span class="mini-cart-total" data-cart-total>{{ cart.item_count }}</span>
+          </em>
+        </a>
+      </div>
+    {%- endcapture -%}
+    {%- include 'header-mobile-overlap' -%}
+    <div class="account-register">
+      {%- form 'create_customer' -%}
+        <div class="account-register-heading text-center">
+          <h1 class="account-register-title">{{ 'customer.register.title' | t }}</h1>
+          <div class="account-register-subtitle">{{ 'customer.register.subtitle' | t }}</div>
+        </div>
+        {%- if form.errors -%}
+          <div class="callout alert">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+        <input type="text" name="customer[first_name]" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} class="account-field" placeholder="{{ 'customer.register.first_name' | t }}" autocomplete="given-name"/>
+        <input type="text" name="customer[last_name]" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} class="account-field" placeholder="{{ 'customer.register.last_name' | t }}" autocomplete="family-name"/>
+        <input type="email" name="customer[email]" class="account-field {% if form.errors contains 'email' %} input-error{% endif %}" {% if form.email %} value="{{ form.email }}"{% endif %} placeholder="{{ 'customer.register.email' | t }}" autocapitalize="off" autocomplete="email">
+        <input type="password" name="customer[password]" class="account-field {% if form.errors contains 'password' %} input--error{% endif %}" placeholder="{{ 'customer.register.password' | t }}" autocomplete="current-password"/>
+        <button type="submit" class="account-register-submit button">{{ 'customer.register.submit' | t }}</button>
+      {%- endform -%}
+    </div>
+  </div>
+  <div id="mobile-menu-recover" class="layout-mobile-overlap reveal full" data-reveal data-overlap-mobile data-v-offset="0" data-h-offset="0" data-overlay="false" data-animation-in="fade-in fast" data-animation-out="fade-out fast" data-enable-padding="true">
+    {%- assign map_to = 'mobile-menu-recover' -%}
+    {%- capture mobile_header_left -%}
+      <a class="header-button-back display-inline-block" data-close="mobile-menu-recover">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-arrow-left" />
+        </svg>
+      </a>
+      <a class="header-icon-search display-inline-block" data-toggle="search-box"><em class="sli sli-magnifier"></em></a>
+    {%- endcapture -%}
+    {%- capture mobile_header_content -%}
+      <h3 class="header-title">{{ 'customer.account.title' | t }}</h3>
+    {%- endcapture -%}
+    {%- capture mobile_header_right -%}
+      
+      <div class="mini-cart display-inline-block">
+        <a class="display-block" data-toggle="mini-cart-info">
+          <em class="mini-cart-icon sli sli-handbag">
+            <span class="mini-cart-total" data-cart-total>{{ cart.item_count }}</span>
+          </em>
+        </a>
+      </div>
+    {%- endcapture -%}
+    {%- include 'header-mobile-overlap' -%}
+    <div class="account-recover">
+      <h1 class="account-recover-title text-center">{{ 'customer.recover_password.title' | t }}</h1>
+      <div class="account-recover-subtitle text-center">{{ 'customer.recover_password.subtext' | t }}</div>
+      {%- form 'recover_customer_password' -%}
+        <input type="email" value="" name="email" class="account-field" placeholder="{{ 'customer.recover_password.email' | t }}" autocapitalize="off" autocomplete="email"/>
+        <button type="submit" class="account-recover-submit button">{{ 'customer.recover_password.submit' | t }}</button>
+      {%- endform -%}
+    </div>
+  </div>
+  {%- if customer  -%}
+    <div id="mobile-menu-logged" class="layout-mobile-overlap reveal full" data-reveal data-overlap-mobile data-v-offset="0" data-h-offset="0" data-overlay="false" data-animation-in="fade-in fast" data-animation-out="fade-out fast" data-enable-padding="true">
+      {%- assign map_to = 'mobile-menu-logged' -%}
+      {%- capture mobile_header_left -%}
+        <a class="header-button-back display-inline-block" data-close="mobile-menu-logged">
+          <svg class="svg-icon">
+            <use xlink:href="#icon-arrow-left" />
+          </svg>
+        </a>
+        <a class="header-icon-search display-inline-block" data-toggle="search-box"><em class="sli sli-magnifier"></em></a>
+      {%- endcapture -%}
+      {%- capture mobile_header_content -%}
+        <h3 class="header-title margin-0">{{ 'customer.account.title' | t }}</h3>
+      {%- endcapture -%}
+      {%- capture mobile_header_content -%}
+        <h3 class="header-title">{{ 'customer.account.title' | t }}</h3>
+      {%- endcapture -%}
+      {%- capture mobile_header_right -%}
+       
+        <div class="mini-cart display-inline-block">
+          <a class="display-block" data-toggle="mini-cart-info">
+            <em class="mini-cart-icon sli sli-handbag">
+              <span class="mini-cart-total" data-cart-total>{{ cart.item_count }}</span>
+            </em>
+          </a>
+        </div>
+      {%- endcapture -%}
+      {%- include 'header-mobile-overlap' -%}
+      <div class="flex-container align-center-middle overflow-y-scroll overflow-x-hidden height-100">
+        <div class="margin-auto width-100">
+          <div class="account-logged">
+            <h2 class="account-logged-title text-center">{{ 'customer.account.welcome' | t }} {{ customer.first_name }} {{ customer.last_name }}</h2>
+            <ul class="account-logged-category no-bullet text-center margin-0">
+              <li><a href="/account" class="account-logged-link">{{ 'customer.orders.title' | t }}</a></li>
+              <li><a href="/account/addresses" class="account-logged-link">{{ 'customer.addresses.title' | t }}</a></li>
+              <li><a href="/pages/wish-list" class="account-logged-link">{{ 'general.button.wishlist' | t }}</a></li>
+              <li><a href="/account/logout" class="account-logged-link">{{ 'layout.customer.log_out' | t }}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'gtranslate' with check_gtranslate: 'mobile' %}"
+  to: "{% include 'gtranslate' with check_gtranslate, check_gtranslate: 'mobile' %}"
+  position: 9738..9814
+{%- endcomment -%}

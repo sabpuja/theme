@@ -1,0 +1,89 @@
+<!-- /snippets/collection-sort-mobile.liquid -->
+<div id="collection-sort" class="layout-mobile-overlap reveal full" data-reveal data-overlap-mobile data-v-offset="0" data-h-offset="0" data-overlay="false" data-animation-in="fade-in fast" data-animation-out="fade-out fast" data-enable-padding="true">
+  {%- assign map_to = 'collection-sort' -%}
+  {%- capture mobile_header_left -%}
+    <a class="header-button-back display-inline-block" data-close="collection-sort">
+      <svg class="svg-icon">
+        <use xlink:href="#icon-arrow-left" />
+      </svg>
+    </a>
+  {%- endcapture -%}
+  {%- capture mobile_header_content -%}
+    <h3 class="header-title margin-0">{{ 'collections.general.sort' | t }}</h3>
+  {%- endcapture -%}
+  {%- capture mobile_header_right -%}
+    <a class="collection-sort-clear" data-collection-clear-sort>{{ 'collections.general.clear' | t }}</a>
+  {%- endcapture -%}
+  {%- include 'header-mobile-overlap' -%}
+  <div class="flex-container align-center-middle overflow-y-scroll overflow-x-hidden height-100">
+    <div class="margin-auto width-100">
+      <ul class="no-bullet text-center margin-0">
+        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        <li class="collection-sort-manual">
+          <a href="{{ collection_url }}{{ query }}sort_by=manual" class="collection-sort-data display-block{% if sort_by == 'manual' %} active{% endif %}" data-collection-sort="manual" data-close="collection-sort">
+            {{ 'collections.sorting.featured' | t }}
+            <svg>
+              <use xlink:href="#icon-checker"/>
+            </svg>
+          </a>
+        </li>
+        <li class="collection-sort-price-ascending">
+          <a href="{{ collection_url }}{{ query }}sort_by=price-ascending" class="collection-sort-data display-block{% if sort_by == 'price-ascending' %} active{% endif %}" data-collection-sort="price-ascending" data-close="collection-sort">
+            {{ 'collections.sorting.price_ascending' | t }}
+            <svg>
+              <use xlink:href="#icon-checker"/>
+            </svg>
+          </a>
+        </li>
+        <li class="collection-sort-price-descending">
+          <a href="{{ collection_url }}{{ query }}sort_by=price-descending" class="collection-sort-data display-block{% if sort_by == 'price-descending' %} active{% endif %}" data-collection-sort="price-descending" data-close="collection-sort">
+            {{ 'collections.sorting.price_descending' | t }}
+            <svg>
+              <use xlink:href="#icon-checker"/>
+            </svg>
+          </a>
+        </li>
+        <li class="collection-sort-title-ascending">
+          <a href="{{ collection_url }}{{ query }}sort_by=title-ascending" class="collection-sort-data display-block{% if sort_by == 'title-ascending' %} active{% endif %}" data-collection-sort="title-ascending" data-close="collection-sort">
+            {{ 'collections.sorting.az' | t }}
+            <svg>
+              <use xlink:href="#icon-checker"/>
+            </svg>
+          </a>
+        </li>
+        <li class="collection-sort-title-descending">
+          <a href="{{ collection_url }}{{ query }}sort_by=title-descending" class="collection-sort-data display-block{% if sort_by == 'title-descending' %} active{% endif %}" data-collection-sort="title-descending" data-close="collection-sort">
+            {{ 'collections.sorting.za' | t }}
+            <svg>
+              <use xlink:href="#icon-checker"/>
+            </svg>
+          </a>
+        </li>
+        <li class="collection-sort-created-ascending">
+          <a href="{{ collection_url }}{{ query }}sort_by=created-ascending" class="collection-sort-data display-block{% if sort_by == 'created-ascending' %} active{% endif %}" data-collection-sort="created-ascending" data-close="collection-sort">
+            {{ 'collections.sorting.date_ascending' | t }}
+            <svg>
+              <use xlink:href="#icon-checker"/>
+            </svg>
+          </a>
+        </li>
+        <li class="collection-sort-created-descending">
+          <a href="{{ collection_url }}{{ query }}sort_by=created-descending" class="collection-sort-data display-block{% if sort_by == 'created-descending' %} active{% endif %}" data-collection-sort="created-descending" data-close="collection-sort">
+            {{ 'collections.sorting.date_descending' | t }}
+            <svg>
+              <use xlink:href="#icon-checker"/>
+            </svg>
+          </a>
+        </li>
+        <li class="collection-sort-best-selling">
+          <a href="{{ collection_url }}{{ query }}sort_by=best-selling" class="collection-sort-data display-block{% if sort_by == 'best-selling' %} active{% endif %}" data-collection-sort="best-selling" data-close="collection-sort">
+            {{ 'collections.sorting.best_selling' | t }}
+            <svg>
+              <use xlink:href="#icon-checker"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

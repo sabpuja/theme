@@ -1,0 +1,78 @@
+<div class="grid-container">
+  <div class="faqs-content">
+    {% if section.blocks.size > 0 %}
+      {% if section.settings.faqs %}
+        <div class="faqs-area">
+          <div class="faqs-toggle">
+            <ul class="accordion" data-responsive-accordion-tabs="accordion" data-multi-expand="true" data-allow-all-closed="true">
+              {%- for block in section.blocks -%}
+                {% if block.type == 'faqs' %}
+                  <li class="accordion-item {% if forloop.index == 1 %}is-active{% endif %}" data-accordion-item>
+                    <a href="#product-detail-description" class="accordion-title">{{ block.settings.title }}</a>
+                    <div id="product-detail-description" class="accordion-content product-detail-description" data-tab-content>
+                      {{ block.settings.answer }}
+                    </div>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="more-action">
+            <div class="more-text">{{ section.settings.faqs_text }}</div>
+            <div class="more-button">
+              <a href="{% if section.settings.contact %}#contact-area{% else %}/pages/contact-us{% endif %}" data-targetlink>
+                {{ section.settings.faqs_btext }}
+              </a>
+            </div>
+          </div>
+        </div>        
+      {% endif %}
+    
+      {% if section.settings.contact %}
+        <div id="contact-area">
+          <div class="grid-x grid-margin-x">
+            <div class="cell large-8 form-contact">
+              <div class="title">{{ section.settings.title }}</div>
+              <div class="desc">{{ section.settings.desc }}</div>
+              {%- form 'contact' -%}
+              {%- if form.posted_successfully? -%}
+              <div class="callout success">
+                {{ 'contact.form.post_success' | t }}
+              </div>
+              {%- endif -%}
+              {%- if form.errors -%}
+              <div class="callout alert">
+                {{ form.errors | default_errors }}
+              </div>
+              {%- endif -%}
+              <div class="grid-x grid-margin-x">
+                <div class="form-group cell large-6">
+                  <label class="form-group-label">{{ 'contact.form.name' | t }}</label>
+                  <input type="text" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="{{ 'contact.form.name' | t }}" class="form-group-field" />
+                </div>
+                <div class="form-group{% if form.errors contains 'email' %} has-error{% endif %}  cell large-6">
+                  <label class="form-group-label">{{ 'contact.form.email' | t }}</label>
+                  <input type="email" name="contact[email]"  autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'contact.form.email' | t }}" class="form-group-field" />
+                </div>
+                <div class="form-group cell large-12">
+                  <label class="form-group-label">{{ 'contact.form.phone' | t }}</label>
+                  <input type="text" name="contact[phone]" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="{{ 'contact.form.phone' | t }}" class="form-group-field" />
+                </div>
+                <div class="form-group cell large-12">
+                  <label class="form-group-label">{{ 'contact.form.message' | t }}</label>
+                  <textarea name="contact[body]" placeholder="{{ 'contact.form.message' | t }}" class="form-group-field">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                  <input type="submit" class="button form-button" value="{{ 'contact.form.submit' | t }}"/>
+                </div>
+                
+              </div>
+              {%- endform -%}
+            </div>
+            <div class="cell large-4 text-content">
+              {{ page.content }}            
+            </div>          
+          </div>
+        </div>
+      {% endif %}      
+    {% endif %}
+  </div>
+</div>

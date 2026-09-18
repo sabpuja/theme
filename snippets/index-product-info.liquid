@@ -1,0 +1,121 @@
+<div class="product-item-caption">
+  {% if settings.product_item_option %}
+  <div class="color-available">
+    {%- if product.variants.size > 1 -%}
+    <div class="product-item-option flex-container">
+      <!-- show color swatches avaiable -->
+      {%- for option_name in product.options -%}
+      {%- assign option_index = forloop.index0 -%}
+      {%- capture option_type -%}
+      {%- include 'product-option-detector' -%}
+      {%- endcapture -%}
+      {%- assign option_type = option_type | strip | strip_newlines -%}
+      {%- if option_type == 'color' or option_type == 'image' -%}
+      {%- assign color = '' -%}
+      {%- assign shown_list = '' -%}
+      {%- for variant in product.variants -%}
+      {%- assign option_handle = variant.options[option_index] -%}
+      {%- unless shown_list contains option_handle -%}
+      {% unless settings.coloravailable %}
+      {% if variant.image %}
+      <div class="product-item-option-image">
+        <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ variant.image | img_url: '48x48' }}" class="width-100 display-block lazyload" data-image-swap data-image-src="{{ variant.image | product_img_url: product_image_size, crop: 'center' }}" data-image-srcset="{{ variant.image | product_img_url: product_image_size, crop: 'center' }} 800w, {{ variant.image | product_img_url: product_image_size, crop: 'center', scale: 2 }} 1440w, {{ variant.image | product_img_url: product_image_size, crop: 'center', scale: 3 }} 1920w" alt="{{ option_handle | escape }}"/>
+      </div>
+      {% endif %}
+      {% else %}
+      {% if option_type == 'color' %}
+      {%- capture color_code -%}
+      {%- include 'product-option-color-detector' -%}
+      {%- endcapture -%}
+      {%- assign color_code = color_code | strip | strip_newlines -%}
+      {%- if color_code != blank -%}
+      <div class="product-item-option-color" style="background: {{ color_code }};"></div>
+      {%- endif -%}
+      {% endif %}
+      {% assign shown_list = shown_list | append: option_handle | append: ' ' %}
+      {% endunless %}
+      {%- endunless -%}
+      {%- endfor -%}
+      {%- endif -%}
+      {%- endfor -%}   
+    </div>
+    {%- endif -%}
+  </div>
+  {% endif %}
+  <h4 class="product-item-title">
+    <a href="{{ shop.url }}{{ product.url }}">{{ product.title }}</a>
+  </h4>
+  {% if settings.product_item_vendor %}
+  <div class="product-item-vendor">
+    {{ product.type }}
+  </div>
+  {% endif %}
+  <div class="product-item-price">
+    {%- if product.compare_at_price_max > product.price -%}
+    {%- assign found_one_in_stock = false -%}
+    {%- for variant in product.variants -%}
+    {%- if variant.available -%}
+    {%- assign found_one_in_stock = true -%}
+    <span class="product-item-price-sale">{{ variant.price | money }}</span>
+    <del class="product-item-price-old"> {{ variant.compare_at_price | money }}</del>
+    {%- break -%}
+    {%- endif -%}
+    {%- endfor -%}
+    {%- if found_one_in_stock == false -%}
+    {%- for variant in product.variants -%}
+    {%- if variant.available -%}
+    <span class="product-item-price-default">
+      {{ variant.price | money }}
+    </span>
+    {%- break -%}
+    {%- endif -%}
+    {%- endfor -%}
+    {%- endif -%}
+    {%- else -%}
+    <span class="product-item-price-default">{{ product.price | money }}</span>
+    {%- endif -%}
+  </div>
+  {%- if settings.product_item_rating -%}
+  <div class="product-item-rating">
+    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+  </div>
+  {%- endif -%}
+</div>
+<div class="product-item-action">     
+    {%- if settings.product_item_quick_view -%}
+    <a href="{{ shop.url }}{{ product.url }}" data-quick-view data-handle="{{ product.handle }}" class="group-button-quickview group-button-item product-item-button product-item-quick-view" title="{{ 'general.button.quick_view' | t }}"><em class="sli sli-magnifier"></em>
+    </a>
+    {%- endif -%}
+    {%- if settings.product_item_wishlist -%}
+    <div class="group-button-wishlist group-button-item product-item-button product-item-button-wishlist" data-wishlist="{{ product.handle }}">
+      <em class="sli sli-heart icon-add" title="{{ 'general.button.wishlist' | t }}"></em>
+      <em class="sli sli-check icon-added" title="{{ 'general.button.wishlist_added' | t }}" data-tooltip data-position="top" data-alignment="center" data-hover-delay="0" data-trigger-class="is-tip"></em>
+    </div>
+    {%- endif -%}
+    {%- if settings.product_item_compare -%}
+    <div class="group-button-compare group-button-item product-item-button product-item-button-compare" data-compare="{{ product.handle }}">
+      <em class="sli sli-refresh icon-add" title="{{ 'general.button.compare' | t }}"></em>
+      <em class="sli sli-check icon-added" title="{{ 'general.button.compare_added' | t }}" data-tooltip data-position="top" data-alignment="center" data-hover-delay="0" data-trigger-class="is-tip"></em>        
+    </div>
+    {%- endif -%}
+    <div class="group-button-cart product-item-button">
+      {%- if product.available -%}
+      {%- if product.variants.size == 1 -%}
+      <a  href="{{ shop.url }}{{ product.url }}" class="product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}" data-add-cart="{{ product.variants[0].id }}">
+        <em class="sli sli-basket"></em>
+         <!-- <span>{{ 'general.button.add_to_cart' | t }}</span> -->
+        </a>
+      {%- else -%}
+      <a href="{{ shop.url }}{{ product.url }}" class="product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}">
+        <em class="sli sli-basket"></em> 
+        <!-- <span>{{ 'general.button.add_to_cart' | t }}</span> -->
+      </a>
+      {%- endif -%}
+      {%- else -%}
+      <a href="{{ shop.url }}{{ product.url }}" class="product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}" disabled="disabled">
+        <em class="sli sli-basket"></em>
+         <!-- <span>{{ 'general.button.add_to_cart' | t }}</span> -->
+        </a>
+      {%- endif -%}        
+    </div>
+</div>

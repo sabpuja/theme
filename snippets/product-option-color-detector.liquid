@@ -1,0 +1,5 @@
+{%- assign _colors = settings.product_color_mapping | downcase | split: '|' -%}
+{%- assign tmp_option_handle = option_handle | downcase -%}
+{%- for _color in _colors -%}
+  {%- if _color contains tmp_option_handle -%}{{ _color | split: ':' | last }}{%- break -%}{%- endif -%}
+{%- endfor -%}

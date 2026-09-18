@@ -1,0 +1,100 @@
+<!-- /snippets/amp-index-product-item.liquid -->
+<div class="product-item" data-product-item>
+  <div class="product-item-thumb">
+    <a href="{{ shop.url }}{{ product.url }}" class="display-block product-item-images">
+      {%- assign number_of_images = product.images | size | plus: 0 -%}
+      {%- if product_image_size == empty or product_image_size == blank -%}
+        {%- assign product_image_size = '450x' -%}
+      {%- endif -%}
+      <amp-img src="{{ product.featured_image | product_img_url: product_image_size, crop: 'center' }}" width="{{ section.settings.image_width }}" height="{{ section.settings.image_height }}" alt="{{ product.images[1].alt | escape }}" class="product-item-image" layout="responsive"></amp-img>
+    </a>
+    <style>
+      .product-item-images:after {content: '';display: block;padding-top: calc({{ section.settings.image_height }} / {{ section.settings.image_width }} * 100%);}
+    </style>
+  </div>
+  <div class="product-item-caption">
+    <div class="grid-x">
+      <div class="cell auto">
+        <h4 class="product-item-title">
+          <a href="{{ shop.url }}{{ product.url }}">{{ product.title }}</a>
+        </h4>
+      </div>
+    </div>
+    <div class="position-relative">
+      <div class="product-item-buttons">
+        {%- if product.available -%}
+          {%- if product.variants.size == 1 -%}
+            <a href="{{ shop.url }}{{ product.url }}?id={{ product.variants[0].id }}&submit=true" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}"><em class="sli sli-basket"></em> {{ 'general.button.add_to_cart' | t }}</a>
+          {%- else -%}
+            <a href="{{ shop.url }}{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}"><em class="sli sli-basket"></em> {{ 'general.button.add_to_cart' | t }}</a>
+          {%- endif -%}
+        {%- else -%}
+          <a href="{{ shop.url }}{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}"><em class="sli sli-basket"></em> {{ 'general.button.add_to_cart' | t }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="product-item-price">
+      {%- if product.compare_at_price_max > product.price -%}
+        {%- assign found_one_in_stock = false -%}
+        {%- for variant in product.variants -%}
+          {%- if variant.available -%}
+            {%- assign found_one_in_stock = true -%}
+            <span class="product-item-price-sale">{{ variant.price | money }}</span>
+            <del class="product-item-price-old"> {{ variant.compare_at_price | money }}</del>
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if found_one_in_stock == false -%}
+          {%- for variant in product.variants -%}
+            {%- if variant.available -%}
+              <span class="product-item-price-sale">
+                {{ variant.price | money }}
+              </span>
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- else -%}
+        <span class="product-item-price-sale">{{ product.price | money }}</span>
+      {%- endif -%}
+    </div>
+    <div class="product-item-info">
+      <div class="product-item-rating">
+        <span class="shopify-product-item-reviews-badge" data-id="{{ product.id }}"></span>
+      </div>
+      <div class="product-item-option flex-container">
+        <!-- show color swatches avaiable -->
+        {%- for option_name in product.options -%}
+          {%- assign option_index = forloop.index0 -%}
+          {%- capture option_type -%}
+            {%- include 'product-option-detector' -%}
+          {%- endcapture -%}
+          {%- assign option_type = option_type | strip | strip_newlines -%}
+          {%- if option_type == 'color' or option_type == 'image' -%}
+            {%- assign color = '' -%}
+            {%- assign shown_list = '' -%}
+            {%- for variant in product.variants -%}
+              {%- assign option_handle = variant.options[option_index] -%}
+              {%- unless shown_list contains option_handle -%}
+                {%- if variant.image -%}
+                  <div class="product-item-option-image">
+                    <amp-img src="{{ variant.image | img_url: '48x48' }}" width="48" height="48" alt="{{ option_handle | escape }}" layout="responsive"></amp-img>
+                  </div>
+                {%- elsif option_type == 'color' -%}
+                  {%- capture color_code -%}
+                    {%- include 'product-option-color-detector' -%}
+                  {%- endcapture -%}
+                  {%- assign color_code = color_code | strip | strip_newlines -%}
+                  {%- if color_code != blank -%}
+                    <div class="product-item-option-color {{ color_code }}"></div>
+                  {%- endif -%}
+                {%- endif -%}
+                {%- assign shown_list = shown_list | append: option_handle | append: ' ' -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}   
+      </div>
+    </div>
+  </div>
+</div>

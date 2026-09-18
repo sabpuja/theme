@@ -1,0 +1,54 @@
+<!-- /snippets/list-collections-template.liquid -->
+{%- assign image_size = section.settings.image_width | append: 'x' | append: section.settings.image_height -%}
+<div class="grid-container">
+  <div class="page-heading show-for-large">
+    <h1 class="page-title">{{ page_title }}</h1>
+  </div>
+  <div class="page-content">
+    {%- assign blocks = section.blocks | sort: 'collection.all_products_count' -%}
+    {%- case section.settings.grid -%}
+    {%- when '2' -%}
+      {%- assign class = 'grid-x grid-padding-x small-up-2 medium-up-2 large-up-2 xlarge-up-2 xxlarge-up-2 xxxlarge-up-2' -%}
+    {%- when '3' -%}
+      {%- assign class = 'grid-x grid-padding-x small-up-2 medium-up-2 large-up-3 xlarge-up-3 xxlarge-up-3 xxxlarge-up-3' -%}
+    {%- when '4' -%}
+      {%- assign class = 'grid-x grid-padding-x small-up-2 medium-up-2 large-up-3 xlarge-up-4 xxlarge-up-4 xxxlarge-up-4' -%}
+    {%- when '5' -%}
+      {%- assign class = 'grid-x grid-padding-x small-up-2 medium-up-2 large-up-3 xlarge-up-4 xxlarge-up-5 xxxlarge-up-5' -%}
+    {%- when '6' -%}
+      {%- assign class = 'grid-x grid-padding-x small-up-2 medium-up-2 large-up-3 xlarge-up-4 xxlarge-up-6 xxxlarge-up-6' -%}
+    {%- endcase -%}
+    <div class="list-collections-wrap">
+      <div class="list-collections-list {{ class }}">
+        {%- if section.settings.display_type == 'all' -%}
+          {%- case section.settings.sort -%}
+          {%- when 'products_high' or 'products_low' -%}
+            {%- assign collections = collections | sort: 'all_products_count' -%}
+          {%- when 'date' or 'date_reversed' -%}
+            {%- assign collections = collections | sort: 'published_at' -%}
+          {%- endcase -%}
+          {%- if section.settings.sort == 'products_low' or section.settings.sort == 'date' or section.settings.sort == 'alphabetical' -%}
+            {%- for collection in collections -%}
+              <div class="list-collections-item cell collection-grid">
+                {%- include 'list-collections-item', collection_image_size: image_size -%}
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for collection in collections reversed -%}
+              <div class="list-collections-item cell collection-grid">
+                {%- include 'list-collections-item', collection_image_size: image_size -%}
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- else -%}
+          {%- for block in section.blocks -%}
+            <div class="list-collections-item cell collection-grid">
+              {%- assign collection = collections[block.settings.collection] -%}
+              {%- include 'list-collections-item', collection_image_size: image_size -%}
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>

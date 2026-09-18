@@ -1,0 +1,18 @@
+<!-- /snippets/menu-child.liquid -->
+{%- for link in child_links -%}
+  <li{% if link.active and child_active %} class="active"{% endif %}>
+   <a href="{{ link.url }}">{{ link.title }}</a>
+   {% if link.links != blank %}
+     {%- assign child_links = link.links -%}
+     <ul class="menu vertical submenu nested margin-horizontal-0">
+      {%- include 'menu-child' -%}
+    </ul>
+  {%- endif -%}
+  <svg class="svg-icon submenu-parent-icon">
+    <use xlink:href="#icon-plus"></use>
+  </svg>
+  <svg class="svg-icon submenu-parent-icon submenu-parent-icon-minus">
+    <use xlink:href="#icon-minus"></use>
+  </svg>
+</li>
+{%- endfor -%}

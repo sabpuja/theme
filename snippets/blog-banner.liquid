@@ -1,0 +1,18 @@
+<!-- /snippets/blog-banner.liquid -->
+{%- if block.settings.position contains 'sidebar' -%}
+  {%- assign layout_class = 'layout-sidebar' -%}
+{%- else -%}
+  {%- assign layout_class = 'layout-content' -%}
+{%- endif -%}
+<div class="{{ layout_class }} blog-banner {{ block.settings.display }}">
+  <div class="{{ layout_class }}-content">
+    {%- unless block.settings.image == blank -%}
+      {%- assign image_size = block.settings.image_width | append: 'x' | append: block.settings.image_height -%}
+      <div class="effect effect-scope">
+        <a href="{{ block.settings.link }}" class="blog-banner-image display-block">
+          <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.image | img_url: image_size }}" class="width-100 lazyload" alt="{{ block.settings.image.alt }}" />
+        </a>
+      </div>
+    {%- endunless -%}
+  </div>
+</div>

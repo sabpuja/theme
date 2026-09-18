@@ -1,0 +1,12 @@
+<!-- /snippets/product-collection.liquid -->
+<div class="product-collection-content">
+  <ul class="no-bullet margin-0">
+    {%- if product.collections.size > 0 -%}
+      <li class="product-collection-item">
+        {%- for category in product.collections -%}
+          <a href="/collections/{{ category.handle }}" class="display-inline-block">{{ category.title }}</a>
+        {%- endfor -%}
+      </li>
+    {%- endif -%}
+  </ul>
+</div>

@@ -1,0 +1,80 @@
+<!-- /snippets/amp-theme-header.liquid -->
+<header>
+  <div class="header-container">
+    <div class="header-wrap width-100" data-header-wrap>
+      <div class="header hide-for-large" data-header data-header-base>
+        <div class="grid-container fluid">
+          {%- if template contains 'product' -%}
+            <div class="grid-x align-middle">
+              <div class="cell shrink">
+                <div class="flex-container align-left" data-header-left>
+                  <a href="{{ shop.url }}/collections/all" class="header-button-back display-inline-block" data-header-back>
+                    <svg class="svg-icon">
+                      <use xlink:href="#icon-arrow-left" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="cell shrink header-content flex-container flex-dir-column">
+                <div data-header-default>
+                  <h2 class="product-header-title">{{ product.title }}</h2>
+                </div>
+              </div>
+              <div class="cell auto">
+                <div class="flex-container align-right" data-header-right>
+                  <a href="{{ shop.url }}/search" class="header-icon-search display-inline-block" data-toggle="search-box">
+                    <em class="sli sli-magnifier"></em>
+                  </a>
+                  <div class="mini-cart display-inline-block">
+                    <a class="mini-cart-text display-block" data-toggle="mini-cart-info">
+                      <em class="mini-cart-icon sli sli-handbag">
+                        <span class="mini-cart-total" data-cart-total>{{ cart.item_count }}</span>
+                      </em>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- else -%}
+            <div class="grid-x align-middle">
+              <div class="cell auto">
+                <div class="flex-container align-left" data-header-left>
+                  <a href="{{ shop.url }}/" class="header-button-back display-inline-block" data-header-back>
+                    <svg class="svg-icon">
+                      <use xlink:href="#icon-arrow-left" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="cell shrink header-content flex-container flex-dir-column align-center-middle">
+                <div data-header-default>
+                  <h2 class="header-title">
+                    {%- if collection.title -%}
+                      {{ collection.title }}
+                    {%- else -%}
+                      {{ 'collections.general.title' | t }}
+                    {%- endif -%}
+                  </h2>
+                </div>
+              </div>
+              <div class="cell auto">
+                <div class="flex-container align-right" data-header-right>
+                  <a href="{{ shop.url }}/search" class="header-icon-search display-inline-block" data-toggle="search-box">
+                    <em class="sli sli-magnifier"></em>
+                  </a>
+                  <div class="mini-cart display-inline-block">
+                    <a class="mini-cart-text display-block" data-toggle="mini-cart-info">
+                      <em class="mini-cart-icon sli sli-handbag">
+                        <span class="mini-cart-total" data-cart-total>{{ cart.item_count }}</span>
+                      </em>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

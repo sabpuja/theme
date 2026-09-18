@@ -1,0 +1,18 @@
+<!-- /snippets/collection-product.liquid -->
+{%- if block.settings.position contains 'sidebar' -%}
+  {%- assign layout_class = 'layout-sidebar' -%}
+{%- else -%}
+  {%- assign layout_class = 'layout-content' -%}
+{%- endif -%}
+<div class="{{ layout_class }} product-recently-viewed {% if layout_class == 'layout-sidebar' %} collection-featured-product{% endif %} {{ block.settings.display }}" data-product-recently-viewed='{"handle": "{{ product.handle }}", "limit": "{{ block.settings.limit }}", "column_small": "{{ block.settings.column_small }}", "column_medium": "{{ block.settings.column_medium }}", "column_large": "{{ block.settings.column_large }}", "column_xlarge": "{{ block.settings.column_xlarge }}", "column_xxlarge": "{{ block.settings.column_xxlarge }}", "column_xxxlarge": "{{ block.settings.column_xxxlarge }}"}'>
+  {%- if block.settings.title != blank -%}
+  <div class="{{ layout_class }}-title">
+    <h3>{{ block.settings.title }}</h3>
+  </div>
+  {%- endif -%}
+  <div class="{{ layout_class }}-content isb-article">
+    <div class="grid-x" data-product-recently-viewed-content>
+      
+    </div>
+  </div>
+</div>

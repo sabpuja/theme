@@ -1,0 +1,115 @@
+<!-- /snippets/breadcrumbs.liquid -->
+{%- unless template == 'index' or template == 'list-collections' -%}
+  <div class="breadcrumb">
+    <div class="grid-container flex-container">
+      <ul class="breadcrumbs">
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+          <a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url">
+            <span itemprop="title">{{ 'general.text.home' | t }}</span>
+          </a>
+        </li>
+        {%- if template contains 'page' -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}{{ page.url }}" title="{{ page.title | escape }}" itemprop="url">
+              <span itemprop="title">{{ page.title }}</span>
+            </a>
+          </li>
+        {%- elsif template contains 'product' -%}
+          {%- if collection.url -%}
+            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="{{ shop.url }}{{ collection.url }}" title="{{ collection.title | escape }}" itemprop="url">
+                <span itemprop="title">{{ collection.title }}</span>
+              </a>
+            </li>
+          {%- endif -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}{{ collection.url }}{{ product.url }}" title="{{ product.title | escape }}" itemprop="url">
+              <span itemprop="title">{{ product.title }}</span>
+            </a>
+          </li>
+        {%- elsif template contains 'collection' -%}
+          {%- assign collection_url = collection.url -%}
+          {%- if collection_url == blank or collection_url == '' -%}
+            {%- assign collection_url = canonical_url | remove: shop.url -%}
+          {%- endif -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}{{ collection_url }}" title="{{ collection.title | escape }}" itemprop="url">
+              <span itemprop="title">
+                {%- if collection.handle == 'all' -%}
+                  {{ 'collections.general.title' | t }}
+                {%- else -%}
+                  {{ collection.title }}
+                {%- endif -%}
+              </span>
+            </a>
+          </li>
+        {%- elsif template contains 'blog' -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}{{ blog.url }}" title="{{ blog.title | escape }}" itemprop="url">
+              <span itemprop="title">{{ blog.title }}</span>
+            </a>
+          </li>
+        {%- elsif template contains 'article' -%}
+          {%- if blog -%}
+            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="{{ shop.url }}{{ blog.url }}" title="{{ blog.title | escape }}" itemprop="url">
+                <span itemprop="title">{{ blog.title }}</span>
+              </a>
+            </li>
+          {%- endif -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}{{ article.url }}" title="{{ article.title | escape }}" itemprop="url">
+              <span itemprop="title">{{ article.title }}</span>
+            </a>
+          </li>
+        {%- elsif template contains 'cart' -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}/cart" title="{{ 'cart.general.title' | t | escape }}" itemprop="url">
+              <span itemprop="title">{{ 'cart.general.title' | t }}</span>
+            </a>
+          </li>
+        {%- elsif template contains 'password' -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}/password" title="{{ 'general.password_page.login_form_password_label' | t | escape }}" itemprop="url">
+              <span itemprop="title">{{ 'general.password_page.login_form_password_label' | t }}</span>
+            </a>
+          </li>
+        {%- elsif template == 'customers/account' -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}/account" title="{{ 'customer.account.title' | t | escape }}" itemprop="url">
+              <span itemprop="title">{{ 'customer.account.title' | t }}</span>
+            </a>
+          </li>
+        {%- elsif template == 'customers/order' -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}/account" title="{{ 'customer.account.title' | t | escape }}" itemprop="url">
+              <span itemprop="title">{{ 'customer.account.title' | t }}</span>
+            </a>
+          </li>
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ canonical_url }}" title="{{ 'customer.order.title' | t | escape }}" itemprop="url">
+              <span itemprop="title">{{ 'customer.order.title' | t: name: order.name }}</span>
+            </a>
+          </li>
+        {%- elsif template == 'customers/addresses' -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}/account" title="{{ 'customer.account.title' | t | escape }}" itemprop="url">
+              <span itemprop="title">{{ 'customer.account.title' | t }}</span>
+            </a>
+          </li>
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}/account/addresses" title="{{ 'customer.addresses.title' | t | escape }}" itemprop="url">
+              <span itemprop="title">{{ 'customer.addresses.title' | t: name: order.name }}</span>
+            </a>
+          </li>
+        {%- else -%}
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="{{ shop.url }}{{ page.url }}" title="{{ page.title | escape }}" itemprop="url">
+              <span itemprop="title">{{ page.title }}</span>
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </div>
+  </div>
+{%- endunless -%}

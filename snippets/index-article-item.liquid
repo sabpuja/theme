@@ -1,0 +1,26 @@
+<div class="article-item grid-x">
+  {%- if article.image -%}
+    <div class="article-item-thumb cell large-{{ section.settings.layout }} effect-{{effect2}} effect">
+      <a href="{{ article.url }}" class="display-block">
+        {%- if article_image_size == empty or article_image_size == blank -%}
+          {%- assign article_image_size = '450x' -%}
+        {%- endif -%}
+        <img src="{{ article.image | img_url: article_image_size }}" class="article-item-image lazyload" alt="{{ article.title }}"/>
+      </a>
+    </div>
+  {%- endif -%}
+  <div class="article-item-caption cell large-{{ section.settings.layout }}">    
+    <div class="article-blog">{{ blogs[block.settings.blog].title }} {{ blogs[section.settings.select_blog].title }}</div>
+    <h2 class="article-item-title">
+      <a href="{{ article.url }}">{{ article.title }}</a>
+    </h2>    
+    <div class="article-item-content">
+      <span class="content">{{ article.content | strip_html | truncatewords: 18  }}</span>
+      <a class="readmore" href="{{ article.url }}">{{ readmore }}</a>
+    </div>
+    
+    <div class="article-item-info">       
+      <span class="article-item-date">{{ article.published_at | date: '%b %d, %Y' }}</span>
+    </div>
+  </div>
+</div>

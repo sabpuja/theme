@@ -1,0 +1,21 @@
+{%- capture thumbnailAlt -%}
+{%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+{{ 'products.featured_product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+{%- elsif media.media_type == 'model' -%}
+{{ 'products.featured_product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+{%- else -%}
+{{ 'products.featured_product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+{%- endif -%}
+{%- endcapture -%}
+
+<img src="{{ media.preview_image | img_url: thumb_size, crop: 'center' }}" alt="{{ thumbnailAlt }}"/>
+{%- if media.media_type == 'video' or media.media_type =='external_video' -%}
+<div class="product-thumbnail-badge">
+  {% include 'icon-video' %}
+</div>
+{%- endif -%}
+{%- if media.media_type == 'model' -%}
+<div class="product-thumbnail-badge">
+  {% include 'icon-3d' %}
+</div>
+{%- endif -%}

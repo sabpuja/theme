@@ -1,0 +1,4 @@
+{%- assign googleamp = false -%}
+{%- if template contains 'collection' or template contains 'product' -%}
+{%- if template.suffix == 'amp' -%}{%- assign googleamp = true -%}{%- endif -%}
+{%- endif -%}

@@ -1,0 +1,35 @@
+<!-- /snippets/blog-link-list.liquid -->
+{%- if block.settings.position contains 'sidebar' -%}
+  {%- assign layout_class = 'layout-sidebar' -%}
+{%- else -%}
+  {%- assign layout_class = 'layout-content' -%}
+{%- endif -%}
+<div class="{{ layout_class }} blog-link-list {{ block.settings.display }}">
+  {%- if block.settings.title != blank -%}
+    <div class="{{ layout_class }}-title">
+      <h3>{{ block.settings.title }}</h3>
+    </div>
+  {%- endif -%}
+  <div class="{{ layout_class }}-content">
+    {%- if block.settings.link_list != blank and linklists[block.settings.link_list] != empty -%}
+      <ul class="blog-category-list vertical menu accordion-menu margin-0" data-accordion-menu data-submenu-toggle="true">
+        {%- for link in linklists[block.settings.link_list].links -%}
+          <li class="{% if link.active %}active{% endif %}">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {% if link.links != blank %}
+              {%- assign child_links = link.links -%}
+              <ul class="menu vertical nested">
+                {%- include 'menu-child' -%}
+              </ul>
+            {%- elsif linklists[link.handle].links != empty and linklists[link.handle].links != blank -%}
+              {%- assign child_links = linklists[link.handle].links -%}
+              <ul class="menu vertical nested">
+                {%- include 'menu-child' -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>

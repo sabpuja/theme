@@ -1,0 +1,24 @@
+<!-- /snippets/blog-article.liquid -->
+{%- if block.settings.position contains 'sidebar' -%}
+  {%- assign layout_class = 'layout-sidebar' -%}
+{%- else -%}
+  {%- assign layout_class = 'layout-content' -%}
+{%- endif -%}
+<div class="{{ layout_class }} blog-featured-article {{ block.settings.display }}">
+  {%- if block.settings.title != blank -%}
+    <div class="{{ layout_class }}-title">
+      <h3>{{ block.settings.title }}</h3>
+    </div>
+  {%- endif -%}
+  <div class="{{ layout_class }}-content">
+    <div class="blog-featured-article-list grid-x grid-margin-x small-up-{{ block.settings.column_small }} medium-up-{{ block.settings.column_medium }} large-up-{{ block.settings.column_large }} xlarge-up-{{ block.settings.column_xlarge }} xxlarge-up-{{ block.settings.column_xxlarge }} xxxlarge-up-{{ block.settings.column_xxxlarge }}">
+      {% for article in blogs[block.settings.blog].articles limit: block.settings.limit %}
+        <div class="cell blog-featured-article-item">
+          <div class="article-list">
+            {% include 'index-article-item' %} 
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

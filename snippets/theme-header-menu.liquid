@@ -1,0 +1,104 @@
+<!-- /snippets/theme-header-menu.liquid -->
+<div class="header-menu horizontal">
+  <ul class="header-menu-content dropdown menu horizontal clearfix" data-hover-delay="0" data-closing-time="0" data-dropdown-menu>
+    {%- for link in menu.links -%}
+      <li class="header-menu-root {% if link.active %}active{% endif %}">
+        <a href="{{ link.url }}" class="header-menu-root-link" data-handle="{{ link.handle }}">{{ link.title }}</a>
+        {% comment %} Find a sub-menu setting for this menu {% endcomment %}
+        {%- assign link_title = link.title | downcase -%}
+        {%- assign block = blank -%}
+        {%- for item in blocks -%}
+          {%- assign target = item.settings.title | downcase -%}
+          {%- if item.type == 'sub_menu_setting' and target == link_title -%}
+            {%- assign block = item -%}
+            {% break %}
+          {%- endif -%}
+        {%- endfor -%}
+        {% if block != blank %}
+          {%- assign row = 1 -%}
+          {%- if block.settings.row != empty -%}
+            {%- assign row = block.settings.row -%}
+          {%- endif -%}
+          <ul class="header-menu-dropdown row-{{ row }} submenu is-dropdown-submenu" data-dropdown-panel-control>
+            <li class="header-menu-dropdown-container grid-container">
+              <div class="grid-x grid-padding-x grid-margin-y small-up-{{ row }} large-up-{{ row }}">
+                {% if link.links != blank %}
+                  <ul class="cell menu dropdown vertical dropdown-menu header-menu-submenu" data-hover-delay="0" data-closing-time="0" data-dropdown-menu>
+                    {%- for child in link.links -%}
+                      <li>
+                        <a href="{{ child.url }}">{{ child.title }}</a>
+                        {% if child.links != blank %}
+                          <ul class="menu vertical submenu is-dropdown-submenu">
+                            {%- assign child_links = child.links -%}
+                            {%- include 'menu-child' -%}
+                          </ul>
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+                {% comment %} Find a sub-menu content for this menu {% endcomment %}
+                {%- for block in blocks -%}
+                  {%- assign target = block.settings.title | downcase -%}
+                  {%- if block.type == 'sub_menu_content' and target == link_title -%}
+                    {%- if block.settings.link_list != empty and linklists[block.settings.link_list] != empty -%}
+                      <div class="cell vertical header-menu-submenu">
+                        {% if block.settings.Linklist_title %}<div class="linklist-title">{{ block.settings.Linklist_title }}</div>{% endif %}
+                        <ul>
+                          {%- assign child_links = linklists[block.settings.link_list].links -%}                            
+                          {%- include 'menu-child-new' -%}
+                        </ul>
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.product != empty and all_products[block.settings.product] != empty -%}
+                      <div class="cell header-menu-dropdown-product">
+                        <div class="product-title">{{ block.settings.product_title }}</div>
+                        {%- assign product = all_products[block.settings.product] -%}
+                        <div class="product-grid">
+                          {%- include 'index-product-item' -%}
+                        </div>
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.article != empty and articles[block.settings.article] != empty -%}
+                      <div class="cell header-menu-dropdown-article">
+                        {% assign article = articles[block.settings.article] %}
+                        {%- include 'index-article-item' -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.html != empty and block.settings.html != blank -%}
+                      <div class="cell header-menu-dropdown-html">
+                        {{ block.settings.html }}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.image != empty and block.settings.image != blank -%}
+                      <div class="cell header-menu-dropdown-html">
+                        {% if block.settings.image_title %}<div class="image-title">{{ block.settings.image_title }}</div>{% endif %}
+                        <a href="{{ block.settings.image_link }}">
+                          <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.image | img_url: '500x' }}" alt="block.settings.image.alt" class="lazyload" />
+                        </a>
+                      </div>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+              {%- if block.settings.bg != empty and block.settings.bg != blank -%}
+                {%- assign bg_size = block.settings.bg_width | append: 'x' | append: block.settings.bg_height -%}
+                <img data-src="{{ block.settings.bg | img_url: bg_size }}" alt="{{ block.settings.bg.alt }}" class="header-menu-dropdown-background lazyload" />              
+            {%- endif -%}
+          </li>
+        </ul>
+      {%- elsif link.links != blank -%}
+        <ul class="menu vertical submenu is-dropdown-submenu header-menu-submenu">
+          {%- assign child_links = link.links -%}
+          {%- include 'menu-child' -%}
+        </ul>
+      {%- elsif linklists[link.handle].links != empty and linklists[link.handle].links != blank -%}
+        <ul class="menu vertical submenu is-dropdown-submenu header-menu-submenu">
+          {%- assign child_links = linklists[link.handle].links -%}
+          {%- include 'menu-child' -%}
+        </ul>
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>
+</div>

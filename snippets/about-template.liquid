@@ -1,0 +1,255 @@
+<div class="about-content">
+  {% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+  	  {% if block.type ==  'text' %}
+  		<div class="section-text">
+          <div class="grid-container">
+            <div class="section-content">
+              {{ page.content }}
+            </div>
+          </div>
+  		</div>
+  	  {% elsif block.type == 'slideshow' %}
+  		<div class="section-slideshow">
+          <div class="grid-container">
+            <div class="section-content">
+              <div class="carousel" data-carousel-param='{"effect": "{{ block.settings.effect }}", "autoplay": "{{ block.settings.autoplay }}", "autoplaySpeed": "{{ block.settings.autoplay_speed }}", "space": "0", "column_small": "1", "column_medium": "1", "column_large": "1", "column_xlarge": "1", "column_xxlarge": "1", "column_xxxlarge": "1", "row": "1"}' data-carousel>
+                <div class="carousel-wrapper carousel-nav-middle">
+                  <div class="swiper-container" data-carousel-container>
+                    <div class="swiper-wrapper grid-margin-x small-up-1 medium-up-1 large-up-1 xlarge-up-1 xxlarge-up-1 xxxlarge-up-1">
+                      {% for block in section.blocks %}
+                      {% if block.type == "slide" %}
+                      <div class="swiper-slide cell" data-carousel-item>
+                        <a href="{{ block.settings.link }}" class="about-slide display-block">
+                          <img src="{{ 'icon-loader-clock.svg' | asset_url }}" 
+                               data-src="{% if block.settings.image %}{{ block.settings.image | img_url: 'master' }}{% else %}{{ '1410x500.png' | asset_url }}{% endif %}" 
+                               class="width-100 lazyload" 
+                               alt="{{ block.settings.image.alt }}" />
+                        </a>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                  {%- if block.settings.navigation -%}
+                  <div class="carousel-navigation carousel-nav-prev" data-carousel-nav-prev><em class="sli sli-arrow-left"></em></div>
+                  <div class="carousel-navigation carousel-nav-next" data-carousel-nav-next><em class="sli sli-arrow-right"></em></div>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.pagination -%}
+                <div class="carousel-pagination" data-carousel-pagination></div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+  		</div>
+  	  {% elsif block.type == 'banner1' %}
+      <div class="section-banner1">
+        <div class="grid-container">
+          <div class="section-content">
+			{% if block.settings.image %}
+            <div class="banner-element">
+              <a class="image" href="{{ block.settings.url }}">                
+                <img class="width-100" src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}" />                
+              </a>
+              <div class="caption">
+                {{ block.settings.caption }}                
+              </div>
+        	</div>
+        	{% endif %}
+          </div>
+        </div>
+      </div>
+  	  {% elsif block.type == 'banner2' %}
+      <div class="section-banner2">
+        <div class="grid-container">
+          <div class="section-content">
+            <div class="grid-x grid-margin-x">
+              {% if block.settings.image1 %}
+              <div class="banner-element banner-left cell medium-6 large-6">
+                <a class="image" href="{{ block.settings.url1 }}">                
+                  <img class="width-100" src="{{ block.settings.image1 | img_url: 'master' }}" alt="{{ block.settings.image1.alt }}" />                
+                </a>
+                <div class="caption">
+                  {{ block.settings.caption1 }}                
+                </div>
+              </div>
+              {% endif %}
+              {% if block.settings.image2 %}
+              <div class="banner-element banner-right cell medium-6 large-6">
+                <a class="image" href="{{ block.settings.url2 }}">                
+                  <img class="width-100" src="{{ block.settings.image2 | img_url: 'master' }}" alt="{{ block.settings.image2.alt }}" />                
+                </a>
+                <div class="caption">
+                  {{ block.settings.caption2 }}                
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+  	  {% elsif block.type == 'banner3' %}
+      <div class="section-banner3">
+        <div class="grid-container">
+          <div class="section-content">
+            <div class="grid-x grid-margin-x">
+              {% if block.settings.image1 %}
+              <div class="banner-element banner-left cell medium-4 large-4">
+                <a class="image" href="{{ block.settings.url1 }}">                
+                  <img class="width-100" src="{{ block.settings.image1 | img_url: 'master' }}" alt="{{ block.settings.image1.alt }}" />                
+                </a>
+                <div class="caption">
+                  {{ block.settings.caption1 }}                
+                </div>
+              </div>
+              {% endif %}
+              {% if block.settings.image2 %}
+              <div class="banner-element banner-middle cell medium-4 large-4">
+                <a class="image" href="{{ block.settings.url2 }}">                
+                  <img class="width-100" src="{{ block.settings.image2 | img_url: 'master' }}" alt="{{ block.settings.image2.alt }}" />                
+                </a>
+                <div class="caption">
+                  {{ block.settings.caption2 }}                
+                </div>
+              </div>
+              {% endif %}
+              {% if block.settings.image3 %}
+              <div class="banner-element banner-middle cell medium-4 large-4">
+                <a class="image" href="{{ block.settings.url3 }}">                
+                  <img class="width-100" src="{{ block.settings.image3 | img_url: 'master' }}" alt="{{ block.settings.image3.alt }}" />                
+                </a>
+                <div class="caption">
+                  {{ block.settings.caption3 }}                
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+  	  {% elsif block.type == 'info' %}
+      <div class="section-information">
+        <div class="grid-container">
+          <div class="section-content">
+            <div class="title">{{ block.settings.title }}</div>
+            <div class="content grid-x grid-margin-x">
+              <div class="info-1 cell medium-6 large-4">
+                {% if block.settings.icon1 %}<div class="icon"><img src="{{ block.settings.icon1 | img_url: 'master' }}" alt="{{ block.settings.icon1.alt }}" /></div>{% endif %}
+                <div class="heading">{{ block.settings.head1 }}</div>
+                <div class="desc">{{ block.settings.desc1 }}</div>
+              </div>
+              <div class="info-2 cell medium-6 large-4">
+                {% if block.settings.icon2 %}<div class="icon"><img src="{{ block.settings.icon2 | img_url: 'master' }}" alt="{{ block.settings.icon2.alt }}" /></div>{% endif %}
+                <div class="heading">{{ block.settings.head2 }}</div>
+                <div class="desc">{{ block.settings.desc2 }}</div>
+              </div>
+              <div class="info-3 cell medium-6 large-4">
+                {% if block.settings.icon3 %}<div class="icon"><img src="{{ block.settings.icon3 | img_url: 'master' }}" alt="{{ block.settings.icon3.alt }}" /></div>{% endif %}
+                <div class="heading">{{ block.settings.head3 }}</div>
+                <div class="desc">{{ block.settings.desc3 }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+  	  </div>
+  	  {% elsif block.type == 'newsletter' %}
+      <div class="section-newsletter" style="background-color:{{ block.settings.color }}">
+        <div class="section-content">
+          <div class="title">{{ block.settings.title }}</div>
+          <div class="desc">{{ block.settings.desc }}</div>
+          <form action="{{ block.settings.actionurl }}" method="post" target="_blank">  
+            <div class="footer-newsletter-wrap"> 
+              <input type="hidden" name="MERGE1" id="MERGE1" size="25" value="About us Submit 1">
+              <input type="hidden" name="MERGE2" id="MERGE2" size="25" value="About us Submit 2">
+              <input type="email" class="footer-newsletter-field" name="EMAIL" placeholder="{{ block.settings.placeholder }}"/>                
+              <button type="submit" class="button footer-newsletter-button display-block width-100" name="subsrcibe">
+                {{ block.settings.submit }}
+              </button>
+            </div>
+          </form>
+        </div>
+  	  </div>
+  	  {% elsif block.type == 'customer' %}
+      <div class="section-customerstories" style="background-color:{{ block.settings.color }}">
+        <div class="grid-container">
+          <div class="section-content">
+            <div class="title">{{ block.settings.title }}</div>
+            <div class="desc">{{ block.settings.desc }}</div>
+            <div class="customerstories-slider">
+              <div class="carousel" data-carousel-param='{"effect": "{{ block.settings.effect }}", "autoplay": "{{ block.settings.autoplay }}", "autoplaySpeed": "{{ block.settings.autoplay_speed }}", "space": "{{ block.settings.space }}", "column_small": "{{ block.settings.column_small }}", "column_medium": "{{ block.settings.column_medium }}", "column_large": "{{ block.settings.column_large }}", "column_xlarge": "{{ block.settings.column_xlarge }}", "column_xxlarge": "{{ block.settings.column_xxlarge }}", "column_xxxlarge": "{{ block.settings.column_xxxlarge }}", "row": "1"}' data-carousel>
+                <div class="carousel-wrapper carousel-{{ block.settings.navigation_position }}">
+                  <div class="swiper-container" data-carousel-container>
+                    <div class="swiper-wrapper grid-margin-x small-up-{{ block.settings.column_small }} medium-up-{{ block.settings.column_medium }} large-up-{{ block.settings.column_large }} xlarge-up-{{ block.settings.column_xlarge }} xxlarge-up-{{ block.settings.column_xxlarge }} xxxlarge-up-{{ block.settings.column_xxxlarge }}">        
+                      {% for block in section.blocks %}
+                      {% if block.type == "customerdata" %}
+                      <div class="swiper-slide cell" data-carousel-item>
+                        <div class="top-area grid-x">
+                          {% if block.settings.avatar %}
+                          <div class="avatar cell small-2 large-2">
+                            <img src="{{ block.settings.avatar | img_url: 'master' }}" alt="{{ block.settings.avatar.alt }}"/>
+                          </div>
+                          {% endif %}
+                          <div class="text cell small-10 {% if block.settings.avatar %}large-10{% else %}large-12{% endif %}">
+                            <div class="name">{{ block.settings.title }}</div>
+                            <div class="desc">{{ block.settings.desc }}</div>
+                          </div>
+                        </div>
+                        <div class="bottom-area">
+                          {{ block.settings.story }}
+                        </div>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                  {%- if block.settings.navigation -%}
+                  <div class="carousel-navigation carousel-nav-prev" data-carousel-nav-prev><em class="sli sli-arrow-left"></em></div>
+                  <div class="carousel-navigation carousel-nav-next" data-carousel-nav-next><em class="sli sli-arrow-right"></em></div>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.pagination -%}
+                <div class="carousel-pagination" data-carousel-pagination></div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </div>
+  	  </div>
+      {% elsif block.type == 'partner' %}
+      <div class="section-partner">
+        <div class="grid-container">
+          <div class="section-content">
+            <div class="partner-slider">
+              <div class="carousel" data-carousel-param='{"effect": "{{ block.settings.effect }}", "autoplay": "{{ block.settings.autoplay }}", "autoplaySpeed": "{{ block.settings.autoplay_speed }}", "space": "{{ block.settings.space }}", "column_small": "{{ block.settings.column_small }}", "column_medium": "{{ block.settings.column_medium }}", "column_large": "{{ block.settings.column_large }}", "column_xlarge": "{{ block.settings.column_xlarge }}", "column_xxlarge": "{{ block.settings.column_xxlarge }}", "column_xxxlarge": "{{ block.settings.column_xxxlarge }}", "row": "1"}' data-carousel>
+                <div class="carousel-wrapper carousel-{{ block.settings.navigation_position }}">
+                  <div class="swiper-container" data-carousel-container>
+                    <div class="swiper-wrapper grid-margin-x small-up-{{ block.settings.column_small }} medium-up-{{ block.settings.column_medium }} large-up-{{ block.settings.column_large }} xlarge-up-{{ block.settings.column_xlarge }} xxlarge-up-{{ block.settings.column_xxlarge }} xxxlarge-up-{{ block.settings.column_xxxlarge }}">        
+                      {% for block in section.blocks %}
+                      {% if block.type == "partnerdata" %}
+                      <div class="swiper-slide cell" data-carousel-item>
+                        <a href="{{ block.settings.url}}">
+                          <img src="{% if block.settings.image %}{{ block.settings.image | img_url: 'master' }}{% else %}{{ '200x70.png' | asset_url }}{% endif %}" alt="{{ block.settings.image.alt }}"/>
+                        </a>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                  {%- if block.settings.navigation -%}
+                  <div class="carousel-navigation carousel-nav-prev" data-carousel-nav-prev><em class="sli sli-arrow-left"></em></div>
+                  <div class="carousel-navigation carousel-nav-next" data-carousel-nav-next><em class="sli sli-arrow-right"></em></div>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.pagination -%}
+                <div class="carousel-pagination" data-carousel-pagination></div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </div>
+  	  </div>
+  	  {% endif %}
+    {% endfor %}
+  {% endif %}
+</div>

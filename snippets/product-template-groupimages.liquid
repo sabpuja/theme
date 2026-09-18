@@ -1,0 +1,695 @@
+<div class="product-newdefault">
+{%- include 'breadcrumbs' -%}
+{%- if section.blocks.size > 0 -%}
+  {%- for block in section.blocks -%}
+    {%- if block.settings.position == 'left_sidebar' -%}
+      {%- assign left_sidebar = true -%}
+    {%- elsif block.settings.position == 'right_sidebar' -%}
+      {%- assign right_sidebar = true -%}
+    {%- elsif block.settings.position == 'top_content' -%}
+      {%- assign top_content = true -%}
+    {%- elsif block.settings.position == 'bottom_content' -%}
+      {%- assign bottom_content = true -%}
+    {%- elsif block.settings.position == 'top_container' -%}
+      {%- assign top_container = true -%}
+    {%- elsif block.settings.position == 'bottom_container' -%}
+      {%- assign bottom_container = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{%- assign product_thumb_size = section.settings.image_width | append: 'x' | append: section.settings.image_height -%}
+{%- if top_container -%}
+  <div class="grid-container">
+    <div class="layout-top-container">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.position == 'top_container' -%}
+          {%- include block.type -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+<div itemscope itemtype="http://schema.org/Product">
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+  <meta itemprop="name" content="{{ product.title }}{% unless product.has_only_default_variant %} - {{ current_variant.title }}{% endunless %}">
+  <meta itemprop="url" content="{{ shop.url }}{{ current_variant.url }}">
+  <meta itemprop="brand" content="{{ product.vendor }}">
+  <meta itemprop="image" content="{{ featured_image | img_url: product_thumb_size }}">
+  <meta itemprop="description" content="{{ page_description | escape }}">
+  <div class="hide mobile-info">
+    {% if section.settings.show_vendor %}
+    <div class="cell product-vendor">                
+      <span class="product-info-text">{{ product.vendor }}</span>
+    </div>
+    {% endif %}
+    <h1 class="product-title">{{ product.title }}</h1>
+    <div class="product-price-wrapper cell small-12 medium-6 large-6 xlarge-6 xxlarge-6 xxxlarge-6" data-price-wrapper>
+      <span class="product-price" data-product-price>
+        {{ current_variant.price | money }}
+      </span>
+      {% if product.compare_at_price_max > product.price %}
+      <del class="product-price-old" data-product-compare-price>
+        {% if current_variant.compare_at_price > current_variant.price %}
+        {{ current_variant.compare_at_price | money }}
+        {%- endif -%}
+      </del>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.show_review -%}
+      <div class="product-rating">
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        <span class="product-rating-add"><a href="#product-detail-review" data-review-anchor>{{ 'products.review.add' | t }}</a></span>
+      </div>
+    {%- endif -%}
+  </div>
+  <div class="grid-container">
+    <div class="grid-x grid-margin-x">
+      {%- if left_sidebar -%}
+        <div class="cell small-12 large-2 layout-left-sidebar show-for-large">
+          <div data-sticky='{
+              "stickTo": "main",
+              "top": 120,
+              "bottom":50,
+              "responsive": {
+                  "801": {
+                    "disable": true
+                  }
+                }
+              }'>
+            {%- for block in section.blocks -%}
+              {%- if block.settings.position == 'left_sidebar' -%}
+                {%- include block.type -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+      <div class="cell auto layout-content">
+        {%- if top_content -%}
+          <div class="layout-top-content">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.position == 'top_content' -%}
+                {%- include block.type -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        <div class="grid-x grid-margin-x">
+          <div class="cell small-12 medium-12 large-8 left-area" id="left-area-sticky">
+            {%- if product.images.size -%}
+              <div class="is-relactive" data-sticky='{
+                "stickTo": "#left-area-sticky",
+                "top": 80,
+                "bottom":50,
+                "responsive": {
+                  "801": {
+                    "disable": true
+                  }
+                }
+              }'> 
+                {%- if product.images.size -%}
+                  {%- assign index = 0 -%}
+                  {%- for option in product.options_with_values -%}
+                    {%- assign option_index = forloop.index0 -%}
+                    {%- assign option_name = option.name | downcase | strip | strip_newlines -%}
+                    {%- if option_name == 'color'-%}
+                      {%- assign shown_list = '' -%}
+                      {%- for variant in product.variants -%}
+                        {%- assign option_handle = variant.options[option_index] -%}
+                        {%- unless shown_list contains option_handle -%}
+                          {%- assign shown_list = shown_list | join: ',' -%}
+                          {%- assign shown_list = shown_list | append: ',' | append: option_handle -%} 
+                          {%- assign shown_list = shown_list | split: ',' -%}
+                  		  {%- assign color = option_handle | escape | downcase | strip | strip_newlines -%}
+                  		  <div class="grid-x grid-margin-x product-carousel-item {% if index == 0 %}active{% endif %}" data-carousel-product="{{ color }}">
+                            <div class="cell small-12 large-2 share-button-custom">
+                              <div class="product-thumbnail  show-for-large product-slider" data-product-thumbnail>
+                                <div class="flex-container flex-dir-column align-middle">
+                                  <div class="product-thumbnail-nav-prev" data-carousel-nav-prev><em class="sli sli-arrow-up"></em></div>
+                                  <div class="swiper-container" data-carousel-container>
+                                    <div class="swiper-wrapper">
+                                      {%- assign thumb_height = section.settings.image_height | times: 100 | divided_by: section.settings.image_width | round -%}
+                                      {%- assign thumb_size = '100x' | append: thumb_height -%}
+                                      {%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+
+                                      {%- for media in product.media -%}
+                                        {% assign alt = media.alt | downcase | remove_first: 'color' | strip | strip_newlines %}
+                                        {% if alt == color %}
+                                          <div class="swiper-slide" data-carousel-item="{{ media.src | handle }}">
+                                            {% include 'media-thumbnail', media: media %}
+                                          </div>
+                                        {% endif %}
+                                      {%- endfor -%}
+                                    </div>
+                                  </div>
+                                  <div class="product-thumbnail-nav-next" data-carousel-nav-next><em class="sli sli-arrow-down"></em></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="cell small-12 large-10">
+                              <div class="product-gallery carousel" data-product-gallery>
+                                <div class="carousel-wrapper carousel-nav-middle">
+                                  <div class="swiper-container" data-carousel-container>
+                                    <div class="swiper-wrapper">
+                                      {%- assign image_item = 0 -%}
+                                      {%- for media in product.media -%}
+                                        {% assign alt = media.alt | downcase | remove_first: 'color' | strip | strip_newlines %}
+                                        {% if alt == color %}
+                                          <div class="swiper-slide swiper-slide-gallery height-100" data-carousel-item="{{ media.src | handle }}">
+                                            {% include 'media', media: media %}
+                                          </div>
+                                        {% endif %}
+                                      {%- endfor -%}
+                                    </div>
+                                  </div>
+                                  <div class="carousel-navigation carousel-nav-prev" data-carousel-nav-prev><em class="sli sli-arrow-left"></em></div>
+                                  <div class="carousel-navigation carousel-nav-next" data-carousel-nav-next><em class="sli sli-arrow-right"></em></div>
+                                </div>
+                                <div class="carousel-pagination hide-for-large" data-carousel-pagination></div>
+                                <a class="product-zoom-in hide-for-large" data-product-gallery-zoom><em class="sli sli-magnifier-add"></em></a>
+                              </div>
+                            </div>
+                  		  </div>
+                  		  {%- assign index = index | plus: 1 -%}
+                        {%- endunless -%}
+                      {%- endfor -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+            {%- endif -%}                
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="cell small-12 medium-12 large-4">
+            <div class="product-info-container" itemprop="offers" itemscope itemtype="http://schema.org/Offer" data-product-container>
+              <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+              <meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+              <link itemprop="available" href="http://schema.org/{% if current_variant.available %}InStock{%- else -%}OutOfStock{%- endif -%}">
+              <h1 class="product-title">{{ product.title }}</h1>
+              <div class="product-price-wrapper" data-price-wrapper>
+                <span class="product-price" data-product-price>
+                  {{ current_variant.price | money }}
+                </span>
+                {% if product.compare_at_price_max > product.price %}
+                <del class="product-price-old" data-product-compare-price>
+                  {% if current_variant.compare_at_price > current_variant.price %}
+                  {{ current_variant.compare_at_price | money }}
+                  {%- endif -%}
+                </del>
+                {%- endif -%}
+              </div>
+              {%- if section.settings.show_review -%}
+                <div class="product-rating">
+                  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                  <span class="product-rating-add"><a href="#product-detail-review" data-review-anchor>{{ 'products.review.add' | t }}</a></span>
+                </div>
+              {%- endif -%}
+              
+              
+              {% if section.settings.show_earnpoints %}
+              {% assign point = current_variant.price | divided_by: 200 %}
+              <div class="product-earnpoints">
+                <em class="sli sli-diamond"></em> <span class="earnpoints-text">{{ 'products.product.earn_points' | t : point: point }}</span>
+                <a href="#" data-product-learnmore>{{ 'products.product.learn_more' |t }}</a>
+                {% include 'product-learnmore-popup' %}
+              </div>
+              {% endif %}                            
+              
+              <div data-desktop-product-form-area>                
+                <form action="/cart/add" method="post" enctype="multipart/form-data" class="product-form" data-product-form data-add-cart-form>
+                  {%- if section.settings.show_advance -%}
+                    {%- for tag in product.tags -%}
+                      {%- if tag contains 'advance:' -%}
+                        <div class="product-option-list product-option-list-advance">
+                          <div class="product-option-item item-advance">
+                            {%- if section.settings.advance_title != blank -%}
+                              <div class="product-option-label"><span class="title">{{ section.settings.advance_title }}:</span></div>
+                            {%- endif -%}
+                            <div class="product-option-value">
+                              <div class="grid-x">
+                                {% assign advance = tag | remove_first: 'advance:' %}
+                                {%- for link in linklists[advance].links -%}
+                                {% assign handle = link.url | remove_first: '/products/' %}
+                                {% assign productAdvance = all_products[handle] %}
+                                <a href="{{ productAdvance.url }}" class="product-advance-item {% if productAdvance.handle == product.handle %}active{% endif %}">
+                                  <div class="advance-image">
+                                    {%- assign number_of_images = productAdvance.images | size | plus: 0 -%}
+                                    <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ productAdvance.featured_image | product_img_url: '150x', crop: 'center' }}" alt="{{ productAdvance.featured_image.alt | escape }}" class="lazyload product-item-image" />
+                                    {%- if number_of_images > 1 -%}
+                                    <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ productAdvance.images[1] | product_img_url: '150x', crop: 'center' }}" alt="{{ productAdvance.images[1].alt | escape }}" class="lazyload product-item-image show-for-large" />
+                                    {%- endif -%}
+                                  </div>
+                                  <h5 class="advance-title">{{ link.title }}</h5>
+                                </a> 
+                                {%- endfor -%}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+                  {%- unless product.has_only_default_variant -%}
+                    <div class="product-option-list">
+                      {%- for option in product.options_with_values -%}
+                        <div class="product-option-item" data-product-option-row="{{ forloop.index }}">
+                          <div class="product-option-label"><span class="title">{{ option.name }}:</span> <span class="value" data-variant-value></span></div>
+                          <div class="product-option-value">
+                            {%- assign option_index = forloop.index0 -%}
+                            {%- assign option_name = option.name -%}
+                            {%- capture option_type -%}
+                            {%- include 'product-option-detector' -%}
+                            {%- endcapture -%}
+                            {%- assign option_type = option_type | strip | strip_newlines -%}
+                            {%- if option_type == 'image' %}
+                              <div class="grid-x">
+                                {%- assign color = '' -%}
+                                {%- assign shown_list = '' -%}
+                                {%- for variant in product.variants -%}
+                                  {%- assign option_handle = variant.options[option_index] -%}
+                                  {%- unless shown_list contains option_handle -%}
+                                    {%- if variant.image -%}
+                                      <label class="product-option-value-item product-option-image">
+                                        <input type="radio" name="option{{ option.position }}" {% if variant == current_variant %}checked="checked"{% endif %} value="{{ option_handle | escape }}" data-product-option="{{ option_index }}" />
+                                        <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ variant.image | img_url: thumb_height }}" class="display-block lazyload" alt="{{ option_handle }}"/>
+                                      </label>
+                                    {%- endif -%}
+                                    {%- assign shown_list = shown_list | join: ',' -%}
+                                    {%- assign shown_list = shown_list | append: ',' | append: option_handle -%} 
+                                    {%- assign shown_list = shown_list | split: ',' -%}
+                                  {%- endunless -%}
+                                {%- endfor -%}
+                              </div>
+                            {%- elsif option_type == 'color' %}
+                              <div class="grid-x">
+                                {%- assign color = '' -%}
+                                {%- assign shown_list = '' -%}
+                                {%- for variant in product.variants -%}
+                                  {%- assign option_handle = variant.options[option_index] -%}
+                                  {%- unless shown_list contains option_handle -%}
+                                      {%- capture color_code -%}
+                                        {%- include 'product-option-color-detector' -%}
+                                      {%- endcapture -%}
+                                      {%- assign color_code = color_code | strip | strip_newlines -%}
+                                      {%- if color_code != blank -%}
+                                        <label class="product-option-value-item product-option-color">
+                                          <input type="radio" name="option{{ option.position }}" {% if variant == current_variant %}checked="checked"{% endif %} value="{{ option_handle | escape }}" data-product-option="{{ option_index }}" data-product-variant-color/>
+                                          <span class="display-block" style="background: {{ color_code }};"></span>
+                                        </label>
+                                      {%- endif -%}
+                                    {%- assign shown_list = shown_list | join: ',' -%}
+                                    {%- assign shown_list = shown_list | append: ',' | append: option_handle -%} 
+                                    {%- assign shown_list = shown_list | split: ',' -%}
+                                  {%- endunless -%}
+                                {%- endfor -%}
+                              </div>
+                            {%- elsif option_type == 'size' -%}
+                              <div class="grid-x">
+                                {%- for value in option.values -%}
+                                  <label class="product-option-value-item product-option-size">
+                                    <input type="radio" name="option{{ option.position }}" {% if option.selected_value == value %}checked="checked"{% endif %} value="{{ value | escape }}" data-product-option="{{ option_index }}" />
+                                    <span class="flex-container align-center-middle">{{ value }}</span>
+                                  </label>
+                                {%- endfor -%}
+                              </div>
+                            {%- elsif option_type == 'radio' -%}
+                              {%- for value in option.values -%}
+                                <label class="product-option-value-item product-option-radio flex-container align-middle">
+                                  <input type="radio" name="option{{ option.position }}" class="margin-0" {% if option.selected_value == value %}checked="checked"{% endif %} value="{{ value | escape }}" data-product-option="{{ option_index }}" />
+                                  <span>{{ value }}</span>
+                                </label>
+                              {%- endfor -%}
+                            {%- else -%}
+                              <select name="option{{ option.position }}" class="product-option-value-item product-option-dropdown" data-product-option="{{ option_index }}">
+                                {%- for value in option.values -%}
+                                  <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{%- endif -%}>{{ value }}</option>
+                                {%- endfor -%}
+                              </select>
+                            {%- endif -%}
+                            {%- if section.settings.show_sizechart -%}
+                              {%- assign _showsizechart = 2 -%}
+                              {%- include 'product-option-sizechart' -%}
+                              {%- if _showsizechart == 1 -%}
+                              <div class="product-sizechart">
+                                <a href="{{ section.settings.sizechart_url }}" data-product-sizechart>{{ section.settings.sizechart_text }}</a>
+                              </div>
+                              {%- include 'product-sizechart-popup' -%}
+                              {%- endif -%}                            
+                            {%- endif -%}
+                          </div>
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  {%- endunless -%}
+                  <select name="id" class="product-id" data-product-select>
+                    {%- for variant in product.variants -%}
+                    <option data-variant-price="{{ variant.price }}" {% if variant == current_variant %}selected="selected"{%- endif -%} data-variant="{%- if variant.available -%}1{%- else -%}2{%- endif -%}" {% unless variant.available %}disabled="disabled"{% endunless %} value="{{ variant.id }}" data-product-option-swatch="{{ variant.image | handle }}">
+                      {{ variant.title }}
+                    </option>
+                    {%- endfor -%}
+                  </select>
+
+                  <div class="product-add-cart-container grid-x">
+                    <label class="input-label">{{ 'products.product.quantity' | t }}:</label>
+                    <div class="product-quantity">
+                      <div class="input-group" data-number-group data-discount-number-group data-min="1">
+                        <span class="input-group-label pointer bot" data-minus>-</span>
+                        <input type="text" name="quantity" value="1" class="input-group-field input-control" data-number />
+                        <span class="input-group-label pointer top" data-plus>+</span>
+                      </div>
+                    </div>
+                    
+                    <div class="group-action">
+                      {% if section.settings.show_buynow %}
+                      <button type="normal" name="add" class="product-add-cart" {% unless current_variant.available %}disabled="disabled"{% endunless %} data-placeholder="{{'products.product.buy_now' | t}}" data-product-buy-now>
+                        <span data-product-add-cart-text>
+                          {%- if current_variant.available -%}
+                          {{ 'products.product.buy_now' | t }}
+                          {%- else -%}
+                          {{ 'products.product.sold_out' | t }}
+                          {%- endif -%}
+                        </span>
+                        <small class="progress secondary"><small class="progress-meter"></small></small>
+                      </button>
+                      <div class="grid-x group-button-custom">
+                        <div class="cell small-6 large-6">
+                          <button type="submit" name="add" class="product-add-cart" {% unless current_variant.available %}disabled="disabled"{% endunless %} data-product-add-cart-form-discount data-product-add-cart data-placeholder="{{'general.button.add_to_cart' | t}}" data-adding-message="{{'general.button.adding_to_cart' | t}}" data-added-message="{{'general.button.added_to_cart' | t}}">
+                            <span data-product-add-cart-text>
+                              {%- if current_variant.available -%}
+                              {{ 'products.product.add_to_cart' | t }}
+                              {%- else -%}
+                              {{ 'products.product.sold_out' | t }}
+                              {%- endif -%}
+                            </span>
+                            <small class="progress secondary"><small class="progress-meter"></small></small>
+                          </button>
+                        </div>
+                        {%- if section.settings.show_wishlist_button -%}
+                        <div class="cell small-6 large-6">
+                          <a class="product-wishlist flex-container" data-wishlist="{{ product.handle }}">
+                            <span class="icon-add" title="{{ 'general.button.wishlist' | t }}">{{ 'general.button.wishlist' | t }}</span>
+                            <span class="icon-added" title="{{ 'general.button.wishlist_added' | t }}">{{ 'general.button.wishlist_added' | t }}</span>                        
+                          </a>
+                        </div>
+                        {%- endif -%}
+                      </div>
+                      {% else %}
+                      <div class="grid-x">
+                        <div class="cell small-12 large-12">
+                          <button type="submit" name="add" class="product-add-cart" {% unless current_variant.available %}disabled="disabled"{% endunless %} data-product-add-cart-form-discount data-product-add-cart data-placeholder="{{'general.button.add_to_cart' | t}}" data-adding-message="{{'general.button.adding_to_cart' | t}}" data-added-message="{{'general.button.added_to_cart' | t}}">
+                            <span data-product-add-cart-text>
+                              {%- if current_variant.available -%}
+                              {{ 'products.product.add_to_cart' | t }}
+                              {%- else -%}
+                              {{ 'products.product.sold_out' | t }}
+                              {%- endif -%}
+                            </span>
+                            <small class="progress secondary"><small class="progress-meter"></small></small>
+                          </button>
+                        </div>
+                        {%- if section.settings.show_wishlist_button -%}
+                        <div class="cell small-12 large-12">
+                          <a class="product-wishlist flex-container" data-wishlist="{{ product.handle }}">
+                            <span class="icon-add" title="{{ 'general.button.wishlist' | t }}">{{ 'general.button.wishlist' | t }}</span>
+                            <span class="icon-added" title="{{ 'general.button.wishlist_added' | t }}">{{ 'general.button.wishlist_added' | t }}</span>                        
+                          </a>
+                        </div>
+                        {%- endif -%}
+                      </div>                      
+                      {% endif %}
+                    </div>
+                  </div>
+                  
+                  {% if section.settings.show_shipping %}
+                  <div class="countdown-timer hide" data-timer data-timer-languages='{"days": "d", "hours": "h", "minutes": "m", "seconds": "s"}' data-timervalue="{{ section.settings.ct_timer }}">
+                    <div class="ct-title">{{ section.settings.ct_title }}</div>
+                    <div class="timer">
+                      <div id="countdowntimer" data-shipcountdown></div>
+                    </div>
+                  </div>
+                  <div class="product-shippinginfo">
+                    {{ 'products.product.order_next_html' | t }}<span data-shipdate data-shipdatevalue="{{ section.settings.shippingdate }}"></span>
+                  </div>
+                  {% endif %}
+                  
+                  {%- if section.settings.show_faqs -%}
+                  <div class="faqs-area">
+                    <a class="faqs-title" data-faqs>{{ section.settings.faqs_title }}</a>
+                  </div>
+                  {% endif %}
+                  
+                  {% if section.settings.show_details %}
+                  <div class="details-area">
+                    {% if section.settings.detail_title %}<div class="title-area">{{ section.settings.detail_title }}</div>{% endif %}
+                    <div class="content-area">
+                      <ul>
+                        {%- if section.settings.show_sku -%}
+                        <li class="product-sku">
+                          <span class="product-info-title">{{ 'products.product.sku' | t }}</span>
+                          <span class="product-info-text" data-product-sku>{{ current_variant.sku }}</span>
+                        </li>              
+                        {%- endif -%}
+                        {% if section.settings.show_vendor %}
+                        <li class="product-vendor">   
+                          <span class="product-info-title">{{ 'products.product.vendor' | t }}</span>
+                          <span class="product-info-text">{{ product.vendor }}</span>
+                        </li>
+                        {% endif %}
+                        {% if section.settings.show_type %}
+                        <li class="product-type">   
+                          <span class="product-info-title">{{ 'products.product.type' | t }}</span>
+                          <span class="product-info-text">{{ product.type }}</span>
+                        </li>
+                        {% endif %}
+                        {%- if section.settings.show_inventory -%}
+                        <li class="product-inventory">
+                          {% if current_variant.available %}
+                          {%- assign available = 'products.product.in_stock' | t -%}
+                          {%- else -%}
+                          {%- assign available = 'products.product.out_stock' | t -%}
+                          {%- endif -%}
+                          <span class="product-info-title">{{ 'products.product.available' | t }}:</span>
+                          <span class="product-info-text" data-product-inventory data-in-stock="{{ 'products.product.in_stock' | t }}" data-out-stock="{{ 'products.product.out_stock' | t }}">{{ available }}</span>
+                        </li>
+                        {%- endif -%}
+                      </ul>
+                    </div>
+                  </div>
+                  {% endif %}
+                  
+                  {% if section.settings.show_description %}
+                  <div class="description-area">
+                    {% if section.settings.desc_title %}<div class="title-area">{{ section.settings.desc_title }}</div>{% endif %}
+                    <div class="content-area">
+                      {{ product.description }}
+                    </div>
+                  </div>
+                  {% endif %}
+                  
+                  {% if section.settings.show_bundle %}
+                  <div class="product-discount">
+                    <div class="discount-text">{{ section.settings.bundle_title }}</div>
+                    <div class="product-discount-load">
+                      <div class="loader position-absolute flex-container align-center-middle hide" data-discount-loader>
+                        <img src="{{ 'icon-loader-clock.svg' | asset_url }}" alt="loader"/>
+                      </div>
+                    </div>
+                    <div class="product-discount-group">
+                      <div class="product-discount-content" data-product-discount data-product-discount-info='{"image": "{{ featured_image | img_url: product_thumb_size }}", "title": "{{ product.title }}", "price": "{{ current_variant.price }}", "id": "{{ product.id }}", "idvariant": "{{ current_variant.id }}"}' data-product-discount-tag="{%- for tag in product.tags -%}{%- if tag contains 'discount:' -%}{{ tag }}{%- break -%}{%- endif -%}{%- endfor -%}"></div>
+                      <div class="product-discount-button-price">
+                        <div class="product-discount-price">                          
+                          
+                        </div>
+                        <div class="product-discount-button">
+                          <button type="button" class="button product-add-cart product-add-cart-bundle" {% unless current_variant.available %}disabled="disabled"{% endunless %} data-add-cart-bundle data-placeholder="{{'general.button.add_to_cart' | t}}" data-adding-message="{{'general.button.adding_to_cart' | t}}" data-added-message="{{'general.button.added_to_cart' | t}}">
+                            <span data-product-add-cart-text data-product-add-cart-text-bundle>
+                              {%- if current_variant.available -%}
+                                {{ 'products.product.add_to_cart_bundle' | t }}
+                              {%- else -%}
+                                {{ 'products.product.sold_out' | t }}
+                              {%- endif -%}
+                            </span>
+                            <span class="space-line">|</span>
+                            <span class="" data-product-discount-sumprice="{{ current_variant.price }}">{{ current_variant.price | money }}</span>
+                            <small class="progress secondary"><small class="progress-meter"></small></small>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
+                </form> 
+                
+                {% if section.settings.show_faqs %}
+                <div class="reveal product-faqs-popup" id="product-faqs-popup" data-product-faqs-popup data-reveal data-animation-in="fade-in fast" data-animation-out="fade-out fast">
+                  <div class="faqs-popup-content">
+                    <h3 class="faqs-popup-title">
+                      {{ section.settings.faqs_title }}
+                    </h3>
+                    {%- form 'contact' -%}
+                    {%- if form.posted_successfully? -%}
+                    <div class="callout success">
+                      {{ 'contact.form.post_success' | t }}
+                    </div>
+                    {%- endif -%}
+                    {%- if form.errors -%}
+                    <div class="callout alert">
+                      {{ form.errors | default_errors }}
+                    </div>
+                    {%- endif -%}
+                    <div class="grid-x grid-margin-x-custom">
+                      <div class="cell small-12 large-6">
+                        <div class="form-group">
+                          <label class="form-group-label">{{ 'products.product.name' | t }}</label>
+                          <input type="text" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="{{ 'products.product.name' | t }}" class="form-group-field" />
+                        </div>
+                      </div>
+                      <div class="cell small-12 large-6">
+                        <div class="form-group{% if form.errors contains 'email' %} has-error{% endif %}">
+                          <label class="form-group-label">{{ 'products.product.email' | t }}</label>
+                          <input type="email" name="contact[email]"  autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'products.product.email' | t }}" class="form-group-field" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-group-label">{{ 'products.product.subject' | t }}</label>
+                      <input type="text" name="contact[subject]" value="" placeholder="{{ 'products.product.subject' | t }}" class="form-group-field" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-group-label">{{ 'products.product.message' | t }}</label>
+                      <textarea name="contact[body]" rows="5" placeholder="{{ 'products.product.message' | t }}" class="form-group-field">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                    </div>
+                    <input type="submit" class="button form-button" value="{{ 'products.product.submit' | t }}"/>
+                    {%- endform -%}
+                  </div>                
+                  <a class="close-reveal" aria-label="Close" data-close>
+                    <!-- <em class="sli sli-close"></em> -->
+                    <svg class="svg-icon"><use xlink:href="#icon-close"></use></svg>
+                  </a>
+                </div>
+                {% endif %}
+                
+                {%- if section.settings.show_share_buttons -%}
+                <div class="product-widget-item product-widget-sharing text-center">
+                  <div class="product-widget-item-text">{{ 'general.button.share' | t }}</div>
+                  {%- include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product -%}
+                </div>
+                {%- endif -%}               
+                
+                {% if section.settings.show_customimage %}
+                <div class="product-safecheckout">
+                  <div class="safecheckout-title">{{ section.settings.customimagetext }}</div>
+                  <div class="safecheckout-image">
+                    <img src="{{ section.settings.customimage | img_url: 'master' }}" alt="{{ section.settings.customimage.alt }}" />
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>                                  
+
+        {%- if bottom_content -%}
+          <div class="layout-bottom-content">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.position == 'bottom_content' -%}
+                {%- include block.type -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.show_review -%}
+        <div class="product-review">
+          <div class="heading">
+            <span>
+              {{ 'products.tab.review' | t }}
+            </span>
+          </div>
+          <div id="product-detail-review">
+            <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+          </div>
+        </div>
+        {%- endif -%}
+      </div>
+      {%- if right_sidebar -%}
+        <div class="cell small-12 large-3 layout-right-sidebar show-for-large">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.position == 'right_sidebar' -%}
+              {%- include block.type -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+<a class="product-buy flex-container align-center-middle hide" data-toggle="product-form"><em class="sli sli-basket"></em></a>
+{%- if bottom_container -%}
+  <div class="grid-container">
+    <div class="layout-bottom-container">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.position == 'bottom_container' -%}
+          {%- include block.type -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+<div id="product-form" class="layout-mobile-overlap reveal full" data-reveal data-overlap-mobile data-v-offset="0" data-h-offset="0" data-overlay="false" data-animation-in="fade-in fast" data-animation-out="fade-out fast" data-enable-padding="true">
+  {%- assign map_to = 'product-form' -%}
+  {%- capture mobile_header_left -%}
+    <a class="header-button-back display-inline-block" data-close="product-form">
+      <svg class="svg-icon">
+        <use xlink:href="#icon-arrow-left" />
+      </svg>
+    </a>
+  {%- endcapture -%}
+  {%- include 'header-mobile-overlap' -%}
+  <div class="product-form-container" data-mobile-product-form-area></div>
+</div>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true" data-product-pswp>
+  <div class="pswp__bg"></div>
+  <div class="pswp__scroll-wrap">
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <div class="pswp__counter"></div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--share" title="Share"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip"></div> 
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{%- unless product == empty -%}
+  <script>
+    if (theme === undefined) {
+      var theme = {};
+    }
+    theme.product = {{ product | json }};
+  </script>
+{%- endunless -%}
+  
+</div>

@@ -1,0 +1,40 @@
+<!-- /snippets/collection-list.liquid -->
+{%- if block.settings.position contains 'sidebar' -%}
+  {%- assign layout_class = 'layout-sidebar' -%}
+{%- else -%}
+  {%- assign layout_class = 'layout-content' -%}
+{%- endif -%}
+{%- assign lists = blank -%}
+{% if collection.handle == 'all' %}
+  {%- assign lists = collections | sort: 'published_at' | reverse -%}
+{%- else -%}
+  {%- for link in linklists[block.settings.link_list].links -%}
+    {%- if link.active -%}
+      {%- assign lists = link.links -%}
+      {%- if lists == blank and linklists[link.handle].links != empty and linklists[link.handle].links != blank -%}
+        {%- assign lists = linklists[link.handle].links -%}
+      {%- endif -%}
+      {%- break -%}
+    {%- endif -%}
+    {% if link.links != blank %}
+      {%- include 'collection-list-child', child_links: link.links -%}
+    {%- elsif linklists[link.handle].links != empty and linklists[link.handle].links != blank -%}
+      {%- include 'collection-list-child', child_links: linklists[link.handle].links -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{%- if lists != blank -%}
+  <div class="{{ layout_class }} collection-list {{ block.settings.display }}">
+    <div class="{{ layout_class }}-content">
+      <div class="collection-list-wrap">
+        <ul class="collection-list-list no-bullet grid-x small-up-2 medium-up-3 large-up-3 xlarge-up-4 xxlarge-up-4 xxxlarge-up-5">
+          {%- for link in lists -%}
+            <li class="collection-list-item cell">
+              <a href="{{ link.url }}" class="collection-list-links">{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

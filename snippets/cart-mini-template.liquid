@@ -1,0 +1,95 @@
+<!-- /snippets/cart-mini-template.liquid -->
+<script type="text/x-tmpl" id="mini-cart-template" class="hide" data-mini-cart-template>
+  <!-- /snippets/cart-mini-template.liquid -->
+    <div class="grid-container">
+    <div class="mini-cart-inner-desktop">  
+    <h2 class="mini-cart-title">{{ 'general.text.my_shopping_bag' | t }} ( {% raw %}{%=o.item_count%}{% endraw %} )</h2>
+    {% raw %}{% if (o.item_count) { %}{% endraw %}
+    <div class="list-cart-item">
+    {% raw %}{% o.items.forEach(function(item, index) { %}{% endraw %}
+      <div class="mini-cart-item-wrapper">
+        <div class="media-object" data-line="{% raw %}{%=(index+1)%}{% endraw %}">
+          <div class="media-object-section">
+            <div class="mini-cart-product-image">
+              <a href="{% raw %}{%=item.url%}{% endraw %}">
+                <img src="{% raw %}{%=item.image%}{% endraw %}" alt="{% raw %}{%=item.title%}{% endraw %}" />
+              </a>
+            </div>
+          </div>
+          <div class="media-object-section width-100">
+            <div class="mini-cart-product-title">
+              <a href="{% raw %}{%=item.url%}{% endraw %}">
+                <span class="title">{% raw %}{%=item.product_title%}{% endraw %}</span>
+                <span class="variant">{% raw %}{%=item.variant_title%}{% endraw %}</span>
+              </a>
+            </div>
+            <div class="mini-cart-price-quantity">
+              <div class="mini-cart-quantity">
+                <div class="input-group margin-bottom-0" data-number-group data-min="0">
+                  <span class="input-group-label align-center-middle padding-0 pointer" data-minus>
+                    <svg class="svg-icon">
+                      <use xlink:href="#icon-minus"></use>
+                    </svg>
+                  </span>
+                  <input type="text" name="updates[]" class="input-group-field text-center" value="{% raw %}{%=item.quantity%}{% endraw %}" data-input-change-cart data-line="{% raw %}{%=(index+1)%}{% endraw %}" data-number/>
+                  <span class="input-group-label align-center-middle padding-0 pointer" data-plus>
+                    <svg class="svg-icon">
+                      <use xlink:href="#icon-plus"></use>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <div class="mini-cart-product-price">{% raw %}{%=item.line_price%}{% endraw %}</div>
+            </div>
+            <span class="mini-cart-remove pointer" data-change-cart data-line="{% raw %}{%=(index+1)%}{% endraw %}" data-qty="0">
+              <em class="sli sli-trash"></em>
+            </span>
+          </div>
+        </div>
+      </div>
+    {% raw %}{% }); %}{% endraw %}
+  </div>
+    <div class="mini-cart-subtotal"><span class="mini-cart-subtotal-text">{{ 'cart.general.subtotal' | t }}</span><span class="mini-cart-subtotal-price">{% raw %}{%=o.total_price%}{% endraw %}</span></div>
+    {% if settings.general_sample_notification %}<div class="mini-cart-empty-message">{% include 'icon-delivery' %} {{ 'cart.general.message' | t }}</div>{% endif %}
+   </div>
+
+      <form class="cart-button-bottom show-for-large" action="/cart" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="checkout" value="Check out" />
+        <div class="grid-x grid-margin-x">
+          <div class="cell small-6">
+            <a href="/cart" class="button mini-cart-button reverse  width-100">{{ 'general.button.view_cart' | t }}</a>
+          </div>
+          <div class="cell small-6">
+           <button type="submit" class="button mini-cart-button button-cart-custom width-100">{{ 'general.button.checkout' | t }}</button>
+          </div>
+        </div>
+      </form>
+   
+    {% raw %}{% } else { %}{% endraw %}
+    <div class="mini-cart-empty">{{ 'cart.general.empty' | t }}</div>
+    {% if settings.general_sample_notification %}<div class="mini-cart-empty-message">{% include 'icon-delivery' %} {{ 'cart.general.message' | t }}</div>{% endif %}
+    {% raw %}{% } %}{% endraw %}
+  </div>
+
+  
+</script>
+<script type="text/x-tmpl" id="ajax-cart-notification" data-ajax-cart-notification class="hide">
+  <!-- /snippets/cart-mini-template.liquid -->
+  <div class="notification">
+    <h3 class="notification-title"><a href="/cart">{{ 'general.text.ajax_add_cart' | t }}</a></h3>
+    <div class="media-object margin-0">
+      <div class="media-object-section">
+        <div class="thumbnail">
+          <a href="{% raw %}{%=o.url%}{% endraw %}" class="product-image">
+            <img src="{% raw %}{%=o.image%}{% endraw %}" alt="{% raw %}{%=o.title%}{% endraw %}" class="notification-image" />
+          </a>
+        </div>
+      </div>
+      <div class="media-object-section">
+        <h4 class="notification-product-title"><a href="{% raw %}{%=o.url%}{% endraw %}">{% raw %}{%=o.title%}{% endraw %}</a></h4>
+        <div class="notification-product-price">{% raw %}{%=o.price%}{% endraw %}</div>
+        <div class="notification-link"><a href="/cart">{{ 'general.text.my_shopping_bag' | t }}</a></div>
+      </div>
+    </div>
+  </div>
+</script>

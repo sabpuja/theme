@@ -1,0 +1,13 @@
+<!-- /snippets/product-sizechart-popup.liquid -->
+<div class="reveal product-sizechart-popup" id="product-sizechart-popup" data-product-sizechart-popup data-reveal data-animation-in="fade-in fast" data-animation-out="fade-out fast">
+    <div class="sizechart-popup-content">
+        {% if section.settings.sizechart_image %}
+        <a href="{{ section.settings.sizechart_url }}">
+            <img src="{{ section.settings.sizechart_image | img_url: '', crop: 'center'  }}" alt="{{ section.settings.sizechart_image.alt }}" />  
+        </a>
+        {% endif %}
+    </div>
+    <a class="close-reveal" aria-label="Close" data-close>
+        <svg class="svg-icon"><use xlink:href="#icon-close"></use></svg>
+    </a>
+</div>

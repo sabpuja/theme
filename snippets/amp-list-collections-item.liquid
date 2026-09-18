@@ -1,0 +1,23 @@
+<!-- /snippets/amp-list-collections-item.liquid -->
+{%- unless collection_image_size -%}
+  {%- assign collection_image_size = '450x450' -%}
+{%- endunless -%}
+{%- unless collection.empty? -%}
+<div class="collection-item">
+  <div class="collection-item-thumb">
+    {%- if collection.image -%}
+      {%- assign collection_image_url = collection.image -%}
+    {%- else -%}
+      {%- assign collection_image_url = collection.products.first.featured_image -%}
+    {%- endif -%}
+    <a href="{{ shop.url }}{{ collection.url }}" class="display-block">
+      <amp-img src="{{ collection_image_url | img_url: collection_image_size, crop: 'center' }}" width="{{ section.settings.image_width }}" height="{{ section.settings.image_height }}" layout="responsive" alt="{{ collection_image_url.alt | escape }}"></amp-img>
+    </a>
+  </div>
+  <div class="collection-item-caption">
+    <h4 class="collection-item-title">
+      <a href="{{ shop.url }}{{ collection.url }}">{{ collection.title }}</a>
+    </h4>
+  </div>
+</div>
+{%- endunless -%}

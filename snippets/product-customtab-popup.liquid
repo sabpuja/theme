@@ -1,0 +1,23 @@
+<!-- asd -->
+<div class="reveal product-customtab-popup" id="product-customtab-popup" data-product-customtab-popup data-reveal data-animation-in="fade-in fast" data-animation-out="fade-out fast">
+    <div class="customtab-popup-content">
+      <ul class="tabs" data-tabs id="collapsing-tabs">
+        <li class="tabs-title"><a href="#panel1c">{{ section.settings.customtab1_title }}</a></li>
+        <li class="tabs-title"><a href="#panel2c">{{ section.settings.customtab2_title }}</a></li>
+        <li class="tabs-title"><a href="#panel3c">{{ section.settings.customtab3_title }}</a></li>
+      </ul>
+
+      <div class="tabs-content" data-tabs-content="collapsing-tabs">
+        <div class="tabs-panel" id="panel1c">
+          {{ section.settings.customtab1_content }}
+        </div>
+        <div class="tabs-panel" id="panel2c">
+          {{ section.settings.customtab2_content }}
+        </div>
+        <div class="tabs-panel" id="panel3c">
+          {{ section.settings.customtab3_content }}
+        </div>
+      </div>
+    </div>
+    <a class="close-reveal" aria-label="Close" data-close><em class="sli sli-close"></em></a>
+</div>

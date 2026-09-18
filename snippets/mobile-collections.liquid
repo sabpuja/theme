@@ -1,0 +1,24 @@
+<div class="mobile-collections collection-link-list flex-container align-center-middle height-100">
+  <div class="mobile-collections-content margin-auto width-100">
+    <div class="layout-sidebar-content-inner text-center text-uppercase">
+      {%- if section.settings.collections != blank and linklists[section.settings.collections] != empty -%}
+        <ul class="collection-category-list vertical menu accordion-menu margin-0" data-accordion-menu data-submenu-toggle="true" data-auto-expand="true">
+          {%- for link in linklists[section.settings.collections].links -%}
+            <li class="{% if link.active %}active{% endif %}">
+              <a href="{{ link.url }}">{{ link.title }}</a>
+              {% if link.links != blank %}
+                <ul class="menu vertical nested" aria-hidden="true">
+                  {%- include 'menu-child', child_links: link.links, child_active: true -%}
+                </ul>
+              {%- elsif linklists[link.handle].links != empty and linklists[link.handle].links != blank -%}
+                <ul class="menu vertical nested" aria-hidden="true">
+                  {%- include 'menu-child', child_links: linklists[link.handle].links, child_active: true -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

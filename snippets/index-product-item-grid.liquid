@@ -1,0 +1,147 @@
+<!-- /snippets/index-product-item.liquid -->
+<div class="product-item product-item-list grid-x {% if settings.product_item_addtocart %}button-mobile{% endif %}" data-product-item>
+  <div class="product-item-thumb cell small-12 medium-12 large-4">
+    <a href="{{ shop.url }}{{ product.url }}" class="display-block">
+      {%- assign number_of_images = product.images | size | plus: 0 -%}
+      {%- if product_image_size == empty or product_image_size == blank -%}
+        {%- assign product_image_size = '450x' -%}
+      {%- endif -%}
+      <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ product.featured_image | product_img_url: product_image_size, crop: 'center' }}" {% if settings.product_item_retina %}data-srcset="{{ product.featured_image | product_img_url: product_image_size, crop: 'center' }} 800w, {{ product.featured_image | product_img_url: product_image_size, crop: 'center', scale: 2 }} 1440w, {{ product.featured_image | product_img_url: product_image_size, crop: 'center', scale: 3 }} 1920w"{% endif %} alt="{{ product.featured_image.alt | escape }}" class="lazyload product-item-image" data-viewed-image />
+      {%- if number_of_images > 1 -%}
+        <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ product.images[1] | product_img_url: product_image_size, crop: 'center' }}" {% if settings.product_item_retina %}data-srcset="{{ product.images[1] | product_img_url: product_image_size, crop: 'center' }} 800w, {{ product.images[1] | product_img_url: product_image_size, crop: 'center', scale: 2 }} 1440w,  {{ product.images[1] | product_img_url: product_image_size, crop: 'center', scale: 3 }} 1920w"{% endif %} alt="{{ product.images[1].alt | escape }}" class="lazyload product-item-image show-for-large" />
+      {%- endif -%}
+    </a>
+    
+    {%- if settings.product_item_label -%}
+      <div class="product-item-label-list">
+        {%- if settings.product_item_label_sale -%}
+          {%- if product.compare_at_price_max > product.price -%}
+            {%- assign percent = product.compare_at_price_max | minus: product.price | times: 100 | divided_by: product.compare_at_price_max | round -%}
+            <div class="product-item-label product-item-label-sale" style="color: {{ settings.product_item_label_sale_color }}; background: {{ settings.product_item_label_sale_bg }};">
+              {{ settings.product_item_label_sale | replace: '[percent]', percent }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+        {%- assign tags = product.tags | join: ', ' | downcase -%}
+        {%- if settings.product_item_label_new -%}
+          {%- assign product_item_label_new = settings.product_item_label_new | downcase -%}
+          {%- if tags contains settings.product_item_label_new -%}
+            <div class="product-item-label product-item-label-sale" style="color: {{ settings.product_item_label_new_color }}; background: {{ settings.product_item_label_new_bg }};">
+              {{ settings.product_item_label_new }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+        {%- if settings.product_item_label_hot -%}
+          {%- assign product_item_label_hot = settings.product_item_label_hot | downcase -%}
+          {%- if tags contains settings.product_item_label_hot -%}
+            <div class="product-item-label product-item-label-sale" style="color: {{ settings.product_item_label_hot_color }}; background: {{ settings.product_item_label_hot_bg }};">
+              {{ settings.product_item_label_hot }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    
+    <div class="group-button top-right">      
+      {%- if settings.product_item_quick_view -%}
+      <a href="{{ shop.url }}{{ product.url }}" data-quick-view data-handle="{{ product.handle }}" class="group-button-quickview product-item-button group-button-item product-item-button-quick-view" title="{{ 'general.button.quick_view' | t }}"><em class="sli sli-magnifier"></em></a>
+      {%- endif -%}
+      {%- if settings.product_item_wishlist -%}
+      <button class="group-button-wishlist product-item-button-wishlist group-button-item" data-wishlist="{{ product.handle }}">
+        <em class="sli sli-heart icon-add" title="{{ 'general.button.wishlist' | t }}"></em>
+        <em class="sli sli-check icon-added" title="{{ 'general.button.wishlist_added' | t }}" data-tooltip data-position="top" data-alignment="center" data-hover-delay="0" data-trigger-class="is-tip"></em>
+      </button>
+      {%- endif -%}
+      {%- if settings.product_item_compare -%}
+      <button class="product-item-button group-button-compare product-item-button-compare group-button-item" data-compare="{{ product.handle }}">
+        <em class="sli sli-refresh icon-add" title="{{ 'general.button.compare' | t }}"></em>
+        <em class="sli sli-check icon-added" title="{{ 'general.button.compare_added' | t }}" data-tooltip data-position="top" data-alignment="center" data-hover-delay="0" data-trigger-class="is-tip"></em>        
+      </button>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="product-item-caption cell small-12 medium-12 large-8">
+    <h4 class="product-item-title">
+      <a href="{{ shop.url }}{{ product.url }}"{% if color %}style="color:{{ color}}"{% endif %}>{{ product.title }}</a>
+    </h4>
+
+    {% if settings.product_item_vendor %}
+    <div class="product-item-vendor">
+      {{ product.type }}
+    </div>
+    {% endif %}
+    
+    {%- if settings.product_item_description -%}
+      <div class="product-item-description">
+        {%- assign strcut = settings.product_item_description_strcut -%}
+        {%- if strcut == blank or strcut < 1 -%}
+          {%- assign strcut = 256 -%}
+        {%- endif -%}
+        {{ product.description | strip_html | slice: 0, strcut }}...
+      </div>
+    {%- endif -%}
+    
+    {%- if settings.product_item_rating -%}
+    <div class="product-item-rating">
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+    </div>
+    {%- endif -%}
+    
+    <div class="product-item-price">
+      {%- if product.compare_at_price_max > product.price -%}
+        {%- assign found_one_in_stock = false -%}
+        {%- for variant in product.variants -%}
+          {%- if variant.available -%}
+            {%- assign found_one_in_stock = true -%}            
+            <span class="product-item-price-sale">{{ variant.price | money }}</span>
+            <del class="product-item-price-old"> {{ variant.compare_at_price | money }}</del>
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if found_one_in_stock == false -%}
+          {%- for variant in product.variants -%}
+            {%- if variant.available -%}
+              <span class="product-item-price-default">
+                {{ variant.price | money }}
+              </span>
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- else -%}
+        <span class="product-item-price-default">{{ product.price | money }}</span>
+      {%- endif -%}
+    </div> 
+    
+    {% if settings.product_freetext %}
+      {% assign t = product.tags | handleize  %}
+      {% if t contains 'free' %}
+        <ul class="freetext">
+        {% for tag in product.tags %}
+          {% if tag contains 'free:' %}
+          <li>
+            {{ tag | remove: "free:" }}
+          </li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endif %}
+    
+    <div class="position-relative cart-button">
+      <div class="product-item-buttons">
+        {%- if product.available -%}
+        {%- if product.variants.size == 1 -%}
+        <a href="{{ shop.url }}{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}" data-add-cart="{{ product.variants[0].id }}" data-placeholder="{{'general.button.add_to_cart' | t}}" data-adding-message="{{'general.button.adding_to_cart' | t}}" data-added-message="{{'general.button.added_to_cart' | t}}">
+          <em class="sli sli-basket"></em> <span data-product-add-cart-text>{{ 'general.button.add_to_cart' | t }}</span></a>
+          <small class="progress secondary"><small class="progress-meter"></small></small>
+        {%- else -%}
+        <a href="{{ shop.url }}{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}"><em class="sli sli-basket"></em> <span>{{ 'general.button.add_to_cart' | t }}</span></a>
+        {%- endif -%}
+        {%- else -%}
+        <a href="{{ shop.url }}{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}" disabled="disabled"><em class="sli sli-basket"></em> <span>{{ 'general.button.add_to_cart' | t }}</span></a>
+        {%- endif -%}
+      </div>
+    </div>    
+  </div>
+</div>

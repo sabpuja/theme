@@ -1,0 +1,213 @@
+<div class="header-wrap width-100" data-header-wrap>
+  {%- if section.settings.welcome_message != '' -%}
+  <div class="welcome-header-message">
+    {{ section.settings.welcome_message }}
+  </div>
+  {%- endif -%}
+  
+  <div class="header hide-for-large" data-header data-header-base>
+    <div class="header-container" data-header-content-mobile>
+      {% if settings.mode == "1" %}
+        {%- if template contains 'product' -%}
+          {%- include 'theme-header-mobile-product' -%}
+        {%- elsif template contains 'article' -%}
+          {%- include 'theme-header-mobile-article' -%}
+        {%- else -%}
+          {%- include 'theme-header-mobile' -%}
+        {%- endif -%}
+      {% else %}
+        {%- include 'theme-header-mobile' -%}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if settings.index_home10slideshow  %}
+<div class="desktop-header {% if section.settings.absolute %}active-absolute{% else %}no-absolute{% endif %} show-for-large" data-desktop-header-top="60" {% if section.settings.header_sticky %}data-sticky='{"stickTo": ".mainwrapper", "stickyClass": "sticky", "responsive": {"800": {"disable": true}}}'{% endif %}>
+{% else %}
+<div class="desktop-header {% if section.settings.absolute %}active-absolute{% else %}no-absolute{% endif %} show-for-large" data-desktop-header-top="60" {% if section.settings.header_sticky %}data-sticky='{"stickTo": "body", "stickyClass": "sticky", "responsive": {"800": {"disable": true}}}'{% endif %}>
+{% endif %}
+  <div class="grid-container">
+    <div class="desktop-header-content">
+      <div class="top-row grid-x grid-margin-x">          
+        <div class="cell small-12 medium-4 large-2 xlarge-2">
+          <div class="desktop-header-logo align-middle">
+            {%- capture logo -%}
+              {%- if section.settings.logo -%}
+                {%- assign img_url = section.settings.logo | img_url: 'master' -%}
+                {%- assign logo_alt = section.settings.logo.alt | default: shop.name -%}
+                <a href="/" itemprop="url">
+                  <img src="{{ img_url }}" alt="{{ logo_alt }}" />
+                </a>
+              {%- else -%}
+                <a href="/" itemprop="url">{{ shop.name }}</a>
+              {%- endif -%}
+            {%- endcapture -%}
+            {%- if template.name == 'index' -%}
+              <h1 itemscope itemtype="http://schema.org/Organization" class="margin-0">
+                {{ logo }}
+              </h1>
+            {%- else -%}
+              <div itemscope itemtype="http://schema.org/Organization">
+                {{ logo }}
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="desktop-header-logo desktop-header-styky-logo align-middle">
+            <h1 itemscope="" itemtype="http://schema.org/Organization" class="margin-0">
+              <a href="/" itemprop="url">
+                <img src="{{ section.settings.logo_sticky | img_url: 'master' }}" alt="Bundle Allinone Demo">
+              </a>
+            </h1>
+          </div>
+        </div>
+                
+        <div class="cell small-12 medium-8 large-10 xlarge-10 top-row-right">
+          <div class="desktop-mainmenu">
+            {%- if section.settings.link_list != empty and linklists[section.settings.link_list] != empty -%}
+            {%- include 'theme-header-menu', config: section.settings, blocks: section.blocks, menu: linklists[section.settings.link_list] -%}
+            {%- endif -%}
+          </div>
+          <div class="desktop-nav-list flex-container align-right">  
+              <div class="header-group1">
+                {% if customer %}
+                <div class="desktop-header-user-nav desktop-header-account account-logged dropdown menu">
+                  <a class="icon-account display-block" data-toggle="account-box-desktop">{{ 'customer.account.title' |t }}</a>              
+                  <ul class="dropdown-pane no-bullet" id="account-box-desktop" data-dropdown data-hover="true" data-hover-pane="true">
+                    <li><a href="/account" class="account-logged-link">{{ 'customer.account.title' | t }}</a></li>
+                    <li><a href="/account" class="account-logged-link">{{ 'customer.orders.title' | t }}</a></li>
+                    <li><a href="/account/addresses" class="account-logged-link">{{ 'customer.addresses.title' | t }}</a></li>                    
+                    <li><a href="/account/logout" class="account-logged-link">{{ 'layout.customer.log_out' | t }}</a></li>
+                  </ul>
+                </div>
+                {% else %}
+                <div class="desktop-header-user-nav desktop-header-account account-nonlogged account-login dropdown menu">
+                  <a class="icon-account display-block" data-toggle="account-box-desktop">{{ 'customer.login.title' |t }}</a>  
+                  <ul class="dropdown-pane no-bullet" id="account-box-desktop" data-dropdown data-hover="true" data-hover-pane="true">
+                    <li class="not-login">
+                      <div class="account-login">
+                        {%- form 'customer_login', id:'customer_login_box' -%}
+                        {%- if form.errors -%}
+                        <div class="callout alert">
+                          {{ form.errors | default_errors }}
+                        </div>
+                        {%- endif -%}
+                        <input type="email" name="customer[email]" class="account-field {% if form.errors contains 'email' %} input-error{% endif %}" placeholder="{{ 'customer.login.email' | t }}" autocapitalize="off" autocomplete="email">
+                        {%- if form.password_needed -%}
+                        <input type="password" value="" name="customer[password]" class="account-field {% if form.errors contains 'password' %}  input-error{% endif %}" placeholder="{{ 'customer.login.password' | t }}" autocomplete="current-password"/>
+                        {%- endif -%}
+                        {%- if form.password_needed -%}
+                        <a href="/account/login#recover" class="account-login-recover">{{ 'customer.login.forgot_password' | t }}</a>
+                        {%- endif -%}
+                        <div class="sign-in_create-account">
+                            <button type="submit" class="button account-login-submit">{{ 'customer.login.sign_in' | t }}</button>
+                            <!-- <div>{{ 'layout.customer.create_account_title' | t }}</div> -->
+                            <a class="account-login-register" href="/account/register">{{ 'layout.customer.create_account' | t }}</a>
+                        </div>
+                        {%- endform -%}
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="desktop-header-user-nav desktop-header-account account-nonlogged account-register">
+                  <a class="display-block" href="/account/register">{{ 'customer.register.title' |t }}</a>
+                </div>            
+                {% endif %}
+                {% if settings.currencyactive %}
+                <div class="desktop-header-user-currency desktop-header-currency">
+                  <ul class="desktop-currency-dropdown collection-sort-desktop-dropdown no-bullet margin-0">
+                    <li>
+                      <span class="currency-dropdown-title pointer display-block" data-currency-dropdown-title>{{ shop.currency }}</span>
+                      <ul class="desktop-currency-dropdown-content collection-sort-desktop-dropdown-panel no-bullet margin-0">
+                        {%- capture codes -%}
+                        ,USD,EUR,GBP,CAD,ARS,AUD,BBD,BDT,BSD,BHD,BRL,BOB,BND,BGN,MMK,KYD,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,XPF,FJD,GHS,GTQ,GYD,GEL,HKD,HUF,ISK,INR,IDR,NIS,JMD,JPY,JOD,KZT,KES,KWD,LVL,LTL,MXN,MYR,MUR,MDL,MAD,MNT,MZN,ANG,NZD,NGN,NOK,OMR,PKR,PYG,PEN,PHP,PLN,QAR,RON,RUB,SAR,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TRY,UAH,AED,UYU,VEB,VND,ZMK,
+                        {%- endcapture -%}
+                        {%- assign supported_codes = settings.supported_currencies | split: ' ' -%}
+                        <li class="currency-dropdown-item active" data-currency-dropdown="{{ shop.currency }}">{{ shop.currency }}</li>
+                        {%- for code in supported_codes -%}
+                        {%- if code != shop.currency and codes contains code -%}
+                        <li class="currency-dropdown-item" data-currency-dropdown="{{ code }}">{{ code }}</li>
+                        {%- endif -%}
+                        {%- endfor -%}
+                      </ul>
+                    </li>
+                  </ul>
+                  <select class="top-nav-currency-dropdown margin-0 hide" data-currency>
+                    {%- capture codes -%}
+                    ,USD,EUR,GBP,CAD,ARS,AUD,BBD,BDT,BSD,BHD,BRL,BOB,BND,BGN,MMK,KYD,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,XPF,FJD,GHS,GTQ,GYD,GEL,HKD,HUF,ISK,INR,IDR,NIS,JMD,JPY,JOD,KZT,KES,KWD,LVL,LTL,MXN,MYR,MUR,MDL,MAD,MNT,MZN,ANG,NZD,NGN,NOK,OMR,PKR,PYG,PEN,PHP,PLN,QAR,RON,RUB,SAR,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TRY,UAH,AED,UYU,VEB,VND,ZMK,
+                    {%- endcapture -%}
+                    {%- assign supported_codes = settings.supported_currencies | split: ' ' -%}
+                    <option value="{{ shop.currency }}" selected="selected">{{ shop.currency }}</option>
+                    {%- for code in supported_codes -%}
+                    {%- if code != shop.currency and codes contains code -%}
+                    <option value="{{ code }}">{{ code }}</option>
+                    {%- endif -%}
+                    {%- endfor -%}
+                  </select> 
+                </div>
+                {% endif %}
+          {% if settings.langactive %}
+                <div class="desktop-header-user-language desktop-header-language">
+                {% include 'gtranslate' with check_gtranslate, check_gtranslate: 'desktop' %} 
+                </div>
+                {% endif %}
+              </div>
+              <div class="header-group2">
+                  <div class="desktop-header-user-nav desktop-header-search">
+                      <a class="icon-search display-block" data-searchicon><em class="sli sli-magnifier icon-desktop-header-search"></em></a>
+                      <div class="desktop-header-search-content" data-searchbox>
+                        <form action="/search" method="get" role="search" data-ajax-search data-template="ajax-product-desktop">
+                          {%- unless settings.general_search_article -%}
+                          <input type="hidden" name="type" value="product"/>
+                          {%- endunless -%}
+                          <div class="search-box-desktop-form">
+                            <div class="input-group">
+                              <input type="text" class="input-group-field input-desktop-header-search control-input" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" data-ajax-search-input />
+                              <span class="input-group-button"><button type="submit" class="button clear"><em class="sli sli-magnifier"></em></button></span>
+                            </div>
+                          </div>
+        
+                        </form>
+                        <div class="searchbox-close" data-searchbox-close><svg class="svg-icon"><use xlink:href="#icon-close" /></svg></div>
+                      </div>
+                    </div> 
+                    <div class="desktop-header-user-nav desktop-header-compare" data-compare-link-block>
+                      <a href="/pages/compare" class="display-block">
+                        <em class="sli sli-refresh">
+                          <span class="header-counter-pill" data-compare-count></span>
+                        </em>
+                      </a>
+                    </div>
+                    <div class="desktop-header-user-nav desktop-header-wishlist" data-wishlist-link-block>
+                      <a href="/pages/wish-list" class="display-block">
+                        <em class="sli sli-heart">
+                          <span class="header-counter-pill" data-wishlist-count></span>
+                        </em>
+                      </a>
+                    </div>
+                    <div class="desktop-header-user-nav desktop-header-mini-cart mini-cart">
+                      <a class="display-block" data-toggle="mini-cart-desktop-info">
+                        <em class="mini-cart-icon sli sli-handbag">
+                          <!-- <svg class="svg-icon"><use xlink:href="#iconfinder_Basket_2205960" /></svg> -->
+                          <span class="header-counter-pill mini-cart-total" data-cart-total>{{ cart.item_count }}</span>
+                        </em>
+                      </a>
+                    </div>
+              </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="endofheader"></div>
+</div>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'gtranslate' with check_gtranslate: 'desktop' %}"
+  to: "{% include 'gtranslate' with check_gtranslate, check_gtranslate: 'desktop'
+    %}"
+  position: 9898..9975
+{%- endcomment -%}

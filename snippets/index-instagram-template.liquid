@@ -1,0 +1,14 @@
+<!-- /snippets/index-instagram-template.liquid -->
+<script type="text/x-tmpl" class="hide" data-instagram-template>
+  <div class="index-instafeed-item swiper-slide cell" data-carousel-item>
+    <a href="{% raw %}{{link}}{% endraw %}" target="_blank">
+      <img scr="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{% raw %}{{image}}{% endraw %}" class="index-instafeed-item-image lazyload width-100" alt="{% raw %}{{caption}}{% endraw %}" />
+    </a>
+    <div class="index-instafeed-item-info">
+      <a href="{% raw %}{{link}}{% endraw %}" target="_blank" class="flex-container align-center-middle">
+        <span class="index-instafeed-item-like"><em class="sli sli-heart"></em> {% raw %}{{likes}}{% endraw %}</span>
+        <span class="index-instafeed-item-comment"><em class="sli sli-bubbles"></em> {% raw %}{{comments}}{% endraw %}</span>
+      </a>
+    </div>
+  </div>
+</script>

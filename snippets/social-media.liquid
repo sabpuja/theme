@@ -1,0 +1,155 @@
+<!-- /snippets/social-media.liquid -->
+<div class="{{ class_prefix }}social-media-container grid-x">
+  {%- if settings.social_custom_1_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_custom_1_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <img src="{{ settings.social_custom_2_logo | img_url: '128x' }}" alt="{{ settings.social_custom_1_title }}"/>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_custom_2_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_custom_2_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <img src="{{ settings.social_custom_2_logo | img_url: '128x' }}" alt="{{ settings.social_custom_2_title }}"/>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_custom_3_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_custom_3_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <img src="{{ settings.social_custom_3_logo | img_url: '128x' }}" alt="{{ settings.social_custom_3_title }}"/>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_custom_4_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_custom_4_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <img src="{{ settings.social_custom_4_logo | img_url: '128x' }}" alt="{{ settings.social_custom_4_title }}"/>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_custom_5_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_custom_5_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <img src="{{ settings.social_custom_5_logo | img_url: '128x' }}" alt="{{ settings.social_custom_5_title }}"/>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_twitter_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_twitter_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-twitter" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_facebook_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_facebook_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-facebook" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_pinterest_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_pinterest_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-pinterest" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_instagram_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_instagram_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-instagram" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_tumblr_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_tumblr_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-tumblr" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_behance_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_behance_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-behance" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_blogger_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_blogger_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-blogger" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_dribble_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_dribble_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-dribble" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_gplus_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_gplus_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-gplus" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_linkedin_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_linkedin_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-linkedin" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_snapchat_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_snapchat_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-snapchat" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_youtube_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_youtube_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-youtube" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+  {%- if settings.social_vimeo_link != blank -%}
+    <div class="cell shrink">
+      <a href="{{ settings.social_vimeo_link }}" target="_blank" class="{{ class_prefix }}social-media-link display-block">
+        <svg class="svg-icon">
+          <use xlink:href="#icon-vimeo" />
+        </svg>
+      </a>
+    </div>
+  {%- endif -%}
+</div>

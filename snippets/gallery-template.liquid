@@ -1,0 +1,21 @@
+<div class="grid-container">
+  <div class="gallery-content">
+    {% if section.blocks.size > 0 %}
+      <div class="grid-x grid-margin-x">
+        {%- for block in section.blocks -%}
+          <div class="gallery-element cell small-{{ block.settings.column_small }} medium-{{ block.settings.column_medium }} large-{{ block.settings.column_large }} xlarge-{{ block.settings.column_xlarge }} xxlarge-{{ block.settings.column_xxlarge }} xxxlarge-{{ block.settings.column_xxxlarge }}"> 
+            <div class="gallery-image">
+              <a href="{{ block.settings.link }}" title="">                
+                <img class="width-100" src="{% if block.settings.image %}{{ block.settings.image | img_url: 'master' }}{% else %}{{ '330x220.png' | asset_url }}{% endif %}" alt="{{ block.settings.image.alt }}" />
+              </a>
+            </div>  
+            <div class="gallery-text">
+              <div class="heading"><a href="{{ block.settings.link }}"> {{ block.settings.title }}</a></div>
+              <div class="desc">{{ block.settings.desc }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>

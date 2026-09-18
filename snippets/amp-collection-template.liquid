@@ -1,0 +1,44 @@
+<!-- /snippets/amp-collection-template.liquid -->
+{%- paginate collection.products by nil -%}
+  <div class="collection">
+    <div class="grid-container">
+      <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4 xlarge-up-5 xxlarge-up-5 xxxlarge-up-5" data-collection-container>
+        {%- assign product_image_size = '450x' -%}
+        {% for product in collection.products %}
+          <div class="collection-product-item cell">
+            <div class="product-grid" data-product-layout>
+              {%- include 'amp-index-product-item' -%}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="collection-result-pagination flex-container grid-x align-middle">
+        <div class="collection-result cell auto">
+          {%- if paginate.current_page == 1 -%}
+            {%- assign _from = 1 -%}
+          {%- else -%}
+            {%- assign _from = paginate.current_page | minus:1 | times: section.settings.limit | plus: 1 -%}
+          {%- endif -%}
+          {%- if paginate.pages == paginate.current_page -%}
+            {%- assign _to = collection.products_count -%}
+          {%- else -%}
+            {%- assign _to = paginate.current_page | times: section.settings.limit -%}
+          {%- endif -%}
+          {{ 'collections.general.showing' | t: from:_from, to:_to, total:collection.products_count }}
+        </div>
+        <div class="collection-pagination cell shrink">
+          {% include 'pagination' %}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endpaginate -%}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- paginate collection.products 12 -%}"
+  to: "{%- paginate collection.products by nil -%}"
+  position: 50..93
+{%- endcomment -%}

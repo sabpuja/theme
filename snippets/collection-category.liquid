@@ -1,0 +1,25 @@
+<!-- /snippets/collection-category.liquid -->
+{%- if block.settings.position contains 'sidebar' -%}
+  {%- assign layout_class = 'layout-sidebar' -%}
+{%- else -%}
+  {%- assign layout_class = 'layout-content' -%}
+{%- endif -%}
+<div class="{{ layout_class }} collection-category {{ block.settings.display }}">
+  {%- if block.settings.title != blank -%}
+    <div class="{{ layout_class }}-title">
+      <h3>{{ block.settings.title }}</h3>
+    </div>
+  {%- endif -%}
+  <div class="{{ layout_class }}-content">
+    <ul class="collection-category-list no-bullet vertical menu">
+      <li{% if collection.handle == 'all' %} class="active"{% endif %}>
+        <a href="/collections/all">{{ 'collections.general.view_all' |t }}{% if block.settings.product_count %} ({{ collections.all.products_count}}){% endif %}</a>
+      </li>
+      {%- for category in collections -%}
+        <li{% if collection.handle == category.handle %} class="active"{% endif %}>
+          <a href="{{ category.url }}">{{ category.title }}{% if block.settings.product_count %} ({{ category.products_count}}){% endif %}</a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>

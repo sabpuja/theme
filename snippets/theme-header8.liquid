@@ -1,0 +1,23 @@
+<div class="header-wrap width-100" data-header-wrap data-welcome-header-message="{%- if section.settings.welcome_message != '' -%}60{%- else -%}0{%- endif -%}">
+    {%- if section.settings.welcome_message != '' -%}
+    <div class="welcome-header-message" style="color: {{ section.settings.color_text }}; background: {{ section.settings.background_text }}">
+      {{ section.settings.welcome_message }}
+    </div>
+    {%- endif -%}
+    
+    <div class="header hide-for-large" data-header data-header-base>
+    <div class="header-container" data-header-content-mobile>
+      {% if settings.mode == "1" %}
+        {%- if template contains 'product' -%}
+          {%- include 'theme-header-mobile-product' -%}
+        {%- elsif template contains 'article' -%}
+          {%- include 'theme-header-mobile-article' -%}
+        {%- else -%}
+          {%- include 'theme-header-mobile' -%}
+        {%- endif -%}
+      {% else %}
+        {%- include 'theme-header-mobile' -%}
+      {% endif %}
+    </div>
+  </div>
+  </div>

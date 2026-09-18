@@ -1,0 +1,22 @@
+<!-- /snippets/blog-tag.liquid -->
+{%- if block.settings.position contains 'sidebar' -%}
+  {%- assign layout_class = 'layout-sidebar' -%}
+{%- else -%}
+  {%- assign layout_class = 'layout-content' -%}
+{%- endif -%}
+<div class="{{ layout_class }} blog-tag {{ block.settings.display }}">
+  {%- if block.settings.title != blank -%}
+    <div class="{{ layout_class }}-title">
+      <h3>{{ block.settings.title }}</h3>
+    </div>
+  {%- endif -%}
+  <div class="{{ layout_class }}-content">
+    {% for tag in blog.tags %}
+      <a href="{{ canonical_url }}/tagged/{{ tag }}" class="blog-tag-item">
+        <!-- <em class="sli sli-tag"></em> -->
+        <svg class="svg-icon"><use xlink:href="#iconfinder_84-Tag_2672726"></use></svg>
+        {{ tag }}
+      </a>
+    {%- endfor -%}
+  </div>
+</div>

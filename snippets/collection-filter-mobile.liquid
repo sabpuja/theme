@@ -1,0 +1,121 @@
+<!-- /snippets/collection-filter-mobile.liquid -->
+<div id="collection-filter" class="layout-mobile-overlap reveal full" data-reveal data-overlap-mobile data-v-offset="0" data-h-offset="0" data-overlay="false" data-animation-in="fade-in fast" data-animation-out="fade-out fast" data-enable-padding="true">
+  {%- assign map_to = 'collection-filter' -%}
+  {%- capture mobile_header_left -%}
+    <a class="header-button-back display-inline-block" data-close="collection-filter">
+      <svg class="svg-icon">
+        <use xlink:href="#icon-arrow-left" />
+      </svg>
+    </a>
+  {%- endcapture -%}
+  {%- capture mobile_header_content -%}
+    <h3 class="header-title margin-0">{{ 'collections.general.filter' | t }}</h3>
+  {%- endcapture -%}
+  {%- capture mobile_header_right -%}
+    <a class="collection-filter-clear" data-collection-clear-filter data-close="collection-filter">{{ 'collections.general.clear' | t }}</a>
+  {%- endcapture -%}
+  {%- include 'header-mobile-overlap' -%}
+  <div class="grid-container collection-section-container fluid-xy">
+    {%- assign has_filter = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'collection-filter' -%}
+        <div class="collection-section collection-filter {{ block.settings.display }}">
+          {%- if block.settings.title != blank -%}
+            <div class="collection-section-title">
+              <h3>{{ block.settings.title }}</h3>
+            </div>
+          {%- endif -%}
+          <div class="collection-section-content">
+            <div class="collection-section-content-inner">
+              {%- assign tags = block.settings.tags | split: ',' -%}
+              {%- if block.settings.type == "color" -%}
+              <div class="layout-sidebar-content-inner">
+                <div class="collection-filter-color-list grid-x">
+                  {%- for tag in tags -%}
+                  {%- assign tag1 = tag | strip | strip_newlines -%}
+                  {%- if collection.tags contains tag1 -%}
+                  {%- capture filter_html -%}
+                  <span class="collection-filter-color-background display-block" style="background: {% include 'collection-filter-color-detector' %};"><span class="color-name">{{ tag1 }}</span></span>
+                  {%- endcapture -%}
+                  {%- if current_tags contains tag1 -%}
+                  <div class="collection-filter-color active" data-collection-filter-value="{{ tag1 }}" data-collection-filter="{{ tag | handle }}">{{ filter_html | link_to_remove_tag: tag }}</div>
+                  {%- else -%}
+                  <div class="collection-filter-color" data-collection-filter-value="{{ tag1 }}" data-collection-filter="{{ tag | handle }}">{{ filter_html | link_to_add_tag: tag }}</div>
+                  {%- endif -%}
+                  {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+              {% comment %}
+              {%- elsif block.settings.type == "size" -%}
+              <div class="collection-filter-size-list grid-x">
+                {%- for tag in tags -%}
+                {%- assign tag1 = tag | strip | strip_newlines -%}
+                {%- if collection.tags contains tag1 -%}
+                {%- if current_tags contains tag1 -%}
+                <div class="collection-filter-size active flex-container align-center-middle" data-collection-filter-value="{{ tag1 }}" data-collection-filter="{{ tag | handle }}">{{ tag | link_to_remove_tag: tag }}</div>
+                {%- else -%}
+                <div class="collection-filter-size flex-container align-center-middle" data-collection-filter-value="{{ tag1 }}" data-collection-filter="{{ tag | handle }}">{{ tag | link_to_add_tag: tag }}</div>
+                {%- endif -%}
+                {%- endif -%}
+                {%- endfor -%}
+              </div>
+              {% endcomment %}
+              {%- elsif block.settings.type == "vendor" -%}
+                <ul class="{{ block.settings.type }} no-bullet">
+                  {%- for product_vendor in collection.all_vendors -%}
+                    {%- assign product_vendor_downcase = product_vendor | downcase -%}
+                    <li class="collection-filter-list{% if collection.current_vendor == product_vendor or collection.current_vendor == product_vendor_downcase %} active{% endif %}" data-collection-query="{{ product_vendor_downcase | remove: '"' }}">
+                      <div class="collection-filter-checker">
+                        <svg>
+                          <use xlink:href="#icon-checker"/>
+                        </svg>
+                      </div>
+                      {{ product_vendor | link_to_vendor }}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- elsif block.settings.type == "type" -%}
+                <ul class="{{ block.settings.type }} no-bullet">
+                  {%- for product_type in collection.all_types -%}
+                    {%- assign product_type_downcase = product_type | handle -%}
+                    <li class="collection-filter-list{% if collection.current_type == product_type or collection.current_type == product_type_downcase %} active{% endif %}" data-collection-query="{{ product_type_downcase | remove: '"' }}">
+                      <div class="collection-filter-checker">
+                        <svg>
+                          <use xlink:href="#icon-checker"/>
+                        </svg>
+                      </div>
+                      {{ product_type | link_to_type }}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- else -%}
+                <ul class="{{ block.settings.type }} no-bullet">
+                  {%- for tag in tags -%}
+                    {%- assign tag1 = tag | strip | strip_newlines -%}
+                    {%- if collection.tags contains tag1 -%}
+                    <li class="collection-filter-list{% if current_tags contains tag1 %} active{% endif %}" data-collection-filter="{{ tag | handle }}">
+                      <div class="collection-filter-checker">
+                        <svg>
+                          <use xlink:href="#icon-checker"/>
+                        </svg>
+                      </div>
+                      {{ tag | link_to_add_tag: tag }}
+                    </li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+        {%- assign has_filter = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if has_filter -%}
+      <div class="button-collection-apply">
+        <button class="button width-100 text-uppercase" data-collection-apply data-close>{{ 'collections.general.apply' | t }}</button>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

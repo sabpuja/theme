@@ -1,0 +1,16 @@
+<!-- /snippets/product-tags.liquid -->
+<div class="product-tag-content">
+  <ul class="no-bullet margin-0">
+    {%- if product.tags.size > 0 -%}
+      <li class="product-tag-item">
+        {%- for tag in product.tags -%}
+          {%- if collection.handle -%}
+            <a href="/collections/{{ collection.handle }}/{{ tag | handle }}" class="display-inline-block">{{ tag | handle }}</a>
+          {%- else -%}
+            <a href="/collections/all/{{ tag | handle }}" class="display-inline-block">{{ tag | handle }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </li>
+    {%- endif -%}
+  </ul>
+</div>

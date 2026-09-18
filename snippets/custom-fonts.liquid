@@ -1,0 +1,10 @@
+{%- if settings.font_embed != blank -%}
+  {{ settings.font_embed }}
+{%- endif -%}
+{%- if settings.font_desktop_embed != blank -%}
+  {%- if settings.font_desktop_embed contains 'media="all"' -%}
+    {{ settings.font_desktop_embed | replace: 'media="all"', 'media="all and (min-width: 801px)"' }}
+  {%- else -%}
+    {{ settings.font_desktop_embed | replace: 'rel="stylesheet"', 'rel="stylesheet" media="all and (min-width: 801px)"' }}
+  {%- endif -%}
+{%- endif -%}

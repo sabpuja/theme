@@ -1,0 +1,42 @@
+<div id="collection-collections" class="layout-mobile-overlap reveal full" data-reveal data-overlap-mobile data-v-offset="0" data-h-offset="0" data-overlay="false" data-animation-in="fade-in fast" data-animation-out="fade-out fast" data-enable-padding="true">
+  {%- assign map_to = 'collection-filter' -%}
+  {%- capture mobile_header_left -%}
+    <a class="header-button-back display-inline-block" data-close="collection-collections">
+      <svg class="svg-icon">
+        <use xlink:href="#icon-arrow-left" />
+      </svg>
+    </a>
+  {%- endcapture -%}
+  
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'collection-link-list' -%}
+      {% assign getTitle = block.settings.title %}  
+      {%- capture mobile_header_content -%}
+        <h3 class="header-title margin-0">{{ getTitle }}</h3>
+      {%- endcapture -%}
+      {%- include 'header-mobile-overlap' -%}
+      <div class="grid-container fluid-xy">
+        <div class="layout-sidebar-content-inner">
+          {%- if block.settings.link_list != blank and linklists[block.settings.link_list] != empty -%}
+            <ul class="collection-category-list vertical menu accordion-menu margin-0" data-accordion-menu data-submenu-toggle="true" data-auto-expand="true">
+              {%- for link in linklists[block.settings.link_list].links -%}
+                <li class="{% if link.active %}active{% endif %}">
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                  {% if link.links != blank %}
+                    <ul class="menu vertical nested" aria-hidden="true">
+                      {%- include 'menu-child', child_links: link.links, child_active: true -%}
+                    </ul>
+                  {%- elsif linklists[link.handle].links != empty and linklists[link.handle].links != blank -%}
+                    <ul class="menu vertical nested" aria-hidden="true">
+                      {%- include 'menu-child', child_links: linklists[link.handle].links, child_active: true -%}
+                    </ul>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<!-- /snippets/amp-product-template.liquid -->
+{%- assign product_thumb_size = section.settings.image_width | append: 'x' | append: section.settings.image_height -%}
+<div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope itemtype="http://schema.org/Product">
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+  <meta itemprop="name" content="{{ product.title }}{% unless product.has_only_default_variant %} - {{ current_variant.title }}{% endunless %}">
+  <meta itemprop="url" content="{{ shop.url }}{{ current_variant.url }}">
+  <meta itemprop="brand" content="{{ product.vendor }}">
+  <meta itemprop="image" content="{{ featured_image | img_url: product_thumb_size }}">
+  <meta itemprop="description" content="{{ product.description | strip_html | escape }}">
+  <div class="grid-container">
+    <div class="grid-x grid-margin-x">
+      <div class="cell small-12 medium-6 large-6">
+        {%- if product.images.size -%}
+          <amp-carousel id="carousel-with-preview" width="{{ section.settings.image_width }}" height="{{ section.settings.image_height }}" layout="responsive" type="slides">
+          {% for image in product.images %}
+            <amp-img src="{{ image.src | img_url: product_thumb_size, crop: 'center', scale: 2 }}" width="{{ section.settings.image_width }}" height="{{ section.settings.image_height }}" layout="responsive" alt="{{ image.alt | escape }}"></amp-img>
+          {%- endfor -%}
+          </amp-carousel>
+        {%- endif -%}
+      </div>
+      <div class="cell small-12 medium-6 large-6">
+        <div class="product-info-container" itemprop="offers" itemscope itemtype="http://schema.org/Offer" data-product-container>
+          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+          <meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+          <link itemprop="available" href="http://schema.org/{% if current_variant.available %}InStock{%- else -%}OutOfStock{%- endif -%}">
+          <h1 class="product-title">{{ product.title }}</h1>
+          <div class="divider"></div>
+          <div class="product-price-wrapper" data-price-wrapper>
+            <span class="product-price" data-product-price>
+              {{ current_variant.price | money }}
+            </span>
+            {% if product.compare_at_price_max > product.price %}
+              <del class="product-price-old" data-product-compare-price>
+                {% if current_variant.compare_at_price > current_variant.price %}
+                  {{ current_variant.compare_at_price | money }}
+                {%- endif -%}
+              </del>
+            {%- endif -%}
+          </div>
+          <div class="divider"></div>
+          {%- if product.variants.size != 1 -%}
+            <ul class="select">
+              <li>{{ current_variant.title }}</li>
+              <ul class="select-dropdown">
+                {%- for variant in product.variants -%}
+                  {%- if variant.available -%}
+                    <li class="select-option">
+                      <a href="{{ canonical_url }}?id={{ variant.id }}&submit=true">{{ variant.title }}</a>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </ul>
+          {%- endif -%}
+          {%- if current_variant.available -%}
+            <a href="{{ canonical_url }}?id={{ current_variant.id }}&submit=true" class="button primary radius product-add-cart display-block text-center">{{ 'products.product.add_to_cart' | t }}</a>
+          {%- else -%}
+            <a class="button primary radius product-add-cart display-block text-center disabled">{{ 'products.product.add_to_cart' | t }}</a>
+          {%- endif -%}
+          <ul class="product-info no-bullet grid-x small-up-2 large-up-1">
+            {%- if section.settings.show_inventory -%}
+              <li class="cell product-inventory">
+                {% if current_variant.available %}
+                  {%- assign available = 'products.product.in_stock' | t -%}
+                {%- else -%}
+                  {%- assign available = 'products.product.out_stock' | t -%}
+                {%- endif -%}
+                <span class="product-info-title">{{ 'products.product.available' | t }}:</span>
+                <span class="product-info-text product-stock" data-product-inventory>{{ available }}</span>
+              </li>
+            {%- endif -%}
+            {%- if section.settings.show_sku -%}
+              <li class="cell product-sku">
+                <span class="product-info-title">{{ 'products.product.sku' | t }}:</span>
+                <span class="product-info-text" data-product-sku>{{ current_variant.sku }}</span>
+              </li>
+            {%- endif -%}
+            {%- if section.settings.show_type -%}
+              <li class="cell product-type">
+                <span class="product-info-title">{{ 'products.product.type' | t }}:</span>
+                <span class="product-info-text">{{ product.type }}</span>
+              </li>
+            {%- endif -%}
+            {%- if section.settings.show_vendor -%}
+              <li class="cell product-vendor">
+                <span class="product-info-title">{{ 'products.product.vendor' | t }}:</span>
+                <span class="product-info-text">{{ product.vendor }}</span>
+              </li>
+            {%- endif -%}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <amp-accordion disable-session-states>
+      {%- if section.settings.show_description -%}
+        <section class="accordion-item" expanded>
+          <h2 class="accordion-title">{{ 'products.tab.description' | t }}</h2>
+          <div id="product-detail-description" class="accordion-content">
+            {{ product.description | strip_html }}
+          </div>
+        </section>
+      {%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'collection-tab' -%}
+            <section class="accordion-item">
+              <h2 class="accordion-title">{{ block.settings.title }}</h2>
+              <div id="product-detail-custom{{ forloop.index }}" class="accordion-content">
+                {{ block.settings.content | strip_html }}
+              </div>
+            </section>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </amp-accordion>
+  </div>
+</div>

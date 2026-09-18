@@ -1,0 +1,13 @@
+{%- if settings.general_page_direction == 'ltr' -%}
+  <link href="{{ 'style.css' | asset_url }}" rel="stylesheet" type="text/css" media="all" data-style-link/>
+  <link href="{{ 'style-tablet.css' | asset_url }}" rel="stylesheet" type="text/css" media="all and (min-width: 551px)" data-style-link/>
+  <link href="{{ 'style-desktop.css' | asset_url }}" rel="stylesheet" type="text/css" media="all and (min-width: 1261px)" data-style-link/>
+  <link href="{{ 'section-build.css' | asset_url }}" rel="stylesheet" type="text/css" media="all" data-style-link/>
+  <link href="{{ 'page-build.css' | asset_url }}" rel="stylesheet" type="text/css" media="all" data-style-link/>
+{%- else -%}
+  <link href="{{ 'style-rtl.css' | asset_url }}" rel="stylesheet" type="text/css" media="all" data-style-rtl-link/>
+  <link href="{{ 'style-rtl-tablet.css' | asset_url }}" rel="stylesheet" type="text/css" media="all and (min-width: 551px)" data-style-rtl-link/>
+  <link href="{{ 'style-rtl-desktop.css' | asset_url }}" rel="stylesheet" type="text/css" media="all and (min-width: 1261px)" data-style-rtl-link/>
+  <link href="{{ 'section-build-rtl.css' | asset_url }}" rel="stylesheet" type="text/css" media="all" data-style-rtl-link/>
+  <link href="{{ 'page-build-rtl.css' | asset_url }}" rel="stylesheet" type="text/css" media="all" data-style-rtl-link/>
+{%- endif -%}

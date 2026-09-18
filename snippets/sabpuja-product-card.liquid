@@ -1,0 +1,37 @@
+{% capture sp_card_image %}{% render 'sabpuja-product-image-url', product: product %}{% endcapture %}
+{% assign sp_card_image = sp_card_image | strip %}
+{% assign sp_card_type = 'Puja Essential' %}
+{% if product.type == 'Puja Kit' %}
+  {% assign sp_card_type = 'Puja Kit' %}
+{% elsif product.type == 'Astrological Remedy Kit' %}
+  {% assign sp_card_type = 'Astrological Remedy Kit' %}
+  {% if product.images.size > 1 %}
+    {% assign sp_card_image = product.images[1] | img_url: '800x800' %}
+  {% endif %}
+{% endif %}
+{% case product.handle %}
+{% when 'panchmeva' %}{% assign sp_card_type = 'Puja Offering' %}
+{% when 'ganga-jal' or 'gomutra' %}{% assign sp_card_type = 'Puja Liquid' %}
+{% when 'havan-samidha' or 'guggul-resin' %}{% assign sp_card_type = 'Havan Essential' %}
+{% when 'dhoop-sticks' or 'kapoor-camphor' %}{% assign sp_card_type = 'Aarti Essential' %}
+{% when 'honey-sacred-puja-use' or 'ghee-clarified-butter' or 'supari-betel-nut' or 'akshat-rice' or 'coconut' or 'clove' or 'mishri' %}{% assign sp_card_type = 'Puja Offering' %}
+{% when 'red-cloth-lal-chunari' or 'white-cloth' or 'yellow-cloth' %}{% assign sp_card_type = 'Puja Cloth' %}
+{% when 'navagraha-samagri' %}{% assign sp_card_type = 'Puja Samagri' %}
+{% endcase %}
+<article class="sp-catalog-card sp-catalog-card--{{ product.handle | handleize }}">
+  <a class="sp-catalog-card__image" href="{{ product.url }}">
+    {% if sp_card_image != blank %}
+      <img src="{{ sp_card_image }}" alt="{{ product.title | escape }} by Sabpuja" loading="lazy" width="800" height="800">
+    {% else %}
+      <span class="sp-catalog-card__image-placeholder">{{ product.title | escape }}</span>
+    {% endif %}
+  </a>
+  <div class="sp-catalog-card__body">
+    <div class="sp-catalog-card__type">{{ sp_card_type }}</div>
+    <h2><a href="{{ product.url }}">{{ product.title }}</a></h2>
+    <div class="sp-catalog-card__meta">
+      {% if product.price > 0 %}<strong>{{ product.price | money }}</strong>{% else %}<span>Price coming soon</span>{% endif %}
+    </div>
+    <a class="sp-catalog-card__cta" href="{{ product.url }}">{% render 'sabpuja-icon', name: 'arrow-right' %}<span>View product</span></a>
+  </div>
+</article>

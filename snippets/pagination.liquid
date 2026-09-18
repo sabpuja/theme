@@ -1,0 +1,60 @@
+<!-- /snippets/pagination.liquid -->
+<ul class="pagination">
+  {%- unless paginate.previous.is_link -%}
+    <li class="pagination-previous disabled">
+      {%- if settings.general_page_direction == 'ltr' -%}
+        <em class="sli sli-arrow-left"></em>
+      {%- endif -%}
+      {{ 'general.pagination.previous' | t }}
+      {%- if settings.general_page_direction == 'rtl' -%}
+        <em class="sli sli-arrow-right"></em>
+      {%- endif -%}
+    </li>
+  {%- else -%}
+    <li class="pagination-previous">
+      <a href="{{ paginate.previous.url }}" data-collection-pagination>
+        {%- if settings.general_page_direction == 'ltr' -%}
+          <em class="sli sli-arrow-left"></em>
+        {%- endif -%}
+        {{ 'general.pagination.previous' | t }}
+        {%- if settings.general_page_direction == 'rtl' -%}
+          <em class="sli sli-arrow-right"></em>
+        {%- endif -%}
+      </a>
+    </li>
+  {%- endunless -%}
+  {% for part in paginate.parts %}
+    {% if part.is_link %}
+      <li><a href="{{ part.url }}" data-collection-pagination>{{ part.title }}</a></li>
+    {% else %}
+      {% if part.title == '&hellip;' %}
+        <li class="ellipsis" aria-hidden="true"></li>
+      {% else %}
+        <li class="current">{{ part.title }}</li>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {%- unless paginate.next.is_link -%}
+    <li class="pagination-next disabled">
+      {%- if settings.general_page_direction == 'rtl' -%}
+        <em class="sli sli-arrow-left"></em>
+      {%- endif -%}
+      {{ 'general.pagination.next' | t }}
+      {%- if settings.general_page_direction == 'ltr' -%}
+        <em class="sli sli-arrow-right"></em>
+      {%- endif -%}
+    </li>
+  {%- else -%}
+    <li class="pagination-next">
+      <a href="{{ paginate.next.url }}" data-collection-pagination>
+        {%- if settings.general_page_direction == 'rtl' -%}
+          <em class="sli sli-arrow-left"></em>
+        {%- endif -%}
+        {{ 'general.pagination.next' | t }}
+        {%- if settings.general_page_direction == 'ltr' -%}
+          <em class="sli sli-arrow-right"></em>
+        {%- endif -%}
+      </a>
+    </li>
+  {%- endunless -%}
+</ul>

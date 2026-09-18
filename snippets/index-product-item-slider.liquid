@@ -1,0 +1,195 @@
+<!-- Use in Section home 9 -->
+<div class="product-item {% if settings.product_item_addtocart %}button-mobile{% endif %}" data-product-item>
+  <div class="product-item-thumb">
+    <a href="{{ shop.url }}{{ product.url }}" class="display-block">
+      {%- assign number_of_images = product.images | size | plus: 0 -%}
+      {%- if product_image_size == empty or product_image_size == blank -%}
+        {%- assign product_image_size = '450x' -%}
+      {%- endif -%}
+      <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ product.featured_image | product_img_url: product_image_size, crop: 'center' }}" {% if settings.product_item_retina %}data-srcset="{{ product.featured_image | product_img_url: product_image_size, crop: 'center' }} 800w, {{ product.featured_image | product_img_url: product_image_size, crop: 'center', scale: 2 }} 1440w, {{ product.featured_image | product_img_url: product_image_size, crop: 'center', scale: 3 }} 1920w"{% endif %} alt="{{ product.featured_image.alt | escape }}" class="lazyload product-item-image mainImage" data-viewed-image />
+    </a>    
+    {%- if settings.product_item_label -%}
+      <div class="product-item-label-list">
+        {%- if settings.product_item_label_sale -%}
+          {%- if product.compare_at_price_max > product.price -%}
+            {%- assign percent = product.compare_at_price_max | minus: product.price | times: 100 | divided_by: product.compare_at_price_max | round -%}
+            <div class="product-item-label product-item-label-sale" style="color: {{ settings.product_item_label_sale_color }}; background: {{ settings.product_item_label_sale_bg }};">
+              {{ settings.product_item_label_sale | replace: '[percent]', percent }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+        {%- assign tags = product.tags | join: ', ' | downcase -%}
+        {%- if settings.product_item_label_new -%}
+          {%- assign product_item_label_new = settings.product_item_label_new | downcase -%}
+          {%- if tags contains settings.product_item_label_new -%}
+            <div class="product-item-label product-item-label-sale" style="color: {{ settings.product_item_label_new_color }}; background: {{ settings.product_item_label_new_bg }};">
+              {{ settings.product_item_label_new }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+        {%- if settings.product_item_label_hot -%}
+          {%- assign product_item_label_hot = settings.product_item_label_hot | downcase -%}
+          {%- if tags contains settings.product_item_label_hot -%}
+            <div class="product-item-label product-item-label-sale" style="color: {{ settings.product_item_label_hot_color }}; background: {{ settings.product_item_label_hot_bg }};">
+              {{ settings.product_item_label_hot }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    
+    <div class="group-button top-right">     
+        {%- if settings.product_item_wishlist -%}
+        <div class="group-button-wishlist group-button-item product-item-button-wishlist" data-wishlist="{{ product.handle }}">
+            <em class="sli sli-heart icon-add" title="{{ 'general.button.wishlist' | t }}"></em>
+            <em class="sli sli-check icon-added" title="{{ 'general.button.wishlist_added' | t }}" data-tooltip data-position="top" data-alignment="center" data-hover-delay="0" data-trigger-class="is-tip"></em>
+        </div>
+        {%- endif -%} 
+      {%- if settings.product_item_quick_view -%}
+      <a href="{{ shop.url }}{{ product.url }}" data-quick-view data-handle="{{ product.handle }}" class="group-button-quickview group-button-item product-item-button product-item-button-quick-view" title="{{ 'general.button.quick_view' | t }}"><em class="sli sli-magnifier"></em>
+      </a>
+      {%- endif -%}
+      {%- if settings.product_item_compare -%}
+      <div class="group-button-compare group-button-item product-item-button product-item-button-compare" data-compare="{{ product.handle }}">
+        <em class="sli sli-refresh icon-add" title="{{ 'general.button.compare' | t }}"></em>
+        <em class="sli sli-check icon-added" title="{{ 'general.button.compare_added' | t }}" data-tooltip data-position="top" data-alignment="center" data-hover-delay="0" data-trigger-class="is-tip"></em>        
+      </div>
+      {%- endif -%}
+    </div>
+    
+    <div class="cart-button bottom-center">
+      <div class="product-item-buttons">
+        {%- if product.available -%}
+          {%- if product.variants.size == 1 -%}
+            <a href="{{ shop.url }}{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}" data-add-cart="{{ product.variants[0].id }}" data-placeholder="{{'general.button.add_to_cart' | t}}" data-adding-message="{{'general.button.adding_to_cart' | t}}" data-added-message="{{'general.button.added_to_cart' | t}}">
+              <em class="sli sli-basket"></em> <span data-product-add-cart-text>{{ 'general.button.add_to_cart' | t }}</span>
+              <small class="progress secondary"><small class="progress-meter"></small></small>
+            </a>
+          {%- else -%}
+            <a href="{{ shop.url }}{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}"><em class="sli sli-basket"></em> <span>{{ 'general.button.add_to_cart' | t }}</span></a>
+          {%- endif -%}
+        {%- else -%}
+          <a href="{{ shop.url }}{{ product.url }}" class="product-item-button product-item-button-cart" title="{{ 'general.button.add_to_cart' | t }}" disabled="disabled"><em class="sli sli-basket"></em> <span>{{ 'general.button.add_to_cart' | t }}</span></a>
+        {%- endif -%}        
+      </div>
+    </div>
+  </div>
+
+  {% if product.images.size > 1%}
+  <div class="thumbs-slider">  
+    <div class="carousel" data-carousel-param='{"effect": "slide", "autoplay": "true", "autoplaySpeed": "5000", "space": "20", "column_small": "3", "column_medium": "3", "column_large": "3", "column_xlarge": "4", "column_xxlarge": "4", "column_xxxlarge": "4", "row": "1"}' data-carousel>
+      <div class="carousel-wrapper carousel-nav-middle">
+        <div class="swiper-container" data-carousel-container>
+          <div class="swiper-wrapper grid-margin-x small-up-3 medium-up-3 large-up-3 xlarge-up-3 xxlarge-up-3 xxxlarge-up-3">
+            {% for image in product.images %}
+            <div class="swiper-slide cell" data-carousel-item>
+              <div class="image {% if forloop.index == 1 %}active{% endif %}">
+                <a class="thumb-click" href="{{ image | product_img_url: 'large' }}" data-original-image="{{ image | product_img_url: '500x' }}">
+                  <img src="{{ image | product_img_url: '500x' }}" alt="{{ image.alt | escape }}" />
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {%- if section.settings.navigation -%}
+        <!-- If we need navigation buttons -->
+        <div class="carousel-navigation carousel-nav-prev" data-carousel-nav-prev><em class="sli sli-arrow-left"></em></div>
+        <div class="carousel-navigation carousel-nav-next" data-carousel-nav-next><em class="sli sli-arrow-right"></em></div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.pagination -%}
+      <!-- If we need pagination -->
+      <div class="carousel-pagination" data-carousel-pagination></div>
+      {%- endif -%}
+    </div>
+  </div>
+  {% endif %}
+  <div class="product-item-caption">
+    <div class="product-item-group grid-x">
+            <div class="product-item-title-rating cell small-12 medium-6 large-8 xlarge-8 xxlarge-8 xxxlarge-9">
+                <h4 class="product-item-title">
+                <a href="{{ shop.url }}{{ product.url }}">{{ product.title }}</a>
+                </h4>
+                {%- if settings.product_item_rating -%}
+                <div class="product-item-rating" data-shopify-product-reviews="{{ product.handle }}">
+                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                </div>
+                {%- endif -%}
+            </div>
+            <div class="product-item-price cell small-12 medium-6 large-4 xlarge-4 xxlarge-4 xxxlarge-3">
+                {%- if product.compare_at_price_max > product.price -%}
+                {%- assign found_one_in_stock = false -%}
+                {%- for variant in product.variants -%}
+                    {%- if variant.available -%}
+                    {%- assign found_one_in_stock = true -%}
+                    <del class="product-item-price-old"> {{ variant.compare_at_price | money }}</del>
+                    <span class="product-item-price-sale">{{ variant.price | money }}</span>
+                    {%- break -%}
+                    {%- endif -%}
+                {%- endfor -%}
+                {%- if found_one_in_stock == false -%}
+                    {%- for variant in product.variants -%}
+                    {%- if variant.available -%}
+                        <span class="product-item-price-default">
+                        {{ variant.price | money }}
+                        </span>
+                        {%- break -%}
+                    {%- endif -%}
+                    {%- endfor -%}
+                {%- endif -%}
+                {%- else -%}
+                <span class="product-item-price-default">{{ product.price | money }}</span>
+                {%- endif -%}
+            </div>
+    </div>
+    {% if settings.product_item_option %}
+    <div class="color-available">
+    {%- if product.variants.size > 1 -%}
+    <div class="product-item-option flex-container">
+        <!-- show color swatches avaiable -->
+        {%- for option_name in product.options -%}
+        {%- assign option_index = forloop.index0 -%}
+        {%- capture option_type -%}
+            {%- include 'product-option-detector' -%}
+        {%- endcapture -%}
+        {%- assign option_type = option_type | strip | strip_newlines -%}
+        {%- if option_type == 'color' or option_type == 'image' -%}
+            {%- assign color = '' -%}
+            {%- assign shown_list = '' -%}
+            {%- assign count = 0 -%}
+            {%- for variant in product.variants -%}
+            {%- assign option_handle = variant.options[option_index] -%}
+            {%- unless shown_list contains option_handle -%}
+                {% assign count = count | plus:1 %}
+                {% unless settings.coloravailable %}
+                {% if variant.image %}
+                    <div class="product-item-option-image" {% if count > 4 %}data-color-more{% else %}data-color-less{% endif %}>
+                    <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ variant.image | img_url: '48x48' }}" class="width-100 display-block lazyload" data-image-swap data-image-src="{{ variant.image | product_img_url: product_image_size, crop: 'center' }}" data-image-srcset="{{ variant.image | product_img_url: product_image_size, crop: 'center' }} 800w, {{ variant.image | product_img_url: product_image_size, crop: 'center', scale: 2 }} 1440w, {{ variant.image | product_img_url: product_image_size, crop: 'center', scale: 3 }} 1920w" alt="{{ option_handle | escape }}"/>
+                    </div>
+                {% endif %}
+                {% else %}
+                {% if option_type == 'color' %}
+                    {%- capture color_code -%}
+                    {%- include 'product-option-color-detector' -%}
+                    {%- endcapture -%}
+                    {%- assign color_code = color_code | strip | strip_newlines -%}
+                    {%- if color_code != blank -%}
+                    <div class="product-item-option-color" {% if count > 4 %}data-color-more{% else %}data-color-less{% endif %} style="background: {{ color_code }};"></div>
+                    {%- endif -%}
+                {% endif %}
+                {% assign shown_list = shown_list | append: option_handle | append: ' ' %}
+                {% endunless %}
+                {% if count > 4 %}
+                <div data-color-show-more>{{ 'general.text.more' |t }}</div>
+                {% endif %}
+            {%- endunless -%}
+            {%- endfor -%}
+        {%- endif -%}
+        {%- endfor -%}   
+    </div>
+    {%- endif -%}
+    </div>
+    {% endif %}
+  </div>
+</div>

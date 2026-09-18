@@ -1,0 +1,110 @@
+{% style %}
+  :root {
+	{%- comment -%}
+      Mobile Font
+    {%- endcomment -%}
+	--font_title: {{ settings.font_title }};
+	--font_paragraph: {{ settings.font_paragraph }};
+	{%- comment -%}
+      Desktop Font
+    {%- endcomment -%}
+	--font_desktop_title: {{ settings.font_desktop_title }};
+	--font_desktop_paragraph: {{ settings.font_desktop_paragraph }};
+	{%- comment -%}
+      Global color
+    {%- endcomment -%}
+	--color_primary: {{ settings.color_primary }};
+    --color_welcome_desktop_bg: {{ settings.color_welcome_desktop_bg }};
+	--color_welcome_desktop_bg2: {{ settings.color_welcome_desktop_bg2 }};
+    --color_primary_hover: {{ settings.color_primary_hover }};
+    --color_secondary: {{ settings.color_secondary }};
+	--color_secondary_hover: {{ settings.color_secondary_hover }};
+	--color_success: {{ settings.color_success }};
+	--color_success_hover: {{ settings.color_success_hover }};
+	--color_warning: {{ settings.color_warning }};
+	--color_warning_hover: {{ settings.color_warning_hover }};
+	--color_alert: {{ settings.color_alert }};
+	--color_alert_hover: {{ settings.color_alert_hover }};
+	--color_light_gray: {{ settings.color_light_gray }};
+	--color_medium_gray: {{ settings.color_medium_gray }};
+	--color_dark_gray: {{ settings.color_dark_gray }};
+	{%- comment -%}
+      Mobile page color
+    {%- endcomment -%}
+	--color_page_bg: {{ settings.color_page_bg }};
+	--color_page_paragraph: {{ settings.color_page_paragraph }};
+	--color_page_heading: {{ settings.color_page_heading }};
+	--color_page_link: {{ settings.color_page_link }};
+	--color_page_link_hover: {{ settings.color_page_link_hover }};
+	--color_page_icon: {{ settings.color_page_icon }};
+	--color_page_border: {{ settings.color_page_border }};
+	{%- comment -%}
+      Desktop page color
+    {%- endcomment -%}
+	--color_desktop_page_bg: {{ settings.color_desktop_page_bg }};
+	--color_desktop_page_paragraph: {{ settings.color_desktop_page_paragraph }};
+	--color_desktop_page_heading: {{ settings.color_desktop_page_heading }};
+	--color_desktop_page_link: {{ settings.color_desktop_page_link }};
+	--color_desktop_page_link_hover: {{ settings.color_desktop_page_link_hover }};
+	--color_desktop_page_icon: {{ settings.color_desktop_page_icon }};
+	{%- comment -%}
+      Mobile header color
+    {%- endcomment -%}
+	--color_header_bg: {{ settings.color_header_bg }};
+	--color_header_color: {{ settings.color_header_color }};
+	{%- comment -%}
+      Desktop header color
+    {%- endcomment -%}
+	--color_header_desktop_bg: {{ settings.color_header_desktop_bg }};
+	--color_header_desktop_color: {{ settings.color_header_desktop_color }};
+	--color_header_desktop_border: {{ settings.color_header_desktop_border }};
+	--color_top_nav_desktop_color: {{ settings.color_top_nav_desktop_color }};
+	--color_top_nav_desktop_bg: {{ settings.color_top_nav_desktop_bg }};
+	--color_top_nav_desktop_border: {{ settings.color_top_nav_desktop_border }};
+	--color_top_nav_desktop_color_hover: {{ settings.color_top_nav_desktop_color_hover }};
+	--color_welcome_desktop_color: {{settings.color_welcome_desktop_color}};
+	--color_welcome_desktop_bg2: {{ settings.color_welcome_desktop_bg2 | default: 'rgba(0,0,0,0)' }};		
+	{%- comment -%}
+      Desktop breadcrumb
+    {%- endcomment -%}
+	--color_breadcrumb_desktop_bg: {{ settings.color_breadcrumb_desktop_bg }};
+	--color_breadcrumb_desktop_color: {{ settings.color_breadcrumb_desktop_color }};
+	--color_breadcrumb_desktop_hover_color: {{ settings.color_breadcrumb_desktop_hover_color }};
+	{%- comment -%}
+      Mobile footer color
+    {%- endcomment -%}
+	--color_footer_bg: {{ settings.color_footer_bg }};
+	--color_footer_color: {{ settings.color_footer_color }};
+	{%- comment -%}
+      Desktop footer color
+    {%- endcomment -%}
+	--color_footer_desktop_bg: {{ settings.color_footer_desktop_bg }};
+	--color_footer_desktop_color: {{ settings.color_footer_desktop_color }};
+	--color_footer_desktop_border: {{ settings.color_footer_desktop_border }};
+	--color_footer_desktop_title_color: {{ settings.color_footer_desktop_title_color }};
+	--color_footer_copyright_bg: {{ settings.color_footer_copyright_bg }};
+	--color_footer_copyright_color: {{settings.color_footer_copyright_color}};
+	{%- comment -%}
+	header Logo Dimension
+    {%- endcomment -%}
+	--logo_height: {{ settings.logo_height }}px;
+	--logo_weight: {{ settings.logo_weight }}px;
+	{%- comment -%}
+	Cookies bar
+    {%- endcomment -%}
+	--color_background: {{ settings.color_background }};
+	--color_title: {{ settings.color_title }};
+	
+	{%- comment -%}
+	mobile Header variables
+    {%- endcomment -%}
+	--dimension_mobile_height: {{ settings.dimension_mobile_height }}px;
+	{%- comment -%}
+	Ratting
+    {%- endcomment -%}
+	--rating-color-global: #fcc51e;
+	--rating-color-global-gray: #9c9da0;
+	--price-color-global:  #e80808;
+	--price-color-global-gray: #9c9da0;
+  }
+{% endstyle %}

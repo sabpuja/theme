@@ -1,0 +1,43 @@
+<!-- /snippets/theme-header-mobile-product.liquid -->
+<div class="grid-x align-middle">
+  <div class="cell auto">
+    <div class="flex-container align-middle" data-header-left>
+        <a class="header-button-back display-inline-block" data-header-back>
+          <svg class="svg-icon">
+            <use xlink:href="#icon-arrow-left" />
+          </svg>
+        </a>
+        <a class="header-icon-search display-inline-block" data-toggle="search-box"><em class="sli sli-magnifier"></em></a>
+        <div class="mobile-header-user-nav mobile-header-compare" data-compare-link-block>
+          <a href="/pages/compare" class="display-block">
+            <em class="sli sli-refresh">
+              <span class="header-counter-pill" data-compare-count></span>
+            </em>
+          </a>
+        </div>
+    </div>
+  </div>
+  <div class="cell shrink header-content flex-container flex-dir-column align-center-middle">
+    <div data-header-default>
+      <h2 class="product-header-title">{{ product.title }}</h2>
+    </div>
+  </div>
+  <div class="cell auto">
+    <div class="flex-container align-right cell-custom-header" data-header-right>
+      <div class="mobile-header-user-nav mobile-header-wishlist" data-wishlist-link-block>
+        <a href="/pages/wish-list" class="display-block">
+          <em class="sli sli-heart">
+            <span class="header-counter-pill" data-wishlist-count></span>
+          </em>
+        </a>
+      </div>
+      <div class="mini-cart mobile-header-user-nav display-inline-block">
+        <a class="display-block" data-toggle="mini-cart-info">
+          <em class="mini-cart-icon sli sli-handbag">
+            <span class="header-counter-pill" data-cart-total>{{ cart.item_count }}</span>
+          </em>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

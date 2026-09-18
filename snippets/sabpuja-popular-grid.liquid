@@ -1,0 +1,34 @@
+{% assign sp_popular_shown = 0 %}
+{% for product in products %}
+  {% if product.price > 0 and product.available %}
+    {% capture sp_popular_image %}{% render 'sabpuja-product-image-url', product: product %}{% endcapture %}
+    {% assign sp_popular_image = sp_popular_image | strip %}
+    <article class="sp2026-popular__card" data-sp2026-popular-card>
+      <a class="sp2026-popular__media" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
+        {% if sp_popular_image != blank %}
+          <img
+            class="sp2026-popular__image"
+            src="{{ sp_popular_image }}"
+            alt="{{ product.title | escape }} by Sabpuja"
+            width="720"
+            height="720"
+            loading="lazy"
+          >
+        {% else %}
+          <span class="sp2026-popular__placeholder">{{ product.title | escape }}</span>
+        {% endif %}
+      </a>
+      <div class="sp2026-popular__body">
+        <h3 class="sp2026-popular__name"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+        <p class="sp2026-popular__price">{{ product.price | money }}</p>
+        <a class="sp2026-popular__cta" href="{{ product.url }}">View Product →</a>
+      </div>
+    </article>
+    {% assign sp_popular_shown = sp_popular_shown | plus: 1 %}
+    {% if sp_popular_shown >= 8 %}{% break %}{% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if sp_popular_shown == 0 %}
+  <p class="sp2026-popular__empty">Popular products will appear here as eligible shop products become available.</p>
+{% endif %}

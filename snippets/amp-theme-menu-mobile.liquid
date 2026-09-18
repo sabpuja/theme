@@ -1,0 +1,179 @@
+<!-- /snippets/amp-theme-menu-mobile.liquid -->
+<div class="mobile-nav position-fixed-bottom hide-for-large" data-mobile-navigation>
+  <div class="grid-container fluid">
+    <div class="grid-x grid-margin-x">
+      <div class="cell auto text-center">
+        <a href="{{ shop.url }}/" class="display-inline-block mobile-nav-link">
+          <span class="display-block"><em class="sli sli-home"></em></span>
+          <span class="display-block">{{ 'general.text.home' | t }}</span>
+        </a>
+      </div>
+      <div class="cell auto text-center">
+        <a href="{{ shop.url }}/collections/all" class="display-inline-block mobile-nav-link">
+          <span class="display-block"><em class="sli sli-map"></em></span>
+          <span class="display-block">{{ 'general.text.store' | t }}</span>
+        </a>
+      </div>
+      {%- if shop.customer_accounts_enabled -%}
+        <div class="cell auto text-center">
+          <a href="{{ shop.url }}/account" class="display-inline-block mobile-nav-link" data-toggle="mobile-menu-logged">
+            <span class="display-block"><em class="sli sli-user"></em></span>
+            <span class="display-block">{{ 'general.text.account' | t }}</span>
+          </a>          
+        </div>
+      {%- endif -%}
+      <div class="cell auto text-center">
+        <a href="{{ shop.url }}/pages/contact" class="display-inline-block mobile-nav-link" data-toggle="mobile-menu-contact-dropup">
+          <span class="display-block"><em class="sli sli-location-pin"></em></span>
+          <span class="display-block">{{ 'general.text.contact' | t }}</span>
+        </a>
+      </div>
+      <div class="cell auto text-center">
+        <a class="display-inline-block mobile-nav-link" on="tap:quote-lb">
+          <span class="display-block"><em class="sli sli-options"></em></span>
+          <span class="display-block">{{ 'general.text.more' | t }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<amp-lightbox id="quote-lb" layout="nodisplay">
+<div id="mobile-menu-wrap" class="height-100">
+  <div class="header hide-for-large" data-header data-header-base>
+    <div class="grid-container fluid">
+      <div class="grid-x align-middle">
+        <div class="cell auto">
+          <div class="flex-container align-left" data-header-left>
+            <a class="header-button-back display-inline-block" on="tap:quote-lb.close">
+              <svg class="svg-icon">
+                <use xlink:href="#icon-arrow-left" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="cell shrink header-content flex-container flex-dir-column align-center-middle">
+          <div data-header-default>
+            <h2 class="header-title">
+              {{ 'general.text.more' | t }}
+            </h2>
+          </div>
+        </div>
+        <div class="cell auto">
+          <div class="flex-container align-right" data-header-right>
+            <a href="{{ shop.url }}/search" class="header-icon-search display-inline-block" data-toggle="search-box">
+              <em class="sli sli-magnifier"></em>
+            </a>
+            <div class="mini-cart display-inline-block">
+              <a class="mini-cart-text display-block" data-toggle="mini-cart-info">
+                <em class="mini-cart-icon sli sli-handbag">
+                  <span class="mini-cart-total" data-cart-total>{{ cart.item_count }}</span>
+                </em>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-container align-center-middle overflow-y-scroll overflow-x-hidden height-100">
+    <div class="margin-auto width-100">
+      {%- if section.settings.link_list != blank and linklists[section.settings.link_list] != empty -%}
+        <div class="text-center text-uppercase">
+          <ul class="mobile-menu-link vertical menu accordion-menu margin-horizontal-0 margin-bottom-2" data-accordion-menu data-submenu-toggle="false">
+            {%- for link in linklists[section.settings.link_list].links -%}
+              <li>
+                <a href="{{ link.url }}">{{ link.title }}</a>
+                {% if link.links != blank %}
+                  {%- assign child_links = link.links -%}
+                  <ul class="menu vertical nested margin-horizontal-0">
+                    {%- include 'menu-child' -%}
+                  </ul>
+                {%- elsif linklists[link.handle].links != empty and linklists[link.handle].links != blank -%}
+                  {%- assign child_links = linklists[link.handle].links -%}
+                  <ul class="menu vertical nested margin-horizontal-0">
+                    {%- include 'menu-child' -%}
+                  </ul>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+          <div class="mobile-menu-society grid-x grid-margin-x grid-margin-y align-center">
+            {%- if settings.social_twitter_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_twitter_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-twitter" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_facebook_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_facebook_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-facebook" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_pinterest_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_pinterest_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-pinterest" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_instagram_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_instagram_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-instagram" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_tumblr_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_tumblr_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-tumblr" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_snapchat_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_snapchat_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-snapchat" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_youtube_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_youtube_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-youtube" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+            {%- if settings.social_vimeo_link != blank -%}
+              <div class="cell shrink">
+                <a href="{{ settings.social_vimeo_link }}" target="_blank" class="mobile-menu-society-link display-block bordered rounded">
+                  <svg class="svg-icon">
+                    <use xlink:href="#icon-vimeo" />
+                  </svg>
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+</amp-lightbox>

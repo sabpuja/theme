@@ -1,0 +1,255 @@
+<div class="footer {% if settings.darkmode %}darkmode{% endif %}">
+  {% if section.settings.footermain_active %}
+  <div class="footer-maincontent">
+    <div class="grid-container">    
+      <div class="footer-maincontent-grid grid-x"> 
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'link2' -%}
+          {%- if block.settings.display == "" or block.settings.display == "show-for-large" -%}
+          <div class="cell show-for-large large-{{ block.settings.grid}}">
+            <div class="footer-linklist-2">
+              {%- if block.settings.title != blank -%}
+              <h3 class="footer-title">
+                {{ block.settings.title }}
+              </h3>
+              {%- endif -%}
+              <div class="footer-column-content">
+                <ul class="no-bullet linklist-content">
+                  {%- for link in linklists[block.settings.linklist1].links -%}
+                  <li>
+                    <a href="{{ link.url }}">{{ link.title | escape }}</a>           
+                  </li>
+                  {%- endfor -%}
+                </ul>
+                <ul class="no-bullet linklist-content">
+                  {%- for link in linklists[block.settings.linklist2].links -%}
+                  <li>
+                    <a href="{{ link.url }}">{{ link.title | escape }}</a>           
+                  </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </div>
+          </div>
+          {%- endif -%}
+          {%- if block.settings.display == "" or block.settings.display == "hide-for-large" -%}
+          <div class="cell hide-for-large">
+            <div class="accordion footer-linklist-2 footer-linklist-accordion" data-allow-all-closed="true" data-accordion>
+              <div class="accordion-item" data-accordion-item>
+                <a class="accordion-title footer-linklist-accordion-title">
+                  <span>{{ block.settings.title }}</span>
+                </a>
+                <div class="accordion-content padding-vertical-0" data-tab-content>
+                  <ul class="no-bullet footer-linklist-accordion-content margin-0">
+                    {%- for link in linklists[block.settings.linklist1].links -%}
+                    <li class="footer-linklist-accordion-item">
+                      <a href="{{ link.url }}">{{ link.title | escape }}</a>           
+                    </li>
+                    {%- endfor -%}
+                    {%- for link in linklists[block.settings.linklist2].links -%}
+                    <li class="footer-linklist-accordion-item">
+                      <a href="{{ link.url }}">{{ link.title | escape }}</a>           
+                    </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          {%- endif -%}
+          {%- elsif block.type == 'newsletter' -%}
+            {%- if block.settings.display == "" or block.settings.display == "show-for-large" -%}
+              <div class="cell show-for-large large-{{ block.settings.grid}}">
+                <div class="footer-about">
+                  {%- if block.settings.title != blank -%}
+                  <h3 class="footer-title">
+                    {{ block.settings.title }}
+                  </h3>
+                  {%- endif -%}                  
+                  <div class="footer-column-content">
+                    <div class="footer-information">
+                      {%- if block.settings.location != '' -%}
+                      <div class="location-area">
+                        <!-- <svg class="icon svg-icon"><use xlink:href="#icon-pin" /></svg> -->
+                        <em class="sli sli-location-pin"></em>
+                        <div class="content">{{ block.settings.location }}</div>
+                      </div>
+                      {%- endif -%}
+                      {%- if block.settings.phone != '' -%}
+                      <div class="phone-area">
+                        <!-- <svg class="icon svg-icon"><use xlink:href="#icon-phone" /></svg> -->
+                        <em class="sli sli-phone"></em>
+                        <div class="content">{{ block.settings.phone }}</div>
+                      </div>
+                      {%- endif -%}
+                      {%- if block.settings.email != '' -%}
+                      <div class="email-area">
+                        <!-- <svg class="icon svg-icon"><use xlink:href="#icon-envelope" /></svg> -->
+                        <em class="sli sli-envelope"></em>
+                        <div class="content">{{ block.settings.email }}</div>
+                      </div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+                <div class="footer-newsletter">
+                  {%- if block.settings.title2 != blank -%}
+                  <h3 class="newsletter-title">
+                    {{ block.settings.title2 }}
+                  </h3>
+                  {%- endif -%} 
+                  {%- if block.settings.desc != blank -%}
+                  <div class="newsletter-desc">
+                    {{ block.settings.desc }}
+                  </div>
+                  {%- endif -%}
+                  <form action="{{ block.settings.newsletter_action }}" method="post" target="_blank">  
+                    <div class="footer-newsletter-wrap"> 
+                      <input type="email" class="footer-newsletter-field" name="EMAIL" placeholder="{{ block.settings.newsletter_placeholder }}"/>
+                      <button type="submit" class="button footer-newsletter-button display-block width-100" name="subsrcibe">
+                        {{ block.settings.newsletter_actiontext }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+        	{%- endif -%}
+            {%- if block.settings.display == "" or block.settings.display == "hide-for-large" -%}
+              <div class="cell hide-for-large">
+                <div class="accordion footer-newsletter-mobile  footer-linklist-accordion" data-allow-all-closed="true" data-accordion>
+                  <div class="accordion-item" data-accordion-item>
+                    <a class="accordion-title footer-newsletter-title">
+                      <span>{{ block.settings.title }}</span>
+                    </a>
+                    <div class="accordion-content padding-vertical-0" data-tab-content>
+                      <div class="footer-column-content">
+                        {%- if block.settings.desc != blank -%}
+                        <div class="footer-desc">
+                          {{ block.settings.desc }}
+                        </div>
+                        {%- endif -%}
+                        <form action="{{ block.settings.newsletter_action }}" method="post" target="_blank">  
+                          <div class="footer-newsletter-wrap"> 
+                            <input type="email" class="footer-newsletter-field" name="EMAIL" placeholder="{{ block.settings.newsletter_placeholder }}"/>
+                            <button type="submit" class="button footer-newsletter-button display-block width-100" name="subsrcibe">
+                              {{ block.settings.newsletter_actiontext }}
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        	{%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  
+  {% if section.settings.footerpayment_active %}
+  <div class="footer-payment">
+    <div class="grid-container">   
+      <div class="footer-paymentcontent-grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'payment' %}
+            <div class="footer-payment-container flex-container">
+              {%- if block.settings.payment_1 != blank -%}
+              <div class="footer-payment-cell">
+                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.payment_1 |  img_url: 'x20' }}" class="footer-payment-logo lazyload" alt="{{ block.settings.payment_1.alt }}"/>
+              </div>
+              {%- endif -%}
+              {%- if block.settings.payment_2 != blank -%}
+              <div class="footer-payment-cell">
+                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.payment_2 |  img_url: 'x20' }}" class="footer-payment-logo lazyload" alt="{{ block.settings.payment_2.alt }}"/>
+              </div>
+              {%- endif -%}
+              {%- if block.settings.payment_3 != blank -%}
+              <div class="footer-payment-cell">
+                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.payment_3 |  img_url: 'x20' }}" class="footer-payment-logo lazyload" alt="{{ block.settings.payment_3.alt }}"/>
+              </div>
+              {%- endif -%}
+              {%- if block.settings.payment_4 != blank -%}
+              <div class="footer-payment-cell">
+                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.payment_4 |  img_url: 'x20' }}" class="footer-payment-logo lazyload" alt="{{ block.settings.payment_4.alt }}"/>
+              </div>
+              {%- endif -%}
+              {%- if block.settings.payment_5 != blank -%}
+              <div class="footer-payment-cell">
+                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.payment_5 |  img_url: 'x20' }}" class="footer-payment-logo lazyload" alt="{{ block.settings.payment_5.alt }}"/>
+              </div>
+              {%- endif -%}
+              {%- if block.settings.security_1 != blank or block.settings.security_2 != blank or block.settings.security_1 != blank -%}
+              <div class="footer-payment-security">
+                <div class="footer-payment-security-container flex-container align-middle">
+                  {%- if block.settings.security_1 != blank -%}
+                  <div class="footer-payment-security-cell">
+                    <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.security_1 |  img_url: 'x60' }}" class="footer-payment-security-logo lazyload" alt="{{ block.settings.security_1.alt }}"/>
+                  </div>
+                  {%- endif -%}
+                  {%- if block.settings.security_2 != blank -%}
+                  <div class="footer-payment-security-cell">
+                    <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.security_2 |  img_url: 'x60' }}" class="footer-payment-security-logo lazyload" alt="{{ block.settings.security_2.alt }}"/>
+                  </div>
+                  {%- endif -%}
+                  {%- if block.settings.security_3 != blank -%}
+                  <div class="footer-payment-security-cell">
+                    <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ block.settings.security_3 |  img_url: 'x60' }}" class="footer-payment-security-logo lazyload" alt="{{ block.settings.security_3.alt }}"/>
+                  </div>
+                  {%- endif -%}
+                </div>
+              </div>
+              {%- endif -%}
+              {%- assign payment_icons_available = 'amazon_payments,american_express,apple_pay,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,jcb,klarna,litecoin,maestro,master,paypal,stripe,shopify_pay,visa' | split: ',' -%}
+              {%- assign payments = block.settings.payments | remove: ' ' | split: ',' -%}
+              {%- for payment in payments -%}
+              {% if payment_icons_available contains payment %}
+              <div class="footer-payment-cell">
+                <img src="{{ 'icon-loader-clock.svg' | asset_url }}" data-src="{{ payment | payment_type_img_url }}"  class="footer-payment-logo lazyload" alt="{{ payment }}" />
+              </div>
+              {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+    
+  {% if section.settings.footerbottom_active %}
+  <div class="footer-bottom">
+    <div class="grid-container"> 
+      <div class="grid-x">
+        {%- for block in section.blocks -%}
+        {%- if block.type == 'scroll' -%}
+        <div class="cell small-6 large-4 xlarge-{{ block.settings.grid }} {{ block.settings.display }}">
+          <div class="scroll-to-top">       
+            <div class="button-to-top-text">
+              {{ 'general.accessibility.scroll_to_top' |t}}
+              <em class="sli sli-arrow-up"></em>
+            </div>
+          </div>
+        </div>
+        {%- elsif block.type == 'social' -%}
+        <div class="cell large-{{ block.settings.grid}}  {{ block.settings.display }}">
+          <div class="footer-socialicons">
+            {%- include 'social-media' -%}
+          </div>
+        </div>
+        {%- elsif block.type == 'copyright' -%}
+        <div class="cell small-6 large-4 xlarge-{{ block.settings.grid }} {{ block.settings.display }}">
+          <div class="footer-copyright">
+            <div class="copyright">&copy; {{ 'now' | date: "%Y" }} {{ shop.name | link_to: '/' }}</div> 
+          </div>
+        </div>
+        {%- endif -%}
+        {%- endfor -%}
+      </div> 
+    </div>  
+  </div>
+  {% endif %}
+</div>
+ 
