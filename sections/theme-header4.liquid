@@ -14,7 +14,7 @@
         {% if section.settings.logo != blank %}
           <img src="{{ section.settings.logo | image_url: width: 420 }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" alt="Sabpuja" loading="eager">
         {% else %}
-          <span class="sp-brand-word">Sabpuja</span>
+          <img src="{{ 'sabpuja-logo-horizontal.svg' | asset_url }}" width="280" height="93" alt="Sabpuja" loading="eager">
         {% endif %}
       </a>
 
