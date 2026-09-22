@@ -1,0 +1,444 @@
+<link href="{{ 'sabpuja-daily-puja-landing.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+
+{% assign sp_variant = product.selected_or_first_available_variant %}
+{% assign sp_reviews = '01,02,03,04,05,06' | split: ',' %}
+
+<div class="sp-daily" data-sp-daily data-variant-available="{{ sp_variant.available }}">
+  <div class="sp-daily__announcement">
+    <span>Daily Puja Kit</span>
+    <span aria-hidden="true">•</span>
+    <span>Delhi NCR delivery in 1–3 business days</span>
+  </div>
+
+  <main>
+    <section class="sp-daily__hero">
+      <div class="sp-daily__hero-media">
+        <img
+          src="{{ 'sabpuja-daily-puja-kit-hero.webp' | asset_url }}"
+          alt="Sabpuja Daily Puja Kit arranged near a warm home mandir"
+          width="1448"
+          height="1086"
+          loading="eager"
+          fetchpriority="high">
+      </div>
+
+      <div class="sp-daily__hero-copy">
+        <nav class="sp-daily__breadcrumb" aria-label="Breadcrumb">
+          <a href="{{ routes.root_url }}">Home</a>
+          <span>/</span>
+          <span>{{ product.title }}</span>
+        </nav>
+
+        <p class="sp-daily__eyebrow">Everyday worship, thoughtfully prepared</p>
+        <h1>Daily Puja, Made Simple.</h1>
+        <p class="sp-daily__lede">Keep the essentials for everyday home worship together in one ready kit—easy to store, easy to reach, and easy to make part of your daily routine.</p>
+
+        <div class="sp-daily__hero-points" aria-label="Daily Puja Kit highlights">
+          <span>{% render 'sabpuja-icon', name: 'package' %} 18 everyday puja essentials</span>
+          <span>{% render 'sabpuja-icon', name: 'home' %} Designed for home mandir use</span>
+          <span>{% render 'sabpuja-icon', name: 'truck' %} Delhi NCR · 1–3 business days</span>
+        </div>
+
+        <div class="sp-daily__hero-actions">
+          <a class="sp-daily__btn sp-daily__btn--primary" href="#daily-puja-buy">Buy Daily Puja Kit</a>
+          <a class="sp-daily__btn sp-daily__btn--secondary" href="#daily-puja-contents">See what’s included</a>
+        </div>
+
+        <div class="sp-daily__trustline">
+          <span>Prepaid online</span>
+          <span>Sabpuja support</span>
+          <span>Existing customer review stack</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="sp-daily__value-strip" aria-label="Why Daily Puja Kit">
+      <article>
+        {% render 'sabpuja-icon', name: 'sparkles' %}
+        <div><strong>Ready when you are</strong><span>No need to gather common essentials one by one.</span></div>
+      </article>
+      <article>
+        {% render 'sabpuja-icon', name: 'package' %}
+        <div><strong>One organized kit</strong><span>A simple format for keeping daily puja items together.</span></div>
+      </article>
+      <article>
+        {% render 'sabpuja-icon', name: 'gift' %}
+        <div><strong>Thoughtful for home or gifting</strong><span>A practical devotional choice for families and loved ones.</span></div>
+      </article>
+    </section>
+
+    <section class="sp-daily__buy-wrap" id="daily-puja-buy">
+      <div class="sp-daily__buy-card">
+        <div>
+          <p class="sp-daily__eyebrow">Daily Puja Kit</p>
+          <h2>Everything together. One simple start.</h2>
+          <p class="sp-daily__buy-copy">A compact everyday puja kit prepared for regular home worship, aarti and devotional routines.</p>
+        </div>
+
+        <div class="sp-daily__buy-panel">
+          <div class="sp-daily__price-row">
+            <div>
+              <span>Current demo price</span>
+              <strong>{{ sp_variant.price | money }}</strong>
+            </div>
+            {% if sp_variant.sku != blank %}<span class="sp-daily__sku">SKU {{ sp_variant.sku }}</span>{% endif %}
+          </div>
+
+          {% form 'product', product, class: 'sp-daily__form', data-sp-daily-form: '' %}
+            <input type="hidden" name="id" value="{{ sp_variant.id }}">
+
+            <div class="sp-daily__purchase-row">
+              <div>
+                <label for="DailyQty-{{ section.id }}">Quantity</label>
+                <div class="sp-daily__qty">
+                  <button type="button" data-daily-minus aria-label="Decrease quantity">−</button>
+                  <input id="DailyQty-{{ section.id }}" type="number" name="quantity" value="1" min="1" inputmode="numeric" data-daily-qty>
+                  <button type="button" data-daily-plus aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+              <div class="sp-daily__total">
+                <span>Total</span>
+                <strong data-daily-total>{{ sp_variant.price | money }}</strong>
+              </div>
+            </div>
+
+            <button type="submit" class="sp-daily__add">
+              {% render 'sabpuja-icon', name: 'shop' %}
+              <span>Add to Cart</span>
+            </button>
+          {% endform %}
+
+          <div class="sp-daily__buy-reassurance">
+            <span>{% render 'sabpuja-icon', name: 'truck' %} 1–3 business days in Delhi NCR</span>
+            <span>{% render 'sabpuja-icon', name: 'info' %} Prepaid online only</span>
+          </div>
+
+          {% unless sp_variant.available %}
+            <p class="sp-daily__demo-note">Storefront demo preview: the cart interaction is enabled for presentation while commercial inventory is being finalized.</p>
+          {% endunless %}
+        </div>
+      </div>
+    </section>
+
+    <section class="sp-daily__contents" id="daily-puja-contents">
+      <div class="sp-daily__section-head">
+        <p class="sp-daily__eyebrow">What’s inside</p>
+        <h2>18 essentials for an easier daily puja setup.</h2>
+        <p>Built around commonly used home-puja samagri so the everyday basics stay organized and close at hand.</p>
+      </div>
+
+      <div class="sp-daily__contents-layout">
+        <figure class="sp-daily__contents-image">
+          <img
+            src="{{ 'sabpuja-daily-puja-kit-contents.webp' | asset_url }}"
+            alt="Sabpuja Daily Puja Kit flat lay showing 18 included puja essentials"
+            width="1254"
+            height="1254"
+            loading="lazy"
+            decoding="async">
+        </figure>
+
+        <!-- Demo assortment: replace quantities/content when the final commercial BOM is approved. -->
+        <div class="sp-daily__contents-list">
+          <div><b>01</b><span><strong>Gangajal</strong><small>100 ml</small></span></div>
+          <div><b>02</b><span><strong>Gulabjal</strong><small>100 ml</small></span></div>
+          <div><b>03</b><span><strong>Agarbatti / Dhoop</strong><small>20–25 sticks</small></span></div>
+          <div><b>04</b><span><strong>Roli / Kumkum</strong><small>25 g</small></span></div>
+          <div><b>05</b><span><strong>Haldi</strong><small>25 g</small></span></div>
+          <div><b>06</b><span><strong>Chandan</strong><small>25 g</small></span></div>
+          <div><b>07</b><span><strong>Puja Ghee</strong><small>100 g</small></span></div>
+          <div><b>08</b><span><strong>Honey</strong><small>50 g</small></span></div>
+          <div><b>09</b><span><strong>Akshat</strong><small>50 g</small></span></div>
+          <div><b>10</b><span><strong>Kapoor</strong><small>25 g</small></span></div>
+          <div><b>11</b><span><strong>Cotton Wicks</strong><small>30 pcs</small></span></div>
+          <div><b>12</b><span><strong>Supari</strong><small>5 pcs</small></span></div>
+          <div><b>13</b><span><strong>Laung</strong><small>10 pcs</small></span></div>
+          <div><b>14</b><span><strong>Elaichi</strong><small>10 pcs</small></span></div>
+          <div><b>15</b><span><strong>Mishri</strong><small>50 g</small></span></div>
+          <div><b>16</b><span><strong>Mauli / Kalava</strong><small>1 roll</small></span></div>
+          <div><b>17</b><span><strong>Matchbox</strong><small>1 pc</small></span></div>
+          <div><b>18</b><span><strong>Puja Diya</strong><small>1 pc</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sp-daily__benefits">
+      <div class="sp-daily__section-head sp-daily__section-head--center">
+        <p class="sp-daily__eyebrow">Made for everyday rhythm</p>
+        <h2>Less searching. More time for your puja.</h2>
+      </div>
+
+      <div class="sp-daily__benefit-grid">
+        <article>
+          <span class="sp-daily__benefit-icon">{% render 'sabpuja-icon', name: 'clock' %}</span>
+          <h3>Saves setup time</h3>
+          <p>Keep frequently used puja essentials in one place instead of gathering items before every prayer.</p>
+        </article>
+        <article>
+          <span class="sp-daily__benefit-icon">{% render 'sabpuja-icon', name: 'package' %}</span>
+          <h3>Keeps things organized</h3>
+          <p>A clear kit format makes the puja space simpler to maintain and easier to restock over time.</p>
+        </article>
+        <article>
+          <span class="sp-daily__benefit-icon">{% render 'sabpuja-icon', name: 'home' %}</span>
+          <h3>Made for home worship</h3>
+          <p>A practical everyday assortment for regular prayer, aarti and your family’s customary devotional routine.</p>
+        </article>
+        <article>
+          <span class="sp-daily__benefit-icon">{% render 'sabpuja-icon', name: 'gift' %}</span>
+          <h3>Easy to gift</h3>
+          <p>A thoughtful, useful devotional gift for parents, elders, newly set-up homes and loved ones.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="sp-daily__story">
+      <div class="sp-daily__story-copy">
+        <p class="sp-daily__eyebrow">Prepared with care</p>
+        <h2>See the details before it reaches your mandir.</h2>
+        <p>Clear jars, labeled essentials and a neat presentation make it easier to understand what you have and reach for what you need.</p>
+        <ul>
+          <li>Easy-to-recognize everyday essentials</li>
+          <li>Neat, compact presentation</li>
+          <li>Built around repeat home-puja use</li>
+        </ul>
+      </div>
+      <div class="sp-daily__story-media">
+        <img
+          src="{{ 'sabpuja-daily-puja-kit-detail.webp' | asset_url }}"
+          alt="Close-up of Sabpuja Daily Puja Kit packaging and puja essentials"
+          width="1254"
+          height="1254"
+          loading="lazy"
+          decoding="async">
+      </div>
+    </section>
+
+    <section class="sp-daily__how">
+      <div class="sp-daily__section-head sp-daily__section-head--center">
+        <p class="sp-daily__eyebrow">How it fits into your day</p>
+        <h2>A simple three-step daily routine.</h2>
+      </div>
+      <ol>
+        <li><span>1</span><div><strong>Keep it near your home mandir</strong><p>Store the kit together so the basics are ready when it is time for puja.</p></div></li>
+        <li><span>2</span><div><strong>Use what your tradition calls for</strong><p>Select the relevant samagri for your family’s regular prayer or aarti practice.</p></div></li>
+        <li><span>3</span><div><strong>Replenish as needed</strong><p>Continue your routine and replace consumable items as they are used.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="sp-daily__lifestyle">
+      <div class="sp-daily__lifestyle-media">
+        <img
+          src="{{ 'sabpuja-daily-puja-kit-lifestyle.webp' | asset_url }}"
+          alt="Sabpuja Daily Puja Kit being used in a calm home puja setting"
+          width="1448"
+          height="1086"
+          loading="lazy"
+          decoding="async">
+      </div>
+      <div class="sp-daily__lifestyle-copy">
+        <p class="sp-daily__eyebrow">For the everyday moments</p>
+        <h2>Prepared to feel at home in your puja space.</h2>
+        <p>The Daily Puja Kit is designed around practical everyday worship—not complicated instructions. Follow your customary family practice or priest guidance where appropriate.</p>
+        <a class="sp-daily__text-link" href="#daily-puja-buy">Choose your quantity <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="sp-daily__reviews" aria-labelledby="daily-reviews-title">
+      <div class="sp-daily__section-head sp-daily__reviews-head">
+        <div>
+          <p class="sp-daily__eyebrow">Sabpuja customer stories</p>
+          <h2 id="daily-reviews-title">The review stack you already know.</h2>
+        </div>
+        <div class="sp-daily__review-controls">
+          <button type="button" data-daily-review-prev aria-label="Previous review">←</button>
+          <button type="button" data-daily-review-next aria-label="Next review">→</button>
+        </div>
+      </div>
+      <div class="sp-daily__review-track" data-daily-review-track tabindex="0">
+        {% for review_number in sp_reviews %}
+          {% capture review_asset %}sabpuja-customer-review-{{ review_number }}.webp{% endcapture %}
+          <article class="sp-daily__review-card">
+            <img
+              src="{{ review_asset | asset_url }}"
+              alt="Sabpuja customer review card {{ forloop.index }} of 6"
+              width="1448"
+              height="1086"
+              loading="lazy"
+              decoding="async">
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="sp-daily__faq">
+      <div class="sp-daily__section-head">
+        <p class="sp-daily__eyebrow">Questions before you buy</p>
+        <h2>Daily Puja Kit FAQ</h2>
+      </div>
+      <div class="sp-daily__faq-grid">
+        <details open>
+          <summary>What is included in the Daily Puja Kit?</summary>
+          <p>The current demo assortment presents 18 commonly used home-puja essentials, shown in the contents section above. Final pack details will be updated once the commercial assortment is confirmed.</p>
+        </details>
+        <details>
+          <summary>Is it suitable for everyday home puja?</summary>
+          <p>Yes. The kit is positioned for regular home worship, aarti and everyday devotional routines. Ritual practices vary by family tradition.</p>
+        </details>
+        <details>
+          <summary>Where do you deliver?</summary>
+          <p>This offer currently targets Delhi NCR only, with an estimated delivery time of 1–3 business days.</p>
+        </details>
+        <details>
+          <summary>Can I order more than one?</summary>
+          <p>Yes. Use the quantity controls in the buy section to increase or reduce the number of kits before adding to cart.</p>
+        </details>
+        <details>
+          <summary>Can I gift the kit?</summary>
+          <p>Yes. Its organized presentation makes it suitable as a practical devotional gift for family members and loved ones.</p>
+        </details>
+        <details>
+          <summary>How can I contact Sabpuja?</summary>
+          <p>Email <a href="mailto:support@sabpuja.com">support@sabpuja.com</a> or call <a href="tel:+919667819241">+91 96678 19241</a>, Monday–Saturday, 10am–6pm IST.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="sp-daily__final">
+      <div>
+        <p class="sp-daily__eyebrow">Keep the essentials ready</p>
+        <h2>Make daily puja preparation one less thing to think about.</h2>
+        <p>Choose your quantity, add the kit to your cart, and keep your everyday puja essentials together.</p>
+      </div>
+      <a class="sp-daily__btn sp-daily__btn--primary" href="#daily-puja-buy">Buy Daily Puja Kit</a>
+    </section>
+  </main>
+
+  <div class="sp-daily__drawer" data-daily-drawer aria-hidden="true">
+    <button class="sp-daily__drawer-backdrop" type="button" data-daily-close aria-label="Close cart preview"></button>
+    <aside class="sp-daily__drawer-panel" aria-label="Cart preview">
+      <div class="sp-daily__drawer-head">
+        <div><strong>Added to cart</strong><span data-daily-drawer-mode></span></div>
+        <button type="button" data-daily-close aria-label="Close">×</button>
+      </div>
+      <div class="sp-daily__drawer-product">
+        <img src="{{ 'sabpuja-daily-puja-kit-hero.webp' | asset_url }}" alt="" width="96" height="72">
+        <div><strong>{{ product.title }}</strong><span data-daily-drawer-qty>Qty 1</span></div>
+        <strong data-daily-drawer-price>{{ sp_variant.price | money }}</strong>
+      </div>
+      <div class="sp-daily__drawer-summary"><span>Total</span><strong data-daily-drawer-total>{{ sp_variant.price | money }}</strong></div>
+      {% if sp_variant.available %}
+        <a class="sp-daily__drawer-checkout" href="/checkout">Checkout</a>
+      {% else %}
+        <button class="sp-daily__drawer-checkout sp-daily__drawer-checkout--demo" type="button" disabled>Checkout enabled after inventory approval</button>
+      {% endif %}
+      <p>Prepaid online · Delhi NCR · 1–3 business days</p>
+    </aside>
+  </div>
+
+  <div class="sp-daily__sticky">
+    <div><span>{{ product.title }}</span><strong>{{ sp_variant.price | money }}</strong></div>
+    <a href="#daily-puja-buy">Choose quantity</a>
+  </div>
+</div>
+
+<script>
+(() => {
+  const root = document.querySelector('[data-sp-daily]');
+  if (!root || root.dataset.ready === 'true') return;
+  root.dataset.ready = 'true';
+
+  const form = root.querySelector('[data-sp-daily-form]');
+  const qty = root.querySelector('[data-daily-qty]');
+  const total = root.querySelector('[data-daily-total]');
+  const drawer = root.querySelector('[data-daily-drawer]');
+  const priceCents = {{ sp_variant.price | default: 0 }};
+  const available = {{ sp_variant.available | json }};
+  const money = (cents) => new Intl.NumberFormat('en-IN', {style:'currency', currency:'INR', maximumFractionDigits:2}).format(cents / 100);
+
+  const readQty = () => {
+    const value = Math.max(1, parseInt(qty?.value || '1', 10) || 1);
+    if (qty) qty.value = value;
+    return value;
+  };
+
+  const refresh = () => {
+    if (total) total.textContent = money(priceCents * readQty());
+  };
+
+  root.querySelector('[data-daily-minus]')?.addEventListener('click', () => {
+    if (qty) qty.value = Math.max(1, readQty() - 1);
+    refresh();
+  });
+  root.querySelector('[data-daily-plus]')?.addEventListener('click', () => {
+    if (qty) qty.value = readQty() + 1;
+    refresh();
+  });
+  qty?.addEventListener('change', refresh);
+
+  const openDrawer = (count, cart) => {
+    if (!drawer) return;
+    const lineTotal = cart?.items?.[cart.items.length - 1]?.final_line_price || priceCents * count;
+    const cartTotal = cart?.total_price || priceCents * count;
+    drawer.querySelector('[data-daily-drawer-qty]').textContent = 'Qty ' + count;
+    drawer.querySelector('[data-daily-drawer-price]').textContent = money(lineTotal);
+    drawer.querySelector('[data-daily-drawer-total]').textContent = money(cartTotal);
+    drawer.querySelector('[data-daily-drawer-mode]').textContent = available ? 'Your cart is ready.' : 'Demo cart preview — inventory is not yet commercially activated.';
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('sp-daily-lock');
+  };
+
+  const closeDrawer = () => {
+    drawer?.classList.remove('is-open');
+    drawer?.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('sp-daily-lock');
+  };
+
+  root.querySelectorAll('[data-daily-close]').forEach((button) => button.addEventListener('click', closeDrawer));
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const count = readQty();
+    const button = form.querySelector('.sp-daily__add');
+    if (!button) return;
+
+    if (!available) {
+      openDrawer(count, null);
+      return;
+    }
+
+    const original = button.innerHTML;
+    button.disabled = true;
+    button.textContent = 'Adding…';
+
+    try {
+      const addResponse = await fetch('/cart/add.js', {method:'POST', headers:{Accept:'application/json'}, body:new FormData(form)});
+      if (!addResponse.ok) throw new Error('Cart add failed');
+      const cartResponse = await fetch('/cart.js', {headers:{Accept:'application/json'}});
+      if (!cartResponse.ok) throw new Error('Cart fetch failed');
+      openDrawer(count, await cartResponse.json());
+    } catch (error) {
+      form.submit();
+      return;
+    } finally {
+      button.disabled = false;
+      button.innerHTML = original;
+    }
+  });
+
+  const track = root.querySelector('[data-daily-review-track]');
+  const step = () => {
+    const card = track?.querySelector('.sp-daily__review-card');
+    if (!card || !track) return 320;
+    const styles = getComputedStyle(track);
+    return card.getBoundingClientRect().width + (parseFloat(styles.gap) || 0);
+  };
+  root.querySelector('[data-daily-review-prev]')?.addEventListener('click', () => track?.scrollBy({left:-step(), behavior:'smooth'}));
+  root.querySelector('[data-daily-review-next]')?.addEventListener('click', () => track?.scrollBy({left:step(), behavior:'smooth'}));
+})();
+</script>
+
+{% schema %}
+{"name":"Daily Puja Landing","settings":[]}
+{% endschema %}
