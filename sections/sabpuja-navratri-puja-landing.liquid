@@ -8,7 +8,7 @@
     <section class="sp-navratri__hero sp-navratri__module" data-reveal>
       <div class="sp-navratri__hero-media">
         <img
-          src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-banner_d5ca8f09-8c84-44c4-b221-1d9e3bce552e.webp?v=1789736745"
+          src="{{ 'sabpuja-navratri-puja-kit-hero.webp' | asset_url }}"
           alt="Sabpuja Navratri Puja Kit arranged near a warm home mandir"
           width="1448"
           height="1086"
@@ -172,10 +172,10 @@
       <div class="sp-navratri__contents-layout">
         <figure class="sp-navratri__contents-image">
           <img
-            src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-featured-card_859b2ecc-6aa8-44b4-b53a-2c4f0e6aa90f.webp?v=1789736745"
-            alt="Sabpuja Navratri Puja Kit festive presentation"
-            width="1254"
-            height="1254"
+            src="{{ 'sabpuja-navratri-puja-kit-contents.webp' | asset_url }}"
+            alt="Sabpuja Navratri Puja Kit contents arranged clearly for festival preparation"
+            width="1448"
+            height="1086"
             loading="lazy"
             decoding="async">
           <figcaption><span>✨</span> Festival basics at a glance</figcaption>
@@ -219,10 +219,10 @@
       </div>
       <div class="sp-navratri__story-media">
         <img
-          src="{{ 'sabpuja-upcoming-festivals-navratri-01.webp' | asset_url }}"
-          alt="Navratri festival preparation visual"
-          width="1254"
-          height="1254"
+          src="{{ 'sabpuja-navratri-puja-kit-detail.webp' | asset_url }}"
+          alt="Close-up detail of Sabpuja Navratri Puja Kit packaging and puja essentials"
+          width="1448"
+          height="1086"
           loading="lazy"
           decoding="async">
       </div>
@@ -246,8 +246,8 @@
     <section class="sp-navratri__lifestyle sp-navratri__module" data-reveal>
       <div class="sp-navratri__lifestyle-media">
         <img
-          src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-banner_d5ca8f09-8c84-44c4-b221-1d9e3bce552e.webp?v=1789736745"
-          alt="Sabpuja Navratri Puja Kit festive home-puja presentation"
+          src="{{ 'sabpuja-navratri-puja-kit-lifestyle.webp' | asset_url }}"
+          alt="Family performing aarti with the Sabpuja Navratri Puja Kit in a warm home mandir setting"
           width="1448"
           height="1086"
           loading="lazy"
@@ -514,7 +514,7 @@
         </figure>
         <aside class="sp-navratri__lightbox-review sp-navratri__lightbox-review--product">
           <span class="sp-navratri__eyebrow">Navratri Puja Kit</span>
-          <img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-banner_d5ca8f09-8c84-44c4-b221-1d9e3bce552e.webp?v=1789736745" alt="Navratri Puja Kit" width="1448" height="1086" loading="lazy" decoding="async">
+          <img src="{{ 'sabpuja-navratri-puja-kit-hero.webp' | asset_url }}" alt="Navratri Puja Kit" width="1448" height="1086" loading="lazy" decoding="async">
           <h3>Everything together. One simple start.</h3>
           <p>View the full review image while keeping the product context visible beside it.</p>
           <a class="sp-navratri__btn sp-navratri__btn--primary" href="#navratri-puja-buy" data-lightbox-close>Choose quantity</a>
@@ -531,7 +531,7 @@
         <button type="button" data-navratri-close aria-label="Close">×</button>
       </div>
       <div class="sp-navratri__drawer-product">
-        <img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-banner_d5ca8f09-8c84-44c4-b221-1d9e3bce552e.webp?v=1789736745" alt="" width="96" height="72">
+        <img src="{{ 'sabpuja-navratri-puja-kit-hero.webp' | asset_url }}" alt="" width="96" height="72">
         <div><strong>{{ product.title }}</strong><span data-navratri-drawer-qty>Qty 1</span></div>
         <strong data-navratri-drawer-price>₹{{ sp_variant.price | money_without_currency }}</strong>
       </div>
