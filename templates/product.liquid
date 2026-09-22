@@ -1,2 +1,6 @@
 <!-- Sabpuja staging product template -->
-{% section 'sabpuja-product' %}
+{% if product.handle == 'daily-puja-kit' %}
+  {% section 'sabpuja-daily-puja-landing' %}
+{% else %}
+  {% section 'sabpuja-product' %}
+{% endif %}
