@@ -35,6 +35,10 @@
         <div class="sp-zodiac__sign-orbit" aria-hidden="true">
           <span data-zodiac-symbol>♈</span>
         </div>
+        <div class="sp-zodiac__hero-media-meta">
+          <span><small>Price</small><strong data-zodiac-price>₹2,499</strong></span>
+          <span><small>SKU</small><strong data-zodiac-sku>SP-AST-ARIES</strong></span>
+        </div>
       </div>
 
       <div class="sp-zodiac__hero-copy">
@@ -298,6 +302,9 @@
 
   const keyByHandle = Object.fromEntries(Object.entries(data).map(([key,value]) => [value.handle,key]));
   const getInitial = () => {
+    const url = new URL(window.location.href);
+    const signParam = url.searchParams.get('sign');
+    if (signParam && data[signParam]) return signParam;
     const pathHandle = window.location.pathname.split('/').filter(Boolean).pop();
     return keyByHandle[pathHandle] || keyByHandle[root.dataset.currentHandle] || 'aries';
   };
@@ -372,6 +379,7 @@
     if(updateUrl){
       const url=new URL(window.location.href);
       url.pathname='/products/'+z.handle;
+      url.searchParams.set('sign',key);
       history.pushState({zodiac:key},'',url.pathname+url.search+url.hash);
     }
   };
@@ -408,8 +416,10 @@
   root.querySelectorAll('[data-zodiac-close]').forEach(btn=>btn.addEventListener('click',closeDrawer));
 
   window.addEventListener('popstate',()=>{
+    const url=new URL(window.location.href);
+    const signParam=url.searchParams.get('sign');
     const handle=window.location.pathname.split('/').filter(Boolean).pop();
-    render(keyByHandle[handle]||'aries',{updateUrl:false});
+    render((signParam&&data[signParam]?signParam:keyByHandle[handle])||'aries',{updateUrl:false});
   });
 
   const prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
