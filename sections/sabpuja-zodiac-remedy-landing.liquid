@@ -6,7 +6,7 @@
       <div>
         <p class="sp-zodiac__eyebrow">12 zodiac signs · one personalized experience</p>
         <h1>Find the Remedy Kit for Your Zodiac Sign</h1>
-        <p>Select your sign to explore the matching Sabpuja kit, sign-specific devotional items, product imagery and purchase details—without leaving the page.</p>
+        <p>Choose your sign and the page transforms around it—product imagery, devotional context, sign-specific items, SKU, price and cart state all update together without a reload.</p>
       </div>
       <div class="sp-zodiac__intro-note">
         {% render 'sabpuja-icon', name: 'sparkles' %}
@@ -190,13 +190,13 @@
 
     <section class="sp-zodiac__presentation sp-zodiac__module" data-reveal>
       <div class="sp-zodiac__presentation-media">
-        <img data-zodiac-hero-secondary src="" alt="" width="1600" height="1200" loading="lazy" decoding="async">
+        <img src="{{ 'sabpuja-zodiac-premium-detail.webp' | asset_url }}" alt="Close-up of Sabpuja Zodiac Remedy Kit premium presentation and ritual materials" width="1448" height="1086" loading="lazy" decoding="async">
       </div>
       <div class="sp-zodiac__presentation-copy">
         <span class="sp-zodiac__mini-badge">{% render 'sabpuja-icon', name: 'package' %} Premium presentation</span>
-        <p class="sp-zodiac__eyebrow">Designed as one collection</p>
-        <h2>One visual language across all twelve signs.</h2>
-        <p>Every zodiac kit follows the same Sabpuja presentation system—premium magnetic box, matte finish, gold-foil detailing, zodiac sleeve and organized insert—while the sign-specific assortment changes with your selection.</p>
+        <p class="sp-zodiac__eyebrow">Premium details, up close</p>
+        <h2>Thoughtful presentation from the box to the ritual materials.</h2>
+        <p>The shared Zodiac range uses one coherent presentation system—premium box, organized insert, devotional materials and sign-specific visual cues—so each kit feels distinct while still belonging to the same Sabpuja family.</p>
         <div class="sp-zodiac__presentation-points">
           <span>{% render 'sabpuja-icon', name: 'check' %} 350 GSM zodiac sleeve</span>
           <span>{% render 'sabpuja-icon', name: 'check' %} Custom die-cut EVA insert</span>
@@ -204,6 +204,23 @@
           <span>{% render 'sabpuja-icon', name: 'check' %} Guidance & authenticity cards</span>
         </div>
       </div>
+    </section>
+
+    <section class="sp-zodiac__lifestyle sp-zodiac__module" data-reveal>
+      <div class="sp-zodiac__lifestyle-copy">
+        <span class="sp-zodiac__mini-badge">{% render 'sabpuja-icon', name: 'home' %} Home-puja context</span>
+        <p class="sp-zodiac__eyebrow">A calm devotional moment</p>
+        <h2>Designed to feel at home in your everyday puja space.</h2>
+        <p>The Zodiac Remedy Kit is presented as an organized devotional collection you can keep near your mandir and use according to your family tradition or priest guidance.</p>
+        <div class="sp-zodiac__lifestyle-points">
+          <span>{% render 'sabpuja-icon', name: 'home' %}<b>Home-ready</b><small>Compact enough for a personal mandir or prayer space.</small></span>
+          <span>{% render 'sabpuja-icon', name: 'gift' %}<b>Giftable</b><small>Premium presentation makes the range suitable for thoughtful devotional gifting.</small></span>
+          <span>{% render 'sabpuja-icon', name: 'sparkles' %}<b>Personal</b><small>The selected sign changes the kit while the experience stays consistent.</small></span>
+        </div>
+      </div>
+      <figure class="sp-zodiac__lifestyle-media">
+        <img src="{{ 'sabpuja-zodiac-lifestyle.webp' | asset_url }}" alt="Woman using a Sabpuja Zodiac Remedy Kit in a calm home puja setting" width="1448" height="1086" loading="lazy" decoding="async">
+      </figure>
     </section>
 
     <section class="sp-zodiac__family sp-zodiac__module" data-reveal>
@@ -215,19 +232,24 @@
         <p>Every card below uses the actual Shopify product photography. Select any sign to switch the entire landing-page experience instantly.</p>
       </div>
 
+      <figure class="sp-zodiac__family-visual">
+        <img src="{{ 'sabpuja-zodiac-family-collection.webp' | asset_url }}" alt="Sabpuja Zodiac Remedy Kit family collection showing all twelve signs" width="1448" height="1086" loading="lazy" decoding="async">
+        <figcaption><strong>12 signs, one family.</strong><span>Select any kit below to personalize the entire page.</span></figcaption>
+      </figure>
+
       <div class="sp-zodiac__family-track" aria-label="All Zodiac Remedy Kits">
-        <button type="button" data-sign="aries"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/aries-mesha-remedy-kit-hero-01.webp?v=1789526666" alt="Aries Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♈ Aries</b><small>Mesha</small></span></button>
-        <button type="button" data-sign="taurus"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/taurus-vrishabha-remedy-kit-hero-01.webp?v=1789526835" alt="Taurus Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♉ Taurus</b><small>Vrishabha</small></span></button>
-        <button type="button" data-sign="gemini"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/gemini-mithuna-remedy-kit-hero-01.webp?v=1789526855" alt="Gemini Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♊ Gemini</b><small>Mithuna</small></span></button>
-        <button type="button" data-sign="cancer"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/cancer-karka-remedy-kit-hero-01.webp?v=1789526880" alt="Cancer Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♋ Cancer</b><small>Karka</small></span></button>
-        <button type="button" data-sign="leo"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/leo-simha-remedy-kit-hero-01.webp?v=1789526900" alt="Leo Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♌ Leo</b><small>Simha</small></span></button>
-        <button type="button" data-sign="virgo"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/virgo-kanya-remedy-kit-hero-01.webp?v=1789526918" alt="Virgo Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♍ Virgo</b><small>Kanya</small></span></button>
-        <button type="button" data-sign="libra"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/libra-tula-remedy-kit-hero-01.webp?v=1789526937" alt="Libra Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♎ Libra</b><small>Tula</small></span></button>
-        <button type="button" data-sign="scorpio"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/scorpio-vrishchika-remedy-kit-hero-01.webp?v=1789526956" alt="Scorpio Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♏ Scorpio</b><small>Vrishchika</small></span></button>
-        <button type="button" data-sign="sagittarius"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sagittarius-dhanu-remedy-kit-hero-01.webp?v=1789526979" alt="Sagittarius Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♐ Sagittarius</b><small>Dhanu</small></span></button>
-        <button type="button" data-sign="capricorn"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/capricorn-makara-remedy-kit-hero-01.webp?v=1789526999" alt="Capricorn Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♑ Capricorn</b><small>Makara</small></span></button>
-        <button type="button" data-sign="aquarius"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/aquarius-kumbha-remedy-kit-hero-01.webp?v=1789527024" alt="Aquarius Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♒ Aquarius</b><small>Kumbha</small></span></button>
-        <button type="button" data-sign="pisces"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/pisces-meena-remedy-kit-hero-01.webp?v=1789527043" alt="Pisces Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♓ Pisces</b><small>Meena</small></span></button>
+        <button type="button" data-sign="aries"><img src="{{ 'sabpuja-zodiac-aries-hero.webp' | asset_url }}" alt="Aries Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♈ Aries</b><small>Mesha</small></span></button>
+        <button type="button" data-sign="taurus"><img src="{{ 'sabpuja-zodiac-taurus-hero.webp' | asset_url }}" alt="Taurus Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♉ Taurus</b><small>Vrishabha</small></span></button>
+        <button type="button" data-sign="gemini"><img src="{{ 'sabpuja-zodiac-gemini-hero.webp' | asset_url }}" alt="Gemini Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♊ Gemini</b><small>Mithuna</small></span></button>
+        <button type="button" data-sign="cancer"><img src="{{ 'sabpuja-zodiac-cancer-hero.webp' | asset_url }}" alt="Cancer Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♋ Cancer</b><small>Karka</small></span></button>
+        <button type="button" data-sign="leo"><img src="{{ 'sabpuja-zodiac-leo-hero.webp' | asset_url }}" alt="Leo Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♌ Leo</b><small>Simha</small></span></button>
+        <button type="button" data-sign="virgo"><img src="{{ 'sabpuja-zodiac-virgo-hero.webp' | asset_url }}" alt="Virgo Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♍ Virgo</b><small>Kanya</small></span></button>
+        <button type="button" data-sign="libra"><img src="{{ 'sabpuja-zodiac-libra-hero.webp' | asset_url }}" alt="Libra Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♎ Libra</b><small>Tula</small></span></button>
+        <button type="button" data-sign="scorpio"><img src="{{ 'sabpuja-zodiac-scorpio-hero.webp' | asset_url }}" alt="Scorpio Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♏ Scorpio</b><small>Vrishchika</small></span></button>
+        <button type="button" data-sign="sagittarius"><img src="{{ 'sabpuja-zodiac-sagittarius-hero.webp' | asset_url }}" alt="Sagittarius Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♐ Sagittarius</b><small>Dhanu</small></span></button>
+        <button type="button" data-sign="capricorn"><img src="{{ 'sabpuja-zodiac-capricorn-hero.webp' | asset_url }}" alt="Capricorn Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♑ Capricorn</b><small>Makara</small></span></button>
+        <button type="button" data-sign="aquarius"><img src="{{ 'sabpuja-zodiac-aquarius-hero.webp' | asset_url }}" alt="Aquarius Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♒ Aquarius</b><small>Kumbha</small></span></button>
+        <button type="button" data-sign="pisces"><img src="{{ 'sabpuja-zodiac-pisces-hero.webp' | asset_url }}" alt="Pisces Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♓ Pisces</b><small>Meena</small></span></button>
       </div>
     </section>
 
@@ -319,18 +341,18 @@
   root.dataset.ready = 'true';
 
   const data = {
-    aries:{symbol:'♈',name:'Aries',vedic:'Mesha',handle:'aries-mesha-astrological-remedy-kit',variant:'54402112192828',sku:'SP-AST-ARIES',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/aries-mesha-remedy-kit-hero-01.webp?v=1789526666',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-aries-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716545',trait:'courage, initiative and focused devotional practice',items:['Mangal Yantra','3 Mukhi Rudraksha','Hanuman Chalisa','Red Chandan','Sindoor']},
-    taurus:{symbol:'♉',name:'Taurus',vedic:'Vrishabha',handle:'taurus-vrishabha-astrological-remedy-kit',variant:'54402121957692',sku:'SP-AST-TAURUS',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/taurus-vrishabha-remedy-kit-hero-01.webp?v=1789526835',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-taurus-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716553',trait:'steadiness, harmony and a grounded devotional routine',items:['Shukra Yantra','6 Mukhi Rudraksha','White Chandan','Lotus Seeds','Rose Incense']},
-    gemini:{symbol:'♊',name:'Gemini',vedic:'Mithuna',handle:'gemini-mithuna-astrological-remedy-kit',variant:'54402125201724',sku:'SP-AST-GEMINI',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/gemini-mithuna-remedy-kit-hero-01.webp?v=1789526855',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-gemini-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716563',trait:'clarity, learning and thoughtful devotional practice',items:['Budh Yantra','4 Mukhi Rudraksha','Green Cloth','Cardamom','Saraswati Card']},
-    cancer:{symbol:'♋',name:'Cancer',vedic:'Karka',handle:'cancer-karka-astrological-remedy-kit',variant:'54402129789244',sku:'SP-AST-CANCER',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/cancer-karka-remedy-kit-hero-01.webp?v=1789526880',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-cancer-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716571',trait:'reflection, calm and a nurturing devotional routine',items:['Chandra Yantra','2 Mukhi Rudraksha','White Cloth','Pearl Shell','Chandra Mantra']},
-    leo:{symbol:'♌',name:'Leo',vedic:'Simha',handle:'leo-simha-astrological-remedy-kit',variant:'54402132443452',sku:'SP-AST-LEO',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/leo-simha-remedy-kit-hero-01.webp?v=1789526900',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-leo-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716579',trait:'confidence, purpose and solar devotional practice',items:['Surya Yantra','12 Mukhi Rudraksha','Copper Surya Symbol','Aditya Hridayam']},
-    virgo:{symbol:'♍',name:'Virgo',vedic:'Kanya',handle:'virgo-kanya-astrological-remedy-kit',variant:'54402133852476',sku:'SP-AST-VIRGO',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/virgo-kanya-remedy-kit-hero-01.webp?v=1789526918',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-virgo-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716587',trait:'practical wisdom, clarity and disciplined devotional practice',items:['Budh Yantra','4 Mukhi Rudraksha','Green Cloth','Tulsi Seeds','Saraswati Card']},
-    libra:{symbol:'♎',name:'Libra',vedic:'Tula',handle:'libra-tula-astrological-remedy-kit',variant:'54402140602684',sku:'SP-AST-LIBRA',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/libra-tula-remedy-kit-hero-01.webp?v=1789526937',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-libra-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716597',trait:'balance, harmony and graceful devotional practice',items:['Shukra Yantra','6 Mukhi Rudraksha','White Cloth','Lakshmi Coin','Rose Incense']},
-    scorpio:{symbol:'♏',name:'Scorpio',vedic:'Vrishchika',handle:'scorpio-vrishchika-astrological-remedy-kit',variant:'54402146500924',sku:'SP-AST-SCORPIO',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/scorpio-vrishchika-remedy-kit-hero-01.webp?v=1789526956',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-scorpio-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716605',trait:'resolve, transformation and focused devotional practice',items:['Mangal Yantra','3 Mukhi Rudraksha','Hanuman Image','Red Cloth']},
-    sagittarius:{symbol:'♐',name:'Sagittarius',vedic:'Dhanu',handle:'sagittarius-dhanu-astrological-remedy-kit',variant:'54402151547196',sku:'SP-AST-SAGITTARIUS',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sagittarius-dhanu-remedy-kit-hero-01.webp?v=1789526979',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-sagittarius-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716613',trait:'wisdom, faith and purposeful devotional practice',items:['Guru Yantra','5 Mukhi Rudraksha','Yellow Cloth','Turmeric','Vishnu Mantra']},
-    capricorn:{symbol:'♑',name:'Capricorn',vedic:'Makara',handle:'capricorn-makara-astrological-remedy-kit',variant:'54402155381052',sku:'SP-AST-CAPRICORN',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/capricorn-makara-remedy-kit-hero-01.webp?v=1789526999',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-capricorn-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716621',trait:'discipline, steadiness and reflective devotional practice',items:['Shani Yantra','7 Mukhi Rudraksha','Black Cloth','Black Sesame','Shanti Mantra']},
-    aquarius:{symbol:'♒',name:'Aquarius',vedic:'Kumbha',handle:'aquarius-kumbha-astrological-remedy-kit',variant:'54402159870268',sku:'SP-AST-AQUARIUS',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/aquarius-kumbha-remedy-kit-hero-01.webp?v=1789527024',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-aquarius-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716630',trait:'reflection, service and structured devotional practice',items:['Shani Yantra','7 Mukhi Rudraksha','Black Cloth','Black Sesame','Shani Chalisa']},
-    pisces:{symbol:'♓',name:'Pisces',vedic:'Meena',handle:'pisces-meena-astrological-remedy-kit',variant:'54402163212604',sku:'SP-AST-PISCES',price:249900,hero:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/pisces-meena-remedy-kit-hero-01.webp?v=1789527043',detail:'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-pisces-astrological-remedy-kit-01-investor-demo-board.webp?v=1789716639',trait:'faith, compassion and contemplative devotional practice',items:['Guru Yantra','5 Mukhi Rudraksha','Yellow Cloth','Turmeric','Vishnu Sahasranama']}
+    aries:{symbol:'♈',name:'Aries',vedic:'Mesha',handle:'aries-mesha-astrological-remedy-kit',variant:'54402112192828',sku:'SP-AST-ARIES',price:249900,hero:"{{ 'sabpuja-zodiac-aries-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-aries-contents.webp' | asset_url }}",trait:'courage, initiative and focused devotional practice',items:['Mangal Yantra','3 Mukhi Rudraksha','Hanuman Chalisa','Red Chandan','Sindoor']},
+    taurus:{symbol:'♉',name:'Taurus',vedic:'Vrishabha',handle:'taurus-vrishabha-astrological-remedy-kit',variant:'54402121957692',sku:'SP-AST-TAURUS',price:249900,hero:"{{ 'sabpuja-zodiac-taurus-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-taurus-contents.webp' | asset_url }}",trait:'steadiness, harmony and a grounded devotional routine',items:['Shukra Yantra','6 Mukhi Rudraksha','White Chandan','Lotus Seeds','Rose Incense']},
+    gemini:{symbol:'♊',name:'Gemini',vedic:'Mithuna',handle:'gemini-mithuna-astrological-remedy-kit',variant:'54402125201724',sku:'SP-AST-GEMINI',price:249900,hero:"{{ 'sabpuja-zodiac-gemini-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-gemini-contents.webp' | asset_url }}",trait:'clarity, learning and thoughtful devotional practice',items:['Budh Yantra','4 Mukhi Rudraksha','Green Cloth','Cardamom','Saraswati Card']},
+    cancer:{symbol:'♋',name:'Cancer',vedic:'Karka',handle:'cancer-karka-astrological-remedy-kit',variant:'54402129789244',sku:'SP-AST-CANCER',price:249900,hero:"{{ 'sabpuja-zodiac-cancer-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-cancer-contents.webp' | asset_url }}",trait:'reflection, calm and a nurturing devotional routine',items:['Chandra Yantra','2 Mukhi Rudraksha','White Cloth','Pearl Shell','Chandra Mantra']},
+    leo:{symbol:'♌',name:'Leo',vedic:'Simha',handle:'leo-simha-astrological-remedy-kit',variant:'54402132443452',sku:'SP-AST-LEO',price:249900,hero:"{{ 'sabpuja-zodiac-leo-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-leo-contents.webp' | asset_url }}",trait:'confidence, purpose and solar devotional practice',items:['Surya Yantra','12 Mukhi Rudraksha','Copper Surya Symbol','Aditya Hridayam']},
+    virgo:{symbol:'♍',name:'Virgo',vedic:'Kanya',handle:'virgo-kanya-astrological-remedy-kit',variant:'54402133852476',sku:'SP-AST-VIRGO',price:249900,hero:"{{ 'sabpuja-zodiac-virgo-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-virgo-contents.webp' | asset_url }}",trait:'practical wisdom, clarity and disciplined devotional practice',items:['Budh Yantra','4 Mukhi Rudraksha','Green Cloth','Tulsi Seeds','Saraswati Card']},
+    libra:{symbol:'♎',name:'Libra',vedic:'Tula',handle:'libra-tula-astrological-remedy-kit',variant:'54402140602684',sku:'SP-AST-LIBRA',price:249900,hero:"{{ 'sabpuja-zodiac-libra-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-libra-contents.webp' | asset_url }}",trait:'balance, harmony and graceful devotional practice',items:['Shukra Yantra','6 Mukhi Rudraksha','White Cloth','Lakshmi Coin','Rose Incense']},
+    scorpio:{symbol:'♏',name:'Scorpio',vedic:'Vrishchika',handle:'scorpio-vrishchika-astrological-remedy-kit',variant:'54402146500924',sku:'SP-AST-SCORPIO',price:249900,hero:"{{ 'sabpuja-zodiac-scorpio-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-scorpio-contents.webp' | asset_url }}",trait:'resolve, transformation and focused devotional practice',items:['Mangal Yantra','3 Mukhi Rudraksha','Hanuman Image','Red Cloth']},
+    sagittarius:{symbol:'♐',name:'Sagittarius',vedic:'Dhanu',handle:'sagittarius-dhanu-astrological-remedy-kit',variant:'54402151547196',sku:'SP-AST-SAGITTARIUS',price:249900,hero:"{{ 'sabpuja-zodiac-sagittarius-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-sagittarius-contents.webp' | asset_url }}",trait:'wisdom, faith and purposeful devotional practice',items:['Guru Yantra','5 Mukhi Rudraksha','Yellow Cloth','Turmeric','Vishnu Mantra']},
+    capricorn:{symbol:'♑',name:'Capricorn',vedic:'Makara',handle:'capricorn-makara-astrological-remedy-kit',variant:'54402155381052',sku:'SP-AST-CAPRICORN',price:249900,hero:"{{ 'sabpuja-zodiac-capricorn-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-capricorn-contents.webp' | asset_url }}",trait:'discipline, steadiness and reflective devotional practice',items:['Shani Yantra','7 Mukhi Rudraksha','Black Cloth','Black Sesame','Shanti Mantra']},
+    aquarius:{symbol:'♒',name:'Aquarius',vedic:'Kumbha',handle:'aquarius-kumbha-astrological-remedy-kit',variant:'54402159870268',sku:'SP-AST-AQUARIUS',price:249900,hero:"{{ 'sabpuja-zodiac-aquarius-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-aquarius-contents.webp' | asset_url }}",trait:'reflection, service and structured devotional practice',items:['Shani Yantra','7 Mukhi Rudraksha','Black Cloth','Black Sesame','Shani Chalisa']},
+    pisces:{symbol:'♓',name:'Pisces',vedic:'Meena',handle:'pisces-meena-astrological-remedy-kit',variant:'54402163212604',sku:'SP-AST-PISCES',price:249900,hero:"{{ 'sabpuja-zodiac-pisces-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-pisces-contents.webp' | asset_url }}",trait:'faith, compassion and contemplative devotional practice',items:['Guru Yantra','5 Mukhi Rudraksha','Yellow Cloth','Turmeric','Vishnu Sahasranama']}
   };
 
   const keyByHandle = Object.fromEntries(Object.entries(data).map(([key,value]) => [value.handle,key]));
@@ -401,7 +423,6 @@
     setImage('[data-zodiac-thumb-hero]',z.hero,z.name+' kit hero thumbnail');
     setImage('[data-zodiac-thumb-detail]',z.detail,z.name+' kit contents thumbnail');
     setImage('[data-zodiac-detail]',z.detail,'Sabpuja '+z.name+' Astrological Remedy Kit contents and packaging presentation');
-    setImage('[data-zodiac-hero-secondary]',z.hero,'Sabpuja '+z.name+' Astrological Remedy Kit premium packaging');
     setImage('[data-zodiac-drawer-image]',z.hero,'');
     if(variantInput) variantInput.value=z.variant;
 
