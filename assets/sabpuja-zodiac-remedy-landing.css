@@ -19,7 +19,7 @@
 .sp-zodiac button,.sp-zodiac input{font:inherit}
 .sp-zodiac main{padding:clamp(12px,2vw,24px) 0 clamp(42px,6vw,68px)}
 .sp-zodiac__module{width:min(var(--container),calc(100% - clamp(20px,4vw,36px)));margin:0 auto clamp(12px,1.4vw,17px)}
-.sp-zodiac__intro,.sp-zodiac__hero,.sp-zodiac__why,.sp-zodiac__contents,.sp-zodiac__items-story,.sp-zodiac__steps,.sp-zodiac__presentation,.sp-zodiac__reviews,.sp-zodiac__faq,.sp-zodiac__final{
+.sp-zodiac__intro,.sp-zodiac__hero,.sp-zodiac__why,.sp-zodiac__contents,.sp-zodiac__items-story,.sp-zodiac__steps,.sp-zodiac__presentation,.sp-zodiac__lifestyle,.sp-zodiac__family,.sp-zodiac__reviews,.sp-zodiac__faq,.sp-zodiac__final{
   border:1px solid var(--border);border-radius:14px;background:#fff;box-shadow:var(--shadow)
 }
 .sp-zodiac__eyebrow{margin:0 0 5px;color:var(--primary);font-size:clamp(9.5px,.8vw,11px);font-weight:800;letter-spacing:.13em;text-transform:uppercase}
@@ -126,3 +126,18 @@
 @container (max-width:760px){.sp-zodiac__review-summary{position:static;flex-basis:100%}}
 .sp-zodiac__reviews{container-type:inline-size}
 @media(prefers-reduced-motion:reduce){.sp-zodiac__sign-orbit,.sp-zodiac__glow{animation:none!important}.sp-zodiac__reveal-ready{opacity:1!important;transform:none!important;transition:none!important}.sp-zodiac *{scroll-behavior:auto!important}}
+
+.sp-zodiac__lifestyle{display:flex;flex-wrap:wrap;overflow:hidden;background:linear-gradient(145deg,#fff,var(--bg))}
+.sp-zodiac__lifestyle-copy{flex:1 1 430px;display:flex;flex-direction:column;justify-content:center;padding:clamp(20px,2.6vw,30px)}
+.sp-zodiac__lifestyle-copy>p:not(.sp-zodiac__eyebrow){margin:7px 0 0;color:var(--muted)}
+.sp-zodiac__lifestyle-points{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.sp-zodiac__lifestyle-points>span{flex:1 1 150px;display:grid;grid-template-columns:18px 1fr;column-gap:7px;padding:10px;border:1px solid var(--border);border-radius:10px;background:#fff}
+.sp-zodiac__lifestyle-points svg{grid-row:1/3;width:15px;height:15px;color:var(--primary)}
+.sp-zodiac__lifestyle-points b{font-size:10px}.sp-zodiac__lifestyle-points small{color:var(--soft);font-size:8.8px;line-height:1.4}
+.sp-zodiac__lifestyle-media{flex:1 1 500px;min-width:0;margin:0;background:#f5eadb;aspect-ratio:4/3}
+.sp-zodiac__lifestyle-media img{width:100%;height:100%;object-fit:cover}
+
+.sp-zodiac__family-visual{position:relative;margin:0 0 12px;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:#f5eadb;aspect-ratio:16/8.5}
+.sp-zodiac__family-visual img{width:100%;height:100%;object-fit:cover}
+.sp-zodiac__family-visual figcaption{position:absolute;left:12px;bottom:12px;display:flex;flex-direction:column;gap:2px;max-width:min(360px,calc(100% - 24px));padding:8px 10px;border:1px solid rgba(255,255,255,.74);border-radius:9px;background:rgba(255,255,255,.92);box-shadow:0 8px 24px rgba(78,52,46,.12);backdrop-filter:blur(8px)}
+.sp-zodiac__family-visual strong{font-size:11px}.sp-zodiac__family-visual span{color:var(--muted);font-size:9px}
