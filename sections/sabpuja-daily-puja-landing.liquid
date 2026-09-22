@@ -266,117 +266,172 @@
       </div>
     </section>
 
-    <section class="sp-daily__reviews sp-daily__module" id="daily-puja-reviews" aria-labelledby="daily-reviews-title" data-reveal>
-      <div class="sp-daily__section-head sp-daily__section-head--full">
-        <div>
-          <p class="sp-daily__eyebrow">Product photos & reviews</p>
-          <h2 id="daily-reviews-title">See the kit up close.</h2>
-        </div>
-        <p>Browse the Daily Puja Kit from different angles, then open any photo to view it alongside a full review snapshot.</p>
-      </div>
+    <section class="sp-daily__reviews sp-daily__module" id="daily-puja-reviews" aria-labelledby="daily-reviews-title" data-demo-reviews="true" data-reveal>
+      <div class="sp-daily__marketplace-reviews">
+        <aside class="sp-daily__review-summary-panel">
+          <h2 id="daily-reviews-title">Customer reviews</h2>
 
-      <div class="sp-daily__review-gallery">
-        <div class="sp-daily__gallery-main">
-          <button
-            type="button"
-            class="sp-daily__gallery-stage"
-            data-gallery-open
-            data-gallery-image="{{ 'sabpuja-daily-puja-kit-hero.webp' | asset_url }}"
-            data-gallery-review="{{ 'sabpuja-customer-review-01.webp' | asset_url }}"
-            data-gallery-alt="Daily Puja Kit arranged near a warm home mandir">
-            <img
-              src="{{ 'sabpuja-daily-puja-kit-hero.webp' | asset_url }}"
-              alt="Daily Puja Kit arranged near a warm home mandir"
-              width="1448"
-              height="1086"
-              loading="lazy"
-              decoding="async"
-              data-gallery-main-image>
-            <span class="sp-daily__gallery-zoom">{% render 'sabpuja-icon', name: 'search' %} Click to enlarge</span>
-          </button>
-
-          <div class="sp-daily__gallery-thumbs" aria-label="Daily Puja Kit product photos">
-            <button type="button" class="is-active" data-gallery-thumb
-              data-gallery-image="{{ 'sabpuja-daily-puja-kit-hero.webp' | asset_url }}"
-              data-gallery-review="{{ 'sabpuja-customer-review-01.webp' | asset_url }}"
-              data-gallery-alt="Daily Puja Kit arranged near a warm home mandir">
-              <img src="{{ 'sabpuja-daily-puja-kit-hero.webp' | asset_url }}" alt="" width="1448" height="1086" loading="lazy" decoding="async">
-            </button>
-            <button type="button" data-gallery-thumb
-              data-gallery-image="{{ 'sabpuja-daily-puja-kit-contents.webp' | asset_url }}"
-              data-gallery-review="{{ 'sabpuja-customer-review-02.webp' | asset_url }}"
-              data-gallery-alt="Daily Puja Kit contents flat lay">
-              <img src="{{ 'sabpuja-daily-puja-kit-contents.webp' | asset_url }}" alt="" width="1254" height="1254" loading="lazy" decoding="async">
-            </button>
-            <button type="button" data-gallery-thumb
-              data-gallery-image="{{ 'sabpuja-daily-puja-kit-detail.webp' | asset_url }}"
-              data-gallery-review="{{ 'sabpuja-customer-review-03.webp' | asset_url }}"
-              data-gallery-alt="Close-up of Daily Puja Kit packaging and materials">
-              <img src="{{ 'sabpuja-daily-puja-kit-detail.webp' | asset_url }}" alt="" width="1254" height="1254" loading="lazy" decoding="async">
-            </button>
-            <button type="button" data-gallery-thumb
-              data-gallery-image="{{ 'sabpuja-daily-puja-kit-lifestyle.webp' | asset_url }}"
-              data-gallery-review="{{ 'sabpuja-customer-review-04.webp' | asset_url }}"
-              data-gallery-alt="Daily Puja Kit in a calm home puja setting">
-              <img src="{{ 'sabpuja-daily-puja-kit-lifestyle.webp' | asset_url }}" alt="" width="1448" height="1086" loading="lazy" decoding="async">
-            </button>
+          <div class="sp-daily__review-score-row">
+            <span class="sp-daily__stars sp-daily__stars--large" aria-hidden="true">
+              {% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}
+            </span>
+            <strong>4.9 out of 5</strong>
           </div>
-        </div>
+          <p class="sp-daily__review-count">128 ratings</p>
 
-        <aside class="sp-daily__review-snapshot">
-          <div class="sp-daily__review-snapshot-head">
-            <span class="sp-daily__icon-tile">{% render 'sabpuja-icon', name: 'heart' %}</span>
-            <div>
-              <strong>Review snapshot</strong>
-              <span>Shown in full—never cropped into a thumbnail.</span>
+          <div class="sp-daily__rating-bars sp-daily__rating-bars--marketplace" aria-label="Review rating distribution">
+            <div><span>5 star</span><i><b style="--rating-width:93%"></b></i><em>93%</em></div>
+            <div><span>4 star</span><i><b style="--rating-width:5%"></b></i><em>5%</em></div>
+            <div><span>3 star</span><i><b style="--rating-width:1%"></b></i><em>1%</em></div>
+            <div><span>2 star</span><i><b style="--rating-width:1%"></b></i><em>1%</em></div>
+            <div><span>1 star</span><i><b style="--rating-width:0%"></b></i><em>0%</em></div>
+          </div>
+
+          <div class="sp-daily__review-write">
+            <h3>Review this product</h3>
+            <p>Share your experience with other Sabpuja customers.</p>
+            <a href="mailto:support@sabpuja.com?subject=Daily%20Puja%20Kit%20Review">Write a product review</a>
+          </div>
+        </aside>
+
+        <div class="sp-daily__review-main">
+          <div class="sp-daily__customers-say">
+            <h3>Customers say</h3>
+            <p>The current review set highlights the kit’s organized presentation, everyday convenience, packaging and gift-friendly format.</p>
+
+            <strong class="sp-daily__learn-more-label">Select to learn more</strong>
+            <div class="sp-daily__review-topics" aria-label="Review topics">
+              <button type="button" data-review-filter="all" class="is-active">↗ Organized kit</button>
+              <button type="button" data-review-filter="5">∿ Everyday use</button>
+              <button type="button" data-review-filter="photo">∿ Packaging</button>
+              <span>∿ Gifting</span>
             </div>
           </div>
-          <button
-            type="button"
-            class="sp-daily__review-snapshot-card"
-            data-gallery-open
-            data-gallery-image="{{ 'sabpuja-daily-puja-kit-hero.webp' | asset_url }}"
-            data-gallery-review="{{ 'sabpuja-customer-review-01.webp' | asset_url }}"
-            data-gallery-alt="Daily Puja Kit arranged near a warm home mandir">
-            <img
-              src="{{ 'sabpuja-customer-review-01.webp' | asset_url }}"
-              alt="Sabpuja review snapshot"
-              width="1448"
-              height="1086"
-              loading="lazy"
-              decoding="async"
-              data-gallery-review-image>
-          </button>
-          <p class="sp-daily__review-note">Open a product photo to view the image and the matching review snapshot together.</p>
-        </aside>
+
+          <div class="sp-daily__reviews-with-images">
+            <div class="sp-daily__reviews-images-head">
+              <h3>Reviews with images</h3>
+              <span>Tap any image to enlarge</span>
+            </div>
+
+            <div class="sp-daily__review-media-strip" aria-label="Review images">
+              {% for review_number in sp_reviews %}
+                {% capture review_asset %}sabpuja-customer-review-{{ review_number }}.webp{% endcapture %}
+                <button
+                  type="button"
+                  data-review-image-open
+                  data-review-image="{{ review_asset | asset_url }}"
+                  aria-label="Open review image {{ forloop.index }}">
+                  <img
+                    src="{{ review_asset | asset_url }}"
+                    alt="Sabpuja review image {{ forloop.index }}"
+                    width="1448"
+                    height="1086"
+                    loading="lazy"
+                    decoding="async">
+                </button>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="sp-daily__review-feed-wrap">
+            <h3>Top reviews</h3>
+
+            <div class="sp-daily__review-feed" data-review-feed>
+              <article class="sp-daily__review-item" data-stars="5" data-photo="true">
+                <div class="sp-daily__review-avatar">AS</div>
+                <div class="sp-daily__review-body">
+                  <div class="sp-daily__review-meta">
+                    <div><strong>Aditi Sharma</strong><span class="sp-daily__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-09-16">16 Sep 2026</time>
+                  </div>
+                  <div class="sp-daily__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>Neat, compact and easy to keep near the mandir</h3>
+                  <p>Everything feels organized instead of scattered in different drawers. The presentation is what I liked most.</p>
+                  <button class="sp-daily__review-inline-media" type="button" data-review-image-open data-review-image="{{ 'sabpuja-customer-review-01.webp' | asset_url }}">
+                    <img src="{{ 'sabpuja-customer-review-01.webp' | asset_url }}" alt="Review image" width="1448" height="1086" loading="lazy" decoding="async">
+                  </button>
+                </div>
+              </article>
+
+              <article class="sp-daily__review-item" data-stars="5" data-photo="false">
+                <div class="sp-daily__review-avatar">NV</div>
+                <div class="sp-daily__review-body">
+                  <div class="sp-daily__review-meta">
+                    <div><strong>Neha Verma</strong><span class="sp-daily__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-09-10">10 Sep 2026</time>
+                  </div>
+                  <div class="sp-daily__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>Useful for an everyday routine</h3>
+                  <p>I wanted something simple for regular puja without buying every small item separately. This format makes the routine feel much easier.</p>
+                </div>
+              </article>
+
+              <article class="sp-daily__review-item" data-stars="5" data-photo="true">
+                <div class="sp-daily__review-avatar">RK</div>
+                <div class="sp-daily__review-body">
+                  <div class="sp-daily__review-meta">
+                    <div><strong>Ritu Kapoor</strong><span class="sp-daily__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-08-28">28 Aug 2026</time>
+                  </div>
+                  <div class="sp-daily__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>Gifted it to my parents</h3>
+                  <p>The organized presentation made it feel thoughtful without being overdone. It looked clean and practical.</p>
+                  <button class="sp-daily__review-inline-media" type="button" data-review-image-open data-review-image="{{ 'sabpuja-customer-review-03.webp' | asset_url }}">
+                    <img src="{{ 'sabpuja-customer-review-03.webp' | asset_url }}" alt="Review image" width="1448" height="1086" loading="lazy" decoding="async">
+                  </button>
+                </div>
+              </article>
+
+              <article class="sp-daily__review-item" data-stars="4" data-photo="false">
+                <div class="sp-daily__review-avatar">MS</div>
+                <div class="sp-daily__review-body">
+                  <div class="sp-daily__review-meta">
+                    <div><strong>Meera S.</strong><span class="sp-daily__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-08-19">19 Aug 2026</time>
+                  </div>
+                  <div class="sp-daily__stars" aria-label="4 out of 5 stars">{% for i in (1..4) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>Good concept and easy to understand</h3>
+                  <p>The kit format is convenient and the contents are easy to scan. I would love refill options later as well.</p>
+                </div>
+              </article>
+
+              <article class="sp-daily__review-item sp-daily__review-item--more" data-stars="5" data-photo="true" hidden>
+                <div class="sp-daily__review-avatar">AM</div>
+                <div class="sp-daily__review-body">
+                  <div class="sp-daily__review-meta">
+                    <div><strong>Arjun Malhotra</strong><span class="sp-daily__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-08-05">5 Aug 2026</time>
+                  </div>
+                  <div class="sp-daily__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>Looks premium without feeling complicated</h3>
+                  <p>I liked that it feels devotional but still clean and modern. The packaging is easy to keep organized at home.</p>
+                  <button class="sp-daily__review-inline-media" type="button" data-review-image-open data-review-image="{{ 'sabpuja-customer-review-05.webp' | asset_url }}">
+                    <img src="{{ 'sabpuja-customer-review-05.webp' | asset_url }}" alt="Review image" width="1448" height="1086" loading="lazy" decoding="async">
+                  </button>
+                </div>
+              </article>
+
+              <article class="sp-daily__review-item sp-daily__review-item--more" data-stars="5" data-photo="false" hidden>
+                <div class="sp-daily__review-avatar">KR</div>
+                <div class="sp-daily__review-body">
+                  <div class="sp-daily__review-meta">
+                    <div><strong>Kavita Rao</strong><span class="sp-daily__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-07-26">26 Jul 2026</time>
+                  </div>
+                  <div class="sp-daily__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>A nice everyday puja starter</h3>
+                  <p>Simple, well arranged and easy for everyone at home to understand. The kind of thing I would reorder as needed.</p>
+                </div>
+              </article>
+            </div>
+
+            <button type="button" class="sp-daily__load-more" data-review-more>See more reviews</button>
+          </div>
+        </div>
       </div>
 
-      <div class="sp-daily__review-strip">
-        <div class="sp-daily__review-strip-head">
-          <strong>More review snapshots</strong>
-          <span>Tap any card to open the full viewer</span>
-        </div>
-        <div class="sp-daily__review-strip-track">
-          {% for review_number in sp_reviews %}
-            {% capture review_asset %}sabpuja-customer-review-{{ review_number }}.webp{% endcapture %}
-            <button
-              type="button"
-              data-review-snapshot
-              data-review-image="{{ review_asset | asset_url }}"
-              aria-label="Open review snapshot {{ forloop.index }}">
-              <img
-                src="{{ review_asset | asset_url }}"
-                alt="Sabpuja review snapshot {{ forloop.index }}"
-                width="1448"
-                height="1086"
-                loading="lazy"
-                decoding="async">
-            </button>
-          {% endfor %}
-        </div>
-      </div>
-
-      <p class="sp-daily__reviews-disclosure">Review snapshots currently use Sabpuja’s approved illustrative review set while verified customer-review import is being finalized.</p>
+      <p class="sp-daily__reviews-disclosure">Illustrative review data is being used on staging while verified customer-review import is finalized. Replace before live publication.</p>
     </section>
 
     <section class="sp-daily__faq sp-daily__module" data-reveal>
@@ -428,22 +483,24 @@
 
   <div class="sp-daily__lightbox" data-daily-lightbox aria-hidden="true">
     <button class="sp-daily__lightbox-backdrop" type="button" data-lightbox-close aria-label="Close image viewer"></button>
-    <div class="sp-daily__lightbox-panel" role="dialog" aria-modal="true" aria-label="Product photo and review viewer">
+    <div class="sp-daily__lightbox-panel" role="dialog" aria-modal="true" aria-label="Review image viewer">
       <div class="sp-daily__lightbox-head">
         <div>
-          <strong>Daily Puja Kit</strong>
-          <span>Product photo & review snapshot</span>
+          <strong>Customer review</strong>
+          <span>Review image enlarged</span>
         </div>
         <button type="button" data-lightbox-close aria-label="Close">×</button>
       </div>
-      <div class="sp-daily__lightbox-body">
-        <figure class="sp-daily__lightbox-photo">
-          <img src="{{ 'sabpuja-daily-puja-kit-hero.webp' | asset_url }}" alt="Daily Puja Kit" width="1448" height="1086" data-lightbox-product>
+      <div class="sp-daily__lightbox-body sp-daily__lightbox-body--review">
+        <figure class="sp-daily__lightbox-photo sp-daily__lightbox-photo--review">
+          <img src="{{ 'sabpuja-customer-review-01.webp' | asset_url }}" alt="Sabpuja review image" width="1448" height="1086" data-lightbox-review>
         </figure>
-        <aside class="sp-daily__lightbox-review">
-          <span class="sp-daily__eyebrow">Review snapshot</span>
-          <img src="{{ 'sabpuja-customer-review-01.webp' | asset_url }}" alt="Sabpuja review snapshot" width="1448" height="1086" data-lightbox-review>
-          <p>Product photography and review context stay visible together for easier browsing.</p>
+        <aside class="sp-daily__lightbox-review sp-daily__lightbox-review--product">
+          <span class="sp-daily__eyebrow">Daily Puja Kit</span>
+          <img src="{{ 'sabpuja-daily-puja-kit-hero.webp' | asset_url }}" alt="Daily Puja Kit" width="1448" height="1086" loading="lazy" decoding="async">
+          <h3>Everything together. One simple start.</h3>
+          <p>View the full review image while keeping the product context visible beside it.</p>
+          <a class="sp-daily__btn sp-daily__btn--primary" href="#daily-puja-buy" data-lightbox-close>Choose quantity</a>
         </aside>
       </div>
     </div>
@@ -576,54 +633,43 @@
     revealItems.forEach((item) => item.classList.add('is-visible'));
   }
 
-  const galleryMainImage = root.querySelector('[data-gallery-main-image]');
-  const galleryReviewImage = root.querySelector('[data-gallery-review-image]');
-  const galleryStage = root.querySelector('.sp-daily__gallery-stage');
-  const galleryThumbs = [...root.querySelectorAll('[data-gallery-thumb]')];
-  const snapshotButtons = [...root.querySelectorAll('[data-review-snapshot]')];
+  const reviews = [...root.querySelectorAll('.sp-daily__review-item')];
+  const reviewFilters = [...root.querySelectorAll('[data-review-filter]')];
+  const moreButton = root.querySelector('[data-review-more]');
+  let expanded = false;
+  let activeFilter = 'all';
+
+  const applyReviewState = () => {
+    reviews.forEach((review) => {
+      const isMore = review.classList.contains('sp-daily__review-item--more');
+      const matches = activeFilter === 'all'
+        || (activeFilter === '5' && review.dataset.stars === '5')
+        || (activeFilter === 'photo' && review.dataset.photo === 'true');
+      const visibleByExpansion = activeFilter !== 'all' || expanded || !isMore;
+      review.hidden = !(matches && visibleByExpansion);
+    });
+    if (moreButton) moreButton.hidden = activeFilter !== 'all' || expanded;
+  };
+
+  reviewFilters.forEach((button) => {
+    button.addEventListener('click', () => {
+      activeFilter = button.dataset.reviewFilter || 'all';
+      reviewFilters.forEach((item) => item.classList.toggle('is-active', item === button));
+      applyReviewState();
+    });
+  });
+
+  moreButton?.addEventListener('click', () => {
+    expanded = true;
+    applyReviewState();
+  });
+
   const lightbox = root.querySelector('[data-daily-lightbox]');
-  const lightboxProduct = root.querySelector('[data-lightbox-product]');
   const lightboxReview = root.querySelector('[data-lightbox-review]');
 
-  let currentGallery = {
-    image: galleryStage?.dataset.galleryImage || '',
-    review: galleryStage?.dataset.galleryReview || '',
-    alt: galleryStage?.dataset.galleryAlt || 'Daily Puja Kit'
-  };
-
-  const setGallery = (button) => {
-    if (!button) return;
-    currentGallery = {
-      image: button.dataset.galleryImage || currentGallery.image,
-      review: button.dataset.galleryReview || currentGallery.review,
-      alt: button.dataset.galleryAlt || currentGallery.alt
-    };
-    if (galleryMainImage) {
-      galleryMainImage.src = currentGallery.image;
-      galleryMainImage.alt = currentGallery.alt;
-    }
-    if (galleryReviewImage && currentGallery.review) galleryReviewImage.src = currentGallery.review;
-    if (galleryStage) {
-      galleryStage.dataset.galleryImage = currentGallery.image;
-      galleryStage.dataset.galleryReview = currentGallery.review;
-      galleryStage.dataset.galleryAlt = currentGallery.alt;
-    }
-    const snapshot = root.querySelector('.sp-daily__review-snapshot-card');
-    if (snapshot) {
-      snapshot.dataset.galleryImage = currentGallery.image;
-      snapshot.dataset.galleryReview = currentGallery.review;
-      snapshot.dataset.galleryAlt = currentGallery.alt;
-    }
-    galleryThumbs.forEach((item) => item.classList.toggle('is-active', item === button));
-  };
-
-  const openLightbox = (image, review, alt) => {
-    if (!lightbox) return;
-    if (lightboxProduct && image) {
-      lightboxProduct.src = image;
-      lightboxProduct.alt = alt || 'Daily Puja Kit';
-    }
-    if (lightboxReview && review) lightboxReview.src = review;
+  const openLightbox = (image) => {
+    if (!lightbox || !image) return;
+    if (lightboxReview) lightboxReview.src = image;
     lightbox.classList.add('is-open');
     lightbox.setAttribute('aria-hidden', 'false');
     document.documentElement.classList.add('sp-daily-lock');
@@ -636,36 +682,16 @@
     document.documentElement.classList.remove('sp-daily-lock');
   };
 
-  galleryThumbs.forEach((button) => {
-    button.addEventListener('click', () => setGallery(button));
+  root.querySelectorAll('[data-review-image-open]').forEach((button) => {
+    button.addEventListener('click', () => openLightbox(button.dataset.reviewImage));
   });
 
-  root.querySelectorAll('[data-gallery-open]').forEach((button) => {
-    button.addEventListener('click', () => openLightbox(
-      button.dataset.galleryImage || currentGallery.image,
-      button.dataset.galleryReview || currentGallery.review,
-      button.dataset.galleryAlt || currentGallery.alt
-    ));
+  root.querySelectorAll('[data-lightbox-close]').forEach((button) => {
+    button.addEventListener('click', closeLightbox);
   });
 
-  snapshotButtons.forEach((button) => {
-    button.addEventListener('click', () => openLightbox(
-      currentGallery.image,
-      button.dataset.reviewImage || currentGallery.review,
-      currentGallery.alt
-    ));
-  });
-
-  root.querySelectorAll('[data-lightbox-close]').forEach((button) => button.addEventListener('click', closeLightbox));
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && lightbox?.classList.contains('is-open')) closeLightbox();
-  });
-    });
-  });
-
-  moreButton?.addEventListener('click', () => {
-    expanded = true;
-    applyReviewState();
   });
 
   applyReviewState();
