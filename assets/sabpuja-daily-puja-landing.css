@@ -376,6 +376,7 @@
 /* Reviews — marketplace layout */
 .sp-daily__reviews{padding:var(--sp-pad)}
 .sp-daily__marketplace-reviews{
+  container-type:inline-size;
   display:flex;
   flex-wrap:wrap;
   align-items:flex-start;
@@ -844,6 +845,9 @@
   .sp-daily__btn,.sp-daily__add,.sp-daily__visual-card-row article,.sp-daily__drawer-backdrop,.sp-daily__drawer-panel,.sp-daily__review-media-strip button,.sp-daily__review-inline-media{transition:none!important}
 }
 
-@container style(--sp-review-narrow: 1){
-  .sp-daily__review-summary-panel{position:static}
+@container (max-width: 760px){
+  .sp-daily__review-summary-panel{
+    position:static;
+    flex-basis:100%;
+  }
 }
