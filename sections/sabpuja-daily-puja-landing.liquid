@@ -481,9 +481,8 @@
     </section>
   </main>
 
-  <div class="sp-daily__lightbox" data-daily-lightbox aria-hidden="true">
-    <button class="sp-daily__lightbox-backdrop" type="button" data-lightbox-close aria-label="Close image viewer"></button>
-    <div class="sp-daily__lightbox-panel" role="dialog" aria-modal="true" aria-label="Review image viewer">
+  <dialog class="sp-daily__lightbox" data-daily-lightbox aria-label="Review image viewer">
+    <div class="sp-daily__lightbox-panel">
       <div class="sp-daily__lightbox-head">
         <div>
           <strong>Customer review</strong>
@@ -504,7 +503,7 @@
         </aside>
       </div>
     </div>
-  </div>
+  </dialog>
 
   <div class="sp-daily__drawer" data-daily-drawer aria-hidden="true">
     <button class="sp-daily__drawer-backdrop" type="button" data-daily-close aria-label="Close cart preview"></button>
@@ -670,15 +669,22 @@
   const openLightbox = (image) => {
     if (!lightbox || !image) return;
     if (lightboxReview) lightboxReview.src = image;
-    lightbox.classList.add('is-open');
-    lightbox.setAttribute('aria-hidden', 'false');
+    if (typeof lightbox.showModal === 'function') {
+      if (!lightbox.open) lightbox.showModal();
+    } else {
+      lightbox.setAttribute('open', '');
+    }
     document.documentElement.classList.add('sp-daily-lock');
     lightbox.querySelector('[data-lightbox-close]')?.focus();
   };
 
   const closeLightbox = () => {
-    lightbox?.classList.remove('is-open');
-    lightbox?.setAttribute('aria-hidden', 'true');
+    if (!lightbox) return;
+    if (typeof lightbox.close === 'function' && lightbox.open) {
+      lightbox.close();
+    } else {
+      lightbox.removeAttribute('open');
+    }
     document.documentElement.classList.remove('sp-daily-lock');
   };
 
@@ -690,8 +696,12 @@
     button.addEventListener('click', closeLightbox);
   });
 
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && lightbox?.classList.contains('is-open')) closeLightbox();
+  lightbox?.addEventListener('click', (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  lightbox?.addEventListener('close', () => {
+    document.documentElement.classList.remove('sp-daily-lock');
   });
 
   applyReviewState();
