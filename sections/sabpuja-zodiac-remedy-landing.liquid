@@ -39,6 +39,14 @@
           <span><small>Price</small><strong data-zodiac-price>₹2,499</strong></span>
           <span><small>SKU</small><strong data-zodiac-sku>SP-AST-ARIES</strong></span>
         </div>
+        <div class="sp-zodiac__hero-thumbs" aria-label="Selected kit images">
+          <button type="button" class="is-active" data-zodiac-media="hero" aria-label="Show product hero image">
+            <img data-zodiac-thumb-hero src="" alt="" width="110" height="82" loading="lazy">
+          </button>
+          <button type="button" data-zodiac-media="detail" aria-label="Show kit contents image">
+            <img data-zodiac-thumb-detail src="" alt="" width="110" height="82" loading="lazy">
+          </button>
+        </div>
       </div>
 
       <div class="sp-zodiac__hero-copy">
@@ -198,6 +206,31 @@
       </div>
     </section>
 
+    <section class="sp-zodiac__family sp-zodiac__module" data-reveal>
+      <div class="sp-zodiac__section-head">
+        <div>
+          <p class="sp-zodiac__eyebrow">Explore the full collection</p>
+          <h2>Twelve signs. One Sabpuja visual system.</h2>
+        </div>
+        <p>Every card below uses the actual Shopify product photography. Select any sign to switch the entire landing-page experience instantly.</p>
+      </div>
+
+      <div class="sp-zodiac__family-track" aria-label="All Zodiac Remedy Kits">
+        <button type="button" data-sign="aries"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/aries-mesha-remedy-kit-hero-01.webp?v=1789526666" alt="Aries Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♈ Aries</b><small>Mesha</small></span></button>
+        <button type="button" data-sign="taurus"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/taurus-vrishabha-remedy-kit-hero-01.webp?v=1789526835" alt="Taurus Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♉ Taurus</b><small>Vrishabha</small></span></button>
+        <button type="button" data-sign="gemini"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/gemini-mithuna-remedy-kit-hero-01.webp?v=1789526855" alt="Gemini Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♊ Gemini</b><small>Mithuna</small></span></button>
+        <button type="button" data-sign="cancer"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/cancer-karka-remedy-kit-hero-01.webp?v=1789526880" alt="Cancer Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♋ Cancer</b><small>Karka</small></span></button>
+        <button type="button" data-sign="leo"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/leo-simha-remedy-kit-hero-01.webp?v=1789526900" alt="Leo Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♌ Leo</b><small>Simha</small></span></button>
+        <button type="button" data-sign="virgo"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/virgo-kanya-remedy-kit-hero-01.webp?v=1789526918" alt="Virgo Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♍ Virgo</b><small>Kanya</small></span></button>
+        <button type="button" data-sign="libra"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/libra-tula-remedy-kit-hero-01.webp?v=1789526937" alt="Libra Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♎ Libra</b><small>Tula</small></span></button>
+        <button type="button" data-sign="scorpio"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/scorpio-vrishchika-remedy-kit-hero-01.webp?v=1789526956" alt="Scorpio Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♏ Scorpio</b><small>Vrishchika</small></span></button>
+        <button type="button" data-sign="sagittarius"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sagittarius-dhanu-remedy-kit-hero-01.webp?v=1789526979" alt="Sagittarius Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♐ Sagittarius</b><small>Dhanu</small></span></button>
+        <button type="button" data-sign="capricorn"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/capricorn-makara-remedy-kit-hero-01.webp?v=1789526999" alt="Capricorn Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♑ Capricorn</b><small>Makara</small></span></button>
+        <button type="button" data-sign="aquarius"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/aquarius-kumbha-remedy-kit-hero-01.webp?v=1789527024" alt="Aquarius Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♒ Aquarius</b><small>Kumbha</small></span></button>
+        <button type="button" data-sign="pisces"><img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/pisces-meena-remedy-kit-hero-01.webp?v=1789527043" alt="Pisces Zodiac Remedy Kit" width="360" height="270" loading="lazy"><span><b>♓ Pisces</b><small>Meena</small></span></button>
+      </div>
+    </section>
+
     <section class="sp-zodiac__reviews sp-zodiac__module" data-reveal>
       <div class="sp-zodiac__review-summary">
         <h2>Customer reviews</h2>
@@ -314,6 +347,7 @@
   const variantInput = root.querySelector('[data-zodiac-variant]');
   const drawer = root.querySelector('[data-zodiac-drawer]');
   let activeKey = getInitial();
+  let activeMedia = 'hero';
 
   const itemNote = item => {
     const lower=item.toLowerCase();
@@ -341,8 +375,12 @@
       const selected=btn.dataset.sign===key;
       btn.classList.toggle('is-active',selected);
       btn.setAttribute('aria-pressed',selected?'true':'false');
-      if(selected && updateUrl) btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
     });
+    if (updateUrl) {
+      root.querySelector('[data-zodiac-picker] [data-sign="'+key+'"]')?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+    }
+    activeMedia='hero';
+    root.querySelectorAll('[data-zodiac-media]').forEach(btn => btn.classList.toggle('is-active',btn.dataset.zodiacMedia==='hero'));
 
     setText('[data-zodiac-name]',z.name);
     setText('[data-zodiac-symbol]',z.symbol);
@@ -360,6 +398,8 @@
     setText('[data-zodiac-contents-caption]',z.name+' kit presentation');
 
     setImage('[data-zodiac-hero]',z.hero,'Sabpuja '+z.name+' ('+z.vedic+') Astrological Remedy Kit');
+    setImage('[data-zodiac-thumb-hero]',z.hero,z.name+' kit hero thumbnail');
+    setImage('[data-zodiac-thumb-detail]',z.detail,z.name+' kit contents thumbnail');
     setImage('[data-zodiac-detail]',z.detail,'Sabpuja '+z.name+' Astrological Remedy Kit contents and packaging presentation');
     setImage('[data-zodiac-hero-secondary]',z.hero,'Sabpuja '+z.name+' Astrological Remedy Kit premium packaging');
     setImage('[data-zodiac-drawer-image]',z.hero,'');
@@ -385,6 +425,13 @@
   };
 
   root.querySelectorAll('[data-sign]').forEach(btn => btn.addEventListener('click',()=>render(btn.dataset.sign)));
+
+  root.querySelectorAll('[data-zodiac-media]').forEach(btn => btn.addEventListener('click',()=>{
+    const z=data[activeKey];
+    activeMedia=btn.dataset.zodiacMedia==='detail'?'detail':'hero';
+    root.querySelectorAll('[data-zodiac-media]').forEach(item=>item.classList.toggle('is-active',item===btn));
+    setImage('[data-zodiac-hero]',activeMedia==='detail'?z.detail:z.hero,activeMedia==='detail'?('Sabpuja '+z.name+' kit contents and packaging'):('Sabpuja '+z.name+' ('+z.vedic+') Astrological Remedy Kit'));
+  }));
 
   root.querySelector('[data-zodiac-minus]')?.addEventListener('click',()=>{
     if(qty) qty.value=Math.max(1,readQty()-1);
