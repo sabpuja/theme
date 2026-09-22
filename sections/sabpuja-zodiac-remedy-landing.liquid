@@ -58,7 +58,7 @@
           <span>{% render 'sabpuja-icon', name: 'truck' %}<b>1–3 business days</b><small>Delhi NCR only</small></span>
         </div>
 
-        <div class="sp-zodiac__buy">
+        <div class="sp-zodiac__buy" id="zodiac-buy">
           <div class="sp-zodiac__price-row">
             <div><span>Selected kit</span><strong data-zodiac-price>₹2,499</strong></div>
             <span class="sp-zodiac__sku" data-zodiac-sku>SP-AST-ARIES</span>
@@ -334,7 +334,7 @@
       const selected=btn.dataset.sign===key;
       btn.classList.toggle('is-active',selected);
       btn.setAttribute('aria-pressed',selected?'true':'false');
-      if(selected) btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+      if(selected && updateUrl) btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
     });
 
     setText('[data-zodiac-name]',z.name);
