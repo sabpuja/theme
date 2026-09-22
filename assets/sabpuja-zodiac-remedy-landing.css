@@ -49,6 +49,10 @@
 .sp-zodiac__hero-media-meta{position:absolute;left:12px;bottom:12px;display:flex;gap:7px;flex-wrap:wrap}
 .sp-zodiac__hero-media-meta>span{min-width:98px;padding:7px 9px;border:1px solid rgba(255,255,255,.72);border-radius:9px;background:rgba(255,255,255,.92);box-shadow:0 8px 22px rgba(78,52,46,.12);backdrop-filter:blur(8px)}
 .sp-zodiac__hero-media-meta small,.sp-zodiac__hero-media-meta strong{display:block}.sp-zodiac__hero-media-meta small{color:var(--soft);font-size:8px}.sp-zodiac__hero-media-meta strong{margin-top:2px;color:var(--ink);font-size:11px}
+.sp-zodiac__hero-thumbs{position:absolute;left:12px;top:12px;display:flex;gap:6px}
+.sp-zodiac__hero-thumbs button{width:58px;height:46px;padding:2px;overflow:hidden;border:1px solid rgba(255,255,255,.72);border-radius:8px;background:rgba(255,255,255,.92);box-shadow:0 6px 18px rgba(78,52,46,.1);cursor:pointer;opacity:.76;transition:opacity .2s ease,transform .2s ease,border-color .2s ease}
+.sp-zodiac__hero-thumbs button.is-active{opacity:1;border-color:var(--primary);transform:translateY(-1px)}
+.sp-zodiac__hero-thumbs img{width:100%;height:100%;object-fit:cover;border-radius:5px}
 .sp-zodiac__hero-copy{flex:1 1 430px;display:flex;flex-direction:column;justify-content:center;padding:clamp(22px,3vw,34px);background:radial-gradient(circle at 90% 8%,rgba(244,180,0,.1),transparent 25%),#fff}
 .sp-zodiac__breadcrumb{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;color:var(--soft);font-size:9.5px}.sp-zodiac__breadcrumb a{text-decoration:none}.sp-zodiac__breadcrumb strong{color:var(--ink)}
 .sp-zodiac__hero-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.sp-zodiac__hero-badges span{padding:5px 8px;border:1px solid var(--border);border-radius:999px;background:var(--bg);font-size:9px;font-weight:750}
@@ -91,6 +95,14 @@
 .sp-zodiac__mini-badge{display:inline-flex;align-self:flex-start;align-items:center;gap:5px;margin-bottom:8px;padding:4px 8px;border:1px solid rgba(211,84,0,.14);border-radius:999px;background:#fff3e4;color:var(--primary);font-size:9px;font-weight:800}.sp-zodiac__mini-badge svg{width:12px;height:12px}.sp-zodiac__mini-badge--dark{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.15);color:#ffe1b5}
 .sp-zodiac__presentation-points{display:flex;flex-direction:column;gap:6px;margin-top:13px}.sp-zodiac__presentation-points span{display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid var(--border);font-size:10.5px;font-weight:650}.sp-zodiac__presentation-points svg{width:13px;height:13px;color:#2d8a5f}
 
+.sp-zodiac__family{padding:clamp(18px,2.3vw,28px);background:linear-gradient(145deg,#fff,var(--bg))}
+.sp-zodiac__family-track{display:flex;gap:9px;overflow-x:auto;padding:2px 2px 5px;scroll-snap-type:x proximity;scrollbar-width:none}
+.sp-zodiac__family-track::-webkit-scrollbar{display:none}
+.sp-zodiac__family-track button{position:relative;flex:0 0 clamp(155px,17vw,205px);aspect-ratio:4/3;padding:0;overflow:hidden;scroll-snap-align:start;border:1px solid var(--border);border-radius:11px;background:#fff;cursor:pointer;box-shadow:0 6px 18px rgba(78,52,46,.05);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.sp-zodiac__family-track button.is-active{border-color:rgba(211,84,0,.5);box-shadow:0 0 0 2px rgba(211,84,0,.08),0 8px 22px rgba(78,52,46,.08)}
+.sp-zodiac__family-track img{width:100%;height:100%;object-fit:cover}
+.sp-zodiac__family-track span{position:absolute;left:7px;right:7px;bottom:7px;padding:6px 7px;border:1px solid rgba(255,255,255,.7);border-radius:8px;background:rgba(255,255,255,.91);text-align:left;backdrop-filter:blur(7px)}
+.sp-zodiac__family-track b,.sp-zodiac__family-track small{display:block}.sp-zodiac__family-track b{font-size:9.5px;color:var(--ink)}.sp-zodiac__family-track small{margin-top:1px;color:var(--soft);font-size:8px}
 .sp-zodiac__reviews{display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,44px)}
 .sp-zodiac__review-summary{flex:0 1 285px;position:sticky;top:76px;align-self:flex-start}.sp-zodiac__review-summary h2{white-space:nowrap;font-size:clamp(22px,1.75vw,28px)}.sp-zodiac__review-score{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}.sp-zodiac__review-score span{color:var(--primary);letter-spacing:1px}.sp-zodiac__review-score strong{font-size:13px}.sp-zodiac__review-summary>p{margin:6px 0 14px;color:var(--soft);font-size:11px}
 .sp-zodiac__rating-bars{display:flex;flex-direction:column;gap:8px}.sp-zodiac__rating-bars>div{display:flex;align-items:center;gap:7px;color:#2460a7;font-size:10px}.sp-zodiac__rating-bars span{width:38px}.sp-zodiac__rating-bars i{flex:1;height:11px;overflow:hidden;border:1px solid rgba(78,52,46,.2);border-radius:3px}.sp-zodiac__rating-bars b{display:block;width:var(--w);height:100%;background:var(--primary)}.sp-zodiac__rating-bars em{width:30px;text-align:right;font-style:normal}
@@ -110,7 +122,7 @@
 
 .sp-zodiac__reveal-ready{opacity:0;transform:translateY(10px);transition:opacity .42s ease,transform .42s ease}.sp-zodiac__reveal-ready.is-visible{opacity:1;transform:none}.sp-zodiac__glow{animation:spZodiacGlow 5s ease-in-out infinite}
 @keyframes spZodiacFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@keyframes spZodiacGlow{0%,100%{box-shadow:0 0 0 0 rgba(211,84,0,0)}50%{box-shadow:0 0 0 6px rgba(211,84,0,.08)}}
-@media(hover:hover){.sp-zodiac__picker button:hover{transform:translateY(-2px);background:#fff8ee}.sp-zodiac__add:hover,.sp-zodiac__btn:hover{background:#b94700}.sp-zodiac__why-grid article:hover,.sp-zodiac__item-explain article:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(78,52,46,.08)}}
+@media(hover:hover){.sp-zodiac__picker button:hover{transform:translateY(-2px);background:#fff8ee}.sp-zodiac__add:hover,.sp-zodiac__btn:hover{background:#b94700}.sp-zodiac__why-grid article:hover,.sp-zodiac__item-explain article:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(78,52,46,.08)}.sp-zodiac__family-track button:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(78,52,46,.09)}}
 @container (max-width:760px){.sp-zodiac__review-summary{position:static;flex-basis:100%}}
 .sp-zodiac__reviews{container-type:inline-size}
 @media(prefers-reduced-motion:reduce){.sp-zodiac__sign-orbit,.sp-zodiac__glow{animation:none!important}.sp-zodiac__reveal-ready{opacity:1!important;transform:none!important;transition:none!important}.sp-zodiac *{scroll-behavior:auto!important}}
