@@ -78,7 +78,7 @@
         <div class="sp-daily__buy-panel">
           <div class="sp-daily__price-row">
             <div>
-              <span>Current demo price</span>
+              <span>Price</span>
               <strong>{{ sp_variant.price | money }}</strong>
             </div>
             {% if sp_variant.sku != blank %}<span class="sp-daily__sku">SKU {{ sp_variant.sku }}</span>{% endif %}
@@ -114,7 +114,7 @@
           </div>
 
           {% unless sp_variant.available %}
-            <p class="sp-daily__demo-note">Storefront demo preview: the cart interaction is enabled for presentation while commercial inventory is being finalized.</p>
+            
           {% endunless %}
         </div>
       </div>
@@ -248,7 +248,7 @@
       <div class="sp-daily__section-head sp-daily__reviews-head">
         <div>
           <p class="sp-daily__eyebrow">Sabpuja customer stories</p>
-          <h2 id="daily-reviews-title">The review stack you already know.</h2>
+          <h2 id="daily-reviews-title">What customers are saying.</h2>
         </div>
         <div class="sp-daily__review-controls">
           <button type="button" data-daily-review-prev aria-label="Previous review">←</button>
@@ -279,7 +279,7 @@
       <div class="sp-daily__faq-grid">
         <details open>
           <summary>What is included in the Daily Puja Kit?</summary>
-          <p>The current demo assortment presents 18 commonly used home-puja essentials, shown in the contents section above. Final pack details will be updated once the commercial assortment is confirmed.</p>
+          <p>The kit includes 18 commonly used home-puja essentials, shown in the contents section above.</p>
         </details>
         <details>
           <summary>Is it suitable for everyday home puja?</summary>
