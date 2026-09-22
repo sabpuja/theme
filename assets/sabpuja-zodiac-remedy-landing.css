@@ -46,6 +46,9 @@
 .sp-zodiac__sign-orbit{position:absolute;right:14px;bottom:14px;display:grid;width:64px;height:64px;place-items:center;border:1px solid rgba(244,180,0,.36);border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(78,52,46,.14);backdrop-filter:blur(8px);animation:spZodiacFloat 6s ease-in-out infinite}
 .sp-zodiac__sign-orbit:before{content:"";position:absolute;inset:-6px;border:1px solid rgba(244,180,0,.18);border-radius:50%}
 .sp-zodiac__sign-orbit span{font-size:30px;color:var(--primary)}
+.sp-zodiac__hero-media-meta{position:absolute;left:12px;bottom:12px;display:flex;gap:7px;flex-wrap:wrap}
+.sp-zodiac__hero-media-meta>span{min-width:98px;padding:7px 9px;border:1px solid rgba(255,255,255,.72);border-radius:9px;background:rgba(255,255,255,.92);box-shadow:0 8px 22px rgba(78,52,46,.12);backdrop-filter:blur(8px)}
+.sp-zodiac__hero-media-meta small,.sp-zodiac__hero-media-meta strong{display:block}.sp-zodiac__hero-media-meta small{color:var(--soft);font-size:8px}.sp-zodiac__hero-media-meta strong{margin-top:2px;color:var(--ink);font-size:11px}
 .sp-zodiac__hero-copy{flex:1 1 430px;display:flex;flex-direction:column;justify-content:center;padding:clamp(22px,3vw,34px);background:radial-gradient(circle at 90% 8%,rgba(244,180,0,.1),transparent 25%),#fff}
 .sp-zodiac__breadcrumb{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;color:var(--soft);font-size:9.5px}.sp-zodiac__breadcrumb a{text-decoration:none}.sp-zodiac__breadcrumb strong{color:var(--ink)}
 .sp-zodiac__hero-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.sp-zodiac__hero-badges span{padding:5px 8px;border:1px solid var(--border);border-radius:999px;background:var(--bg);font-size:9px;font-weight:750}
