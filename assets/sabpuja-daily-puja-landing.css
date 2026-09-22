@@ -382,6 +382,9 @@
   gap:clamp(24px,4vw,46px);
 }
 .sp-daily__review-summary-panel{
+  position:sticky;
+  top:clamp(74px,8vw,104px);
+  align-self:flex-start;
   flex:0 1 255px;
   min-width:min(100%,230px);
 }
@@ -455,6 +458,57 @@
   font-weight:700;
   text-decoration:none;
 }
+.sp-daily__review-left-extras{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:12px;
+}
+.sp-daily__review-guide,
+.sp-daily__review-support{
+  border:1px solid var(--sp-border);
+  border-radius:11px;
+  background:var(--sp-bg);
+}
+.sp-daily__review-guide{padding:12px}
+.sp-daily__review-guide h3{margin:0 0 9px;font-size:12px}
+.sp-daily__review-guide>span{
+  display:grid;
+  grid-template-columns:16px 1fr;
+  column-gap:7px;
+  padding:8px 0;
+  border-top:1px solid rgba(78,52,46,.08);
+}
+.sp-daily__review-guide>span:first-of-type{border-top:0;padding-top:0}
+.sp-daily__review-guide svg{
+  grid-row:1/3;
+  width:14px;
+  height:14px;
+  margin-top:1px;
+  color:var(--sp-primary);
+}
+.sp-daily__review-guide b{font-size:10px}
+.sp-daily__review-guide small{
+  margin-top:2px;
+  color:var(--sp-muted);
+  font-size:9px;
+  line-height:1.4;
+}
+.sp-daily__review-support{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  padding:11px;
+}
+.sp-daily__review-support .sp-daily__icon-tile{
+  width:31px;
+  height:31px;
+  border-radius:8px;
+}
+.sp-daily__review-support .sp-daily__icon-tile svg{width:15px;height:15px}
+.sp-daily__review-support strong{display:block;font-size:10.5px}
+.sp-daily__review-support p{margin:3px 0 7px;color:var(--sp-muted);font-size:9px;line-height:1.42}
+.sp-daily__review-support a{color:var(--sp-primary)!important;font-size:9.5px;font-weight:750;text-decoration:none}
 .sp-daily__review-main{
   flex:1 1 650px;
   min-width:0;
@@ -636,8 +690,8 @@
 
 /* Review image lightbox */
 .sp-daily__lightbox{
-  width:min(1040px,calc(100% - clamp(20px,4vw,56px)));
-  max-height:90vh;
+  width:min(900px,calc(100% - clamp(20px,4vw,56px)));
+  max-height:88vh;
   margin:auto;
   padding:0;
   overflow:visible;
@@ -649,9 +703,10 @@
   background:rgba(31,22,18,.68);
   backdrop-filter:blur(2px);
 }
-{
-  max-height:90vh;
+.sp-daily__lightbox-panel{
+  max-height:88vh;
   overflow:auto;
+  border:1px solid rgba(78,52,46,.12);
   border-radius:14px;
   background:#fff;
   box-shadow:0 28px 80px rgba(28,17,11,.32);
@@ -688,33 +743,43 @@
 .sp-daily__lightbox-body--review{
   display:flex;
   flex-wrap:wrap;
-  min-height:clamp(400px,50vw,590px);
+  align-items:stretch;
 }
 .sp-daily__lightbox-photo--review{
-  flex:1 1 620px;
+  flex:1 1 540px;
   min-width:0;
+  min-height:0;
   margin:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:clamp(12px,2vw,20px);
+  padding:clamp(16px,2.4vw,24px);
   background:#f8f2e8;
 }
 .sp-daily__lightbox-photo--review img{
-  width:100%;
-  max-height:min(72vh,600px);
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:min(100%,560px);
+  max-height:calc(88vh - 92px);
   object-fit:contain;
+  border:1px solid rgba(78,52,46,.1);
   border-radius:10px;
+  background:#fff;
+  box-shadow:0 8px 24px rgba(78,52,46,.07);
 }
 .sp-daily__lightbox-review--product{
-  flex:0 1 300px;
-  min-width:min(100%,260px);
-  padding:clamp(16px,2vw,22px);
+  flex:0 1 260px;
+  min-width:min(100%,230px);
+  padding:clamp(14px,1.8vw,18px);
   border-left:1px solid var(--sp-border);
   background:#fff;
 }
 .sp-daily__lightbox-review--product>img{
+  display:block;
   width:100%;
+  height:auto;
+  max-height:180px;
   margin-top:7px;
   aspect-ratio:4/3;
   object-fit:cover;
@@ -777,4 +842,8 @@
   .sp-daily__hero-float,.sp-daily__btn--glow{animation:none!important}
   .sp-daily__reveal-ready{opacity:1!important;transform:none!important;transition:none!important}
   .sp-daily__btn,.sp-daily__add,.sp-daily__visual-card-row article,.sp-daily__drawer-backdrop,.sp-daily__drawer-panel,.sp-daily__review-media-strip button,.sp-daily__review-inline-media{transition:none!important}
+}
+
+@container style(--sp-review-narrow: 1){
+  .sp-daily__review-summary-panel{position:static}
 }
