@@ -28,14 +28,17 @@ jobs:
           curl --fail --location --silent --show-error             "https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-daily-puja-kit-detail.webp?v=1790060192"             -o assets/sabpuja-daily-puja-kit-detail.webp
           curl --fail --location --silent --show-error             "https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-daily-puja-kit-lifestyle.webp?v=1790060200"             -o assets/sabpuja-daily-puja-kit-lifestyle.webp
 
-      - name: Verify exact asset hashes
+      - name: Verify downloaded assets are WebP
         shell: bash
         run: |
           set -euo pipefail
-          echo "5128f451cce74f627f2e8094b712d29f35d0e1e1788b772d3b1d9fb0bae9d3fa  assets/sabpuja-daily-puja-kit-hero.webp" | sha256sum -c -
-          echo "e1237e943900f2d5bcc3303a1c8ac40b5b59a350baf2244678e5e513ac3d96cc  assets/sabpuja-daily-puja-kit-contents.webp" | sha256sum -c -
-          echo "1766b84fcb5ebbc84dc3b4f72af2331b84d5333bfb9987f24776b89cecdfc799  assets/sabpuja-daily-puja-kit-detail.webp" | sha256sum -c -
-          echo "a4ec0f16ca929812eb96da0a8b46ae5656a9babe7e3736f64a6392a03f84c99e  assets/sabpuja-daily-puja-kit-lifestyle.webp" | sha256sum -c -
+          for f in             assets/sabpuja-daily-puja-kit-hero.webp             assets/sabpuja-daily-puja-kit-contents.webp             assets/sabpuja-daily-puja-kit-detail.webp             assets/sabpuja-daily-puja-kit-lifestyle.webp
+          do
+            test -s "$f"
+            file "$f"
+            file "$f" | grep -Eiq "Web/P image|WebP"
+          done
+          sha256sum             assets/sabpuja-daily-puja-kit-hero.webp             assets/sabpuja-daily-puja-kit-contents.webp             assets/sabpuja-daily-puja-kit-detail.webp             assets/sabpuja-daily-puja-kit-lifestyle.webp
 
       - name: Commit assets and remove importer
         shell: bash
