@@ -1,6 +1,8 @@
 <!-- Sabpuja staging product template -->
 {% if product.handle == 'daily-puja-kit' %}
   {% section 'sabpuja-daily-puja-landing' %}
+{% elsif product.handle == 'navratri-puja-kit' %}
+  {% section 'sabpuja-navratri-puja-landing' %}
 {% else %}
   {% section 'sabpuja-product' %}
 {% endif %}
