@@ -636,39 +636,26 @@
 
 /* Review image lightbox */
 .sp-daily__lightbox{
-  position:fixed;
-  z-index:10030;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:clamp(10px,3vw,28px);
-  pointer-events:none;
-}
-.sp-daily__lightbox-backdrop{
-  position:absolute;
-  inset:0;
+  width:min(1040px,calc(100% - clamp(20px,4vw,56px)));
+  max-height:90vh;
+  margin:auto;
+  padding:0;
+  overflow:visible;
   border:0;
-  background:rgba(31,22,18,.68);
-  opacity:0;
-  transition:opacity .22s ease;
+  border-radius:14px;
+  background:transparent;
 }
-.sp-daily__lightbox-panel{
-  position:relative;
-  z-index:1;
-  width:min(1040px,100%);
-  max-height:min(90vh,800px);
+.sp-daily__lightbox::backdrop{
+  background:rgba(31,22,18,.68);
+  backdrop-filter:blur(2px);
+}
+{
+  max-height:90vh;
   overflow:auto;
   border-radius:14px;
   background:#fff;
   box-shadow:0 28px 80px rgba(28,17,11,.32);
-  opacity:0;
-  transform:translateY(8px) scale(.985);
-  transition:opacity .22s ease,transform .22s ease;
 }
-.sp-daily__lightbox.is-open{pointer-events:auto}
-.sp-daily__lightbox.is-open .sp-daily__lightbox-backdrop{opacity:1}
-.sp-daily__lightbox.is-open .sp-daily__lightbox-panel{opacity:1;transform:none}
 .sp-daily__lightbox-head{
   position:sticky;
   z-index:2;
@@ -789,5 +776,5 @@
 @media(prefers-reduced-motion:reduce){
   .sp-daily__hero-float,.sp-daily__btn--glow{animation:none!important}
   .sp-daily__reveal-ready{opacity:1!important;transform:none!important;transition:none!important}
-  .sp-daily__btn,.sp-daily__add,.sp-daily__visual-card-row article,.sp-daily__drawer-backdrop,.sp-daily__drawer-panel,.sp-daily__lightbox-backdrop,.sp-daily__lightbox-panel,.sp-daily__review-media-strip button,.sp-daily__review-inline-media{transition:none!important}
+  .sp-daily__btn,.sp-daily__add,.sp-daily__visual-card-row article,.sp-daily__drawer-backdrop,.sp-daily__drawer-panel,.sp-daily__review-media-strip button,.sp-daily__review-inline-media{transition:none!important}
 }
