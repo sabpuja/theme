@@ -1,0 +1,731 @@
+<link href="{{ 'sabpuja-navratri-puja-landing.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+
+{% assign sp_variant = product.selected_or_first_available_variant %}
+{% assign sp_reviews = '01,02,03,04,05,06' | split: ',' %}
+
+<div class="sp-navratri" data-sp-navratri data-variant-available="{{ sp_variant.available }}">
+  <main>
+    <section class="sp-navratri__hero sp-navratri__module" data-reveal>
+      <div class="sp-navratri__hero-media">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-banner_d5ca8f09-8c84-44c4-b221-1d9e3bce552e.webp?v=1789736745"
+          alt="Sabpuja Navratri Puja Kit arranged near a warm home mandir"
+          width="1448"
+          height="1086"
+          loading="eager"
+          fetchpriority="high">
+        <div class="sp-navratri__hero-float" aria-hidden="true">
+          <span>🪔</span>
+          <div><strong>Navratri-ready</strong><small>Festival essentials, together</small></div>
+        </div>
+      </div>
+
+      <div class="sp-navratri__hero-copy">
+        <nav class="sp-navratri__breadcrumb" aria-label="Breadcrumb">
+          <a href="{{ routes.root_url }}">Home</a>
+          <span>/</span>
+          <span>{{ product.title }}</span>
+        </nav>
+
+        <div class="sp-navratri__hero-chips" aria-label="Product highlights">
+          <span>🌺 Navratri-ready</span>
+          <span>🪔 Nine-day worship</span>
+          <span>🎁 Giftable</span>
+        </div>
+
+        <p class="sp-navratri__eyebrow">Navratri preparation, thoughtfully organized</p>
+        <h1>Navratri Puja, Made Simple.</h1>
+        <p class="sp-navratri__lede">Bring commonly used Navratri puja essentials together in one organized kit, so more of your attention can stay on preparation, prayer and family tradition.</p>
+
+        <a class="sp-navratri__rating-link" href="#navratri-puja-reviews" aria-label="Jump to product photos and review section">
+          <span class="sp-navratri__stars" aria-hidden="true">
+            {% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}
+          </span>
+          <strong>See product photos & reviews</strong>
+        </a>
+
+        <div class="sp-navratri__hero-points" aria-label="Navratri Puja Kit highlights">
+          <span>{% render 'sabpuja-icon', name: 'package' %}<b>18</b> festival essentials</span>
+          <span>{% render 'sabpuja-icon', name: 'truck' %}<b>1–3 days</b> across Delhi NCR</span>
+          <span>{% render 'sabpuja-icon', name: 'shield' %}<b>Prepaid</b> online checkout</span>
+        </div>
+
+        <div class="sp-navratri__hero-actions">
+          <a class="sp-navratri__btn sp-navratri__btn--primary sp-navratri__btn--glow" href="#navratri-puja-buy">Choose Navratri Puja Kit</a>
+          <a class="sp-navratri__btn sp-navratri__btn--secondary" href="#navratri-puja-contents">See what’s included</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sp-navratri__value-strip sp-navratri__module" aria-label="Why a ready Navratri kit" data-reveal>
+      <article>
+        <span class="sp-navratri__icon-tile">{% render 'sabpuja-icon', name: 'clock' %}</span>
+        <div><strong>Festival-ready</strong><span>Keep core puja essentials together before the first day begins.</span></div>
+      </article>
+      <article>
+        <span class="sp-navratri__icon-tile">{% render 'sabpuja-icon', name: 'package' %}</span>
+        <div><strong>Nine-day ease</strong><span>Reduce repeated searching for the small items used across the festival.</span></div>
+      </article>
+      <article>
+        <span class="sp-navratri__icon-tile">{% render 'sabpuja-icon', name: 'heart' %}</span>
+        <div><strong>Tradition-friendly</strong><span>Use the supplied essentials according to your family tradition or priest guidance.</span></div>
+      </article>
+    </section>
+
+    <section class="sp-navratri__buy-wrap" id="navratri-puja-buy" data-reveal>
+      <div class="sp-navratri__buy-card sp-navratri__module">
+        <div class="sp-navratri__buy-intro">
+          <span class="sp-navratri__mini-badge">{% render 'sabpuja-icon', name: 'sparkles' %} Ready for the festival</span>
+          <p class="sp-navratri__eyebrow">Navratri Puja Kit</p>
+          <h2>Begin Navratri with the essentials already organized.</h2>
+          <p class="sp-navratri__buy-copy">A practical Navratri assortment for home worship, aarti and festival preparation—organized to reduce last-minute shopping and scattered packets.</p>
+
+          <div class="sp-navratri__micro-proof">
+            <span>{% render 'sabpuja-icon', name: 'check' %} Festival essentials grouped</span>
+            <span>{% render 'sabpuja-icon', name: 'check' %} Easy quantity selection</span>
+            <span>{% render 'sabpuja-icon', name: 'check' %} Delhi NCR delivery</span>
+          </div>
+        </div>
+
+        <div class="sp-navratri__buy-panel">
+          <div class="sp-navratri__price-row">
+            <div>
+              <span>Price</span>
+              <strong>₹{{ sp_variant.price | money_without_currency }}</strong>
+            </div>
+            {% if sp_variant.sku != blank %}<span class="sp-navratri__sku">SKU {{ sp_variant.sku }}</span>{% endif %}
+          </div>
+
+          {% form 'product', product, class: 'sp-navratri__form', data-sp-navratri-form: '' %}
+            <input type="hidden" name="id" value="{{ sp_variant.id }}">
+
+            <div class="sp-navratri__purchase-row">
+              <div class="sp-navratri__qty-wrap">
+                <label for="NavratriQty-{{ section.id }}">Quantity</label>
+                <div class="sp-navratri__qty">
+                  <button type="button" data-navratri-minus aria-label="Decrease quantity">−</button>
+                  <input id="NavratriQty-{{ section.id }}" type="number" name="quantity" value="1" min="1" inputmode="numeric" data-navratri-qty>
+                  <button type="button" data-navratri-plus aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+              <div class="sp-navratri__total">
+                <span>Total</span>
+                <strong data-navratri-total>₹{{ sp_variant.price | money_without_currency }}</strong>
+              </div>
+            </div>
+
+            <button type="submit" class="sp-navratri__add">
+              {% render 'sabpuja-icon', name: 'shop' %}
+              <span>Add to Cart</span>
+            </button>
+          {% endform %}
+
+          <div class="sp-navratri__buy-reassurance">
+            <span>{% render 'sabpuja-icon', name: 'truck' %}<b>1–3 business days</b><small>Delhi NCR only</small></span>
+            <span>{% render 'sabpuja-icon', name: 'shield' %}<b>Prepaid online</b><small>UPI, cards & supported methods</small></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sp-navratri__visual-problems sp-navratri__module" data-reveal>
+      <div class="sp-navratri__section-head">
+        <div>
+          <p class="sp-navratri__eyebrow">The Navratri preparation problem</p>
+          <h2>Nine days can mean many small things to remember.</h2>
+        </div>
+        <p>Navratri preparation often mixes one-time setup items with consumables used again during the festival.</p>
+      </div>
+      <div class="sp-navratri__visual-card-row">
+        <article>
+          <span class="sp-navratri__visual-emoji">🧭</span>
+          <h3>Items spread across shops</h3>
+          <p>Roli, akshat, wicks, kapoor, mauli and other small essentials are easy to miss when bought separately.</p>
+        </article>
+        <article>
+          <span class="sp-navratri__visual-emoji">⏰</span>
+          <h3>Festival-day rushing</h3>
+          <p>A missing basic can mean another market run just when the home is getting ready for puja.</p>
+        </article>
+        <article>
+          <span class="sp-navratri__visual-emoji">📦</span>
+          <h3>Nine-day consumables</h3>
+          <p>Some items are used repeatedly, so keeping consumables together makes the festival easier to manage.</p>
+        </article>
+        <article>
+          <span class="sp-navratri__visual-emoji">🎁</span>
+          <h3>Traditions vary</h3>
+          <p>The kit is a starting point—not a replacement for your family’s customary method or priest guidance.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="sp-navratri__contents sp-navratri__module" id="navratri-puja-contents" data-reveal>
+      <div class="sp-navratri__section-head sp-navratri__section-head--full">
+        <div>
+          <p class="sp-navratri__eyebrow">What’s inside</p>
+          <h2>18 commonly used Navratri essentials, one organized view.</h2>
+        </div>
+        <p>A practical festival assortment based on commonly used Navratri samagri. Fresh items and family-specific requirements may still be arranged separately.</p>
+      </div>
+
+      <div class="sp-navratri__contents-layout">
+        <figure class="sp-navratri__contents-image">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-featured-card_859b2ecc-6aa8-44b4-b53a-2c4f0e6aa90f.webp?v=1789736745"
+            alt="Sabpuja Navratri Puja Kit festive presentation"
+            width="1254"
+            height="1254"
+            loading="lazy"
+            decoding="async">
+          <figcaption><span>✨</span> Festival basics at a glance</figcaption>
+        </figure>
+
+        <!-- Staging assortment: owner approved logic/research-led demo content. Replace with final commercial BOM before live launch. -->
+        <div class="sp-navratri__contents-list">
+          <div><b>01</b><span><strong>Red Chunari</strong><small>1 pc</small></span></div>
+          <div><b>02</b><span><strong>Roli / Kumkum</strong><small>25 g</small></span></div>
+          <div><b>03</b><span><strong>Akshat</strong><small>50 g</small></span></div>
+          <div><b>04</b><span><strong>Haldi</strong><small>25 g</small></span></div>
+          <div><b>05</b><span><strong>Chandan</strong><small>25 g</small></span></div>
+          <div><b>06</b><span><strong>Gangajal</strong><small>100 ml</small></span></div>
+          <div><b>07</b><span><strong>Mauli / Kalava</strong><small>1 roll</small></span></div>
+          <div><b>08</b><span><strong>Jau / Barley</strong><small>100 g</small></span></div>
+          <div><b>09</b><span><strong>Puja Ghee</strong><small>100 g</small></span></div>
+          <div><b>10</b><span><strong>Cotton Wicks</strong><small>30 pcs</small></span></div>
+          <div><b>11</b><span><strong>Kapoor</strong><small>25 g</small></span></div>
+          <div><b>12</b><span><strong>Agarbatti / Dhoop</strong><small>20–25 pcs</small></span></div>
+          <div><b>13</b><span><strong>Supari</strong><small>5 pcs</small></span></div>
+          <div><b>14</b><span><strong>Laung</strong><small>10 pcs</small></span></div>
+          <div><b>15</b><span><strong>Elaichi</strong><small>10 pcs</small></span></div>
+          <div><b>16</b><span><strong>Mishri</strong><small>50 g</small></span></div>
+          <div><b>17</b><span><strong>Puja Diya</strong><small>1 pc</small></span></div>
+          <div><b>18</b><span><strong>Matchbox</strong><small>1 pc</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sp-navratri__story sp-navratri__module" data-reveal>
+      <div class="sp-navratri__story-copy">
+        <span class="sp-navratri__mini-badge">{% render 'sabpuja-icon', name: 'package' %} Prepared before day one</span>
+        <p class="sp-navratri__eyebrow">Festival preparation</p>
+        <h2>Prepare once, then keep the small essentials easy to reach.</h2>
+        <p>Navratri often combines setup items, daily aarti essentials and small consumables. Keeping them grouped makes it easier to see what is ready and what fresh items still need to be arranged.</p>
+        <div class="sp-navratri__story-points">
+          <span>{% render 'sabpuja-icon', name: 'check' %} Common Navratri basics grouped</span>
+          <span>{% render 'sabpuja-icon', name: 'check' %} Easy-to-scan presentation</span>
+          <span>{% render 'sabpuja-icon', name: 'check' %} Suitable for home festival preparation</span>
+        </div>
+      </div>
+      <div class="sp-navratri__story-media">
+        <img
+          src="{{ 'sabpuja-upcoming-festivals-navratri-01.webp' | asset_url }}"
+          alt="Navratri festival preparation visual"
+          width="1254"
+          height="1254"
+          loading="lazy"
+          decoding="async">
+      </div>
+    </section>
+
+    <section class="sp-navratri__how sp-navratri__module" data-reveal>
+      <div class="sp-navratri__section-head sp-navratri__section-head--full">
+        <div>
+          <p class="sp-navratri__eyebrow">How to use the kit</p>
+          <h2>Prepare the festival in three simple stages.</h2>
+        </div>
+        <p>Use the kit as an organized starting point. Exact Navratri practices vary by family, region and sampradaya, so follow your own tradition or priest guidance.</p>
+      </div>
+      <ol class="sp-navratri__steps">
+        <li><span class="sp-navratri__step-icon">{% render 'sabpuja-icon', name: 'home' %}</span><div><b>01</b><strong>Prepare the puja space</strong><p>Set aside your chowki/mandir area and group the supplied essentials before the festival begins.</p></div></li>
+        <li><span class="sp-navratri__step-icon">{% render 'sabpuja-icon', name: 'sparkles' %}</span><div><b>02</b><strong>Arrange fresh & family-specific items</strong><p>Add fresh flowers, fruit, coconut, leaves or other items required by your household tradition.</p></div></li>
+        <li><span class="sp-navratri__step-icon">{% render 'sabpuja-icon', name: 'package' %}</span><div><b>03</b><strong>Use across the festival</strong><p>Keep commonly used consumables together for aarti and puja across the Navratri period.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="sp-navratri__lifestyle sp-navratri__module" data-reveal>
+      <div class="sp-navratri__lifestyle-media">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-banner_d5ca8f09-8c84-44c4-b221-1d9e3bce552e.webp?v=1789736745"
+          alt="Sabpuja Navratri Puja Kit festive home-puja presentation"
+          width="1448"
+          height="1086"
+          loading="lazy"
+          decoding="async">
+      </div>
+      <div class="sp-navratri__lifestyle-copy">
+        <span class="sp-navratri__mini-badge">{% render 'sabpuja-icon', name: 'heart' %} Made for Navratri at home</span>
+        <p class="sp-navratri__eyebrow">Festive, organized, familiar</p>
+        <h2>A ready starting point for your family’s Navratri tradition.</h2>
+        <p>The kit supports preparation; it does not prescribe one universal ritual. Arrange the supplied essentials, add the fresh items your tradition uses, and follow your customary Navratri practice.</p>
+        <div class="sp-navratri__quote-bubble">
+          <span>🙏</span>
+          <div><small>A calmer festival setup</small><strong>Keep the small festival essentials together so the home can focus on worship, not searching.</strong></div>
+        </div>
+        <a class="sp-navratri__text-link" href="#navratri-puja-buy">Choose your Navratri kit {% render 'sabpuja-icon', name: 'arrow-right' %}</a>
+      </div>
+    </section>
+
+    <section class="sp-navratri__reviews sp-navratri__module" id="navratri-puja-reviews" aria-labelledby="daily-reviews-title" data-demo-reviews="true" data-reveal>
+      <div class="sp-navratri__marketplace-reviews">
+        <aside class="sp-navratri__review-summary-panel">
+          <h2 id="daily-reviews-title">Customer reviews</h2>
+
+          <div class="sp-navratri__review-score-row">
+            <span class="sp-navratri__stars sp-navratri__stars--large" aria-hidden="true">
+              {% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}
+            </span>
+            <strong>4.9 out of 5</strong>
+          </div>
+          <p class="sp-navratri__review-count">128 ratings</p>
+
+          <div class="sp-navratri__rating-bars sp-navratri__rating-bars--marketplace" aria-label="Review rating distribution">
+            <div><span>5 star</span><i><b style="--rating-width:93%"></b></i><em>93%</em></div>
+            <div><span>4 star</span><i><b style="--rating-width:5%"></b></i><em>5%</em></div>
+            <div><span>3 star</span><i><b style="--rating-width:1%"></b></i><em>1%</em></div>
+            <div><span>2 star</span><i><b style="--rating-width:1%"></b></i><em>1%</em></div>
+            <div><span>1 star</span><i><b style="--rating-width:0%"></b></i><em>0%</em></div>
+          </div>
+
+          <div class="sp-navratri__review-write">
+            <h3>Review this product</h3>
+            <p>Share your experience with other Sabpuja customers.</p>
+            <a href="mailto:support@sabpuja.com?subject=Navratri%20Puja%20Kit%20Review">Write a product review</a>
+          </div>
+
+          <div class="sp-navratri__review-left-extras">
+            <div class="sp-navratri__review-guide">
+              <h3>What shoppers find useful</h3>
+              <span>{% render 'sabpuja-icon', name: 'package' %}<b>Packaging</b><small>How the kit arrived and how neatly items were organized.</small></span>
+              <span>{% render 'sabpuja-icon', name: 'home' %}<b>Everyday use</b><small>How the kit supports Navratri preparation and repeated festival use.</small></span>
+              <span>{% render 'sabpuja-icon', name: 'gift' %}<b>Gifting</b><small>Whether the presentation felt suitable for family or loved ones.</small></span>
+            </div>
+
+            <div class="sp-navratri__review-support">
+              <span class="sp-navratri__icon-tile">{% render 'sabpuja-icon', name: 'help' %}</span>
+              <div>
+                <strong>Need help with an order?</strong>
+                <p>Our support team can help with delivery, damaged, wrong or missing-item concerns.</p>
+                <a href="mailto:support@sabpuja.com">Contact Sabpuja support</a>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <div class="sp-navratri__review-main">
+          <div class="sp-navratri__customers-say">
+            <h3>Customers say</h3>
+            <p>The current review set highlights organized presentation, festival convenience, packaging and gift-friendly format.</p>
+
+            <strong class="sp-navratri__learn-more-label">Select to learn more</strong>
+            <div class="sp-navratri__review-topics" aria-label="Review topics">
+              <button type="button" data-review-filter="all" class="is-active">↗ Festival-ready</button>
+              <button type="button" data-review-filter="5">∿ Easy preparation</button>
+              <button type="button" data-review-filter="photo">∿ Packaging</button>
+              <span>∿ Gifting</span>
+            </div>
+          </div>
+
+          <div class="sp-navratri__reviews-with-images">
+            <div class="sp-navratri__reviews-images-head">
+              <h3>Reviews with images</h3>
+              <span>Tap any image to enlarge</span>
+            </div>
+
+            <div class="sp-navratri__review-media-strip" aria-label="Review images">
+              {% for review_number in sp_reviews %}
+                {% capture review_asset %}sabpuja-customer-review-{{ review_number }}.webp{% endcapture %}
+                <button
+                  type="button"
+                  data-review-image-open
+                  data-review-image="{{ review_asset | asset_url }}"
+                  aria-label="Open review image {{ forloop.index }}">
+                  <img
+                    src="{{ review_asset | asset_url }}"
+                    alt="Sabpuja review image {{ forloop.index }}"
+                    width="1448"
+                    height="1086"
+                    loading="lazy"
+                    decoding="async">
+                </button>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="sp-navratri__review-feed-wrap">
+            <h3>Top reviews</h3>
+
+            <div class="sp-navratri__review-feed" data-review-feed>
+              <article class="sp-navratri__review-item" data-stars="5" data-photo="true">
+                <div class="sp-navratri__review-avatar">AS</div>
+                <div class="sp-navratri__review-body">
+                  <div class="sp-navratri__review-meta">
+                    <div><strong>Aditi Sharma</strong><span class="sp-navratri__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-09-16">16 Sep 2026</time>
+                  </div>
+                  <div class="sp-navratri__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>Neat, compact and easy to keep near the mandir</h3>
+                  <p>Everything feels organized instead of scattered in different drawers. The presentation is what I liked most.</p>
+                  <button class="sp-navratri__review-inline-media" type="button" data-review-image-open data-review-image="{{ 'sabpuja-customer-review-01.webp' | asset_url }}">
+                    <img src="{{ 'sabpuja-customer-review-01.webp' | asset_url }}" alt="Review image" width="1448" height="1086" loading="lazy" decoding="async">
+                  </button>
+                </div>
+              </article>
+
+              <article class="sp-navratri__review-item" data-stars="5" data-photo="false">
+                <div class="sp-navratri__review-avatar">NV</div>
+                <div class="sp-navratri__review-body">
+                  <div class="sp-navratri__review-meta">
+                    <div><strong>Neha Verma</strong><span class="sp-navratri__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-09-10">10 Sep 2026</time>
+                  </div>
+                  <div class="sp-navratri__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>Helpful for festival preparation</h3>
+                  <p>I wanted the small Navratri essentials organized before the festival instead of buying everything separately. This format makes preparation much easier.</p>
+                </div>
+              </article>
+
+              <article class="sp-navratri__review-item" data-stars="5" data-photo="true">
+                <div class="sp-navratri__review-avatar">RK</div>
+                <div class="sp-navratri__review-body">
+                  <div class="sp-navratri__review-meta">
+                    <div><strong>Ritu Kapoor</strong><span class="sp-navratri__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-08-28">28 Aug 2026</time>
+                  </div>
+                  <div class="sp-navratri__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>Gifted it to my parents</h3>
+                  <p>The organized presentation made it feel thoughtful without being overdone. It looked clean and practical.</p>
+                  <button class="sp-navratri__review-inline-media" type="button" data-review-image-open data-review-image="{{ 'sabpuja-customer-review-03.webp' | asset_url }}">
+                    <img src="{{ 'sabpuja-customer-review-03.webp' | asset_url }}" alt="Review image" width="1448" height="1086" loading="lazy" decoding="async">
+                  </button>
+                </div>
+              </article>
+
+              <article class="sp-navratri__review-item" data-stars="4" data-photo="false">
+                <div class="sp-navratri__review-avatar">MS</div>
+                <div class="sp-navratri__review-body">
+                  <div class="sp-navratri__review-meta">
+                    <div><strong>Meera S.</strong><span class="sp-navratri__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-08-19">19 Aug 2026</time>
+                  </div>
+                  <div class="sp-navratri__stars" aria-label="4 out of 5 stars">{% for i in (1..4) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>Good concept and easy to understand</h3>
+                  <p>The kit format is convenient and the contents are easy to scan. I would love refill options later as well.</p>
+                </div>
+              </article>
+
+              <article class="sp-navratri__review-item sp-navratri__review-item--more" data-stars="5" data-photo="true" hidden>
+                <div class="sp-navratri__review-avatar">AM</div>
+                <div class="sp-navratri__review-body">
+                  <div class="sp-navratri__review-meta">
+                    <div><strong>Arjun Malhotra</strong><span class="sp-navratri__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-08-05">5 Aug 2026</time>
+                  </div>
+                  <div class="sp-navratri__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>Looks premium without feeling complicated</h3>
+                  <p>I liked that it feels devotional but still clean and modern. The packaging is easy to keep organized at home.</p>
+                  <button class="sp-navratri__review-inline-media" type="button" data-review-image-open data-review-image="{{ 'sabpuja-customer-review-05.webp' | asset_url }}">
+                    <img src="{{ 'sabpuja-customer-review-05.webp' | asset_url }}" alt="Review image" width="1448" height="1086" loading="lazy" decoding="async">
+                  </button>
+                </div>
+              </article>
+
+              <article class="sp-navratri__review-item sp-navratri__review-item--more" data-stars="5" data-photo="false" hidden>
+                <div class="sp-navratri__review-avatar">KR</div>
+                <div class="sp-navratri__review-body">
+                  <div class="sp-navratri__review-meta">
+                    <div><strong>Kavita Rao</strong><span class="sp-navratri__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div>
+                    <time datetime="2026-07-26">26 Jul 2026</time>
+                  </div>
+                  <div class="sp-navratri__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div>
+                  <h3>A helpful Navratri starter</h3>
+                  <p>Simple, well arranged and easy for everyone at home to understand before the festival begins.</p>
+                </div>
+              </article>
+            </div>
+
+            <button type="button" class="sp-navratri__load-more" data-review-more>See more reviews</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="sp-navratri__reviews-disclosure">Illustrative review data is being used on staging while verified customer-review import is finalized. Replace before live publication.</p>
+    </section>
+
+    <section class="sp-navratri__faq sp-navratri__module" data-reveal>
+      <div class="sp-navratri__section-head sp-navratri__section-head--full">
+        <div>
+          <p class="sp-navratri__eyebrow">Questions before you buy</p>
+          <h2>Navratri Puja Kit FAQ</h2>
+        </div>
+        <p>Short answers where reassurance matters—without turning the page back into a wall of text.</p>
+      </div>
+      <div class="sp-navratri__faq-list">
+        <details open>
+          <summary><span>🪔</span> What is included in the Navratri Puja Kit?</summary>
+          <p>The current staging assortment presents 18 commonly used Navratri essentials. Final commercial quantities and contents will be confirmed before launch.</p>
+        </details>
+        <details>
+          <summary><span>🏠</span> Is it suitable for Navratri puja at home?</summary>
+          <p>Yes. It is designed as a practical starting point for Navratri preparation and home worship. Exact rituals and required items vary by family and regional tradition.</p>
+        </details>
+        <details>
+          <summary><span>🚚</span> Where do you deliver?</summary>
+          <p>Delhi NCR only, with an estimated delivery time of 1–3 business days.</p>
+        </details>
+        <details>
+          <summary><span>➕</span> Can I order more than one?</summary>
+          <p>Yes. Use the quantity controls in the buy section before adding the kit to cart.</p>
+        </details>
+        <details>
+          <summary><span>🎁</span> Can I gift the kit?</summary>
+          <p>Yes. Its organized presentation makes it suitable as a practical devotional gift for family members and loved ones.</p>
+        </details>
+        <details>
+          <summary><span>💬</span> How can I contact Sabpuja?</summary>
+          <p>Email <a href="mailto:support@sabpuja.com">support@sabpuja.com</a> or call <a href="tel:+919667819241">+91 96678 19241</a>, Monday–Saturday, 10am–6pm IST.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="sp-navratri__final sp-navratri__module" data-reveal>
+      <div>
+        <span class="sp-navratri__mini-badge sp-navratri__mini-badge--dark">🌺 Navratri essentials, one place</span>
+        <p class="sp-navratri__eyebrow">Prepare before the festival begins</p>
+        <h2>Make Navratri preparation one less thing to think about.</h2>
+        <p>Choose your quantity, add the kit to your cart, and keep the small festival essentials together before Navratri begins.</p>
+      </div>
+      <a class="sp-navratri__btn sp-navratri__btn--primary sp-navratri__btn--glow" href="#navratri-puja-buy">Buy Navratri Puja Kit</a>
+    </section>
+  </main>
+
+  <dialog class="sp-navratri__lightbox" data-navratri-lightbox aria-label="Review image viewer">
+    <div class="sp-navratri__lightbox-panel">
+      <div class="sp-navratri__lightbox-head">
+        <div>
+          <strong>Customer review</strong>
+          <span>Review image enlarged</span>
+        </div>
+        <button type="button" data-lightbox-close aria-label="Close">×</button>
+      </div>
+      <div class="sp-navratri__lightbox-body sp-navratri__lightbox-body--review">
+        <figure class="sp-navratri__lightbox-photo sp-navratri__lightbox-photo--review">
+          <img src="{{ 'sabpuja-customer-review-01.webp' | asset_url }}" alt="Sabpuja review image" width="1448" height="1086" data-lightbox-review>
+        </figure>
+        <aside class="sp-navratri__lightbox-review sp-navratri__lightbox-review--product">
+          <span class="sp-navratri__eyebrow">Navratri Puja Kit</span>
+          <img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-banner_d5ca8f09-8c84-44c4-b221-1d9e3bce552e.webp?v=1789736745" alt="Navratri Puja Kit" width="1448" height="1086" loading="lazy" decoding="async">
+          <h3>Everything together. One simple start.</h3>
+          <p>View the full review image while keeping the product context visible beside it.</p>
+          <a class="sp-navratri__btn sp-navratri__btn--primary" href="#navratri-puja-buy" data-lightbox-close>Choose quantity</a>
+        </aside>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="sp-navratri__drawer" data-navratri-drawer aria-hidden="true">
+    <button class="sp-navratri__drawer-backdrop" type="button" data-navratri-close aria-label="Close cart preview"></button>
+    <aside class="sp-navratri__drawer-panel" aria-label="Cart preview">
+      <div class="sp-navratri__drawer-head">
+        <div><strong>Added to cart</strong><span data-navratri-drawer-mode></span></div>
+        <button type="button" data-navratri-close aria-label="Close">×</button>
+      </div>
+      <div class="sp-navratri__drawer-product">
+        <img src="https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-navratri-hero-banner_d5ca8f09-8c84-44c4-b221-1d9e3bce552e.webp?v=1789736745" alt="" width="96" height="72">
+        <div><strong>{{ product.title }}</strong><span data-navratri-drawer-qty>Qty 1</span></div>
+        <strong data-navratri-drawer-price>₹{{ sp_variant.price | money_without_currency }}</strong>
+      </div>
+      <div class="sp-navratri__drawer-summary"><span>Total</span><strong data-navratri-drawer-total>₹{{ sp_variant.price | money_without_currency }}</strong></div>
+      {% if sp_variant.available %}
+        <a class="sp-navratri__drawer-checkout" href="/checkout">Checkout</a>
+      {% else %}
+        <button class="sp-navratri__drawer-checkout sp-navratri__drawer-checkout--demo" type="button" disabled>Checkout enabled after inventory approval</button>
+      {% endif %}
+      <p>Prepaid online · Delhi NCR · 1–3 business days</p>
+    </aside>
+  </div>
+</div>
+
+<script>
+(() => {
+  const root = document.querySelector('[data-sp-navratri]');
+  if (!root || root.dataset.ready === 'true') return;
+  root.dataset.ready = 'true';
+
+  const form = root.querySelector('[data-sp-navratri-form]');
+  const qty = root.querySelector('[data-navratri-qty]');
+  const total = root.querySelector('[data-navratri-total]');
+  const drawer = root.querySelector('[data-navratri-drawer]');
+  const priceCents = {{ sp_variant.price | default: 0 }};
+  const available = {{ sp_variant.available | json }};
+  const money = (cents) => new Intl.NumberFormat('en-IN', {style:'currency', currency:'INR', maximumFractionDigits:2}).format(cents / 100);
+
+  const readQty = () => {
+    const value = Math.max(1, parseInt(qty?.value || '1', 10) || 1);
+    if (qty) qty.value = value;
+    return value;
+  };
+
+  const refresh = () => {
+    if (total) total.textContent = money(priceCents * readQty());
+  };
+
+  root.querySelector('[data-navratri-minus]')?.addEventListener('click', () => {
+    if (qty) qty.value = Math.max(1, readQty() - 1);
+    refresh();
+  });
+
+  root.querySelector('[data-navratri-plus]')?.addEventListener('click', () => {
+    if (qty) qty.value = readQty() + 1;
+    refresh();
+  });
+
+  qty?.addEventListener('change', refresh);
+
+  const openDrawer = (count, cart) => {
+    if (!drawer) return;
+    const lineTotal = cart?.items?.[cart.items.length - 1]?.final_line_price || priceCents * count;
+    const cartTotal = cart?.total_price || priceCents * count;
+    drawer.querySelector('[data-navratri-drawer-qty]').textContent = 'Qty ' + count;
+    drawer.querySelector('[data-navratri-drawer-price]').textContent = money(lineTotal);
+    drawer.querySelector('[data-navratri-drawer-total]').textContent = money(cartTotal);
+    drawer.querySelector('[data-navratri-drawer-mode]').textContent = available ? 'Your cart is ready.' : 'Cart preview — checkout will be available when inventory is activated.';
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('sp-navratri-lock');
+  };
+
+  const closeDrawer = () => {
+    drawer?.classList.remove('is-open');
+    drawer?.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('sp-navratri-lock');
+  };
+
+  root.querySelectorAll('[data-navratri-close]').forEach((button) => button.addEventListener('click', closeDrawer));
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const count = readQty();
+    const button = form.querySelector('.sp-navratri__add');
+    if (!button) return;
+
+    if (!available) {
+      openDrawer(count, null);
+      return;
+    }
+
+    const original = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '<span>Adding to cart…</span>';
+
+    try {
+      const addResponse = await fetch('/cart/add.js', {method:'POST', headers:{Accept:'application/json'}, body:new FormData(form)});
+      if (!addResponse.ok) throw new Error('Cart add failed');
+      const cartResponse = await fetch('/cart.js', {headers:{Accept:'application/json'}});
+      if (!cartResponse.ok) throw new Error('Cart fetch failed');
+      openDrawer(count, await cartResponse.json());
+    } catch (error) {
+      form.submit();
+      return;
+    } finally {
+      button.disabled = false;
+      button.innerHTML = original;
+    }
+  });
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealItems = [...root.querySelectorAll('[data-reveal]')];
+
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    revealItems.forEach((item) => item.classList.add('sp-navratri__reveal-ready'));
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
+    revealItems.forEach((item) => observer.observe(item));
+  } else {
+    revealItems.forEach((item) => item.classList.add('is-visible'));
+  }
+
+  const reviews = [...root.querySelectorAll('.sp-navratri__review-item')];
+  const reviewFilters = [...root.querySelectorAll('[data-review-filter]')];
+  const moreButton = root.querySelector('[data-review-more]');
+  let expanded = false;
+  let activeFilter = 'all';
+
+  const applyReviewState = () => {
+    reviews.forEach((review) => {
+      const isMore = review.classList.contains('sp-navratri__review-item--more');
+      const matches = activeFilter === 'all'
+        || (activeFilter === '5' && review.dataset.stars === '5')
+        || (activeFilter === 'photo' && review.dataset.photo === 'true');
+      const visibleByExpansion = activeFilter !== 'all' || expanded || !isMore;
+      review.hidden = !(matches && visibleByExpansion);
+    });
+    if (moreButton) moreButton.hidden = activeFilter !== 'all' || expanded;
+  };
+
+  reviewFilters.forEach((button) => {
+    button.addEventListener('click', () => {
+      activeFilter = button.dataset.reviewFilter || 'all';
+      reviewFilters.forEach((item) => item.classList.toggle('is-active', item === button));
+      applyReviewState();
+    });
+  });
+
+  moreButton?.addEventListener('click', () => {
+    expanded = true;
+    applyReviewState();
+  });
+
+  const lightbox = root.querySelector('[data-navratri-lightbox]');
+  const lightboxReview = root.querySelector('[data-lightbox-review]');
+
+  const openLightbox = (image) => {
+    if (!lightbox || !image) return;
+    if (lightboxReview) lightboxReview.src = image;
+    if (typeof lightbox.showModal === 'function') {
+      if (!lightbox.open) lightbox.showModal();
+    } else {
+      lightbox.setAttribute('open', '');
+    }
+    document.documentElement.classList.add('sp-navratri-lock');
+    lightbox.querySelector('[data-lightbox-close]')?.focus();
+  };
+
+  const closeLightbox = () => {
+    if (!lightbox) return;
+    if (typeof lightbox.close === 'function' && lightbox.open) {
+      lightbox.close();
+    } else {
+      lightbox.removeAttribute('open');
+    }
+    document.documentElement.classList.remove('sp-navratri-lock');
+  };
+
+  root.querySelectorAll('[data-review-image-open]').forEach((button) => {
+    button.addEventListener('click', () => openLightbox(button.dataset.reviewImage));
+  });
+
+  root.querySelectorAll('[data-lightbox-close]').forEach((button) => {
+    button.addEventListener('click', closeLightbox);
+  });
+
+  lightbox?.addEventListener('click', (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  lightbox?.addEventListener('close', () => {
+    document.documentElement.classList.remove('sp-navratri-lock');
+  });
+
+  applyReviewState();
+})();
+</script>
+
+{% schema %}
+{"name":"Navratri Puja Landing","settings":[]}
+{% endschema %}
