@@ -47,7 +47,7 @@
         <div class="sp-daily__trustline">
           <span>Prepaid online</span>
           <span>Sabpuja support</span>
-          <span>Existing customer review stack</span>
+          <span>Customer stories</span>
         </div>
       </div>
     </section>
@@ -79,7 +79,7 @@
           <div class="sp-daily__price-row">
             <div>
               <span>Price</span>
-              <strong>{{ sp_variant.price | money }}</strong>
+              <strong>₹{{ sp_variant.price | money_without_currency }}</strong>
             </div>
             {% if sp_variant.sku != blank %}<span class="sp-daily__sku">SKU {{ sp_variant.sku }}</span>{% endif %}
           </div>
@@ -98,7 +98,7 @@
               </div>
               <div class="sp-daily__total">
                 <span>Total</span>
-                <strong data-daily-total>{{ sp_variant.price | money }}</strong>
+                <strong data-daily-total>₹{{ sp_variant.price | money_without_currency }}</strong>
               </div>
             </div>
 
@@ -324,9 +324,9 @@
       <div class="sp-daily__drawer-product">
         <img src="{{ 'sabpuja-daily-puja-kit-hero.webp' | asset_url }}" alt="" width="96" height="72">
         <div><strong>{{ product.title }}</strong><span data-daily-drawer-qty>Qty 1</span></div>
-        <strong data-daily-drawer-price>{{ sp_variant.price | money }}</strong>
+        <strong data-daily-drawer-price>₹{{ sp_variant.price | money_without_currency }}</strong>
       </div>
-      <div class="sp-daily__drawer-summary"><span>Total</span><strong data-daily-drawer-total>{{ sp_variant.price | money }}</strong></div>
+      <div class="sp-daily__drawer-summary"><span>Total</span><strong data-daily-drawer-total>₹{{ sp_variant.price | money_without_currency }}</strong></div>
       {% if sp_variant.available %}
         <a class="sp-daily__drawer-checkout" href="/checkout">Checkout</a>
       {% else %}
@@ -337,7 +337,7 @@
   </div>
 
   <div class="sp-daily__sticky">
-    <div><span>{{ product.title }}</span><strong>{{ sp_variant.price | money }}</strong></div>
+    <div><span>{{ product.title }}</span><strong>₹{{ sp_variant.price | money_without_currency }}</strong></div>
     <a href="#daily-puja-buy">Choose quantity</a>
   </div>
 </div>
