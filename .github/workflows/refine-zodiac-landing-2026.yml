@@ -1,0 +1,358 @@
+name: Refine Zodiac landing 2026
+
+on:
+  push:
+    branches:
+      - staging-2026
+    paths:
+      - .github/workflows/refine-zodiac-landing-2026.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: staging-2026
+          fetch-depth: 0
+
+      - name: Apply routing and landing-page refinements
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          def read(path):
+              return Path(path).read_text(encoding='utf-8')
+          def write(path, content):
+              Path(path).write_text(content, encoding='utf-8')
+          def require(cond, msg):
+              if not cond:
+                  raise SystemExit(msg)
+
+          # 1) Individual Zodiac products return to normal PDPs.
+          product_path = 'templates/product.liquid'
+          product = read(product_path)
+          old = """<!-- Sabpuja staging product template -->
+{% if product.handle == 'daily-puja-kit' %}
+  {% section 'sabpuja-daily-puja-landing' %}
+{% elsif product.handle == 'navratri-puja-kit' %}
+  {% section 'sabpuja-navratri-puja-landing' %}
+{% elsif product.type == 'Astrological Remedy Kit' %}
+  {% section 'sabpuja-zodiac-remedy-landing' %}
+{% else %}
+  {% section 'sabpuja-product' %}
+{% endif %}"""
+          new = """<!-- Sabpuja staging product template -->
+{% if product.handle == 'daily-puja-kit' %}
+  {% section 'sabpuja-daily-puja-landing' %}
+{% elsif product.handle == 'navratri-puja-kit' %}
+  {% section 'sabpuja-navratri-puja-landing' %}
+{% else %}
+  {% section 'sabpuja-product' %}
+{% endif %}"""
+          require(old in product, 'Expected product routing block not found')
+          write(product_path, product.replace(old, new))
+
+          # 2) Dedicated collection becomes the shared Zodiac landing page.
+          collection_path = 'templates/collection.liquid'
+          collection = read(collection_path)
+          write(collection_path, """<!-- Sabpuja collection template -->
+{% if collection.handle == 'astrology-remedy-kits' %}
+  {% section 'sabpuja-zodiac-remedy-landing' %}
+{% else %}
+  {% section 'sabpuja-collection-grid' %}
+{% endif %}
+""")
+
+          # 3) Homepage featured card links to shared landing.
+          featured_path = 'sections/sabpuja-home-featured.liquid'
+          featured = read(featured_path)
+          featured = featured.replace("href=\"{% if zodiac_product %}{{ zodiac_product.url }}{% else %}/collections/all{% endif %}\"", "href=\"/collections/astrology-remedy-kits\"")
+          require('/collections/astrology-remedy-kits' in featured, 'Featured Zodiac landing link not installed')
+          write(featured_path, featured)
+
+          # 4) Homepage hero Zodiac slide links to shared landing.
+          hero_path = 'sections/sabpuja-home-hero.liquid'
+          hero = read(hero_path)
+          hero, n = re.subn(r"{% assign slide_3_url = zodiac_product\.url \| default: collections\.all\.url %}", "{% assign slide_3_url = '/collections/astrology-remedy-kits' %}", hero)
+          require(n == 1, f'Expected one hero slide_3_url replacement, got {n}')
+          write(hero_path, hero)
+
+          # 5) Dynamic shared Zodiac landing architecture + review redesign.
+          section_path = 'sections/sabpuja-zodiac-remedy-landing.liquid'
+          section = read(section_path)
+          section = section.replace('data-current-handle="{{ product.handle }}"', '')
+          section = section.replace('<button type="button" data-sign="cancer"><b>♋</b>', '<button type="button" data-sign="cancer"><b>🦀</b>')
+          section = section.replace("cancer:{symbol:'♋'", "cancer:{symbol:'🦀'")
+
+          # Add an explicit path from shared landing to the selected individual product PDP.
+          claim = '<p class="sp-zodiac__claim-note">Traditional associations are presented for devotional context only and are not guarantees of health, financial, protective or future outcomes.</p>'
+          product_link = claim + '''\n          <a class="sp-zodiac__product-link" data-zodiac-product-link href="/products/aries-mesha-astrological-remedy-kit">View full Aries product details →</a>'''
+          require(claim in section, 'Claim note anchor not found')
+          if 'data-zodiac-product-link' not in section:
+              section = section.replace(claim, product_link)
+
+          # Shared landing URL state: /collections/astrology-remedy-kits?sign=<key>
+          section, n = re.subn(
+              r"const getInitial = \(\) => \{.*?\n  \};",
+              """const getInitial = () => {
+    const url = new URL(window.location.href);
+    const signParam = url.searchParams.get('sign');
+    return signParam && data[signParam] ? signParam : 'aries';
+  };""",
+              section, count=1, flags=re.S)
+          require(n == 1, 'getInitial replacement failed')
+
+          old_url = """      url.pathname='/products/'+z.handle;
+      url.searchParams.set('sign',key);
+      history.pushState({zodiac:key},'',url.pathname+url.search+url.hash);"""
+          new_url = """      url.pathname='/collections/astrology-remedy-kits';
+      url.searchParams.set('sign',key);
+      history.pushState({zodiac:key},'',url.pathname+url.search+url.hash);"""
+          require(old_url in section, 'Product-path history block not found')
+          section = section.replace(old_url, new_url)
+
+          section, n = re.subn(
+              r"window\.addEventListener\('popstate',\(\)=>\{.*?\n  \}\);",
+              """window.addEventListener('popstate',()=>{
+    const url=new URL(window.location.href);
+    const signParam=url.searchParams.get('sign');
+    render(signParam&&data[signParam]?signParam:'aries',{updateUrl:false});
+  });""",
+              section, count=1, flags=re.S)
+          require(n == 1, 'popstate replacement failed')
+
+          # Keep individual PDP link synchronized with active sign.
+          render_anchor = """    if(variantInput) variantInput.value=z.variant;
+"""
+          render_insert = """    if(variantInput) variantInput.value=z.variant;
+    const productLink=root.querySelector('[data-zodiac-product-link]');
+    if(productLink){
+      productLink.href='/products/'+z.handle;
+      productLink.textContent='View full '+z.name+' product details →';
+    }
+"""
+          require(render_anchor in section, 'Variant render anchor missing')
+          section = section.replace(render_anchor, render_insert, 1)
+
+          # Remove the 12-card image gallery completely; retain one polished family visual.
+          section, n = re.subn(r'\n\s*<div class="sp-zodiac__family-track"[^>]*>.*?</div>\n\s*</section>', '\n    </section>', section, count=1, flags=re.S)
+          require(n == 1, '12-card family gallery removal failed')
+          section = section.replace('Every card below uses the actual Shopify product photography. Select any sign to switch the entire landing-page experience instantly.', 'The twelve-sign collection shares one visual language while each selection keeps its own devotional context and sign-specific assortment.')
+          section = section.replace('Select any kit below to personalize the entire page.', 'Your selected sign is reflected across the experience above.')
+
+          # Rebuild reviews in the stronger marketplace pattern.
+          review_markup = r'''<section class="sp-zodiac__reviews sp-zodiac__module" id="zodiac-remedy-reviews" aria-labelledby="zodiac-reviews-title" data-demo-reviews="true" data-reveal>
+      <div class="sp-zodiac__marketplace-reviews">
+        <aside class="sp-zodiac__review-summary-panel">
+          <h2 id="zodiac-reviews-title">Customer reviews</h2>
+          <div class="sp-zodiac__review-score-row">
+            <span class="sp-zodiac__stars sp-zodiac__stars--large" aria-hidden="true">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</span>
+            <strong>4.9 out of 5</strong>
+          </div>
+          <p class="sp-zodiac__review-count">128 ratings</p>
+          <div class="sp-zodiac__rating-bars sp-zodiac__rating-bars--marketplace" aria-label="Review rating distribution">
+            <div><span>5 star</span><i><b style="--rating-width:93%"></b></i><em>93%</em></div>
+            <div><span>4 star</span><i><b style="--rating-width:5%"></b></i><em>5%</em></div>
+            <div><span>3 star</span><i><b style="--rating-width:1%"></b></i><em>1%</em></div>
+            <div><span>2 star</span><i><b style="--rating-width:1%"></b></i><em>1%</em></div>
+            <div><span>1 star</span><i><b style="--rating-width:0%"></b></i><em>0%</em></div>
+          </div>
+          <div class="sp-zodiac__review-write">
+            <h3>Review this product</h3>
+            <p>Share your experience with other Sabpuja customers.</p>
+            <a href="mailto:support@sabpuja.com?subject=Zodiac%20Remedy%20Kit%20Review">Write a product review</a>
+          </div>
+          <div class="sp-zodiac__review-left-extras">
+            <div class="sp-zodiac__review-guide">
+              <h3>What shoppers find useful</h3>
+              <span>{% render 'sabpuja-icon', name: 'package' %}<b>Packaging</b><small>How neatly the selected kit arrives and how easy it is to keep organized.</small></span>
+              <span>{% render 'sabpuja-icon', name: 'sparkles' %}<b>Sign selection</b><small>Whether the zodiac-specific format makes the range easier to understand.</small></span>
+              <span>{% render 'sabpuja-icon', name: 'gift' %}<b>Gifting</b><small>How the presentation feels when chosen for family or loved ones.</small></span>
+            </div>
+            <div class="sp-zodiac__review-support">
+              <span class="sp-zodiac__icon-tile">{% render 'sabpuja-icon', name: 'help' %}</span>
+              <div><strong>Need help with an order?</strong><p>Our support team can help with delivery, damaged, wrong or missing-item concerns.</p><a href="mailto:support@sabpuja.com">Contact Sabpuja support</a></div>
+            </div>
+          </div>
+        </aside>
+
+        <div class="sp-zodiac__review-main">
+          <div class="sp-zodiac__customers-say">
+            <h3>Customers say</h3>
+            <p>The current review set highlights premium presentation, organized contents, easy sign selection and a gift-friendly format.</p>
+            <strong class="sp-zodiac__learn-more-label">Select to learn more</strong>
+            <div class="sp-zodiac__review-topics" aria-label="Review topics">
+              <button type="button" data-zodiac-review-filter="all" class="is-active">↗ Premium presentation</button>
+              <button type="button" data-zodiac-review-filter="5">∿ Organized contents</button>
+              <button type="button" data-zodiac-review-filter="photo">∿ Reviews with images</button>
+              <span>∿ Gifting</span>
+            </div>
+          </div>
+
+          <div class="sp-zodiac__reviews-with-images">
+            <div class="sp-zodiac__reviews-images-head"><h3>Reviews with images</h3><span>Tap any image to enlarge</span></div>
+            <div class="sp-zodiac__review-media-strip" aria-label="Review images">
+              {% for review_number in (1..6) %}
+                {% capture review_asset %}sabpuja-customer-review-0{{ review_number }}.webp{% endcapture %}
+                <button type="button" data-zodiac-review-open data-review-image="{{ review_asset | asset_url }}" aria-label="Open review image {{ review_number }}"><img src="{{ review_asset | asset_url }}" alt="Sabpuja customer review image {{ review_number }}" width="1448" height="1086" loading="lazy" decoding="async"></button>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="sp-zodiac__review-feed-wrap">
+            <h3>Top reviews</h3>
+            <div class="sp-zodiac__review-feed" data-zodiac-review-feed>
+              <article class="sp-zodiac__review-item" data-stars="5" data-photo="true"><div class="sp-zodiac__review-avatar">AS</div><div class="sp-zodiac__review-body"><div class="sp-zodiac__review-meta"><div><strong>Aditi Sharma</strong><span class="sp-zodiac__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div><time datetime="2026-09-16">16 Sep 2026</time></div><div class="sp-zodiac__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div><h3>Beautifully organized and easy to understand</h3><p>The presentation feels premium, and seeing the sign-specific items together makes the kit much easier to understand.</p><button class="sp-zodiac__review-inline-media" type="button" data-zodiac-review-open data-review-image="{{ 'sabpuja-customer-review-01.webp' | asset_url }}"><img src="{{ 'sabpuja-customer-review-01.webp' | asset_url }}" alt="Customer review photo" width="1448" height="1086" loading="lazy" decoding="async"></button></div></article>
+              <article class="sp-zodiac__review-item" data-stars="5" data-photo="false"><div class="sp-zodiac__review-avatar">RK</div><div class="sp-zodiac__review-body"><div class="sp-zodiac__review-meta"><div><strong>Ritu Kapoor</strong><span class="sp-zodiac__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div><time datetime="2026-09-09">9 Sep 2026</time></div><div class="sp-zodiac__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div><h3>A thoughtful gifting format</h3><p>The box feels complete and intentional rather than like separate loose puja items. The zodiac selection also makes gifting feel more personal.</p></div></article>
+              <article class="sp-zodiac__review-item" data-stars="5" data-photo="true"><div class="sp-zodiac__review-avatar">AM</div><div class="sp-zodiac__review-body"><div class="sp-zodiac__review-meta"><div><strong>Arjun Malhotra</strong><span class="sp-zodiac__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div><time datetime="2026-08-30">30 Aug 2026</time></div><div class="sp-zodiac__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div><h3>Premium without feeling complicated</h3><p>The organized insert and clear sign-specific presentation make the whole concept simple to scan.</p><button class="sp-zodiac__review-inline-media" type="button" data-zodiac-review-open data-review-image="{{ 'sabpuja-customer-review-03.webp' | asset_url }}"><img src="{{ 'sabpuja-customer-review-03.webp' | asset_url }}" alt="Customer review photo" width="1448" height="1086" loading="lazy" decoding="async"></button></div></article>
+              <article class="sp-zodiac__review-item" data-stars="4" data-photo="false"><div class="sp-zodiac__review-avatar">MS</div><div class="sp-zodiac__review-body"><div class="sp-zodiac__review-meta"><div><strong>Meera S.</strong><span class="sp-zodiac__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div><time datetime="2026-08-18">18 Aug 2026</time></div><div class="sp-zodiac__stars" aria-label="4 out of 5 stars">{% for i in (1..4) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div><h3>Clear concept and good presentation</h3><p>I liked being able to choose the sign first and then see the matching kit. The presentation is clean and easy to follow.</p></div></article>
+              <article class="sp-zodiac__review-item sp-zodiac__review-item--more" data-stars="5" data-photo="true" hidden><div class="sp-zodiac__review-avatar">NV</div><div class="sp-zodiac__review-body"><div class="sp-zodiac__review-meta"><div><strong>Neha Verma</strong><span class="sp-zodiac__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div><time datetime="2026-08-02">2 Aug 2026</time></div><div class="sp-zodiac__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div><h3>Looks polished near the mandir</h3><p>The kit is compact enough to keep organized at home, and the packaging looks thoughtful without being too flashy.</p><button class="sp-zodiac__review-inline-media" type="button" data-zodiac-review-open data-review-image="{{ 'sabpuja-customer-review-05.webp' | asset_url }}"><img src="{{ 'sabpuja-customer-review-05.webp' | asset_url }}" alt="Customer review photo" width="1448" height="1086" loading="lazy" decoding="async"></button></div></article>
+            </div>
+            <button type="button" class="sp-zodiac__load-more" data-zodiac-review-more>See more reviews</button>
+          </div>
+        </div>
+      </div>
+      <p class="sp-zodiac__reviews-disclosure">Illustrative review data is used on staging while verified customer-review import is finalized. Replace before live publication.</p>
+    </section>
+
+    <div class="sp-zodiac__review-lightbox" data-zodiac-review-lightbox aria-hidden="true">
+      <button type="button" class="sp-zodiac__review-lightbox-backdrop" data-zodiac-review-close aria-label="Close review image"></button>
+      <div class="sp-zodiac__review-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Customer review image">
+        <button type="button" class="sp-zodiac__review-lightbox-close" data-zodiac-review-close aria-label="Close">×</button>
+        <img data-zodiac-review-lightbox-image src="" alt="Customer review image" width="1448" height="1086">
+        <div><small>Customer photo</small><strong data-zodiac-review-lightbox-title>Review image</strong><p>Photo shared alongside the current staging review experience.</p></div>
+      </div>
+    </div>
+
+    '''
+          section, n = re.subn(r'<section class="sp-zodiac__reviews.*?<section class="sp-zodiac__faq', review_markup + '<section class="sp-zodiac__faq', section, count=1, flags=re.S)
+          require(n == 1, 'Review section replacement failed')
+
+          # Review interactions.
+          review_js = r'''
+  const applyReviewFilter=(filter)=>{
+    root.querySelectorAll('[data-zodiac-review-filter]').forEach(btn=>btn.classList.toggle('is-active',btn.dataset.zodiacReviewFilter===filter));
+    root.querySelectorAll('[data-zodiac-review-feed] .sp-zodiac__review-item').forEach(item=>{
+      if(item.classList.contains('sp-zodiac__review-item--more') && item.hidden) return;
+      item.style.display=(filter==='all'||(filter==='5'&&item.dataset.stars==='5')||(filter==='photo'&&item.dataset.photo==='true'))?'':'none';
+    });
+  };
+  root.querySelectorAll('[data-zodiac-review-filter]').forEach(btn=>btn.addEventListener('click',()=>applyReviewFilter(btn.dataset.zodiacReviewFilter)));
+  root.querySelector('[data-zodiac-review-more]')?.addEventListener('click',event=>{
+    root.querySelectorAll('.sp-zodiac__review-item--more').forEach(item=>{item.hidden=false;item.style.display='';});
+    event.currentTarget.hidden=true;
+    const active=root.querySelector('[data-zodiac-review-filter].is-active')?.dataset.zodiacReviewFilter||'all';
+    applyReviewFilter(active);
+  });
+  const reviewLightbox=root.querySelector('[data-zodiac-review-lightbox]');
+  const reviewLightboxImage=root.querySelector('[data-zodiac-review-lightbox-image]');
+  const openReviewImage=(button)=>{
+    if(!reviewLightbox||!reviewLightboxImage) return;
+    reviewLightboxImage.src=button.dataset.reviewImage||'';
+    setText('[data-zodiac-review-lightbox-title]',data[activeKey].name+' Zodiac Remedy Kit');
+    reviewLightbox.classList.add('is-open');
+    reviewLightbox.setAttribute('aria-hidden','false');
+    document.documentElement.classList.add('sp-zodiac-lock');
+  };
+  const closeReviewImage=()=>{
+    reviewLightbox?.classList.remove('is-open');
+    reviewLightbox?.setAttribute('aria-hidden','true');
+    document.documentElement.classList.remove('sp-zodiac-lock');
+  };
+  root.querySelectorAll('[data-zodiac-review-open]').forEach(btn=>btn.addEventListener('click',()=>openReviewImage(btn)));
+  root.querySelectorAll('[data-zodiac-review-close]').forEach(btn=>btn.addEventListener('click',closeReviewImage));
+  document.addEventListener('keydown',event=>{if(event.key==='Escape') closeReviewImage();});
+'''
+          js_anchor = "  window.addEventListener('popstate',()=>{"
+          require(js_anchor in section, 'JS popstate anchor not found')
+          if 'const applyReviewFilter=' not in section:
+              section = section.replace(js_anchor, review_js + '\n' + js_anchor, 1)
+
+          # Shared page breadcrumb wording.
+          section = section.replace('<span>Zodiac Remedy Kits</span><span>/</span><strong data-zodiac-name>Aries</strong>', '<a href="/collections/astrology-remedy-kits">Zodiac Remedy Kits</a><span>/</span><strong data-zodiac-name>Aries</strong>')
+
+          write(section_path, section)
+
+          # 6) Brand-color, spacing and review CSS override.
+          css_path = 'assets/sabpuja-zodiac-remedy-landing.css'
+          css = read(css_path)
+          marker = '/* Zodiac landing refinement — 2026-09-23 */'
+          if marker in css:
+              css = css[:css.index(marker)].rstrip() + '\n'
+          css += r'''
+
+/* Zodiac landing refinement — 2026-09-23 */
+.sp-zodiac{--bg:#FFFBEF;--cream:#FFF8E7;--surface:#fff;--primary:#D35400;--gold:#F4B400;--ink:#4E342E;--muted:#75635A;--soft:#927E73;--border:rgba(78,52,46,.13);--shadow:0 10px 28px rgba(78,52,46,.075);background:linear-gradient(180deg,#FFFBEF 0,#fffdfa 36%,#FFF8E7 100%);color:var(--ink)}
+.sp-zodiac main{padding:clamp(18px,2.4vw,30px) 0 clamp(54px,7vw,82px)}
+.sp-zodiac__module{width:min(var(--container),calc(100% - clamp(20px,4vw,40px)));margin:0 auto clamp(22px,2.6vw,32px)}
+.sp-zodiac__intro,.sp-zodiac__hero,.sp-zodiac__why,.sp-zodiac__contents,.sp-zodiac__items-story,.sp-zodiac__steps,.sp-zodiac__presentation,.sp-zodiac__lifestyle,.sp-zodiac__family,.sp-zodiac__reviews,.sp-zodiac__faq,.sp-zodiac__final{border:1px solid rgba(78,52,46,.12);border-radius:18px;box-shadow:var(--shadow)}
+.sp-zodiac h1{font-size:clamp(34px,3.4vw,44px)}
+.sp-zodiac h2{font-size:clamp(27px,2.4vw,34px)}
+.sp-zodiac h3{font-size:clamp(15px,1.35vw,18px)}
+.sp-zodiac p{font-size:clamp(13.5px,1.05vw,15px);line-height:1.62}
+.sp-zodiac__eyebrow{font-size:clamp(10px,.85vw,11.5px);color:var(--primary)}
+.sp-zodiac__intro{padding:clamp(26px,3.3vw,42px);background:radial-gradient(circle at 92% 12%,rgba(244,180,0,.13),transparent 30%),linear-gradient(135deg,#FFF8E7,#FFFBEF 58%,#fff);border-top:3px solid var(--gold)}
+.sp-zodiac__intro-note{padding:15px;background:#fff7e8;border-color:rgba(211,84,0,.18)}
+.sp-zodiac__intro-note strong{font-size:12px}.sp-zodiac__intro-note small{font-size:10.5px}
+.sp-zodiac__picker{top:8px;padding:9px;gap:7px;border-color:rgba(211,84,0,.16);background:rgba(255,251,239,.96);box-shadow:0 10px 28px rgba(78,52,46,.11)}
+.sp-zodiac__picker button{min-height:62px;flex-basis:84px}.sp-zodiac__picker b{font-size:20px}.sp-zodiac__picker span{font-size:10.5px}.sp-zodiac__picker small{font-size:9.5px}
+.sp-zodiac__picker button.is-active{border-color:rgba(211,84,0,.34);background:linear-gradient(180deg,#FFF3E6,#FFF8E7);box-shadow:inset 0 3px 0 var(--gold),0 0 0 2px rgba(244,180,0,.08)}
+.sp-zodiac__hero{background:#fff}.sp-zodiac__hero-media{background:#F7E9D2;min-height:clamp(380px,44vw,520px)}
+.sp-zodiac__hero-copy{padding:clamp(28px,3.4vw,42px);background:radial-gradient(circle at 94% 7%,rgba(244,180,0,.12),transparent 28%),linear-gradient(180deg,#fff,#FFFDF7)}
+.sp-zodiac__hero-badges span{padding:6px 9px;background:#FFF8E7;border-color:rgba(211,84,0,.14);font-size:10px}
+.sp-zodiac__hero-points{gap:10px;margin:19px 0}.sp-zodiac__hero-points>span{padding:11px;background:#FFF8E7}.sp-zodiac__hero-points b{font-size:10.5px}.sp-zodiac__hero-points small{font-size:9.5px}
+.sp-zodiac__buy{padding:clamp(16px,1.8vw,21px);background:#FFFDF8;border-color:rgba(211,84,0,.16)}
+.sp-zodiac__claim-note{font-size:10px}.sp-zodiac__product-link{display:inline-flex;margin-top:10px;color:var(--primary);font-size:11px;font-weight:800;text-decoration:none}.sp-zodiac__product-link:hover{text-decoration:underline}
+.sp-zodiac__section-head{margin-bottom:clamp(20px,2vw,27px);gap:18px}.sp-zodiac__section-head>p{font-size:14px}
+.sp-zodiac__why,.sp-zodiac__contents,.sp-zodiac__items-story,.sp-zodiac__steps,.sp-zodiac__reviews,.sp-zodiac__faq,.sp-zodiac__family{padding:clamp(24px,3vw,38px)}
+.sp-zodiac__why{background:#FFF8E7}.sp-zodiac__contents{background:#fff}.sp-zodiac__items-story{background:linear-gradient(145deg,#fff,#FFFBEF)}.sp-zodiac__steps{background:#FFF8E7}.sp-zodiac__faq{background:#FFF8E7}
+.sp-zodiac__why-grid,.sp-zodiac__item-explain{gap:14px}.sp-zodiac__why-grid article,.sp-zodiac__item-explain article{padding:18px;border-radius:13px}.sp-zodiac__why-grid p,.sp-zodiac__item-explain p{font-size:12.5px}
+.sp-zodiac__contents-layout{gap:22px}.sp-zodiac__specific-items{gap:10px}.sp-zodiac__specific-items>div{min-height:58px;padding:11px}.sp-zodiac__specific-items strong{font-size:11.5px}.sp-zodiac__specific-items small{font-size:9.5px}.sp-zodiac__common-items{gap:8px}.sp-zodiac__common-items span{padding:7px 10px;font-size:10px}
+.sp-zodiac__steps ol{gap:14px}.sp-zodiac__steps li{padding:18px}.sp-zodiac__steps strong{font-size:12.5px}.sp-zodiac__steps p{font-size:11.8px}
+.sp-zodiac__presentation-copy,.sp-zodiac__lifestyle-copy{padding:clamp(28px,3.4vw,42px)}
+.sp-zodiac__family{background:linear-gradient(145deg,#FFF8E7,#fff)}
+.sp-zodiac__family-visual{margin-bottom:0;aspect-ratio:16/9;border-radius:14px}.sp-zodiac__family-visual figcaption{left:16px;bottom:16px;padding:10px 12px}.sp-zodiac__family-visual strong{font-size:12.5px}.sp-zodiac__family-visual span{font-size:10.5px}
+.sp-zodiac__family-track{display:none!important}
+
+.sp-zodiac__reviews{display:block;background:#fff;padding:clamp(26px,3.2vw,40px)}
+.sp-zodiac__marketplace-reviews{display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,52px)}
+.sp-zodiac__review-summary-panel{flex:0 1 300px;align-self:flex-start}.sp-zodiac__review-summary-panel>h2{white-space:nowrap;font-size:clamp(25px,2.1vw,31px)}
+.sp-zodiac__review-score-row{display:flex;align-items:center;gap:10px;margin-top:13px}.sp-zodiac__review-score-row strong{font-size:14px}.sp-zodiac__stars{display:flex;gap:2px;color:var(--gold)}.sp-zodiac__stars svg{width:14px;height:14px;fill:currentColor}.sp-zodiac__stars--large svg{width:20px;height:20px}.sp-zodiac__review-count{margin:7px 0 18px;color:var(--muted);font-size:12px}
+.sp-zodiac__rating-bars{display:flex;flex-direction:column;gap:9px}.sp-zodiac__rating-bars>div{display:flex;align-items:center;gap:8px;color:var(--ink);font-size:11px}.sp-zodiac__rating-bars span{width:42px}.sp-zodiac__rating-bars i{flex:1;height:12px;overflow:hidden;border:1px solid rgba(78,52,46,.18);border-radius:4px;background:#fff}.sp-zodiac__rating-bars b{display:block;width:var(--rating-width);height:100%;background:linear-gradient(90deg,var(--primary),var(--gold))}.sp-zodiac__rating-bars em{width:33px;text-align:right;color:var(--muted);font-style:normal}
+.sp-zodiac__review-write{margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}.sp-zodiac__review-write h3{font-size:16px}.sp-zodiac__review-write p{margin:6px 0 12px;font-size:12px}.sp-zodiac__review-write a{display:flex;min-height:42px;align-items:center;justify-content:center;border:1px solid rgba(78,52,46,.25);border-radius:999px;color:var(--ink);font-size:11px;font-weight:800;text-decoration:none;background:#fff}
+.sp-zodiac__review-left-extras{display:flex;flex-direction:column;gap:13px;margin-top:18px}.sp-zodiac__review-guide,.sp-zodiac__review-support{padding:15px;border:1px solid var(--border);border-radius:12px;background:#FFFBEF}.sp-zodiac__review-guide h3{margin-bottom:10px;font-size:13px}.sp-zodiac__review-guide>span{display:grid;grid-template-columns:18px 1fr;gap:1px 8px;padding:8px 0;border-top:1px solid rgba(78,52,46,.08)}.sp-zodiac__review-guide svg{grid-row:1/3;width:15px;height:15px;color:var(--primary)}.sp-zodiac__review-guide b{font-size:10.5px}.sp-zodiac__review-guide small{color:var(--muted);font-size:9.5px;line-height:1.45}.sp-zodiac__review-support{display:flex;gap:10px;background:#FFF8E7}.sp-zodiac__review-support strong{font-size:11px}.sp-zodiac__review-support p{margin:3px 0 6px;font-size:10px}.sp-zodiac__review-support a{color:var(--primary);font-size:10px;font-weight:800}
+.sp-zodiac__review-main{flex:1 1 660px;min-width:0}.sp-zodiac__customers-say h3{font-size:21px}.sp-zodiac__customers-say>p{max-width:760px;margin:8px 0 12px;font-size:13px}.sp-zodiac__learn-more-label{display:block;margin-bottom:8px;font-size:11px}.sp-zodiac__review-topics{display:flex;flex-wrap:wrap;gap:7px}.sp-zodiac__review-topics button,.sp-zodiac__review-topics span{padding:7px 9px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--ink);font-size:10px}.sp-zodiac__review-topics button{cursor:pointer}.sp-zodiac__review-topics button.is-active{border-color:rgba(211,84,0,.35);background:#FFF1E5;color:var(--primary)}
+.sp-zodiac__reviews-with-images{margin-top:24px}.sp-zodiac__reviews-images-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.sp-zodiac__reviews-images-head h3{font-size:17px}.sp-zodiac__reviews-images-head span{color:var(--muted);font-size:10px}.sp-zodiac__review-media-strip{display:flex;gap:9px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}.sp-zodiac__review-media-strip::-webkit-scrollbar{display:none}.sp-zodiac__review-media-strip button{flex:0 0 clamp(92px,11vw,128px);aspect-ratio:1/1;padding:0;overflow:hidden;border:1px solid var(--border);border-radius:10px;background:#FFF8E7;cursor:pointer}.sp-zodiac__review-media-strip img{width:100%;height:100%;object-fit:cover}
+.sp-zodiac__review-feed-wrap{margin-top:24px;padding-top:18px;border-top:1px solid var(--border)}.sp-zodiac__review-feed-wrap>h3{font-size:17px}.sp-zodiac__review-feed{margin-top:5px}.sp-zodiac__review-item{display:flex;gap:12px;padding:18px 0;border-bottom:1px solid var(--border)}.sp-zodiac__review-avatar{display:grid;width:36px;height:36px;place-items:center;flex:none;border-radius:50%;background:#F2E9DE;color:var(--ink);font-size:9px;font-weight:800}.sp-zodiac__review-body{min-width:0;flex:1}.sp-zodiac__review-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px}.sp-zodiac__review-meta strong{font-size:11px}.sp-zodiac__review-meta time{color:var(--soft);font-size:9.5px}.sp-zodiac__verified{display:inline-flex;align-items:center;gap:3px;margin-left:7px;color:var(--primary);font-size:8.5px}.sp-zodiac__verified svg{width:10px;height:10px}.sp-zodiac__review-item .sp-zodiac__stars{margin-top:5px}.sp-zodiac__review-item .sp-zodiac__stars svg{width:12px;height:12px}.sp-zodiac__review-item h3{margin-top:7px;font-size:13px}.sp-zodiac__review-item p{margin:4px 0 0;color:var(--muted);font-size:11.5px;line-height:1.55}.sp-zodiac__review-inline-media{width:76px;height:76px;margin-top:9px;padding:0;overflow:hidden;border:1px solid var(--border);border-radius:9px;background:#FFF8E7;cursor:pointer}.sp-zodiac__review-inline-media img{width:100%;height:100%;object-fit:cover}.sp-zodiac__load-more{margin-top:15px;min-height:38px;padding:7px 14px;border:1px solid rgba(78,52,46,.23);border-radius:999px;background:#fff;color:var(--ink);font-size:10.5px;font-weight:800;cursor:pointer}.sp-zodiac__reviews-disclosure{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--border);color:var(--soft);font-size:9px}
+.sp-zodiac__review-lightbox{position:fixed;z-index:10040;inset:0;display:grid;place-items:center;padding:clamp(14px,3vw,30px);pointer-events:none;opacity:0;transition:opacity .2s ease}.sp-zodiac__review-lightbox.is-open{pointer-events:auto;opacity:1}.sp-zodiac__review-lightbox-backdrop{position:absolute;inset:0;border:0;background:rgba(31,22,18,.72)}.sp-zodiac__review-lightbox-dialog{position:relative;display:flex;flex-wrap:wrap;width:min(860px,96vw);max-height:88vh;overflow:auto;border-radius:16px;background:#fff;box-shadow:0 24px 80px rgba(0,0,0,.3)}.sp-zodiac__review-lightbox-dialog>img{flex:1 1 520px;min-width:0;max-height:70vh;object-fit:contain;background:#FFF8E7}.sp-zodiac__review-lightbox-dialog>div{flex:1 1 220px;padding:20px}.sp-zodiac__review-lightbox-dialog small,.sp-zodiac__review-lightbox-dialog strong{display:block}.sp-zodiac__review-lightbox-dialog small{color:var(--primary);font-size:9px;text-transform:uppercase;letter-spacing:.12em}.sp-zodiac__review-lightbox-dialog strong{margin-top:5px;font-size:15px}.sp-zodiac__review-lightbox-dialog p{font-size:11px}.sp-zodiac__review-lightbox-close{position:absolute;z-index:2;right:10px;top:10px;display:grid;width:38px;height:38px;place-items:center;border:1px solid rgba(78,52,46,.14);border-radius:50%;background:rgba(255,255,255,.94);color:var(--ink);font-size:21px;cursor:pointer}
+.sp-zodiac__final{padding:clamp(28px,3.5vw,44px);background:radial-gradient(circle at 88% 14%,rgba(244,180,0,.18),transparent 30%),#4E342E}.sp-zodiac__btn{min-height:44px;padding:10px 17px;background:var(--primary)}
+@container (max-width:760px){.sp-zodiac__review-summary-panel{flex-basis:100%}.sp-zodiac__review-summary-panel>h2{white-space:normal}.sp-zodiac__review-lightbox-dialog>div{flex-basis:100%}}
+'''
+          write(css_path, css)
+
+          # Assertions: architecture should now be unambiguous.
+          product = read(product_path)
+          collection = read(collection_path)
+          section = read(section_path)
+          require("product.type == 'Astrological Remedy Kit'" not in product, 'Astrology product hijack still present')
+          require("collection.handle == 'astrology-remedy-kits'" in collection, 'Dedicated collection routing missing')
+          require('sp-zodiac__family-track' not in section, '12-card gallery still present')
+          require('♋' not in section, 'Ambiguous Cancer glyph still present')
+          require('/collections/astrology-remedy-kits' in section, 'Shared landing URL missing')
+          require('data-zodiac-product-link' in section, 'Individual PDP link missing')
+
+      - name: Commit refined Zodiac experience
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Sabpuja Automation'
+          git config user.email 'automation@sabpuja.com'
+          git add templates/product.liquid templates/collection.liquid sections/sabpuja-home-featured.liquid sections/sabpuja-home-hero.liquid sections/sabpuja-zodiac-remedy-landing.liquid assets/sabpuja-zodiac-remedy-landing.css
+          git diff --cached --check
+          git commit -m 'feat: refine Zodiac landing routing and visual system'
+          git push origin HEAD:staging-2026
