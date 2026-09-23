@@ -1,2 +1,3 @@
 82571ce1920033ab2eee60c3530bb44dff12dbcffae0b3b1d1bd646af6cec384  sections/sabpuja-zodiac-remedy-landing.liquid
 142914e8e9a70fed6353bb23d286533006e1686e9c24af25c3e85aac8ac89626  assets/sabpuja-zodiac-remedy-landing.css
+16576a48ed5cfb4b0ab104243716231bcfd21e91641e19d102a20514ffd62ff7  assets/sabpuja-zodiac-hero-main.webp
