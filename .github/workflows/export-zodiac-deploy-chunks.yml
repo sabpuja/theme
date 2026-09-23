@@ -26,8 +26,10 @@ jobs:
           mkdir -p .zodiac-deploy
           base64 -w0 sections/sabpuja-zodiac-remedy-landing.liquid | split -b 7000 - .zodiac-deploy/section-
           base64 -w0 assets/sabpuja-zodiac-remedy-landing.css | split -b 7000 - .zodiac-deploy/css-
+          base64 -w0 assets/sabpuja-zodiac-hero-main.webp | split -b 7000 - .zodiac-deploy/hero-
           printf '%s\n' "$(sha256sum sections/sabpuja-zodiac-remedy-landing.liquid)" > .zodiac-deploy/source-sha256.txt
           printf '%s\n' "$(sha256sum assets/sabpuja-zodiac-remedy-landing.css)" >> .zodiac-deploy/source-sha256.txt
+          printf '%s\n' "$(sha256sum assets/sabpuja-zodiac-hero-main.webp)" >> .zodiac-deploy/source-sha256.txt
           ls -la .zodiac-deploy
       - name: Commit chunks
         shell: bash
