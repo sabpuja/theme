@@ -1,1 +1,4 @@
-Featured Zodiac landing link not installed
+  File "/home/runner/work/theme/theme/scripts/refine_zodiac_landing_2026.py", line 56
+    featured = featured.replace('href="{{ routes.all_products_collection_url }}">{{ 'sabpuja_custom.auto.s103' | t }}</a>', 'href="/collections/astrology-remedy-kits">{{ 'sabpuja_custom.auto.s103' | t }}</a>')
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
