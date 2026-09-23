@@ -1,371 +1,162 @@
-<link href="{{ 'sabpuja-zodiac-remedy-landing.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+{{ 'sabpuja-zodiac-remedy-landing.css' | asset_url | stylesheet_tag }}
 
-<div class="sp-zodiac" data-sp-zodiac >
+<section class="sp-zodiac" data-sp-zodiac>
   <main>
-    <section class="sp-zodiac__intro sp-zodiac__module" data-reveal>
-      <div>
-        <p class="sp-zodiac__eyebrow">12 zodiac signs · one personalized experience</p>
-        <h1>Find the Remedy Kit for Your Zodiac Sign</h1>
-        <p>Choose your sign and the page transforms around it—product imagery, devotional context, sign-specific items, SKU, price and cart state all update together without a reload.</p>
-      </div>
-      <div class="sp-zodiac__intro-note">
-        {% render 'sabpuja-icon', name: 'sparkles' %}
-        <span><strong>Choose your sign below</strong><small>The page updates instantly and keeps the selected kit shareable through its real product URL.</small></span>
-      </div>
-    </section>
-
-    <nav class="sp-zodiac__picker sp-zodiac__module" aria-label="Choose zodiac sign" data-zodiac-picker>
-      <button type="button" data-sign="aries"><b>♈</b><span>Aries</span><small>Mesha</small></button>
-      <button type="button" data-sign="taurus"><b>♉</b><span>Taurus</span><small>Vrishabha</small></button>
-      <button type="button" data-sign="gemini"><b>♊</b><span>Gemini</span><small>Mithuna</small></button>
-      <button type="button" data-sign="cancer"><b>🦀</b><span>Cancer</span><small>Karka</small></button>
-      <button type="button" data-sign="leo"><b>♌</b><span>Leo</span><small>Simha</small></button>
-      <button type="button" data-sign="virgo"><b>♍</b><span>Virgo</span><small>Kanya</small></button>
-      <button type="button" data-sign="libra"><b>♎</b><span>Libra</span><small>Tula</small></button>
-      <button type="button" data-sign="scorpio"><b>♏</b><span>Scorpio</span><small>Vrishchika</small></button>
-      <button type="button" data-sign="sagittarius"><b>♐</b><span>Sagittarius</span><small>Dhanu</small></button>
-      <button type="button" data-sign="capricorn"><b>♑</b><span>Capricorn</span><small>Makara</small></button>
-      <button type="button" data-sign="aquarius"><b>♒</b><span>Aquarius</span><small>Kumbha</small></button>
-      <button type="button" data-sign="pisces"><b>♓</b><span>Pisces</span><small>Meena</small></button>
-    </nav>
-
-    <section class="sp-zodiac__hero sp-zodiac__module" data-reveal>
-      <div class="sp-zodiac__hero-media">
-        <img data-zodiac-hero src="" alt="" width="1600" height="1200" loading="eager" fetchpriority="high">
-        <div class="sp-zodiac__sign-orbit" aria-hidden="true">
-          <span data-zodiac-symbol>♈</span>
-        </div>
-        <div class="sp-zodiac__hero-media-meta">
-          <span><small>Price</small><strong data-zodiac-price>₹2,499</strong></span>
-          <span><small>SKU</small><strong data-zodiac-sku>SP-AST-ARIES</strong></span>
-        </div>
-        <div class="sp-zodiac__hero-thumbs" aria-label="Selected kit images">
-          <button type="button" class="is-active" data-zodiac-media="hero" aria-label="Show product hero image">
-            <img data-zodiac-thumb-hero src="" alt="" width="110" height="82" loading="lazy">
-          </button>
-          <button type="button" data-zodiac-media="detail" aria-label="Show kit contents image">
-            <img data-zodiac-thumb-detail src="" alt="" width="110" height="82" loading="lazy">
-          </button>
-        </div>
-      </div>
-
-      <div class="sp-zodiac__hero-copy">
-        <nav class="sp-zodiac__breadcrumb" aria-label="Breadcrumb">
-          <a href="{{ routes.root_url }}">Home</a><span>/</span><a href="/collections/astrology-remedy-kits">Zodiac Remedy Kits</a><span>/</span><strong data-zodiac-name>Aries</strong>
-        </nav>
-
-        <div class="sp-zodiac__hero-badges">
-          <span data-zodiac-symbol-badge>♈ Aries</span>
-          <span>Premium presentation</span>
-          <span>Sign-specific assortment</span>
-        </div>
-
-        <p class="sp-zodiac__eyebrow" data-zodiac-kicker>Aries · Mesha</p>
-        <h2 data-zodiac-title>Aries (Mesha) Astrological Remedy Kit</h2>
-        <p class="sp-zodiac__lede" data-zodiac-story></p>
-
-        <div class="sp-zodiac__hero-points">
-          <span>{% render 'sabpuja-icon', name: 'package' %}<b>Premium box</b><small>355 × 255 × 90 mm</small></span>
-          <span>{% render 'sabpuja-icon', name: 'sparkles' %}<b>Sign-specific</b><small data-zodiac-focus>Devotional assortment</small></span>
-          <span>{% render 'sabpuja-icon', name: 'truck' %}<b>1–3 business days</b><small>Delhi NCR only</small></span>
-        </div>
-
-        <div class="sp-zodiac__buy" id="zodiac-buy">
-          <div class="sp-zodiac__price-row">
-            <div><span>Selected kit</span><strong data-zodiac-price>₹2,499</strong></div>
-            <span class="sp-zodiac__sku" data-zodiac-sku>SP-AST-ARIES</span>
+    <section class="sp-zodiac__landing-hero" aria-labelledby="ZodiacLandingTitle">
+      <img class="sp-zodiac__landing-hero-image" src="{{ 'sabpuja-zodiac-hero-main.webp' | asset_url }}" alt="Sabpuja Zodiac Remedy Kits presented in a warm devotional astrology setting" width="2172" height="724" loading="eager" fetchpriority="high" decoding="async">
+      <div class="sp-zodiac__landing-hero-shade" aria-hidden="true"></div>
+      <div class="sp-zodiac__landing-hero-inner">
+        <div class="sp-zodiac__landing-hero-copy">
+          <p class="sp-zodiac__hero-kicker">Zodiac Remedy Kits</p>
+          <h1 id="ZodiacLandingTitle">Find Your<br>Zodiac Remedy Kit</h1>
+          <p class="sp-zodiac__hero-intro">Traditional items, thoughtfully prepared for your devotion and planetary rituals.</p>
+          <div class="sp-zodiac__hero-trust" aria-label="Sabpuja kit highlights">
+            <span><i>{% render 'sabpuja-icon', name: 'heart' %}</i><b>Authentic Items</b><small>Sourced with Care</small></span>
+            <span><i>{% render 'sabpuja-icon', name: 'sparkles' %}</i><b>Traditional Guidance</b><small>For Your Rituals</small></span>
+            <span><i>{% render 'sabpuja-icon', name: 'gift' %}</i><b>Thoughtful Packaging</b><small>Ready for Your Puja</small></span>
           </div>
-
-          <form class="sp-zodiac__form" data-zodiac-form>
-            <input type="hidden" name="id" data-zodiac-variant>
-            <div class="sp-zodiac__purchase-row">
-              <div>
-                <label for="ZodiacQty-{{ section.id }}">Quantity</label>
-                <div class="sp-zodiac__qty">
-                  <button type="button" data-zodiac-minus aria-label="Decrease quantity">−</button>
-                  <input id="ZodiacQty-{{ section.id }}" type="number" name="quantity" min="1" value="1" data-zodiac-qty>
-                  <button type="button" data-zodiac-plus aria-label="Increase quantity">+</button>
-                </div>
-              </div>
-              <div class="sp-zodiac__total">
-                <span>Total</span>
-                <strong data-zodiac-total>₹2,499</strong>
-              </div>
-            </div>
-            <button class="sp-zodiac__add sp-zodiac__glow" type="submit">
-              {% render 'sabpuja-icon', name: 'shop' %}
-              <span data-zodiac-cta>Add Aries Kit to Cart</span>
-            </button>
-          </form>
-
-          <p class="sp-zodiac__claim-note">Traditional associations are presented for devotional context only and are not guarantees of health, financial, protective or future outcomes.</p>
-          <a class="sp-zodiac__product-link" data-zodiac-product-link href="/products/aries-mesha-astrological-remedy-kit">View full Aries product details →</a>
+        </div>
+        <div class="sp-zodiac__hero-mantra" aria-hidden="true">
+          <span>Align</span><span>Your Devotion</span><span>With</span><span>The Cosmos</span><i></i>
         </div>
       </div>
     </section>
 
-    <section class="sp-zodiac__why sp-zodiac__module" data-reveal>
-      <div class="sp-zodiac__section-head">
-        <div>
-          <p class="sp-zodiac__eyebrow">Why this kit?</p>
-          <h2>Your selected sign changes the devotional context.</h2>
-        </div>
-        <p data-zodiac-why></p>
+    <section class="sp-zodiac__selector" aria-labelledby="ZodiacSelectorTitle">
+      <div class="sp-zodiac__section-title sp-zodiac__section-title--compact">
+        <h2 id="ZodiacSelectorTitle">Choose Your Zodiac Sign</h2>
+        <p>Select your sign to see your personalized remedy kit.</p>
       </div>
-
-      <div class="sp-zodiac__why-grid">
-        <article>
-          <span class="sp-zodiac__icon-tile">{% render 'sabpuja-icon', name: 'sparkles' %}</span>
-          <h3>Sign-specific focus</h3>
-          <p data-zodiac-trait></p>
-        </article>
-        <article>
-          <span class="sp-zodiac__icon-tile">{% render 'sabpuja-icon', name: 'package' %}</span>
-          <h3>Organized together</h3>
-          <p>The selected sign’s special items sit alongside commonly used puja essentials in one premium presentation.</p>
-        </article>
-        <article>
-          <span class="sp-zodiac__icon-tile">{% render 'sabpuja-icon', name: 'heart' %}</span>
-          <h3>Devotional, not predictive</h3>
-          <p>The page explains traditional associations and kit context without promising guaranteed astrology outcomes.</p>
-        </article>
+      <div class="sp-zodiac__sign-track" role="list" data-zodiac-picker>
+        <button type="button" role="listitem" data-sign="aries" aria-pressed="true"><span class="sp-zodiac__sign-symbol">♈</span><strong>Aries</strong><small>Mar 21 – Apr 19</small></button>
+        <button type="button" role="listitem" data-sign="taurus" aria-pressed="false"><span class="sp-zodiac__sign-symbol">♉</span><strong>Taurus</strong><small>Apr 20 – May 20</small></button>
+        <button type="button" role="listitem" data-sign="gemini" aria-pressed="false"><span class="sp-zodiac__sign-symbol">♊</span><strong>Gemini</strong><small>May 21 – Jun 20</small></button>
+        <button type="button" role="listitem" data-sign="cancer" aria-pressed="false"><span class="sp-zodiac__sign-symbol sp-zodiac__sign-symbol--crab" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><path d="M22 31c0-7 4-12 10-12s10 5 10 12v7c0 5-4 9-10 9s-10-4-10-9v-7Z"/><path d="M23 28c-5-1-9-4-11-8M41 28c5-1 9-4 11-8M22 37c-6 1-10 4-13 8M42 37c6 1 10 4 13 8M17 22c-5 1-8-2-8-6 4-1 8 1 8 6ZM47 22c5 1 8-2 8-6-4-1-8 1-8 6Z"/><circle cx="28" cy="29" r="1.6"/><circle cx="36" cy="29" r="1.6"/></svg></span><strong>Cancer</strong><small>Jun 21 – Jul 22</small></button>
+        <button type="button" role="listitem" data-sign="leo" aria-pressed="false"><span class="sp-zodiac__sign-symbol">♌</span><strong>Leo</strong><small>Jul 23 – Aug 22</small></button>
+        <button type="button" role="listitem" data-sign="virgo" aria-pressed="false"><span class="sp-zodiac__sign-symbol">♍</span><strong>Virgo</strong><small>Aug 23 – Sep 22</small></button>
+        <button type="button" role="listitem" data-sign="libra" aria-pressed="false"><span class="sp-zodiac__sign-symbol">♎</span><strong>Libra</strong><small>Sep 23 – Oct 22</small></button>
+        <button type="button" role="listitem" data-sign="scorpio" aria-pressed="false"><span class="sp-zodiac__sign-symbol">♏</span><strong>Scorpio</strong><small>Oct 23 – Nov 21</small></button>
+        <button type="button" role="listitem" data-sign="sagittarius" aria-pressed="false"><span class="sp-zodiac__sign-symbol">♐</span><strong>Sagittarius</strong><small>Nov 22 – Dec 21</small></button>
+        <button type="button" role="listitem" data-sign="capricorn" aria-pressed="false"><span class="sp-zodiac__sign-symbol">♑</span><strong>Capricorn</strong><small>Dec 22 – Jan 19</small></button>
+        <button type="button" role="listitem" data-sign="aquarius" aria-pressed="false"><span class="sp-zodiac__sign-symbol">♒</span><strong>Aquarius</strong><small>Jan 20 – Feb 18</small></button>
+        <button type="button" role="listitem" data-sign="pisces" aria-pressed="false"><span class="sp-zodiac__sign-symbol">♓</span><strong>Pisces</strong><small>Feb 19 – Mar 20</small></button>
       </div>
     </section>
 
-    <section class="sp-zodiac__contents sp-zodiac__module" data-reveal>
-      <div class="sp-zodiac__section-head">
-        <div>
-          <p class="sp-zodiac__eyebrow">What’s inside your selected kit</p>
-          <h2><span data-zodiac-name>Aries</span> essentials, shown clearly.</h2>
+    <section class="sp-zodiac__product" id="zodiac-buy" data-reveal>
+      <div class="sp-zodiac__product-copy">
+        <p class="sp-zodiac__eyebrow"><span data-zodiac-name>Aries</span> Zodiac</p>
+        <h2><span data-zodiac-name>Aries</span> Zodiac<br>Remedy Kit</h2>
+        <p class="sp-zodiac__date" data-zodiac-date>(Mar 21 – Apr 19)</p>
+        <p class="sp-zodiac__product-emotion" data-zodiac-emotion>Channel Your Energy with Devotion</p>
+        <p class="sp-zodiac__product-description" data-zodiac-description>The Aries Remedy Kit is thoughtfully prepared with traditional items associated with Mangal (Mars) and strength, supporting a focused devotional practice.</p>
+        <div class="sp-zodiac__price-line">
+          <strong data-zodiac-price>₹2,499</strong>
+          <span>SKU: <b data-zodiac-sku>SP-AST-ARIES</b></span>
         </div>
-        <p>Each kit combines a sign-specific devotional assortment with a shared set of common puja essentials.</p>
+        <div class="sp-zodiac__purchase-row">
+          <div class="sp-zodiac__qty" aria-label="Quantity selector">
+            <button type="button" data-zodiac-minus aria-label="Decrease quantity">−</button>
+            <input type="number" value="1" min="1" max="10" inputmode="numeric" aria-label="Quantity" data-zodiac-qty>
+            <button type="button" data-zodiac-plus aria-label="Increase quantity">+</button>
+          </div>
+          <button type="button" class="sp-zodiac__add" data-zodiac-purchase>{% render 'sabpuja-icon', name: 'shop' %}<span>Add to Cart</span></button>
+        </div>
+        <p class="sp-zodiac__purchase-status" data-zodiac-status role="status" aria-live="polite"></p>
+        <a class="sp-zodiac__product-link" href="/products/aries-mesha-astrological-remedy-kit" data-zodiac-product-link>View full Aries product details →</a>
+        <div class="sp-zodiac__micro-trust" aria-label="Shopping assurances">
+          <span>{% render 'sabpuja-icon', name: 'shield' %}<small>Secure<br>Payments</small></span>
+          <span>{% render 'sabpuja-icon', name: 'gift' %}<small>Thoughtful<br>Packaging</small></span>
+          <span>{% render 'sabpuja-icon', name: 'truck' %}<small>Delivered<br>Across India</small></span>
+        </div>
       </div>
 
-      <div class="sp-zodiac__contents-layout">
-        <figure class="sp-zodiac__contents-media">
-          <img data-zodiac-detail src="" alt="" width="1600" height="1200" loading="lazy" decoding="async">
-          <figcaption><span data-zodiac-symbol>♈</span><strong data-zodiac-contents-caption>Aries kit presentation</strong></figcaption>
+      <figure class="sp-zodiac__product-media">
+        <img data-zodiac-hero src="{{ 'sabpuja-zodiac-aries-hero.webp' | asset_url }}" alt="Sabpuja Aries Zodiac Remedy Kit" width="1600" height="1200" loading="eager" decoding="async">
+      </figure>
+
+      <aside class="sp-zodiac__sign-aside" aria-label="Selected zodiac qualities">
+        <div class="sp-zodiac__sign-medallion" data-zodiac-medallion>♈</div>
+        <div data-zodiac-traits><span>Courage</span><span>Discipline</span><span>New Beginnings</span></div>
+        <i></i>
+      </aside>
+    </section>
+
+    <section class="sp-zodiac__benefits" aria-label="Zodiac Remedy Kit benefits" data-reveal>
+      <article><i>{% render 'sabpuja-icon', name: 'sparkles' %}</i><span><strong>Strengthen Your Practice</strong><small>Traditional Items</small></span></article>
+      <article><i>{% render 'sabpuja-icon', name: 'book' %}</i><span><strong>Support Your Rituals</strong><small>Planetary Associations</small></span></article>
+      <article><i>{% render 'sabpuja-icon', name: 'home' %}</i><span><strong>Bring Devotion Home</strong><small>Mindful Preparation</small></span></article>
+      <article><i>{% render 'sabpuja-icon', name: 'gift' %}</i><span><strong>A Meaningful Gift</strong><small>For Loved Ones</small></span></article>
+    </section>
+
+    <section class="sp-zodiac__inside sp-zodiac__section" data-reveal>
+      <div class="sp-zodiac__section-title">
+        <h2>What’s Inside Your <span data-zodiac-name>Aries</span> Kit?</h2>
+        <p>A thoughtfully curated selection of traditional items.</p>
+      </div>
+      <div class="sp-zodiac__inside-grid">
+        <figure class="sp-zodiac__inside-media">
+          <img data-zodiac-contents src="{{ 'sabpuja-zodiac-aries-contents.webp' | asset_url }}" alt="Contents of the Sabpuja Aries Zodiac Remedy Kit" width="1600" height="1200" loading="lazy" decoding="async">
         </figure>
+        <ol class="sp-zodiac__contents-list" data-zodiac-items></ol>
+      </div>
+      <p class="sp-zodiac__demo-note">Current staging assortment is shown for design demonstration; final commercial BOM and quantities remain subject to approval.</p>
+    </section>
 
-        <div class="sp-zodiac__contents-copy">
-          <h3>Sign-specific items</h3>
-          <div class="sp-zodiac__specific-items" data-zodiac-items></div>
+    <section class="sp-zodiac__stories sp-zodiac__section" data-reveal>
+      <article><i>{% render 'sabpuja-icon', name: 'sparkles' %}</i><div><h3>Why These Items?</h3><p data-zodiac-why>Each item is included for its traditional and cultural significance in devotional practice, presented without promising guaranteed outcomes.</p></div></article>
+      <article><i>{% render 'sabpuja-icon', name: 'book' %}</i><div><h3>How to Use Your Kit</h3><p>Prepare your puja space, identify the sign-specific items, and follow your family tradition or priest guidance for your daily or special rituals.</p><a href="#zodiac-guide">Explore the Full Guide ↓</a></div></article>
+      <article><i>{% render 'sabpuja-icon', name: 'heart' %}</i><div><h3>A More Meaningful Practice</h3><p>This kit is designed to support your devotion, discipline and positive intentions through traditional rituals.</p></div></article>
+    </section>
 
-          <h3>Shared puja essentials</h3>
-          <div class="sp-zodiac__common-items">
-            <span>Tulsi Mala</span><span>Gomti Chakra</span><span>Sphatik</span><span>Kalawa</span>
-            <span>Kumkum</span><span>Haldi</span><span>Akshat</span><span>Chandan</span>
-            <span>Kapoor</span><span>Cotton Wicks</span><span>Ghee Diya</span><span>Agarbatti</span>
-            <span>Gangajal</span><span>Guidance Materials</span>
-          </div>
+    <section class="sp-zodiac__editorial sp-zodiac__section" id="zodiac-guide" data-reveal>
+      <figure><img src="{{ 'sabpuja-zodiac-lifestyle.webp' | asset_url }}" alt="Sabpuja Zodiac Remedy Kit in a calm devotional home setting" width="1448" height="1086" loading="lazy" decoding="async"></figure>
+      <div>
+        <p class="sp-zodiac__eyebrow">Prepared for devotional practice</p>
+        <h2>Personal to your sign.<br>Grounded in tradition.</h2>
+        <p>Each selected kit brings its sign-specific devotional items together with familiar puja essentials in a calm, organized presentation designed for your mandir, ritual space or thoughtful gifting.</p>
+        <div class="sp-zodiac__editorial-points">
+          <span>{% render 'sabpuja-icon', name: 'package' %}<b>Considered presentation</b><small>Designed to keep your ritual materials together.</small></span>
+          <span>{% render 'sabpuja-icon', name: 'sparkles' %}<b>Sign-specific context</b><small>Traditional associations explained with clear devotional boundaries.</small></span>
         </div>
       </div>
     </section>
 
-    <section class="sp-zodiac__items-story sp-zodiac__module" data-reveal>
-      <div class="sp-zodiac__section-head">
-        <div>
-          <p class="sp-zodiac__eyebrow">Why these items?</p>
-          <h2>Understand the role of the sign-specific assortment.</h2>
-        </div>
-        <p>We explain what each selected item contributes to the kit’s devotional presentation without turning traditional symbolism into guaranteed outcomes.</p>
+    <section class="sp-zodiac__reviews sp-zodiac__section" data-reveal>
+      <div class="sp-zodiac__reviews-head">
+        <div><p class="sp-zodiac__eyebrow">Community proof</p><h2>Customer reviews</h2></div>
+        <a href="mailto:support@sabpuja.com?subject=Sabpuja%20Zodiac%20Remedy%20Kit%20Review">Write a review</a>
       </div>
-      <div class="sp-zodiac__item-explain" data-zodiac-item-explain></div>
-    </section>
-
-    <section class="sp-zodiac__steps sp-zodiac__module" data-reveal>
-      <div class="sp-zodiac__section-head">
-        <div>
-          <p class="sp-zodiac__eyebrow">How to use your kit</p>
-          <h2>Three simple stages.</h2>
-        </div>
-        <p>Use the kit as an organized devotional starting point and follow your family tradition or priest guidance where appropriate.</p>
-      </div>
-
-      <ol>
-        <li><span>01</span><div><strong>Prepare your puja space</strong><p>Keep the selected <b data-zodiac-name>Aries</b> kit near your mandir or chosen devotional space.</p></div></li>
-        <li><span>02</span><div><strong>Identify the sign-specific items</strong><p>Use the included guidance to understand which objects belong to the selected sign’s devotional assortment.</p></div></li>
-        <li><span>03</span><div><strong>Follow your customary practice</strong><p>Use the supplied essentials according to your own tradition; replenish common consumables as needed.</p></div></li>
-      </ol>
-    </section>
-
-    <section class="sp-zodiac__presentation sp-zodiac__module" data-reveal>
-      <div class="sp-zodiac__presentation-media">
-        <img src="{{ 'sabpuja-zodiac-premium-detail.webp' | asset_url }}" alt="Close-up of Sabpuja Zodiac Remedy Kit premium presentation and ritual materials" width="1448" height="1086" loading="lazy" decoding="async">
-      </div>
-      <div class="sp-zodiac__presentation-copy">
-        <span class="sp-zodiac__mini-badge">{% render 'sabpuja-icon', name: 'package' %} Premium presentation</span>
-        <p class="sp-zodiac__eyebrow">Premium details, up close</p>
-        <h2>Thoughtful presentation from the box to the ritual materials.</h2>
-        <p>The shared Zodiac range uses one coherent presentation system—premium box, organized insert, devotional materials and sign-specific visual cues—so each kit feels distinct while still belonging to the same Sabpuja family.</p>
-        <div class="sp-zodiac__presentation-points">
-          <span>{% render 'sabpuja-icon', name: 'check' %} 350 GSM zodiac sleeve</span>
-          <span>{% render 'sabpuja-icon', name: 'check' %} Custom die-cut EVA insert</span>
-          <span>{% render 'sabpuja-icon', name: 'check' %} Maroon velvet pouch</span>
-          <span>{% render 'sabpuja-icon', name: 'check' %} Guidance & authenticity cards</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="sp-zodiac__lifestyle sp-zodiac__module" data-reveal>
-      <div class="sp-zodiac__lifestyle-copy">
-        <span class="sp-zodiac__mini-badge">{% render 'sabpuja-icon', name: 'home' %} Home-puja context</span>
-        <p class="sp-zodiac__eyebrow">A calm devotional moment</p>
-        <h2>Designed to feel at home in your everyday puja space.</h2>
-        <p>The Zodiac Remedy Kit is presented as an organized devotional collection you can keep near your mandir and use according to your family tradition or priest guidance.</p>
-        <div class="sp-zodiac__lifestyle-points">
-          <span>{% render 'sabpuja-icon', name: 'home' %}<b>Home-ready</b><small>Compact enough for a personal mandir or prayer space.</small></span>
-          <span>{% render 'sabpuja-icon', name: 'gift' %}<b>Giftable</b><small>Premium presentation makes the range suitable for thoughtful devotional gifting.</small></span>
-          <span>{% render 'sabpuja-icon', name: 'sparkles' %}<b>Personal</b><small>The selected sign changes the kit while the experience stays consistent.</small></span>
-        </div>
-      </div>
-      <figure class="sp-zodiac__lifestyle-media">
-        <img src="{{ 'sabpuja-zodiac-lifestyle.webp' | asset_url }}" alt="Woman using a Sabpuja Zodiac Remedy Kit in a calm home puja setting" width="1448" height="1086" loading="lazy" decoding="async">
-      </figure>
-    </section>
-
-    <section class="sp-zodiac__family sp-zodiac__module" data-reveal>
-      <div class="sp-zodiac__section-head">
-        <div>
-          <p class="sp-zodiac__eyebrow">Explore the full collection</p>
-          <h2>Twelve signs. One Sabpuja visual system.</h2>
-        </div>
-        <p>The twelve-sign collection shares one visual language while each selection keeps its own devotional context and sign-specific assortment.</p>
-      </div>
-
-      <figure class="sp-zodiac__family-visual">
-        <img src="{{ 'sabpuja-zodiac-family-collection.webp' | asset_url }}" alt="Sabpuja Zodiac Remedy Kit family collection showing all twelve signs" width="1448" height="1086" loading="lazy" decoding="async">
-        <figcaption><strong>12 signs, one family.</strong><span>Your selected sign is reflected across the experience above.</span></figcaption>
-      </figure>
-    </section>
-
-    <section class="sp-zodiac__reviews sp-zodiac__module" id="zodiac-remedy-reviews" aria-labelledby="zodiac-reviews-title" data-demo-reviews="true" data-reveal>
-      <div class="sp-zodiac__marketplace-reviews">
-        <aside class="sp-zodiac__review-summary-panel">
-          <h2 id="zodiac-reviews-title">Customer reviews</h2>
-          <div class="sp-zodiac__review-score-row">
-            <span class="sp-zodiac__stars sp-zodiac__stars--large" aria-hidden="true">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</span>
-            <strong>4.9 out of 5</strong>
-          </div>
-          <p class="sp-zodiac__review-count">128 ratings</p>
-          <div class="sp-zodiac__rating-bars sp-zodiac__rating-bars--marketplace" aria-label="Review rating distribution">
-            <div><span>5 star</span><i><b style="--rating-width:93%"></b></i><em>93%</em></div>
-            <div><span>4 star</span><i><b style="--rating-width:5%"></b></i><em>5%</em></div>
-            <div><span>3 star</span><i><b style="--rating-width:1%"></b></i><em>1%</em></div>
-            <div><span>2 star</span><i><b style="--rating-width:1%"></b></i><em>1%</em></div>
-            <div><span>1 star</span><i><b style="--rating-width:0%"></b></i><em>0%</em></div>
-          </div>
-          <div class="sp-zodiac__review-write">
-            <h3>Review this product</h3>
-            <p>Share your experience with other Sabpuja customers.</p>
-            <a href="mailto:support@sabpuja.com?subject=Zodiac%20Remedy%20Kit%20Review">Write a product review</a>
-          </div>
-          <div class="sp-zodiac__review-left-extras">
-            <div class="sp-zodiac__review-guide">
-              <h3>What shoppers find useful</h3>
-              <span>{% render 'sabpuja-icon', name: 'package' %}<b>Packaging</b><small>How neatly the selected kit arrives and how easy it is to keep organized.</small></span>
-              <span>{% render 'sabpuja-icon', name: 'sparkles' %}<b>Sign selection</b><small>Whether the zodiac-specific format makes the range easier to understand.</small></span>
-              <span>{% render 'sabpuja-icon', name: 'gift' %}<b>Gifting</b><small>How the presentation feels when chosen for family or loved ones.</small></span>
-            </div>
-            <div class="sp-zodiac__review-support">
-              <span class="sp-zodiac__icon-tile">{% render 'sabpuja-icon', name: 'help' %}</span>
-              <div><strong>Need help with an order?</strong><p>Our support team can help with delivery, damaged, wrong or missing-item concerns.</p><a href="mailto:support@sabpuja.com">Contact Sabpuja support</a></div>
-            </div>
-          </div>
+      <div class="sp-zodiac__review-layout">
+        <aside class="sp-zodiac__review-summary">
+          <i>{% render 'sabpuja-icon', name: 'star' %}</i>
+          <h3>Review summary</h3>
+          <p>Verified Zodiac-specific rating totals and distributions will appear here when approved review data is available.</p>
+          <span>Proof-safe staging state</span>
         </aside>
-
-        <div class="sp-zodiac__review-main">
-          <div class="sp-zodiac__customers-say">
-            <h3>Customers say</h3>
-            <p>The current review set highlights premium presentation, organized contents, easy sign selection and a gift-friendly format.</p>
-            <strong class="sp-zodiac__learn-more-label">Select to learn more</strong>
-            <div class="sp-zodiac__review-topics" aria-label="Review topics">
-              <button type="button" data-zodiac-review-filter="all" class="is-active">↗ Premium presentation</button>
-              <button type="button" data-zodiac-review-filter="5">∿ Organized contents</button>
-              <button type="button" data-zodiac-review-filter="photo">∿ Reviews with images</button>
-              <span>∿ Gifting</span>
-            </div>
+        <div class="sp-zodiac__review-gallery">
+          <div><h3>Reviews with images</h3><p>Approved Sabpuja customer-review media used to demonstrate the gallery experience.</p></div>
+          <div class="sp-zodiac__review-rail">
+            {% for review_number in (1..6) %}
+              {% capture review_asset %}sabpuja-customer-review-0{{ review_number }}.webp{% endcapture %}
+              <button type="button" data-zodiac-review-open data-review-image="{{ review_asset | asset_url }}" aria-label="Open customer review image {{ review_number }}"><img src="{{ review_asset | asset_url }}" alt="Sabpuja customer review media {{ review_number }}" width="320" height="240" loading="lazy" decoding="async"></button>
+            {% endfor %}
           </div>
-
-          <div class="sp-zodiac__reviews-with-images">
-            <div class="sp-zodiac__reviews-images-head"><h3>Reviews with images</h3><span>Tap any image to enlarge</span></div>
-            <div class="sp-zodiac__review-media-strip" aria-label="Review images">
-              {% for review_number in (1..6) %}
-                {% capture review_asset %}sabpuja-customer-review-0{{ review_number }}.webp{% endcapture %}
-                <button type="button" data-zodiac-review-open data-review-image="{{ review_asset | asset_url }}" aria-label="Open review image {{ review_number }}"><img src="{{ review_asset | asset_url }}" alt="Sabpuja customer review image {{ review_number }}" width="1448" height="1086" loading="lazy" decoding="async"></button>
-              {% endfor %}
-            </div>
-          </div>
-
-          <div class="sp-zodiac__review-feed-wrap">
-            <h3>Top reviews</h3>
-            <div class="sp-zodiac__review-feed" data-zodiac-review-feed>
-              <article class="sp-zodiac__review-item" data-stars="5" data-photo="true"><div class="sp-zodiac__review-avatar">AS</div><div class="sp-zodiac__review-body"><div class="sp-zodiac__review-meta"><div><strong>Aditi Sharma</strong><span class="sp-zodiac__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div><time datetime="2026-09-16">16 Sep 2026</time></div><div class="sp-zodiac__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div><h3>Beautifully organized and easy to understand</h3><p>The presentation feels premium, and seeing the sign-specific items together makes the kit much easier to understand.</p><button class="sp-zodiac__review-inline-media" type="button" data-zodiac-review-open data-review-image="{{ 'sabpuja-customer-review-01.webp' | asset_url }}"><img src="{{ 'sabpuja-customer-review-01.webp' | asset_url }}" alt="Customer review photo" width="1448" height="1086" loading="lazy" decoding="async"></button></div></article>
-              <article class="sp-zodiac__review-item" data-stars="5" data-photo="false"><div class="sp-zodiac__review-avatar">RK</div><div class="sp-zodiac__review-body"><div class="sp-zodiac__review-meta"><div><strong>Ritu Kapoor</strong><span class="sp-zodiac__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div><time datetime="2026-09-09">9 Sep 2026</time></div><div class="sp-zodiac__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div><h3>A thoughtful gifting format</h3><p>The box feels complete and intentional rather than like separate loose puja items. The zodiac selection also makes gifting feel more personal.</p></div></article>
-              <article class="sp-zodiac__review-item" data-stars="5" data-photo="true"><div class="sp-zodiac__review-avatar">AM</div><div class="sp-zodiac__review-body"><div class="sp-zodiac__review-meta"><div><strong>Arjun Malhotra</strong><span class="sp-zodiac__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div><time datetime="2026-08-30">30 Aug 2026</time></div><div class="sp-zodiac__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div><h3>Premium without feeling complicated</h3><p>The organized insert and clear sign-specific presentation make the whole concept simple to scan.</p><button class="sp-zodiac__review-inline-media" type="button" data-zodiac-review-open data-review-image="{{ 'sabpuja-customer-review-03.webp' | asset_url }}"><img src="{{ 'sabpuja-customer-review-03.webp' | asset_url }}" alt="Customer review photo" width="1448" height="1086" loading="lazy" decoding="async"></button></div></article>
-              <article class="sp-zodiac__review-item" data-stars="4" data-photo="false"><div class="sp-zodiac__review-avatar">MS</div><div class="sp-zodiac__review-body"><div class="sp-zodiac__review-meta"><div><strong>Meera S.</strong><span class="sp-zodiac__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div><time datetime="2026-08-18">18 Aug 2026</time></div><div class="sp-zodiac__stars" aria-label="4 out of 5 stars">{% for i in (1..4) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div><h3>Clear concept and good presentation</h3><p>I liked being able to choose the sign first and then see the matching kit. The presentation is clean and easy to follow.</p></div></article>
-              <article class="sp-zodiac__review-item sp-zodiac__review-item--more" data-stars="5" data-photo="true" hidden><div class="sp-zodiac__review-avatar">NV</div><div class="sp-zodiac__review-body"><div class="sp-zodiac__review-meta"><div><strong>Neha Verma</strong><span class="sp-zodiac__verified">{% render 'sabpuja-icon', name: 'check' %} Verified purchase</span></div><time datetime="2026-08-02">2 Aug 2026</time></div><div class="sp-zodiac__stars" aria-label="5 out of 5 stars">{% for i in (1..5) %}{% render 'sabpuja-icon', name: 'star' %}{% endfor %}</div><h3>Looks polished near the mandir</h3><p>The kit is compact enough to keep organized at home, and the packaging looks thoughtful without being too flashy.</p><button class="sp-zodiac__review-inline-media" type="button" data-zodiac-review-open data-review-image="{{ 'sabpuja-customer-review-05.webp' | asset_url }}"><img src="{{ 'sabpuja-customer-review-05.webp' | asset_url }}" alt="Customer review photo" width="1448" height="1086" loading="lazy" decoding="async"></button></div></article>
-            </div>
-            <button type="button" class="sp-zodiac__load-more" data-zodiac-review-more>See more reviews</button>
-          </div>
+          <p class="sp-zodiac__review-disclosure">These images are not presented here as verified Zodiac Remedy Kit purchase reviews. Product-specific identities, ratings, dates and claims are intentionally omitted until approved.</p>
         </div>
       </div>
-      <p class="sp-zodiac__reviews-disclosure">Illustrative review data is used on staging while verified customer-review import is finalized. Replace before live publication.</p>
     </section>
 
-    <div class="sp-zodiac__review-lightbox" data-zodiac-review-lightbox aria-hidden="true">
-      <button type="button" class="sp-zodiac__review-lightbox-backdrop" data-zodiac-review-close aria-label="Close review image"></button>
-      <div class="sp-zodiac__review-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Customer review image">
-        <button type="button" class="sp-zodiac__review-lightbox-close" data-zodiac-review-close aria-label="Close">×</button>
-        <img data-zodiac-review-lightbox-image src="" alt="Customer review image" width="1448" height="1086">
-        <div><small>Customer photo</small><strong data-zodiac-review-lightbox-title>Review image</strong><p>Photo shared alongside the current staging review experience.</p></div>
+    <div class="sp-zodiac__lightbox" data-zodiac-review-lightbox aria-hidden="true">
+      <button class="sp-zodiac__lightbox-backdrop" type="button" data-zodiac-review-close aria-label="Close image viewer"></button>
+      <div class="sp-zodiac__lightbox-dialog" role="dialog" aria-modal="true" aria-label="Customer review image viewer">
+        <button class="sp-zodiac__lightbox-close" type="button" data-zodiac-review-close aria-label="Close">×</button>
+        <img src="" alt="Selected Sabpuja customer review media" data-zodiac-review-lightbox-image width="1200" height="900">
+        <div><strong>Sabpuja customer review media</strong><p>Gallery preview using the approved review-media asset set.</p></div>
       </div>
     </div>
-
-    <section class="sp-zodiac__faq sp-zodiac__module" data-reveal>
-      <div class="sp-zodiac__section-head">
-        <div><p class="sp-zodiac__eyebrow">Questions before you choose</p><h2>Zodiac Remedy Kit FAQ</h2></div>
-        <p>Short answers about selection, usage, delivery and the boundaries of traditional astrology-related language.</p>
-      </div>
-      <div class="sp-zodiac__faq-list">
-        <details open><summary>♈ How do I choose the correct kit?</summary><p>Select the zodiac sign you already follow. Each sign updates the product, SKU, images and sign-specific assortment on this page.</p></details>
-        <details><summary>🪔 Are these kits meant to guarantee astrology outcomes?</summary><p>No. Traditional associations are presented for devotional and cultural context only. Sabpuja does not guarantee health, financial, protective or future outcomes.</p></details>
-        <details><summary>📦 What changes between the twelve kits?</summary><p>The premium packaging system and common puja essentials remain consistent, while the sign-specific yantra, Rudraksha and selected devotional items change.</p></details>
-        <details><summary>🚚 Where do you deliver?</summary><p>Delhi NCR only, with an estimated delivery time of 1–3 business days.</p></details>
-        <details><summary>🎁 Can I gift a Zodiac Remedy Kit?</summary><p>Yes. The premium packaging and sign-specific presentation make the kits suitable as thoughtful devotional gifts when you know the recipient’s zodiac sign.</p></details>
-        <details><summary>💬 How can I contact Sabpuja?</summary><p>Email <a href="mailto:support@sabpuja.com">support@sabpuja.com</a> or call <a href="tel:+919667819241">+91 96678 19241</a>, Monday–Saturday, 10am–6pm IST.</p></details>
-      </div>
-    </section>
-
-    <section class="sp-zodiac__final sp-zodiac__module" data-reveal>
-      <div>
-        <span class="sp-zodiac__mini-badge sp-zodiac__mini-badge--dark"><span data-zodiac-symbol>♈</span> <span data-zodiac-name>Aries</span> selected</span>
-        <p class="sp-zodiac__eyebrow">Your selected kit is ready</p>
-        <h2>Continue with the Zodiac Remedy Kit chosen for your sign.</h2>
-        <p>Change signs at any time using the selector above, or return to the selected kit’s buy box.</p>
-      </div>
-      <a class="sp-zodiac__btn sp-zodiac__glow" href="#zodiac-buy">Choose <span data-zodiac-name>Aries</span> Kit</a>
-    </section>
   </main>
-
-  <div class="sp-zodiac__drawer" data-zodiac-drawer aria-hidden="true">
-    <button type="button" class="sp-zodiac__drawer-backdrop" data-zodiac-close aria-label="Close cart preview"></button>
-    <aside class="sp-zodiac__drawer-panel" aria-label="Cart preview">
-      <div class="sp-zodiac__drawer-head">
-        <div><strong>Added to cart</strong><span>Cart preview — checkout will be available when inventory is activated.</span></div>
-        <button type="button" data-zodiac-close aria-label="Close">×</button>
-      </div>
-      <div class="sp-zodiac__drawer-product">
-        <img data-zodiac-drawer-image src="" alt="" width="96" height="72">
-        <div><strong data-zodiac-drawer-title></strong><span data-zodiac-drawer-qty>Qty 1</span></div>
-        <strong data-zodiac-drawer-price>₹2,499</strong>
-      </div>
-      <div class="sp-zodiac__drawer-summary"><span>Total</span><strong data-zodiac-drawer-total>₹2,499</strong></div>
-      <button class="sp-zodiac__drawer-checkout" type="button" disabled>Checkout enabled after inventory approval</button>
-      <p>Prepaid online · Delhi NCR · 1–3 business days</p>
-    </aside>
-  </div>
-</div>
+</section>
 
 <script>
 (() => {
@@ -373,209 +164,128 @@
   if (!root || root.dataset.ready === 'true') return;
   root.dataset.ready = 'true';
 
+  const crab = '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M22 31c0-7 4-12 10-12s10 5 10 12v7c0 5-4 9-10 9s-10-4-10-9v-7Z"/><path d="M23 28c-5-1-9-4-11-8M41 28c5-1 9-4 11-8M22 37c-6 1-10 4-13 8M42 37c6 1 10 4 13 8M17 22c-5 1-8-2-8-6 4-1 8 1 8 6ZM47 22c5 1 8-2 8-6-4-1-8 1-8 6Z"/><circle cx="28" cy="29" r="1.6"/><circle cx="36" cy="29" r="1.6"/></svg>';
+
   const data = {
-    aries:{symbol:'♈',name:'Aries',vedic:'Mesha',handle:'aries-mesha-astrological-remedy-kit',variant:'54402112192828',sku:'SP-AST-ARIES',price:249900,hero:"{{ 'sabpuja-zodiac-aries-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-aries-contents.webp' | asset_url }}",trait:'courage, initiative and focused devotional practice',items:['Mangal Yantra','3 Mukhi Rudraksha','Hanuman Chalisa','Red Chandan','Sindoor']},
-    taurus:{symbol:'♉',name:'Taurus',vedic:'Vrishabha',handle:'taurus-vrishabha-astrological-remedy-kit',variant:'54402121957692',sku:'SP-AST-TAURUS',price:249900,hero:"{{ 'sabpuja-zodiac-taurus-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-taurus-contents.webp' | asset_url }}",trait:'steadiness, harmony and a grounded devotional routine',items:['Shukra Yantra','6 Mukhi Rudraksha','White Chandan','Lotus Seeds','Rose Incense']},
-    gemini:{symbol:'♊',name:'Gemini',vedic:'Mithuna',handle:'gemini-mithuna-astrological-remedy-kit',variant:'54402125201724',sku:'SP-AST-GEMINI',price:249900,hero:"{{ 'sabpuja-zodiac-gemini-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-gemini-contents.webp' | asset_url }}",trait:'clarity, learning and thoughtful devotional practice',items:['Budh Yantra','4 Mukhi Rudraksha','Green Cloth','Cardamom','Saraswati Card']},
-    cancer:{symbol:'🦀',name:'Cancer',vedic:'Karka',handle:'cancer-karka-astrological-remedy-kit',variant:'54402129789244',sku:'SP-AST-CANCER',price:249900,hero:"{{ 'sabpuja-zodiac-cancer-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-cancer-contents.webp' | asset_url }}",trait:'reflection, calm and a nurturing devotional routine',items:['Chandra Yantra','2 Mukhi Rudraksha','White Cloth','Pearl Shell','Chandra Mantra']},
-    leo:{symbol:'♌',name:'Leo',vedic:'Simha',handle:'leo-simha-astrological-remedy-kit',variant:'54402132443452',sku:'SP-AST-LEO',price:249900,hero:"{{ 'sabpuja-zodiac-leo-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-leo-contents.webp' | asset_url }}",trait:'confidence, purpose and solar devotional practice',items:['Surya Yantra','12 Mukhi Rudraksha','Copper Surya Symbol','Aditya Hridayam']},
-    virgo:{symbol:'♍',name:'Virgo',vedic:'Kanya',handle:'virgo-kanya-astrological-remedy-kit',variant:'54402133852476',sku:'SP-AST-VIRGO',price:249900,hero:"{{ 'sabpuja-zodiac-virgo-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-virgo-contents.webp' | asset_url }}",trait:'practical wisdom, clarity and disciplined devotional practice',items:['Budh Yantra','4 Mukhi Rudraksha','Green Cloth','Tulsi Seeds','Saraswati Card']},
-    libra:{symbol:'♎',name:'Libra',vedic:'Tula',handle:'libra-tula-astrological-remedy-kit',variant:'54402140602684',sku:'SP-AST-LIBRA',price:249900,hero:"{{ 'sabpuja-zodiac-libra-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-libra-contents.webp' | asset_url }}",trait:'balance, harmony and graceful devotional practice',items:['Shukra Yantra','6 Mukhi Rudraksha','White Cloth','Lakshmi Coin','Rose Incense']},
-    scorpio:{symbol:'♏',name:'Scorpio',vedic:'Vrishchika',handle:'scorpio-vrishchika-astrological-remedy-kit',variant:'54402146500924',sku:'SP-AST-SCORPIO',price:249900,hero:"{{ 'sabpuja-zodiac-scorpio-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-scorpio-contents.webp' | asset_url }}",trait:'resolve, transformation and focused devotional practice',items:['Mangal Yantra','3 Mukhi Rudraksha','Hanuman Image','Red Cloth']},
-    sagittarius:{symbol:'♐',name:'Sagittarius',vedic:'Dhanu',handle:'sagittarius-dhanu-astrological-remedy-kit',variant:'54402151547196',sku:'SP-AST-SAGITTARIUS',price:249900,hero:"{{ 'sabpuja-zodiac-sagittarius-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-sagittarius-contents.webp' | asset_url }}",trait:'wisdom, faith and purposeful devotional practice',items:['Guru Yantra','5 Mukhi Rudraksha','Yellow Cloth','Turmeric','Vishnu Mantra']},
-    capricorn:{symbol:'♑',name:'Capricorn',vedic:'Makara',handle:'capricorn-makara-astrological-remedy-kit',variant:'54402155381052',sku:'SP-AST-CAPRICORN',price:249900,hero:"{{ 'sabpuja-zodiac-capricorn-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-capricorn-contents.webp' | asset_url }}",trait:'discipline, steadiness and reflective devotional practice',items:['Shani Yantra','7 Mukhi Rudraksha','Black Cloth','Black Sesame','Shanti Mantra']},
-    aquarius:{symbol:'♒',name:'Aquarius',vedic:'Kumbha',handle:'aquarius-kumbha-astrological-remedy-kit',variant:'54402159870268',sku:'SP-AST-AQUARIUS',price:249900,hero:"{{ 'sabpuja-zodiac-aquarius-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-aquarius-contents.webp' | asset_url }}",trait:'reflection, service and structured devotional practice',items:['Shani Yantra','7 Mukhi Rudraksha','Black Cloth','Black Sesame','Shani Chalisa']},
-    pisces:{symbol:'♓',name:'Pisces',vedic:'Meena',handle:'pisces-meena-astrological-remedy-kit',variant:'54402163212604',sku:'SP-AST-PISCES',price:249900,hero:"{{ 'sabpuja-zodiac-pisces-hero.webp' | asset_url }}",detail:"{{ 'sabpuja-zodiac-pisces-contents.webp' | asset_url }}",trait:'faith, compassion and contemplative devotional practice',items:['Guru Yantra','5 Mukhi Rudraksha','Yellow Cloth','Turmeric','Vishnu Sahasranama']}
+    aries:{symbol:'♈',name:'Aries',vedic:'Mesha',date:'Mar 21 – Apr 19',emotion:'Channel Your Energy with Devotion',trait:['Courage','Discipline','New Beginnings'],planet:'Mangal (Mars)',handle:'aries-mesha-astrological-remedy-kit',variant:'54402112192828',sku:'SP-AST-ARIES',price:249900,hero:"{{ 'sabpuja-zodiac-aries-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-aries-contents.webp' | asset_url }}",items:['Mangal Yantra','3 Mukhi Rudraksha','Hanuman Chalisa','Red Chandan','Sindoor']},
+    taurus:{symbol:'♉',name:'Taurus',vedic:'Vrishabha',date:'Apr 20 – May 20',emotion:'Ground Your Practice in Steady Devotion',trait:['Steadiness','Harmony','Grounded Practice'],planet:'Shukra (Venus)',handle:'taurus-vrishabha-astrological-remedy-kit',variant:'54402121957692',sku:'SP-AST-TAURUS',price:249900,hero:"{{ 'sabpuja-zodiac-taurus-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-taurus-contents.webp' | asset_url }}",items:['Shukra Yantra','6 Mukhi Rudraksha','White Chandan','Lotus Seeds','Rose Incense']},
+    gemini:{symbol:'♊',name:'Gemini',vedic:'Mithuna',date:'May 21 – Jun 20',emotion:'Bring Clarity and Intention to Your Ritual',trait:['Clarity','Learning','Thoughtful Practice'],planet:'Budh (Mercury)',handle:'gemini-mithuna-astrological-remedy-kit',variant:'54402125201724',sku:'SP-AST-GEMINI',price:249900,hero:"{{ 'sabpuja-zodiac-gemini-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-gemini-contents.webp' | asset_url }}",items:['Budh Yantra','4 Mukhi Rudraksha','Green Cloth','Cardamom','Saraswati Card']},
+    cancer:{symbol:'crab',name:'Cancer',vedic:'Karka',date:'Jun 21 – Jul 22',emotion:'Create Space for Calm and Reflection',trait:['Reflection','Calm','Nurturing Practice'],planet:'Chandra (Moon)',handle:'cancer-karka-astrological-remedy-kit',variant:'54402129789244',sku:'SP-AST-CANCER',price:249900,hero:"{{ 'sabpuja-zodiac-cancer-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-cancer-contents.webp' | asset_url }}",items:['Chandra Yantra','2 Mukhi Rudraksha','White Cloth','Pearl Shell','Chandra Mantra']},
+    leo:{symbol:'♌',name:'Leo',vedic:'Simha',date:'Jul 23 – Aug 22',emotion:'Practice with Purpose and Radiant Devotion',trait:['Confidence','Purpose','Solar Practice'],planet:'Surya (Sun)',handle:'leo-simha-astrological-remedy-kit',variant:'54402132443452',sku:'SP-AST-LEO',price:249900,hero:"{{ 'sabpuja-zodiac-leo-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-leo-contents.webp' | asset_url }}",items:['Surya Yantra','12 Mukhi Rudraksha','Copper Surya Symbol','Aditya Hridayam']},
+    virgo:{symbol:'♍',name:'Virgo',vedic:'Kanya',date:'Aug 23 – Sep 22',emotion:'Bring Practical Wisdom to Your Practice',trait:['Practical Wisdom','Clarity','Discipline'],planet:'Budh (Mercury)',handle:'virgo-kanya-astrological-remedy-kit',variant:'54402133852476',sku:'SP-AST-VIRGO',price:249900,hero:"{{ 'sabpuja-zodiac-virgo-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-virgo-contents.webp' | asset_url }}",items:['Budh Yantra','4 Mukhi Rudraksha','Green Cloth','Tulsi Seeds','Saraswati Card']},
+    libra:{symbol:'♎',name:'Libra',vedic:'Tula',date:'Sep 23 – Oct 22',emotion:'Invite Balance into Your Devotional Routine',trait:['Balance','Harmony','Graceful Practice'],planet:'Shukra (Venus)',handle:'libra-tula-astrological-remedy-kit',variant:'54402140602684',sku:'SP-AST-LIBRA',price:249900,hero:"{{ 'sabpuja-zodiac-libra-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-libra-contents.webp' | asset_url }}",items:['Shukra Yantra','6 Mukhi Rudraksha','White Cloth','Lakshmi Coin','Rose Incense']},
+    scorpio:{symbol:'♏',name:'Scorpio',vedic:'Vrishchika',date:'Oct 23 – Nov 21',emotion:'Practice with Resolve and Focus',trait:['Resolve','Transformation','Focused Practice'],planet:'Mangal (Mars)',handle:'scorpio-vrishchika-astrological-remedy-kit',variant:'54402146500924',sku:'SP-AST-SCORPIO',price:249900,hero:"{{ 'sabpuja-zodiac-scorpio-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-scorpio-contents.webp' | asset_url }}",items:['Mangal Yantra','3 Mukhi Rudraksha','Hanuman Image','Red Cloth']},
+    sagittarius:{symbol:'♐',name:'Sagittarius',vedic:'Dhanu',date:'Nov 22 – Dec 21',emotion:'Center Your Practice in Faith and Purpose',trait:['Wisdom','Faith','Purposeful Practice'],planet:'Guru (Jupiter)',handle:'sagittarius-dhanu-astrological-remedy-kit',variant:'54402151547196',sku:'SP-AST-SAGITTARIUS',price:249900,hero:"{{ 'sabpuja-zodiac-sagittarius-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-sagittarius-contents.webp' | asset_url }}",items:['Guru Yantra','5 Mukhi Rudraksha','Yellow Cloth','Turmeric','Vishnu Mantra']},
+    capricorn:{symbol:'♑',name:'Capricorn',vedic:'Makara',date:'Dec 22 – Jan 19',emotion:'Build a Steady and Disciplined Ritual',trait:['Discipline','Steadiness','Reflection'],planet:'Shani (Saturn)',handle:'capricorn-makara-astrological-remedy-kit',variant:'54402155381052',sku:'SP-AST-CAPRICORN',price:249900,hero:"{{ 'sabpuja-zodiac-capricorn-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-capricorn-contents.webp' | asset_url }}",items:['Shani Yantra','7 Mukhi Rudraksha','Black Cloth','Black Sesame','Shanti Mantra']},
+    aquarius:{symbol:'♒',name:'Aquarius',vedic:'Kumbha',date:'Jan 20 – Feb 18',emotion:'Practice with Reflection and Service',trait:['Reflection','Service','Structure'],planet:'Shani (Saturn)',handle:'aquarius-kumbha-astrological-remedy-kit',variant:'54402159870268',sku:'SP-AST-AQUARIUS',price:249900,hero:"{{ 'sabpuja-zodiac-aquarius-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-aquarius-contents.webp' | asset_url }}",items:['Shani Yantra','7 Mukhi Rudraksha','Black Cloth','Black Sesame','Shani Chalisa']},
+    pisces:{symbol:'♓',name:'Pisces',vedic:'Meena',date:'Feb 19 – Mar 20',emotion:'Deepen Faith through Contemplative Practice',trait:['Faith','Compassion','Contemplation'],planet:'Guru (Jupiter)',handle:'pisces-meena-astrological-remedy-kit',variant:'54402163212604',sku:'SP-AST-PISCES',price:249900,hero:"{{ 'sabpuja-zodiac-pisces-hero.webp' | asset_url }}",contents:"{{ 'sabpuja-zodiac-pisces-contents.webp' | asset_url }}",items:['Guru Yantra','5 Mukhi Rudraksha','Yellow Cloth','Turmeric','Vishnu Sahasranama']}
   };
 
-  const keyByHandle = Object.fromEntries(Object.entries(data).map(([key,value]) => [value.handle,key]));
-  const getInitial = () => {
-    const url = new URL(window.location.href);
-    const signParam = url.searchParams.get('sign');
-    return signParam && data[signParam] ? signParam : 'aries';
+  const common = [
+    {name:'Akshat (Rice)',note:'For offerings'},
+    {name:'Chandan',note:'For tilak and puja'},
+    {name:'Kapoor',note:'For aarti'},
+    {name:'Cotton Wicks',note:'For diya'},
+    {name:'Gangajal',note:'For purification'}
+  ];
+  const signNotes = {
+    'Yantra':'For devotional practice','Rudraksha':'Traditionally associated with the selected sign','Chalisa':'For daily path','Mantra':'For recitation','Cloth':'For ritual use','Chandan':'For tilak and puja','Sindoor':'For ritual use','Seeds':'For devotional use','Incense':'For fragrance','Card':'For devotional reference','Shell':'For devotional presentation','Symbol':'For devotional presentation','Hridayam':'For recitation','Coin':'For puja rituals','Image':'For devotional focus','Sesame':'For ritual use','Turmeric':'For ritual use','Sahasranama':'For recitation'
   };
 
-  const money = cents => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(cents/100);
-  const qty = root.querySelector('[data-zodiac-qty]');
-  const variantInput = root.querySelector('[data-zodiac-variant]');
-  const drawer = root.querySelector('[data-zodiac-drawer]');
-  let activeKey = getInitial();
-  let activeMedia = 'hero';
+  const money = value => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(value/100);
+  const setAll = (selector,value) => root.querySelectorAll(selector).forEach(el => el.textContent=value);
+  const noteFor = item => Object.entries(signNotes).find(([key])=>item.includes(key))?.[1] || 'Sign-specific devotional item';
+  const symbolMarkup = z => z.symbol === 'crab' ? crab : z.symbol;
+  let active = 'aries';
 
-  const itemNote = item => {
-    const lower=item.toLowerCase();
-    if(lower.includes('yantra')) return 'Sign-specific yantra included as a devotional focal object in this assortment.';
-    if(lower.includes('rudraksha')) return 'Traditional Rudraksha bead included in the selected sign’s devotional kit.';
-    if(lower.includes('chalisa')||lower.includes('mantra')||lower.includes('sahasranama')||lower.includes('hridayam')||lower.includes('card')) return 'Devotional recitation or guidance material included for ritual context.';
-    if(lower.includes('cloth')||lower.includes('chandan')||lower.includes('sindoor')||lower.includes('turmeric')||lower.includes('sesame')||lower.includes('seeds')||lower.includes('incense')||lower.includes('cardamom')) return 'Included as part of the sign-specific ritual presentation and puja setup.';
-    return 'A sign-specific devotional object included in this kit’s planned assortment.';
-  };
-
-  const readQty = () => {
-    const value=Math.max(1,parseInt(qty?.value||'1',10)||1);
-    if(qty) qty.value=value;
-    return value;
-  };
-
-  const setText = (selector,text) => root.querySelectorAll(selector).forEach(el => el.textContent=text);
-  const setImage = (selector,src,alt) => root.querySelectorAll(selector).forEach(el => {el.src=src;el.alt=alt;});
-
-  const render = (key,{updateUrl=true}={}) => {
-    const z=data[key]||data.aries;
-    activeKey=key;
-
-    root.querySelectorAll('[data-sign]').forEach(btn => {
+  function render(key,{updateUrl=false,scroll=false}={}){
+    if(!data[key]) key='aries';
+    active=key;
+    const z=data[key];
+    root.querySelectorAll('[data-sign]').forEach(btn=>{
       const selected=btn.dataset.sign===key;
       btn.classList.toggle('is-active',selected);
-      btn.setAttribute('aria-pressed',selected?'true':'false');
+      btn.setAttribute('aria-pressed',String(selected));
     });
-    if (updateUrl) {
-      root.querySelector('[data-zodiac-picker] [data-sign="'+key+'"]')?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
-    }
-    activeMedia='hero';
-    root.querySelectorAll('[data-zodiac-media]').forEach(btn => btn.classList.toggle('is-active',btn.dataset.zodiacMedia==='hero'));
-
-    setText('[data-zodiac-name]',z.name);
-    setText('[data-zodiac-symbol]',z.symbol);
-    setText('[data-zodiac-symbol-badge]',z.symbol+' '+z.name);
-    setText('[data-zodiac-kicker]',z.name+' · '+z.vedic);
-    setText('[data-zodiac-title]',z.name+' ('+z.vedic+') Astrological Remedy Kit');
-    setText('[data-zodiac-story]','A premium sign-specific devotional kit traditionally associated with '+z.trait+'.');
-    setText('[data-zodiac-focus]',z.trait);
-    setText('[data-zodiac-price]',money(z.price));
-    setText('[data-zodiac-sku]',z.sku);
-    setText('[data-zodiac-cta]','Add '+z.name+' Kit to Cart');
-    setText('[data-zodiac-total]',money(z.price*readQty()));
-    setText('[data-zodiac-trait]','This '+z.name+' kit is presented around traditional associations with '+z.trait+'.');
-    setText('[data-zodiac-why]','For '+z.name+', the kit combines a sign-specific devotional assortment with the same premium Sabpuja presentation used across the zodiac family.');
-    setText('[data-zodiac-contents-caption]',z.name+' kit presentation');
-
-    setImage('[data-zodiac-hero]',z.hero,'Sabpuja '+z.name+' ('+z.vedic+') Astrological Remedy Kit');
-    setImage('[data-zodiac-thumb-hero]',z.hero,z.name+' kit hero thumbnail');
-    setImage('[data-zodiac-thumb-detail]',z.detail,z.name+' kit contents thumbnail');
-    setImage('[data-zodiac-detail]',z.detail,'Sabpuja '+z.name+' Astrological Remedy Kit contents and packaging presentation');
-    setImage('[data-zodiac-drawer-image]',z.hero,'');
-    if(variantInput) variantInput.value=z.variant;
-    const productLink=root.querySelector('[data-zodiac-product-link]');
-    if(productLink){
-      productLink.href='/products/'+z.handle;
-      productLink.textContent='View full '+z.name+' product details →';
-    }
-
-    const items=root.querySelector('[data-zodiac-items]');
-    if(items) items.innerHTML=z.items.map((item,index)=>'<div><b>'+String(index+1).padStart(2,'0')+'</b><span><strong>'+item+'</strong><small>Sign-specific item</small></span></div>').join('');
-
-    const explain=root.querySelector('[data-zodiac-item-explain]');
-    if(explain) explain.innerHTML=z.items.map(item=>'<article><span>'+z.symbol+'</span><h3>'+item+'</h3><p>'+itemNote(item)+'</p></article>').join('');
-
-    const drawerTitle=root.querySelector('[data-zodiac-drawer-title]');
-    if(drawerTitle) drawerTitle.textContent=z.name+' ('+z.vedic+') Astrological Remedy Kit';
-
-    document.title=z.name+' ('+z.vedic+') Astrological Remedy Kit | Sabpuja';
-
+    setAll('[data-zodiac-name]',z.name);
+    setAll('[data-zodiac-date]','('+z.date+')');
+    setAll('[data-zodiac-emotion]',z.emotion);
+    setAll('[data-zodiac-price]',money(z.price));
+    setAll('[data-zodiac-sku]',z.sku);
+    root.querySelector('[data-zodiac-description]').textContent='The '+z.name+' Remedy Kit is thoughtfully prepared with traditional items associated with '+z.planet+', supporting '+z.trait.join(', ').toLowerCase()+'.';
+    root.querySelector('[data-zodiac-why]').textContent='Each item is selected for its traditional and cultural significance in '+z.name+' devotional practice, with '+z.planet+' associations presented as ritual context rather than guaranteed outcomes.';
+    const hero=root.querySelector('[data-zodiac-hero]');
+    hero.src=z.hero; hero.alt='Sabpuja '+z.name+' ('+z.vedic+') Zodiac Remedy Kit';
+    const contents=root.querySelector('[data-zodiac-contents]');
+    contents.src=z.contents; contents.alt='Contents of the Sabpuja '+z.name+' Zodiac Remedy Kit';
+    const medallion=root.querySelector('[data-zodiac-medallion]');
+    medallion.innerHTML=symbolMarkup(z);
+    root.querySelector('[data-zodiac-traits]').innerHTML=z.trait.map(item=>'<span>'+item+'</span>').join('');
+    root.querySelector('[data-zodiac-product-link]').href='/products/'+z.handle;
+    root.querySelector('[data-zodiac-product-link]').textContent='View full '+z.name+' product details →';
+    const list=[...z.items.map(item=>({name:item,note:noteFor(item)})),...common];
+    root.querySelector('[data-zodiac-items]').innerHTML=list.map((item,index)=>'<li><b>'+(index+1)+'</b><span><strong>'+item.name+'</strong><small>'+item.note+'</small></span></li>').join('');
+    root.querySelector('[data-zodiac-status]').textContent='';
+    document.title=z.name+' Zodiac Remedy Kit | Sabpuja';
     if(updateUrl){
       const url=new URL(window.location.href);
       url.pathname='/collections/astrology-remedy-kits';
       url.searchParams.set('sign',key);
       history.pushState({zodiac:key},'',url.pathname+url.search+url.hash);
     }
-  };
-
-  root.querySelectorAll('[data-sign]').forEach(btn => btn.addEventListener('click',()=>render(btn.dataset.sign)));
-
-  root.querySelectorAll('[data-zodiac-media]').forEach(btn => btn.addEventListener('click',()=>{
-    const z=data[activeKey];
-    activeMedia=btn.dataset.zodiacMedia==='detail'?'detail':'hero';
-    root.querySelectorAll('[data-zodiac-media]').forEach(item=>item.classList.toggle('is-active',item===btn));
-    setImage('[data-zodiac-hero]',activeMedia==='detail'?z.detail:z.hero,activeMedia==='detail'?('Sabpuja '+z.name+' kit contents and packaging'):('Sabpuja '+z.name+' ('+z.vedic+') Astrological Remedy Kit'));
-  }));
-
-  root.querySelector('[data-zodiac-minus]')?.addEventListener('click',()=>{
-    if(qty) qty.value=Math.max(1,readQty()-1);
-    setText('[data-zodiac-total]',money(data[activeKey].price*readQty()));
-  });
-  root.querySelector('[data-zodiac-plus]')?.addEventListener('click',()=>{
-    if(qty) qty.value=readQty()+1;
-    setText('[data-zodiac-total]',money(data[activeKey].price*readQty()));
-  });
-  qty?.addEventListener('change',()=>setText('[data-zodiac-total]',money(data[activeKey].price*readQty())));
-
-  root.querySelector('[data-zodiac-form]')?.addEventListener('submit',event=>{
-    event.preventDefault();
-    const z=data[activeKey];
-    const count=readQty();
-    setText('[data-zodiac-drawer-qty]','Qty '+count);
-    setText('[data-zodiac-drawer-price]',money(z.price*count));
-    setText('[data-zodiac-drawer-total]',money(z.price*count));
-    drawer?.classList.add('is-open');
-    drawer?.setAttribute('aria-hidden','false');
-    document.documentElement.classList.add('sp-zodiac-lock');
-  });
-
-  const closeDrawer=()=>{
-    drawer?.classList.remove('is-open');
-    drawer?.setAttribute('aria-hidden','true');
-    document.documentElement.classList.remove('sp-zodiac-lock');
-  };
-  root.querySelectorAll('[data-zodiac-close]').forEach(btn=>btn.addEventListener('click',closeDrawer));
-
-
-  const applyReviewFilter=(filter)=>{
-    root.querySelectorAll('[data-zodiac-review-filter]').forEach(btn=>btn.classList.toggle('is-active',btn.dataset.zodiacReviewFilter===filter));
-    root.querySelectorAll('[data-zodiac-review-feed] .sp-zodiac__review-item').forEach(item=>{
-      if(item.classList.contains('sp-zodiac__review-item--more') && item.hidden) return;
-      item.style.display=(filter==='all'||(filter==='5'&&item.dataset.stars==='5')||(filter==='photo'&&item.dataset.photo==='true'))?'':'none';
-    });
-  };
-  root.querySelectorAll('[data-zodiac-review-filter]').forEach(btn=>btn.addEventListener('click',()=>applyReviewFilter(btn.dataset.zodiacReviewFilter)));
-  root.querySelector('[data-zodiac-review-more]')?.addEventListener('click',event=>{
-    root.querySelectorAll('.sp-zodiac__review-item--more').forEach(item=>{item.hidden=false;item.style.display='';});
-    event.currentTarget.hidden=true;
-    const active=root.querySelector('[data-zodiac-review-filter].is-active')?.dataset.zodiacReviewFilter||'all';
-    applyReviewFilter(active);
-  });
-  const reviewLightbox=root.querySelector('[data-zodiac-review-lightbox]');
-  const reviewLightboxImage=root.querySelector('[data-zodiac-review-lightbox-image]');
-  const openReviewImage=(button)=>{
-    if(!reviewLightbox||!reviewLightboxImage) return;
-    reviewLightboxImage.src=button.dataset.reviewImage||'';
-    setText('[data-zodiac-review-lightbox-title]',data[activeKey].name+' Zodiac Remedy Kit');
-    reviewLightbox.classList.add('is-open');
-    reviewLightbox.setAttribute('aria-hidden','false');
-    document.documentElement.classList.add('sp-zodiac-lock');
-  };
-  const closeReviewImage=()=>{
-    reviewLightbox?.classList.remove('is-open');
-    reviewLightbox?.setAttribute('aria-hidden','true');
-    document.documentElement.classList.remove('sp-zodiac-lock');
-  };
-  root.querySelectorAll('[data-zodiac-review-open]').forEach(btn=>btn.addEventListener('click',()=>openReviewImage(btn)));
-  root.querySelectorAll('[data-zodiac-review-close]').forEach(btn=>btn.addEventListener('click',closeReviewImage));
-  document.addEventListener('keydown',event=>{if(event.key==='Escape') closeReviewImage();});
-
-  window.addEventListener('popstate',()=>{
-    const url=new URL(window.location.href);
-    const signParam=url.searchParams.get('sign');
-    render(signParam&&data[signParam]?signParam:'aries',{updateUrl:false});
-  });
-
-  const prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const reveal=[...root.querySelectorAll('[data-reveal]')];
-  if(!prefersReduced && 'IntersectionObserver' in window){
-    reveal.forEach(el=>el.classList.add('sp-zodiac__reveal-ready'));
-    const observer=new IntersectionObserver((entries,obs)=>{
-      entries.forEach(entry=>{
-        if(!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        obs.unobserve(entry.target);
-      });
-    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
-    reveal.forEach(el=>observer.observe(el));
-  }else{
-    reveal.forEach(el=>el.classList.add('is-visible'));
+    if(scroll){
+      root.querySelector('#zodiac-buy')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    }
   }
 
-  render(activeKey,{updateUrl:false});
+  root.querySelectorAll('[data-sign]').forEach(btn=>btn.addEventListener('click',()=>render(btn.dataset.sign,{updateUrl:true,scroll:window.innerWidth<760})));
+
+  const qty=root.querySelector('[data-zodiac-qty]');
+  const readQty=()=>Math.min(10,Math.max(1,parseInt(qty?.value||'1',10)||1));
+  const setQty=value=>{ if(qty) qty.value=Math.min(10,Math.max(1,value)); };
+  root.querySelector('[data-zodiac-minus]')?.addEventListener('click',()=>setQty(readQty()-1));
+  root.querySelector('[data-zodiac-plus]')?.addEventListener('click',()=>setQty(readQty()+1));
+  qty?.addEventListener('change',()=>setQty(readQty()));
+  root.querySelector('[data-zodiac-purchase]')?.addEventListener('click',()=>{
+    root.querySelector('[data-zodiac-status]').textContent='Preview only — Zodiac Remedy Kits are not yet available for purchase.';
+  });
+
+  window.addEventListener('popstate',()=>{
+    const sign=new URL(window.location.href).searchParams.get('sign');
+    render(data[sign]?sign:'aries');
+  });
+
+  const lightbox=root.querySelector('[data-zodiac-review-lightbox]');
+  const lightboxImage=root.querySelector('[data-zodiac-review-lightbox-image]');
+  const openLightbox=src=>{
+    if(!lightbox||!lightboxImage) return;
+    lightboxImage.src=src;
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden','false');
+    document.documentElement.classList.add('sp-zodiac-lock');
+  };
+  const closeLightbox=()=>{
+    lightbox?.classList.remove('is-open');
+    lightbox?.setAttribute('aria-hidden','true');
+    document.documentElement.classList.remove('sp-zodiac-lock');
+  };
+  root.querySelectorAll('[data-zodiac-review-open]').forEach(btn=>btn.addEventListener('click',()=>openLightbox(btn.dataset.reviewImage)));
+  root.querySelectorAll('[data-zodiac-review-close]').forEach(btn=>btn.addEventListener('click',closeLightbox));
+  document.addEventListener('keydown',event=>{ if(event.key==='Escape') closeLightbox(); });
+
+  const reveals=[...root.querySelectorAll('[data-reveal]')];
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){
+    reveals.forEach(el=>el.classList.add('sp-zodiac__reveal-ready'));
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+    }),{threshold:.1,rootMargin:'0px 0px -5% 0px'});
+    reveals.forEach(el=>observer.observe(el));
+  } else {
+    reveals.forEach(el=>el.classList.add('is-visible'));
+  }
+
+  const initial=new URL(window.location.href).searchParams.get('sign');
+  render(data[initial]?initial:'aries');
 })();
 </script>
 
