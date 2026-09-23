@@ -1,0 +1,41 @@
+name: Import Zodiac Main Hero WebP
+
+on:
+  push:
+    branches:
+      - staging-2026
+    paths:
+      - .github/workflows/import-zodiac-main-hero.yml
+
+permissions:
+  contents: write
+
+jobs:
+  import-asset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: staging-2026
+
+      - name: Download approved Zodiac main hero
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL 'https://cdn.shopify.com/s/files/1/0923/1381/3308/files/sabpuja-zodiac-hero-main.webp?v=1790187536' -o assets/sabpuja-zodiac-hero-main.webp
+          file assets/sabpuja-zodiac-hero-main.webp
+          sha256sum assets/sabpuja-zodiac-hero-main.webp
+
+      - name: Commit imported asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Sabpuja Automation'
+          git config user.email 'automation@sabpuja.com'
+          git add assets/sabpuja-zodiac-hero-main.webp
+          if git diff --cached --quiet; then
+            echo 'Asset already matches; nothing to commit.'
+            exit 0
+          fi
+          git commit -m 'assets: add Zodiac landing main hero'
+          git push origin HEAD:staging-2026
