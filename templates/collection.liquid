@@ -1,1 +1,6 @@
-{% section 'sabpuja-collection' %}
+<!-- Sabpuja collection template -->
+{% if collection.handle == 'astrology-remedy-kits' %}
+  {% section 'sabpuja-zodiac-remedy-landing' %}
+{% else %}
+  {% section 'sabpuja-collection-grid' %}
+{% endif %}
