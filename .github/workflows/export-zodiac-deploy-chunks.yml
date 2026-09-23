@@ -18,7 +18,7 @@ jobs:
         with:
           ref: staging-2026
           fetch-depth: 0
-      - name: Create small base64 deployment chunks
+      - name: Create deployment chunks and visual QA previews
         shell: bash
         run: |
           set -euo pipefail
@@ -26,11 +26,13 @@ jobs:
           mkdir -p .zodiac-deploy
           base64 -w0 sections/sabpuja-zodiac-remedy-landing.liquid | split -b 7000 - .zodiac-deploy/section-
           base64 -w0 assets/sabpuja-zodiac-remedy-landing.css | split -b 7000 - .zodiac-deploy/css-
-          base64 -w0 assets/sabpuja-zodiac-hero-main.webp | split -b 7000 - .zodiac-deploy/hero-
+          identify assets/sabpuja-zodiac-hero-main.webp | tee .zodiac-deploy/hero-identify.txt
+          convert assets/sabpuja-zodiac-hero-main.webp -resize '960x960>' -quality 58 .zodiac-deploy/hero-preview.jpg
+          convert assets/sabpuja-zodiac-hero-main.webp -gravity center -crop '1200x650+0+0' +repage -resize '840x840>' -quality 64 .zodiac-deploy/hero-center-preview.jpg
           printf '%s\n' "$(sha256sum sections/sabpuja-zodiac-remedy-landing.liquid)" > .zodiac-deploy/source-sha256.txt
           printf '%s\n' "$(sha256sum assets/sabpuja-zodiac-remedy-landing.css)" >> .zodiac-deploy/source-sha256.txt
           printf '%s\n' "$(sha256sum assets/sabpuja-zodiac-hero-main.webp)" >> .zodiac-deploy/source-sha256.txt
-          ls -la .zodiac-deploy
+          ls -lah .zodiac-deploy
       - name: Commit chunks
         shell: bash
         run: |
@@ -38,5 +40,9 @@ jobs:
           git config user.name 'Sabpuja Automation'
           git config user.email 'automation@sabpuja.com'
           git add .zodiac-deploy
+          if git diff --cached --quiet; then
+            echo 'No deploy artifacts changed.'
+            exit 0
+          fi
           git commit -m 'chore: stage Zodiac deploy chunks'
           git push origin HEAD:staging-2026
