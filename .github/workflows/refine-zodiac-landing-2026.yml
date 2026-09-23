@@ -21,7 +21,22 @@ jobs:
           fetch-depth: 0
 
       - name: Apply routing and visual refinement
-        run: python3 scripts/refine_zodiac_landing_2026.py
+        shell: bash
+        run: |
+          set +e
+          python3 scripts/refine_zodiac_landing_2026.py > /tmp/zodiac-refine.log 2>&1
+          status=$?
+          cat /tmp/zodiac-refine.log
+          if [ "$status" -ne 0 ]; then
+            git reset --hard HEAD
+            cp /tmp/zodiac-refine.log zodiac-refine-debug.txt
+            git config user.name 'Sabpuja Automation'
+            git config user.email 'automation@sabpuja.com'
+            git add zodiac-refine-debug.txt
+            git commit -m 'chore: capture Zodiac refinement failure'
+            git push origin HEAD:staging-2026
+            exit "$status"
+          fi
 
       - name: Commit refined Zodiac experience
         shell: bash
