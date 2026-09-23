@@ -29,7 +29,7 @@ jobs:
           t=p.read_text(encoding='utf-8')
           start=t.index('# 3) Homepage featured card links to shared landing.')
           end=t.index('# 4) Homepage hero Zodiac slide links to shared landing.')
-          replacement='''# 3) Homepage featured card links to shared landing.\nfeatured_path = "sections/sabpuja-home-featured.liquid"\nfeatured = read(featured_path)\nfeatured = featured.replace('href="{{ routes.all_products_collection_url }}" aria-label="Explore the 12 Zodiac Remedy Kits"', 'href="/collections/astrology-remedy-kits" aria-label="Explore the 12 Zodiac Remedy Kits"')\nfeatured = featured.replace('href="{{ routes.all_products_collection_url }}">{{ \'sabpuja_custom.auto.s103\' | t }}</a>', 'href="/collections/astrology-remedy-kits">{{ \'sabpuja_custom.auto.s103\' | t }}</a>')\nrequire(featured.count('/collections/astrology-remedy-kits') >= 2, "Featured Zodiac landing link not installed")\nwrite(featured_path, featured)\n\n'''
+          replacement='''# 3) Homepage featured card links to shared landing.\nfeatured_path = "sections/sabpuja-home-featured.liquid"\nfeatured = read(featured_path)\nfeatured = featured.replace("{{ routes.all_products_collection_url }}", "/collections/astrology-remedy-kits")\nrequire(featured.count("/collections/astrology-remedy-kits") >= 2, "Featured Zodiac landing link not installed")\nwrite(featured_path, featured)\n\n'''
           p.write_text(t[:start]+replacement+t[end:], encoding='utf-8')
           PY
 
