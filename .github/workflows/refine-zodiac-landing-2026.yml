@@ -20,7 +20,7 @@ jobs:
           ref: staging-2026
           fetch-depth: 0
 
-      - name: Adapt one-time script to current featured markup
+      - name: Adapt one-time script to current homepage markup
         shell: bash
         run: |
           python3 - <<'PY'
@@ -28,8 +28,8 @@ jobs:
           p=Path('scripts/refine_zodiac_landing_2026.py')
           t=p.read_text(encoding='utf-8')
           start=t.index('# 3) Homepage featured card links to shared landing.')
-          end=t.index('# 4) Homepage hero Zodiac slide links to shared landing.')
-          replacement='''# 3) Homepage featured card links to shared landing.\nfeatured_path = "sections/sabpuja-home-featured.liquid"\nfeatured = read(featured_path)\nfeatured = featured.replace("{{ routes.all_products_collection_url }}", "/collections/astrology-remedy-kits")\nrequire(featured.count("/collections/astrology-remedy-kits") >= 2, "Featured Zodiac landing link not installed")\nwrite(featured_path, featured)\n\n'''
+          end=t.index('# 5) Shared Zodiac landing architecture.')
+          replacement='''# 3) Homepage featured card links to shared landing.\nfeatured_path = "sections/sabpuja-home-featured.liquid"\nfeatured = read(featured_path)\nfeatured = featured.replace("{{ routes.all_products_collection_url }}", "/collections/astrology-remedy-kits")\nrequire(featured.count("/collections/astrology-remedy-kits") >= 2, "Featured Zodiac landing link not installed")\nwrite(featured_path, featured)\n\n# 4) Homepage hero Zodiac slide links to shared landing.\nhero_path = "sections/sabpuja-home-hero.liquid"\nhero = read(hero_path)\nhero = hero.replace("{{ routes.all_products_collection_url }}", "/collections/astrology-remedy-kits")\nrequire("/collections/astrology-remedy-kits" in hero, "Hero Zodiac landing link not installed")\nwrite(hero_path, hero)\n\n'''
           p.write_text(t[:start]+replacement+t[end:], encoding='utf-8')
           PY
 
