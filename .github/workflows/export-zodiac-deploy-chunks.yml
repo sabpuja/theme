@@ -1,0 +1,40 @@
+name: Export Zodiac deploy chunks
+
+on:
+  push:
+    branches:
+      - staging-2026
+    paths:
+      - .github/workflows/export-zodiac-deploy-chunks.yml
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: staging-2026
+          fetch-depth: 0
+      - name: Create small base64 deployment chunks
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .zodiac-deploy
+          mkdir -p .zodiac-deploy
+          base64 -w0 sections/sabpuja-zodiac-remedy-landing.liquid | split -b 7000 - .zodiac-deploy/section-
+          base64 -w0 assets/sabpuja-zodiac-remedy-landing.css | split -b 7000 - .zodiac-deploy/css-
+          printf '%s\n' "$(sha256sum sections/sabpuja-zodiac-remedy-landing.liquid)" > .zodiac-deploy/source-sha256.txt
+          printf '%s\n' "$(sha256sum assets/sabpuja-zodiac-remedy-landing.css)" >> .zodiac-deploy/source-sha256.txt
+          ls -la .zodiac-deploy
+      - name: Commit chunks
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Sabpuja Automation'
+          git config user.email 'automation@sabpuja.com'
+          git add .zodiac-deploy
+          git commit -m 'chore: stage Zodiac deploy chunks'
+          git push origin HEAD:staging-2026
