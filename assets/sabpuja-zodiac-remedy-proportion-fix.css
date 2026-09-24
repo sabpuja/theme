@@ -1,259 +1,870 @@
-/* Sabpuja Zodiac Remedy landing page — proportion correction.
-   Keep this as a small override layer so the campaign can be tuned without
-   destabilising the main Zodiac landing stylesheet. */
+/* Sabpuja Zodiac Remedy landing page — final proportion, typography and design-system pass.
+   Loaded after sabpuja-zodiac-remedy-landing.css on the unpublished staging theme. */
 
-/* The Zodiac page previously carried its own review UI. The storefront already
-   has a shared review carousel, which is rendered by the collection template. */
+.sp-zodiac {
+  --sp-zodiac-page: 1240px;
+  --sp-saffron: #D35400;
+  --sp-gold: #F4B400;
+  --sp-brown: #4E342E;
+  --sp-deep: #33241F;
+  --sp-cream: #FFF8E7;
+  --sp-ivory: #FFFBEF;
+  --sp-soft-orange: #FFF2E2;
+  --sp-line: rgba(78, 52, 46, 0.13);
+  --sp-shadow: 0 12px 30px rgba(78, 52, 46, 0.08);
+  font-family: "Inter", sans-serif !important;
+  color: var(--sp-deep);
+  background: var(--sp-ivory);
+}
+
+.sp-zodiac p,
+.sp-zodiac a,
+.sp-zodiac button,
+.sp-zodiac input,
+.sp-zodiac small,
+.sp-zodiac span,
+.sp-zodiac b,
+.sp-zodiac strong,
+.sp-zodiac li,
+.sp-zodiac dt,
+.sp-zodiac dd {
+  font-family: "Inter", sans-serif !important;
+}
+
+.sp-zodiac h1,
+.sp-zodiac h2,
+.sp-zodiac h3,
+.sp-zodiac__section-title h2,
+.sp-zodiac__product-copy h2,
+.sp-zodiac__stories h3,
+.sp-zodiac__editorial h2,
+.sp-zodiac__date,
+.sp-zodiac__product-emotion,
+.sp-zodiac__price-line > strong,
+.sp-zodiac__hero-mantra,
+.sp-zodiac__sign-medallion {
+  font-family: "Poppins", sans-serif !important;
+  font-style: normal;
+}
+
+.sp-zodiac__sign-symbol {
+  font-family: "Inter", sans-serif !important;
+}
+
 .sp-zodiac__reviews,
 .sp-zodiac__lightbox {
   display: none !important;
 }
 
-@media screen and (min-width: 961px) {
-  .sp-zodiac {
-    --sp-zodiac-page: 1120px;
+.sp-zodiac__section {
+  width: min(var(--sp-zodiac-page), calc(100% - 40px));
+  margin-inline: auto;
+  padding-block: 58px;
+}
+
+.sp-zodiac__section-title {
+  margin: 0 auto 30px;
+}
+
+.sp-zodiac__section-title h2,
+.sp-zodiac__editorial h2 {
+  color: var(--sp-brown);
+  font-size: clamp(28px, 2.4vw, 34px);
+  font-weight: 650;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+}
+
+.sp-zodiac__section-title p {
+  max-width: 670px;
+  margin-inline: auto;
+  color: rgba(78, 52, 46, 0.73);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.sp-zodiac__eyebrow,
+.sp-zodiac__hero-kicker {
+  color: var(--sp-saffron);
+  font-family: "Inter", sans-serif !important;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Keep the campaign hero, but stop it from behaving like a full-screen billboard. */
+.sp-zodiac__landing-hero {
+  min-height: 440px;
+  background: #35160c;
+}
+
+.sp-zodiac__landing-hero-inner {
+  width: min(var(--sp-zodiac-page), calc(100% - 40px));
+  min-height: 440px;
+  padding-block: 42px;
+}
+
+.sp-zodiac__landing-hero-copy {
+  width: min(480px, 45%);
+}
+
+.sp-zodiac__landing-hero h1 {
+  max-width: 470px;
+  color: #fffaf1;
+  font-size: clamp(40px, 3.7vw, 52px);
+  font-weight: 650;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.sp-zodiac__hero-kicker {
+  margin-bottom: 9px;
+  color: #F8D498;
+}
+
+.sp-zodiac__hero-intro {
+  max-width: 440px;
+  margin-top: 14px;
+  color: rgba(255, 248, 233, 0.92);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.sp-zodiac__hero-trust {
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.sp-zodiac__hero-trust span {
+  grid-template-columns: 30px 1fr;
+  column-gap: 8px;
+}
+
+.sp-zodiac__hero-trust i {
+  width: 30px;
+  height: 30px;
+}
+
+.sp-zodiac__hero-trust b {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.sp-zodiac__hero-trust small {
+  font-size: 9.5px;
+}
+
+.sp-zodiac__hero-mantra {
+  max-width: 165px;
+  color: #F7CF99;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+/* Zodiac selector — deliberately warm, tactile, and consistent with Sabpuja. */
+.sp-zodiac__selector {
+  padding: 28px 20px 32px;
+  background: linear-gradient(180deg, #FFFBF3 0%, var(--sp-cream) 100%);
+  border-bottom: 1px solid rgba(211, 84, 0, 0.10);
+}
+
+.sp-zodiac__section-title--compact {
+  margin-bottom: 22px;
+}
+
+.sp-zodiac__section-title--compact h2 {
+  color: var(--sp-brown);
+  font-size: clamp(28px, 2.35vw, 34px);
+  font-weight: 650;
+}
+
+.sp-zodiac__section-title--compact p {
+  margin-top: 6px;
+  color: rgba(78, 52, 46, 0.72);
+  font-size: 14px;
+}
+
+.sp-zodiac__sign-track {
+  width: min(var(--sp-zodiac-page), 100%);
+  max-width: var(--sp-zodiac-page);
+  margin-inline: auto;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.sp-zodiac__sign-track button {
+  min-height: 116px;
+  padding: 5px 2px 4px;
+  gap: 6px;
+  border-radius: 16px;
+  color: var(--sp-brown) !important;
+  background: transparent !important;
+  transform: none;
+}
+
+.sp-zodiac__sign-track button:hover {
+  background: rgba(244, 180, 0, 0.08) !important;
+  transform: translateY(-2px);
+}
+
+.sp-zodiac__sign-track button:focus-visible {
+  outline: 3px solid var(--sp-gold);
+  outline-offset: 3px;
+}
+
+.sp-zodiac__sign-symbol {
+  width: 68px;
+  height: 68px;
+  border: 1px solid #EED7B9;
+  background: linear-gradient(180deg, #FFF5E7 0%, #F8E6CE 100%);
+  color: #6B2B1C !important;
+  font-size: 38px;
+  font-weight: 500;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.7);
+}
+
+.sp-zodiac__sign-track strong {
+  color: var(--sp-deep) !important;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.sp-zodiac__sign-track small {
+  color: rgba(78, 52, 46, 0.67) !important;
+  font-size: 9.5px;
+  line-height: 1.15;
+}
+
+.sp-zodiac__sign-track button.is-active {
+  background: rgba(211, 84, 0, 0.035) !important;
+}
+
+.sp-zodiac__sign-track button.is-active .sp-zodiac__sign-symbol {
+  border-color: var(--sp-saffron);
+  background: var(--sp-saffron);
+  color: #fff !important;
+  box-shadow: 0 0 0 3px #FFF8E7, 0 0 0 5px var(--sp-saffron), 0 8px 20px rgba(211,84,0,.18);
+}
+
+.sp-zodiac__sign-track button.is-active strong {
+  color: var(--sp-saffron) !important;
+}
+
+/* Product feature — contained and editorial rather than oversized. */
+.sp-zodiac__product {
+  width: min(var(--sp-zodiac-page), calc(100% - 40px));
+  min-height: 500px;
+  margin: 38px auto 42px;
+  grid-template-columns: minmax(320px, .86fr) minmax(500px, 1.34fr) 132px;
+  border: 1px solid rgba(211, 84, 0, 0.12);
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #FFFAF0 0%, #FFF8E7 42%, #F2DEC0 100%);
+  box-shadow: var(--sp-shadow);
+}
+
+.sp-zodiac__product-copy {
+  padding: 42px 32px;
+}
+
+.sp-zodiac__product-copy h2 {
+  max-width: 360px;
+  color: #5A261A;
+  font-size: clamp(34px, 3vw, 42px);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.sp-zodiac__date {
+  margin-top: 7px;
+  color: #6C3D31;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sp-zodiac__product-emotion {
+  margin: 17px 0 8px;
+  color: var(--sp-brown);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.sp-zodiac__product-description {
+  max-width: 385px;
+  color: rgba(51,36,31,.80);
+  font-size: 13.5px;
+  line-height: 1.62;
+}
+
+.sp-zodiac__price-line {
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.sp-zodiac__price-line > strong {
+  color: var(--sp-brown);
+  font-size: 29px;
+  font-weight: 700;
+}
+
+.sp-zodiac__price-line > span {
+  padding: 6px 10px;
+  background: #F6E9D6;
+  color: #705349;
+  font-size: 10px;
+}
+
+.sp-zodiac__purchase-row {
+  max-width: 500px;
+  margin-top: 14px;
+}
+
+.sp-zodiac__qty,
+.sp-zodiac__add {
+  height: 44px;
+  border-radius: 11px;
+}
+
+.sp-zodiac__qty {
+  border-color: rgba(211,84,0,.25);
+}
+
+.sp-zodiac__add {
+  background: var(--sp-saffron);
+  font-size: 12px;
+  font-weight: 750;
+  box-shadow: 0 8px 18px rgba(211,84,0,.16);
+}
+
+.sp-zodiac__add:hover {
+  background: #B94700;
+  box-shadow: 0 10px 22px rgba(211,84,0,.20);
+}
+
+.sp-zodiac__purchase-status,
+.sp-zodiac__product-link {
+  font-size: 11px;
+}
+
+.sp-zodiac__micro-trust {
+  gap: 18px;
+  margin-top: 18px;
+  padding-top: 14px;
+}
+
+.sp-zodiac__micro-trust small {
+  color: #735A50;
+  font-size: 9.5px;
+}
+
+.sp-zodiac__product-media img {
+  object-position: center center;
+}
+
+.sp-zodiac__sign-aside {
+  padding: 38px 13px;
+  background: linear-gradient(180deg, rgba(78,52,46,.08), rgba(78,52,46,.28));
+}
+
+.sp-zodiac__sign-medallion {
+  width: 82px;
+  height: 82px;
+  border-color: #F7C86F;
+  background: var(--sp-saffron);
+  color: #fff;
+  font-size: 40px;
+}
+
+.sp-zodiac__sign-aside > div:nth-child(2) {
+  margin-top: 18px;
+  gap: 4px;
+  font-family: "Inter", sans-serif !important;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 650;
+}
+
+/* Benefits become a clear bridge into the story of the kit. */
+.sp-zodiac__benefits {
+  width: min(var(--sp-zodiac-page), calc(100% - 40px));
+  min-height: 94px;
+  margin: 0 auto;
+  padding-inline: 0;
+  border: 1px solid rgba(211, 84, 0, 0.11);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #FFF7E8;
+  box-shadow: 0 8px 20px rgba(78,52,46,.04);
+}
+
+.sp-zodiac__benefits article {
+  justify-content: flex-start;
+  gap: 11px;
+  padding: 18px 17px;
+}
+
+.sp-zodiac__benefits article + article:before {
+  background: rgba(211,84,0,.12);
+}
+
+.sp-zodiac__benefits i {
+  width: 42px;
+  height: 42px;
+  border-color: rgba(211,84,0,.34);
+  background: #FFFDF8;
+  color: var(--sp-saffron);
+}
+
+.sp-zodiac__benefits strong {
+  color: var(--sp-brown);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.sp-zodiac__benefits small {
+  margin-top: 3px;
+  color: #806B61;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+/* Contents section */
+.sp-zodiac__inside {
+  background: var(--sp-ivory);
+}
+
+.sp-zodiac__inside-grid {
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+  gap: 44px;
+}
+
+.sp-zodiac__inside-media {
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(78,52,46,.09);
+}
+
+.sp-zodiac__contents-list {
+  column-gap: 22px;
+  row-gap: 13px;
+}
+
+.sp-zodiac__contents-list li {
+  grid-template-columns: 28px 1fr;
+  gap: 9px;
+}
+
+.sp-zodiac__contents-list li > b {
+  width: 25px;
+  height: 25px;
+  background: var(--sp-saffron);
+  font-size: 9.5px;
+}
+
+.sp-zodiac__contents-list strong {
+  color: var(--sp-deep);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sp-zodiac__contents-list small {
+  margin-top: 3px;
+  color: #7B665C;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.sp-zodiac__demo-note {
+  margin-top: 20px;
+  color: #8A746A;
+  font-size: 10px;
+}
+
+/* Story cards */
+.sp-zodiac__stories {
+  gap: 16px;
+  padding-top: 52px;
+  padding-bottom: 52px;
+  border-top: 0;
+}
+
+.sp-zodiac__stories article {
+  grid-template-columns: 44px 1fr;
+  gap: 12px;
+  min-height: 180px;
+  padding: 22px;
+  border: 1px solid rgba(78,52,46,.10);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(78,52,46,.045);
+}
+
+.sp-zodiac__stories i {
+  width: 42px;
+  height: 42px;
+  border-color: rgba(211,84,0,.32);
+  background: var(--sp-cream);
+}
+
+.sp-zodiac__stories h3 {
+  margin: 1px 0 7px;
+  color: var(--sp-brown);
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.sp-zodiac__stories p {
+  color: #6F5B52;
+  font-size: 13px;
+  line-height: 1.58;
+}
+
+.sp-zodiac__stories a {
+  margin-top: 12px;
+  color: var(--sp-saffron);
+  font-size: 11.5px;
+  font-weight: 750;
+}
+
+/* Lifestyle/editorial chapter */
+.sp-zodiac__editorial.sp-zodiac__section {
+  width: min(var(--sp-zodiac-page), calc(100% - 40px));
+  margin: 0 auto 54px;
+  padding: 0;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid rgba(211,84,0,.10);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #F7E8D3;
+  box-shadow: 0 10px 26px rgba(78,52,46,.06);
+}
+
+.sp-zodiac__editorial figure {
+  min-height: 390px;
+  max-height: 430px;
+}
+
+.sp-zodiac__editorial > div {
+  padding: 40px 42px;
+}
+
+.sp-zodiac__editorial > div > p:not(.sp-zodiac__eyebrow) {
+  margin-top: 14px;
+  color: #68534A;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.sp-zodiac__editorial-points {
+  gap: 13px;
+  margin-top: 20px;
+}
+
+.sp-zodiac__editorial-points span {
+  grid-template-columns: 32px 1fr;
+  gap: 1px 9px;
+}
+
+.sp-zodiac__editorial-points .sp-ui-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.sp-zodiac__editorial-points b {
+  color: var(--sp-brown);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sp-zodiac__editorial-points small {
+  color: #7D675E;
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+/* Tablet */
+@media screen and (max-width: 1180px) {
+  .sp-zodiac__sign-track {
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+    padding: 4px 5px 12px;
+    scroll-snap-type: x proximity;
+  }
+
+  .sp-zodiac__sign-track button {
+    flex: 0 0 90px;
+    min-height: 108px;
+    scroll-snap-align: start;
+  }
+
+  .sp-zodiac__sign-symbol {
+    width: 62px;
+    height: 62px;
+    font-size: 35px;
+  }
+
+  .sp-zodiac__product {
+    grid-template-columns: minmax(300px, .9fr) minmax(430px, 1.28fr) 118px;
+  }
+
+  .sp-zodiac__product-copy {
+    padding: 38px 28px;
+  }
+}
+
+@media screen and (min-width: 721px) and (max-width: 960px) {
+  .sp-zodiac__section,
+  .sp-zodiac__landing-hero-inner,
+  .sp-zodiac__product,
+  .sp-zodiac__benefits,
+  .sp-zodiac__editorial.sp-zodiac__section {
+    width: calc(100% - 32px);
   }
 
   .sp-zodiac__section {
-    width: min(var(--sp-zodiac-page), calc(100% - 36px));
-    padding-block: 46px;
+    padding-block: 48px;
   }
 
-  .sp-zodiac__section-title {
-    margin-bottom: 26px;
-  }
-
-  .sp-zodiac__section-title h2,
-  .sp-zodiac__editorial h2 {
-    font-size: clamp(28px, 2.4vw, 36px);
-    line-height: 1.12;
-    letter-spacing: -0.02em;
-  }
-
-  .sp-zodiac__section-title p {
-    max-width: 620px;
-    font-size: 14px;
-    line-height: 1.55;
-  }
-
-  /* Hero: retain the campaign artwork, but bring the typography back to the
-     same visual scale used elsewhere on Sabpuja. */
-  .sp-zodiac__landing-hero {
-    min-height: 420px;
-  }
-
+  .sp-zodiac__landing-hero,
   .sp-zodiac__landing-hero-inner {
-    width: min(var(--sp-zodiac-page), calc(100% - 36px));
-    min-height: 420px;
-    padding-block: 38px;
+    min-height: 455px;
   }
 
   .sp-zodiac__landing-hero-copy {
-    width: min(450px, 44%);
-  }
-
-  .sp-zodiac__hero-kicker {
-    margin-bottom: 10px;
-    font-size: 11px;
-    letter-spacing: 0.16em;
+    width: min(450px, 60%);
   }
 
   .sp-zodiac__landing-hero h1 {
-    max-width: 440px;
-    font-size: clamp(42px, 4vw, 56px);
-    line-height: 0.98;
-    letter-spacing: -0.035em;
+    font-size: 44px;
   }
 
-  .sp-zodiac__hero-intro {
-    max-width: 420px;
-    margin-top: 13px;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  .sp-zodiac__hero-trust {
-    gap: 16px;
-    margin-top: 22px;
-  }
-
-  .sp-zodiac__hero-trust span {
-    grid-template-columns: 28px 1fr;
-    column-gap: 7px;
-  }
-
-  .sp-zodiac__hero-trust i {
-    width: 28px;
-    height: 28px;
-  }
-
-  .sp-zodiac__hero-trust b {
-    font-size: 11px;
-  }
-
-  .sp-zodiac__hero-trust small {
-    font-size: 9px;
-  }
-
-  .sp-zodiac__hero-mantra {
-    right: max(24px, calc((100vw - var(--sp-zodiac-page)) / 2));
-    max-width: 150px;
-    font-size: 16px;
-    line-height: 1.15;
-  }
-
-  /* Sign selector */
   .sp-zodiac__selector {
-    padding: 22px 18px 26px;
-  }
-
-  .sp-zodiac__section-title--compact {
-    margin-bottom: 18px;
+    padding-top: 24px;
+    padding-bottom: 26px;
   }
 
   .sp-zodiac__section-title--compact h2 {
     font-size: 29px;
   }
 
-  .sp-zodiac__sign-track {
-    width: min(var(--sp-zodiac-page), 100%);
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 5px;
-  }
-
-  .sp-zodiac__sign-track button {
-    min-height: 82px;
-    gap: 3px;
-    padding: 8px 3px;
-  }
-
-  .sp-zodiac__sign-symbol {
-    width: 46px;
-    height: 46px;
-    font-size: 28px;
-  }
-
-  .sp-zodiac__sign-track strong {
-    font-size: 10px;
-  }
-
-  .sp-zodiac__sign-track small {
-    font-size: 8px;
-  }
-
-  /* Product panel: change from a full-viewport billboard to a contained
-     commerce card that belongs to the rest of the page. */
   .sp-zodiac__product {
-    width: min(var(--sp-zodiac-page), calc(100% - 36px));
-    min-height: 465px;
-    margin: 34px auto 38px;
-    grid-template-columns: minmax(290px, 0.82fr) minmax(450px, 1.25fr) 118px;
-    border: 1px solid rgba(211, 84, 0, 0.12);
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 14px 34px rgba(78, 52, 46, 0.08);
-  }
-
-  .sp-zodiac__product-copy {
-    padding: 40px 28px;
+    min-height: 470px;
+    margin-top: 30px;
+    grid-template-columns: minmax(290px, .86fr) minmax(390px, 1.14fr);
   }
 
   .sp-zodiac__product-copy h2 {
-    max-width: 330px;
-    font-size: clamp(32px, 3vw, 42px);
-    line-height: 1.01;
-    letter-spacing: -0.025em;
-  }
-
-  .sp-zodiac__date {
-    margin-top: 6px;
-    font-size: 13px;
-  }
-
-  .sp-zodiac__product-emotion {
-    margin: 15px 0 8px;
-    font-size: 16px;
-    line-height: 1.25;
-  }
-
-  .sp-zodiac__product-description {
-    max-width: 360px;
-    font-size: 13px;
-    line-height: 1.55;
-  }
-
-  .sp-zodiac__price-line {
-    margin-top: 14px;
-    gap: 8px;
-  }
-
-  .sp-zodiac__price-line > strong {
-    font-size: 28px;
-  }
-
-  .sp-zodiac__sku {
-    font-size: 9px;
-  }
-
-  .sp-zodiac__purchase-row {
-    margin-top: 12px;
-  }
-
-  .sp-zodiac__qty,
-  .sp-zodiac__add {
-    height: 42px;
-  }
-
-  .sp-zodiac__add {
-    font-size: 12px;
-  }
-
-  .sp-zodiac__micro-trust {
-    margin-top: 16px;
-    font-size: 9px;
-  }
-
-  .sp-zodiac__product-media img {
-    object-position: center center;
+    font-size: 35px;
   }
 
   .sp-zodiac__sign-aside {
-    padding: 34px 12px;
+    right: 20px;
+    top: 22px;
   }
 
   .sp-zodiac__sign-medallion {
-    width: 76px;
-    height: 76px;
-    font-size: 38px;
+    width: 70px;
+    height: 70px;
+    font-size: 34px;
   }
 
-  .sp-zodiac__sign-aside strong {
+  .sp-zodiac__benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sp-zodiac__benefits article:nth-child(3):before {
+    display: none;
+  }
+
+  .sp-zodiac__benefits article:nth-child(-n+2) {
+    border-bottom: 1px solid rgba(211,84,0,.10);
+  }
+
+  .sp-zodiac__inside-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .sp-zodiac__inside-media {
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .sp-zodiac__stories {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .sp-zodiac__stories article {
+    min-height: 0;
+  }
+
+  .sp-zodiac__editorial.sp-zodiac__section {
+    grid-template-columns: 1fr;
+    margin-bottom: 44px;
+  }
+
+  .sp-zodiac__editorial figure {
+    min-height: 340px;
+    max-height: 450px;
+  }
+
+  .sp-zodiac__editorial > div {
+    padding: 34px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 720px) {
+  .sp-zodiac__section {
+    width: calc(100% - 28px);
+    padding-block: 40px;
+  }
+
+  .sp-zodiac__section-title {
+    margin-bottom: 24px;
+  }
+
+  .sp-zodiac__section-title h2,
+  .sp-zodiac__editorial h2 {
+    font-size: 26px;
+  }
+
+  .sp-zodiac__landing-hero {
+    min-height: 540px;
+  }
+
+  .sp-zodiac__landing-hero-inner {
+    width: calc(100% - 28px);
+    min-height: 540px;
+    padding: 34px 0;
+    align-items: flex-end;
+  }
+
+  .sp-zodiac__landing-hero-copy {
+    width: 100%;
+    max-width: 470px;
+  }
+
+  .sp-zodiac__landing-hero h1 {
+    max-width: 390px;
+    font-size: clamp(36px, 10vw, 44px);
+    line-height: 1.05;
+  }
+
+  .sp-zodiac__hero-intro {
+    max-width: 390px;
+    font-size: 14px;
+  }
+
+  .sp-zodiac__hero-trust {
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .sp-zodiac__selector {
+    padding: 22px 12px 24px;
+  }
+
+  .sp-zodiac__section-title--compact {
+    margin-bottom: 16px;
+  }
+
+  .sp-zodiac__section-title--compact h2 {
+    font-size: 26px;
+  }
+
+  .sp-zodiac__section-title--compact p {
+    font-size: 13px;
+  }
+
+  .sp-zodiac__sign-track {
+    margin-inline: 0;
+    gap: 6px;
+    padding-inline: 3px;
+  }
+
+  .sp-zodiac__sign-track button {
+    flex-basis: 82px;
+    min-height: 100px;
+    gap: 5px;
+  }
+
+  .sp-zodiac__sign-symbol {
+    width: 56px;
+    height: 56px;
+    font-size: 31px;
+  }
+
+  .sp-zodiac__sign-track strong {
     font-size: 11px;
   }
 
-  .sp-zodiac__sign-aside p {
-    font-size: 10px;
+  .sp-zodiac__sign-track small {
+    font-size: 8.5px;
   }
 
-  /* Trust strip */
+  .sp-zodiac__product {
+    width: calc(100% - 28px);
+    min-height: 0;
+    margin: 24px auto 30px;
+    border-radius: 16px;
+  }
+
+  .sp-zodiac__product-media {
+    height: min(72vw, 440px);
+    min-height: 285px;
+  }
+
+  .sp-zodiac__product-copy {
+    padding: 30px 22px 28px;
+  }
+
+  .sp-zodiac__product-copy h2 {
+    max-width: none;
+    font-size: 32px;
+  }
+
+  .sp-zodiac__product-emotion {
+    margin-top: 14px;
+    font-size: 15px;
+  }
+
+  .sp-zodiac__product-description {
+    max-width: none;
+    font-size: 13px;
+  }
+
+  .sp-zodiac__purchase-row {
+    max-width: none;
+  }
+
+  .sp-zodiac__sign-medallion {
+    width: 64px;
+    height: 64px;
+    font-size: 31px;
+  }
+
   .sp-zodiac__benefits {
-    width: min(var(--sp-zodiac-page), calc(100% - 36px));
-    min-height: 82px;
-    margin: 0 auto;
-    padding-inline: 0;
-    border: 1px solid rgba(211, 84, 0, 0.1);
+    width: calc(100% - 28px);
+    grid-template-columns: 1fr 1fr;
     border-radius: 14px;
-    overflow: hidden;
   }
 
   .sp-zodiac__benefits article {
-    gap: 9px;
-    padding: 14px 16px;
+    padding: 15px 12px;
   }
 
   .sp-zodiac__benefits i {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
   }
 
   .sp-zodiac__benefits strong {
@@ -264,212 +875,79 @@
     font-size: 9px;
   }
 
-  /* What's inside */
-  .sp-zodiac__inside-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
-    gap: 38px;
-    align-items: center;
-  }
-
-  .sp-zodiac__inside-media {
-    border-radius: 14px;
-  }
-
   .sp-zodiac__contents-list {
-    row-gap: 10px;
-    column-gap: 20px;
+    grid-template-columns: 1fr;
   }
 
-  .sp-zodiac__contents-list li {
-    gap: 9px;
-  }
-
-  .sp-zodiac__contents-list li > b {
-    width: 23px;
-    height: 23px;
-    font-size: 9px;
-  }
-
-  .sp-zodiac__contents-list strong {
-    font-size: 11px;
-  }
-
-  .sp-zodiac__contents-list small {
-    font-size: 9px;
-    line-height: 1.35;
-  }
-
-  /* Explanatory three-column row */
   .sp-zodiac__stories {
-    gap: 28px;
-    padding-top: 44px;
-    padding-bottom: 44px;
+    gap: 12px;
+    padding-top: 38px;
+    padding-bottom: 38px;
   }
 
   .sp-zodiac__stories article {
-    grid-template-columns: 42px 1fr;
-    gap: 10px;
-  }
-
-  .sp-zodiac__stories i {
-    width: 40px;
-    height: 40px;
-  }
-
-  .sp-zodiac__stories h3 {
-    margin-bottom: 5px;
-    font-size: 17px;
+    min-height: 0;
+    padding: 18px;
   }
 
   .sp-zodiac__stories p {
-    font-size: 12px;
-    line-height: 1.55;
+    font-size: 12.5px;
   }
 
-  /* Editorial/lifestyle panel */
   .sp-zodiac__editorial.sp-zodiac__section {
-    width: min(var(--sp-zodiac-page), calc(100% - 36px));
-    margin: 0 auto 40px;
-    padding: 0;
-    grid-template-columns: 1fr 1fr;
-    border-radius: 18px;
-    overflow: hidden;
+    width: calc(100% - 28px);
+    margin-bottom: 38px;
+    border-radius: 16px;
   }
 
   .sp-zodiac__editorial figure {
-    min-height: 360px;
-    max-height: 410px;
+    min-height: 280px;
+    max-height: 380px;
   }
 
   .sp-zodiac__editorial > div {
-    padding: 38px 40px;
+    padding: 30px 24px 32px;
   }
 
   .sp-zodiac__editorial > div > p:not(.sp-zodiac__eyebrow) {
     font-size: 13px;
-    line-height: 1.6;
-  }
-
-  .sp-zodiac__editorial-list {
-    margin-top: 18px;
-    gap: 12px;
-  }
-
-  .sp-zodiac__editorial-list strong {
-    font-size: 11px;
-  }
-
-  .sp-zodiac__editorial-list small {
-    font-size: 9px;
   }
 }
 
-@media screen and (min-width: 721px) and (max-width: 960px) {
-  .sp-zodiac__section {
-    width: calc(100% - 32px);
-    padding-block: 44px;
-  }
-
-  .sp-zodiac__section-title h2,
-  .sp-zodiac__editorial h2 {
-    font-size: 32px;
-  }
-
+@media screen and (max-width: 480px) {
   .sp-zodiac__landing-hero {
-    min-height: 470px;
+    min-height: 515px;
   }
 
   .sp-zodiac__landing-hero-inner {
-    width: calc(100% - 32px);
-    min-height: 470px;
-    padding-block: 38px;
+    min-height: 515px;
   }
 
-  .sp-zodiac__landing-hero-copy {
-    width: min(430px, 56%);
+  .sp-zodiac__hero-trust b {
+    font-size: 10px;
   }
 
-  .sp-zodiac__landing-hero h1 {
-    font-size: 48px;
-  }
-
-  .sp-zodiac__hero-intro {
-    font-size: 15px;
-  }
-
-  .sp-zodiac__selector {
-    padding-top: 22px;
-    padding-bottom: 24px;
-  }
-
-  .sp-zodiac__sign-track button {
-    min-height: 78px;
-  }
-
-  .sp-zodiac__sign-symbol {
-    width: 44px;
-    height: 44px;
-    font-size: 27px;
-  }
-
-  .sp-zodiac__product {
-    width: calc(100% - 32px);
-    min-height: 470px;
-    margin: 30px auto 34px;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 12px 28px rgba(78, 52, 46, 0.08);
-  }
-
-  .sp-zodiac__product-copy {
-    padding: 34px 24px;
-  }
-
-  .sp-zodiac__product-copy h2 {
-    font-size: 36px;
-  }
-
-  .sp-zodiac__product-description {
-    font-size: 13px;
+  .sp-zodiac__hero-trust small {
+    font-size: 8.5px;
   }
 
   .sp-zodiac__benefits {
-    width: calc(100% - 32px);
-    margin: 0 auto;
-    border-radius: 14px;
-    overflow: hidden;
+    grid-template-columns: 1fr;
   }
 
-  .sp-zodiac__inside-grid {
-    gap: 30px;
+  .sp-zodiac__benefits article {
+    border-bottom: 1px solid rgba(211,84,0,.09);
   }
 
-  .sp-zodiac__stories {
-    gap: 22px;
-    padding-block: 42px;
+  .sp-zodiac__benefits article:last-child {
+    border-bottom: 0;
   }
+}
 
-  .sp-zodiac__stories h3 {
-    font-size: 17px;
-  }
-
-  .sp-zodiac__stories p {
-    font-size: 12px;
-  }
-
-  .sp-zodiac__editorial.sp-zodiac__section {
-    width: calc(100% - 32px);
-    margin: 0 auto 34px;
-    padding: 0;
-    border-radius: 16px;
-    overflow: hidden;
-  }
-
-  .sp-zodiac__editorial figure {
-    min-height: 340px;
-  }
-
-  .sp-zodiac__editorial > div {
-    padding: 32px;
+@media (prefers-reduced-motion: reduce) {
+  .sp-zodiac * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
