@@ -5,24 +5,16 @@
   <div class="sp2026-support__inner">
     <div class="sp2026-connected">
       <div class="sp2026-connected__copy">
-        <p class="sp2026-support__eyebrow">{{ 'sabpuja_custom.auto.s248' | t }}</p>
-        <h2 class="sp2026-connected__title" id="sp2026-connected-title-{{ section.id }}">{{ 'sabpuja_custom.auto.s247' | t }}</h2>
-        <p class="sp2026-connected__text">{{ 'sabpuja_custom.auto.s116' | t }}</p>
+        <p class="sp2026-support__eyebrow">Support &amp; community</p>
+        <h2 class="sp2026-connected__title" id="sp2026-connected-title-{{ section.id }}">Stay Connected</h2>
+        <p class="sp2026-connected__text">For product questions and order support, email us or use the chat widget on this page. You can also follow Sabpuja through our social channels and community updates.</p>
 
         <div class="sp2026-connected__actions">
-          <a class="sp2026-connected__action" href="tel:+919667819241" aria-label="Call Sabpuja at +91 96678 19241">{% render 'sabpuja-icon', name: 'phone' %}<span>{{ 'sabpuja_custom.auto.s033' | t }}</span></a>
-          <a class="sp2026-connected__action sp2026-connected__action--secondary" href="mailto:support@sabpuja.com" aria-label="Email Sabpuja support at support@sabpuja.com">{% render 'sabpuja-icon', name: 'mail' %}<span>{{ 'sabpuja_custom.auto.s086' | t }}</span></a>
+          <a class="sp2026-connected__action" href="mailto:support@sabpuja.com" aria-label="Email Sabpuja support at support@sabpuja.com">{% render 'sabpuja-icon', name: 'mail' %}<span>Email support@sabpuja.com</span></a>
         </div>
 
-        <div class="sp2026-connected__contact" aria-label="Sabpuja support contact details">
-          <a class="sp2026-connected__contact-link" href="tel:+919667819241" aria-label="Call Sabpuja at +91 96678 19241">{% render 'sabpuja-icon', name: 'phone' %}<span>+91 96678 19241</span></a>
-          <span class="sp2026-connected__contact-separator" aria-hidden="true">·</span>
-          <a class="sp2026-connected__contact-link" href="tel:+911142147364" aria-label="Call Sabpuja at +91 11 4214 7364">{% render 'sabpuja-icon', name: 'phone' %}<span>+91 11 4214 7364</span></a>
-        </div>
-        <p class="sp2026-connected__note">{% render 'sabpuja-icon', name: 'clock' %}<span>{{ 'sabpuja_custom.auto.s255' | t }}</span></p>
-
-        <p class="sp2026-connected__social-label">{{ 'sabpuja_custom.auto.s109' | t }}</p>
-        <nav class="sp2026-connected__socials" aria-label="{{ 'sabpuja_custom.auto.s222' | t }}">
+        <p class="sp2026-connected__social-label">Follow Sabpuja</p>
+        <nav class="sp2026-connected__socials" aria-label="Sabpuja social channels">
           {% if settings.social_instagram_link != blank %}
             <a class="sp2026-connected__social-link" href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener noreferrer" aria-label="Sabpuja on Instagram, @sabpujaofficial — opens in a new tab">{% render 'sabpuja-icon', name: 'instagram' %}<strong>Instagram</strong><span>@sabpujaofficial</span></a>
           {% endif %}
