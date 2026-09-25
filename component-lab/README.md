@@ -1,4 +1,4 @@
-﻿# Sabpuja Component Lab
+# Sabpuja Component Lab
 
 This directory is the canonical source for the public Sabpuja reusable component preview site.
 

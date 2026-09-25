@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   function initViewportControls() {
     var buttons = document.querySelectorAll('[data-demo-viewport]');
     var frames = document.querySelectorAll('.demo-frame');
@@ -45,7 +45,7 @@
   }
 
   function formatBytes(bytes) {
-    if (typeof bytes !== 'number' || Number.isNaN(bytes)) return 'â€”';
+    if (typeof bytes !== 'number' || Number.isNaN(bytes)) return '—';
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
@@ -72,9 +72,9 @@
           var outputs = Array.isArray(item.outputs) ? item.outputs : [];
           var outputRows = outputs.map(function (output) {
             var saving = original.bytes && output.bytes ? Math.max(0, (1 - output.bytes / original.bytes) * 100) : 0;
-            return '<div><strong>' + output.format.toUpperCase() + ' ' + output.width + 'w</strong> Â· ' + formatBytes(output.bytes) + ' Â· ' + saving.toFixed(1) + '% smaller</div>';
+            return '<div><strong>' + output.format.toUpperCase() + ' ' + output.width + 'w</strong> · ' + formatBytes(output.bytes) + ' · ' + saving.toFixed(1) + '% smaller</div>';
           }).join('');
-          return '<article class="manifest-item"><strong>' + item.source + '</strong><div>Original: ' + formatBytes(original.bytes) + ' Â· ' + (original.width || 'â€”') + 'Ã—' + (original.height || 'â€”') + '</div><div style="margin-top:8px;color:var(--sp-muted)">' + outputRows + '</div></article>';
+          return '<article class="manifest-item"><strong>' + item.source + '</strong><div>Original: ' + formatBytes(original.bytes) + ' · ' + (original.width || '—') + '×' + (original.height || '—') + '</div><div style="margin-top:8px;color:var(--sp-muted)">' + outputRows + '</div></article>';
         }).join('') + '</div>';
       })
       .catch(function () {

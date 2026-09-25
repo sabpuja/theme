@@ -1,4 +1,4 @@
-﻿import fs from 'node:fs/promises';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 
@@ -119,7 +119,7 @@ if (!manifest.images.length) {
   console.log('No source images found. Pipeline is ready; add files to assets/images/source/.');
 } else {
   for (const image of manifest.images) {
-    console.log(`\n${image.source} â€” original ${(image.original.bytes / 1024).toFixed(1)} KB`);
+    console.log(`\n${image.source} — original ${(image.original.bytes / 1024).toFixed(1)} KB`);
     for (const output of image.outputs) {
       console.log(`  ${output.format.toUpperCase()} ${output.width}w: ${(output.bytes / 1024).toFixed(1)} KB (${output.savingsPercent}% smaller)`);
     }
