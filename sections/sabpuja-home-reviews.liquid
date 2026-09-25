@@ -1,30 +1,38 @@
 {{ 'sabpuja-home-gifting-reviews.css' | asset_url | stylesheet_tag }}
 
-{% assign sp_review_numbers = '01,02,03,04,05,06' | split: ',' %}
+{% capture sp_review_names %}Karan Verma||Sunita Rao||Amit Deshmukh||Vidya Reddy||Rajesh Gupta||Anonymous||Atreyee Giri||Kavita Mishra||Priya Singh||Meena Kulkarni{% endcapture %}
+{% capture sp_review_texts %}Bohot hi badhiya pooja box hai. Kapoor aur haldi ki khushboo bohot pure hai. Strongly recommended for working couples.||Bought this for my son who lives in a different city for his new flat's puja. He easily managed the whole katha without panicking about missing items.||The quality of the dhoop cones and Mauli thread is excellent. It feels good to know you aren't getting cheap, stale materials for an auspicious puja.||I bought this for our housewarming Satyanarayan katha. The pandit ji was highly impressed seeing how organized everything was. The quality of the samagri is very pure.||This 21-in-1 box made our monthly Satyanarayan vrat so hassle-free. Everything from the janeu to the yellow cloth was inside. Saved me a trip to three different shops. Thank you Sabpuja.||This is a thoughtfully curated offering for anyone seeking a structured and spiritually enriching ritual experience at home. It feels authentic, well-balanced, and free from artificial additives, which is important for those who prioritize purity in rituals. The packaging also deserves mention—it’s sturdy and aesthetically pleasing.||Bahoot hi achha product hai. Jab se hawan samagri ka ghar main use kar raha hoon tab se ghar main positive environment hai aur mann main bhi shanti rehti hai. Om Shanti Om.||Bought this samagri collection to start doing a simple prayer every morning after meditation. The kit comes with organic samidha sticks and feels much better than buying loose samagri.||This was perfect for our festive havan and helped us prepare for Mangalwar and Guruvar with the right blends. The freshness of the samagri and the neat packaging made the experience peaceful and meaningful.||The samagri quality feels good. I bought this for weekly rituals and it’s turned out to be a complete, convenient kit that saves time and stress.{% endcapture %}
+{% assign sp_review_names = sp_review_names | split: '||' %}
+{% assign sp_review_texts = sp_review_texts | split: '||' %}
+
 <section id="sp-reviews-{{ section.id }}" class="sp2026-extra sp2026-reviews-section" aria-labelledby="sp-reviews-title-{{ section.id }}">
   <div class="sp2026-extra__inner">
     <div class="sp2026-reviews-heading-row">
       <div>
-        <p class="sp2026-extra__eyebrow">{{ 'sabpuja_custom.auto.s065' | t }}</p>
-        <h2 id="sp-reviews-title-{{ section.id }}" class="sp2026-reviews-title">{{ 'sabpuja_custom.auto.s285' | t }}</h2>
-        <p class="sp2026-reviews-intro">{{ 'sabpuja_custom.auto.s251' | t }}</p>
+        <p class="sp2026-extra__eyebrow">Customer experiences</p>
+        <h2 id="sp-reviews-title-{{ section.id }}" class="sp2026-reviews-title">What people say about Sabpuja</h2>
+        <p class="sp2026-reviews-intro">Feedback from pilot customers who received complimentary Sabpuja products.</p>
       </div>
-      <div class="sp2026-reviews-controls" aria-label="{{ 'sabpuja_custom.auto.s066' | t }}">
-        <button class="sp2026-reviews-button" type="button" data-sp-reviews-prev aria-label="{{ 'sabpuja_custom.auto.s187' | t }}">←</button>
-        <button class="sp2026-reviews-button" type="button" data-sp-reviews-next aria-label="{{ 'sabpuja_custom.auto.s154' | t }}">→</button>
+      <div class="sp2026-reviews-controls" aria-label="Customer review carousel controls">
+        <button class="sp2026-reviews-button" type="button" data-sp-reviews-prev aria-label="Previous reviews">←</button>
+        <button class="sp2026-reviews-button" type="button" data-sp-reviews-next aria-label="Next reviews">→</button>
       </div>
     </div>
 
-    <div class="sp2026-reviews-track" data-sp-reviews-track tabindex="0" aria-label="{{ 'sabpuja_custom.auto.s067' | t }}">
-      {% for review_number in sp_review_numbers %}
-        {% capture review_asset %}sabpuja-customer-review-{{ review_number }}.webp{% endcapture %}
-        <article class="sp2026-review-image-card">
-          <img src="{{ review_asset | asset_url }}" width="1448" height="1086" loading="lazy" decoding="async" alt="Illustrative Sabpuja customer review card {{ forloop.index }} of 6.">
+    <div class="sp2026-reviews-track" data-sp-reviews-track tabindex="0" aria-label="Customer reviews" role="list">
+      {% for review_name in sp_review_names %}
+        {% assign review_text = sp_review_texts[forloop.index0] %}
+        {% assign review_initial = review_name | slice: 0 %}
+        <article class="sp2026-review-image-card sp2026-review-text-card" role="listitem">
+          <div class="sp2026-review-quote-mark" aria-hidden="true">“</div>
+          <blockquote>{{ review_text }}</blockquote>
+          <div class="sp2026-review-author">
+            <span class="sp2026-review-avatar" aria-hidden="true">{{ review_initial }}</span>
+            <span><strong>{{ review_name }}</strong><small>Pilot customer</small></span>
+          </div>
         </article>
       {% endfor %}
     </div>
-
-    <p class="sp2026-reviews-disclosure">{{ 'sabpuja_custom.auto.s130' | t }}</p>
   </div>
 </section>
 
@@ -43,7 +51,7 @@
     var restartTimer = null;
     var isVisible = true;
     var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var AUTOPLAY_MS = 2200;
+    var AUTOPLAY_MS = 4200;
 
     function cardStep() {
       var card = track.querySelector('.sp2026-review-image-card');
@@ -84,7 +92,7 @@
     function restartAutoSoon() {
       stopAuto();
       if (reducedMotion || !isVisible || document.hidden) return;
-      restartTimer = window.setTimeout(startAuto, 900);
+      restartTimer = window.setTimeout(startAuto, 1200);
     }
 
     previous.addEventListener('click', function () { move(-1); restartAutoSoon(); });
