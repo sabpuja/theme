@@ -1,0 +1,134 @@
+{{ 'sabpuja-product-showcase.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign variant = section.settings.variant | default: 'featured_split'
+  assign featured_product = section.settings.featured_product
+  assign heading_tag = section.settings.heading_tag | default: 'h2'
+  assign heading_text = section.settings.heading
+  if heading_text == blank and featured_product != blank
+    assign heading_text = featured_product.title
+  endif
+  assign primary_url = section.settings.primary_link
+  if primary_url == blank and featured_product != blank
+    assign primary_url = featured_product.url
+  endif
+  assign showcase_image = section.settings.image
+  if showcase_image == blank and featured_product != blank
+    assign showcase_image = featured_product.featured_image
+  endif
+  assign image_alt = section.settings.image_alt
+  if image_alt == blank and showcase_image != blank
+    assign image_alt = showcase_image.alt
+  endif
+  if image_alt == blank and heading_text != blank
+    assign image_alt = heading_text
+  endif
+%}
+
+<section{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %} class="sp-product-showcase sp-product-showcase--{{ variant }} sp-product-showcase--{{ section.settings.background }} sp-product-showcase--width-{{ section.settings.width }} sp-product-showcase--align-{{ section.settings.alignment }}">
+  <div class="sp-product-showcase__inner">
+    {% if variant == 'grid' %}
+      <div class="sp-product-showcase__head">
+        <div class="sp-product-showcase__head-copy">
+          {% if section.settings.eyebrow != blank %}<p class="sp-product-showcase__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+          {% if heading_text != blank %}<{{ heading_tag }} class="sp-product-showcase__heading">{{ heading_text | escape }}</{{ heading_tag }}>{% endif %}
+          {% if section.settings.body != blank %}<div class="sp-product-showcase__body">{{ section.settings.body }}</div>{% endif %}
+        </div>
+        {% if section.settings.primary_label != blank and primary_url != blank %}<a class="sp-product-showcase__button sp-product-showcase__button--ghost" href="{{ primary_url }}">{{ section.settings.primary_label | escape }}</a>{% endif %}
+      </div>
+
+      <div class="sp-product-showcase__grid" role="list">
+        {% for block in section.blocks %}
+          {% assign card_product = block.settings.product %}
+          {% if card_product != blank %}
+            {% assign card_image = block.settings.image_override | default: card_product.featured_image %}
+            <article class="sp-product-showcase__card" role="listitem" {{ block.shopify_attributes }}>
+              <div class="sp-product-showcase__card-media">
+                {% if card_image != blank %}
+                  {{ card_image | image_url: width: 900 | image_tag: widths: '360,540,720,900', sizes: '(min-width: 990px) 25vw, (min-width: 620px) 50vw, 100vw', loading: 'lazy', alt: card_image.alt | default: card_product.title }}
+                {% endif %}
+              </div>
+              <div class="sp-product-showcase__card-body">
+                {% if block.settings.badge != blank %}<p class="sp-product-showcase__card-eyebrow">{{ block.settings.badge | escape }}</p>{% endif %}
+                <h3 class="sp-product-showcase__card-title">{{ card_product.title | escape }}</h3>
+                {% if block.settings.short_copy != blank %}<p class="sp-product-showcase__body">{{ block.settings.short_copy | escape }}</p>{% endif %}
+                {% if section.settings.show_price %}<div class="sp-product-showcase__card-price">{{ card_product.price | money }}</div>{% endif %}
+                <a class="sp-product-showcase__card-link" href="{{ card_product.url }}">{{ block.settings.button_label | default: 'View product' | escape }} →</a>
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      {% capture copy_markup %}
+        <div class="sp-product-showcase__copy">
+          {% if section.settings.eyebrow != blank %}<p class="sp-product-showcase__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+          {% if heading_text != blank %}<{{ heading_tag }} class="sp-product-showcase__heading">{{ heading_text | escape }}</{{ heading_tag }}>{% endif %}
+          {% if section.settings.body != blank %}<div class="sp-product-showcase__body">{{ section.settings.body }}</div>{% endif %}
+          {% if featured_product != blank and section.settings.show_price %}
+            <div class="sp-product-showcase__meta"><span class="sp-product-showcase__price">{{ featured_product.price | money }}</span>{% if featured_product.selected_or_first_available_variant.sku != blank %}<span class="sp-product-showcase__pill">SKU {{ featured_product.selected_or_first_available_variant.sku | escape }}</span>{% endif %}</div>
+          {% endif %}
+          {% if section.settings.primary_label != blank or section.settings.secondary_label != blank %}
+            <div class="sp-product-showcase__actions">
+              {% if section.settings.primary_label != blank and primary_url != blank %}<a class="sp-product-showcase__button" href="{{ primary_url }}">{{ section.settings.primary_label | escape }}</a>{% endif %}
+              {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}<a class="sp-product-showcase__button sp-product-showcase__button--ghost" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label | escape }}</a>{% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endcapture %}
+
+      {% capture media_markup %}
+        <div class="sp-product-showcase__media{% if section.settings.media_fit == 'contain' %} sp-product-showcase__media--contain{% endif %}">
+          {% if showcase_image != blank %}
+            <picture>
+              {% if section.settings.mobile_image != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.mobile_image | image_url: width: 900 }}">{% endif %}
+              {{ showcase_image | image_url: width: 1800 | image_tag: widths: '540,720,960,1200,1500,1800', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'lazy', alt: image_alt }}
+            </picture>
+          {% else %}
+            <div class="sp-product-showcase__placeholder" aria-hidden="true"></div>
+          {% endif %}
+        </div>
+      {% endcapture %}
+
+      {% if variant == 'image_left' or variant == 'editorial' %}
+        {{ media_markup }}
+        {{ copy_markup }}
+      {% else %}
+        {{ copy_markup }}
+        {{ media_markup }}
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja Product Showcase",
+  "settings": [
+    {"type":"text","id":"anchor_id","label":"Anchor ID"},
+    {"type":"select","id":"variant","label":"Layout variant","default":"featured_split","options":[{"value":"featured_split","label":"Featured split"},{"value":"image_left","label":"Image left"},{"value":"image_right","label":"Image right"},{"value":"grid","label":"Product grid"},{"value":"editorial","label":"Editorial"},{"value":"premium_dark","label":"Premium dark"}]},
+    {"type":"select","id":"heading_tag","label":"Heading level","default":"h2","options":[{"value":"h2","label":"H2"},{"value":"h3","label":"H3"}]},
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"Featured products"},
+    {"type":"text","id":"heading","label":"Heading","default":"Thoughtfully prepared for your ritual"},
+    {"type":"richtext","id":"body","label":"Supporting copy","default":"<p>Use clear, useful copy that explains why this product or collection matters.</p>"},
+    {"type":"product","id":"featured_product","label":"Featured product"},
+    {"type":"checkbox","id":"show_price","label":"Show Shopify price","default":true},
+    {"type":"image_picker","id":"image","label":"Image override"},
+    {"type":"image_picker","id":"mobile_image","label":"Mobile image override"},
+    {"type":"text","id":"image_alt","label":"Image alt text"},
+    {"type":"select","id":"media_fit","label":"Media fit","default":"cover","options":[{"value":"cover","label":"Cover"},{"value":"contain","label":"Contain"}]},
+    {"type":"select","id":"alignment","label":"Text alignment","default":"left","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"}]},
+    {"type":"text","id":"primary_label","label":"Primary CTA label","default":"Explore product"},
+    {"type":"url","id":"primary_link","label":"Primary CTA link"},
+    {"type":"text","id":"secondary_label","label":"Secondary CTA label"},
+    {"type":"url","id":"secondary_link","label":"Secondary CTA link"},
+    {"type":"select","id":"background","label":"Section background","default":"white","options":[{"value":"white","label":"White"},{"value":"ivory","label":"Ivory"},{"value":"cream","label":"Cream"},{"value":"sacred-brown","label":"Sacred Brown"}]},
+    {"type":"select","id":"width","label":"Section width","default":"contained","options":[{"value":"contained","label":"Contained"},{"value":"wide","label":"Wide"},{"value":"full","label":"Full width"}]}
+  ],
+  "blocks": [
+    {"type":"product","name":"Product card","settings":[{"type":"product","id":"product","label":"Product"},{"type":"image_picker","id":"image_override","label":"Image override"},{"type":"text","id":"badge","label":"Eyebrow / badge"},{"type":"text","id":"short_copy","label":"Short supporting copy"},{"type":"text","id":"button_label","label":"Link label","default":"View product"}]}
+  ],
+  "max_blocks": 8,
+  "presets": [{"name":"Sabpuja Product Showcase","blocks":[{"type":"product"},{"type":"product"},{"type":"product"},{"type":"product"}]}]
+}
+{% endschema %}
