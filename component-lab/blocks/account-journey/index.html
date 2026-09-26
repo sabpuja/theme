@@ -123,16 +123,33 @@
   </section>
 
   <section class="demo-section">
-    <div class="demo-section__meta"><div><h2>SP-ACC-009 · Thank you / order confirmation</h2><p>Post-purchase confirmation, next steps and the bridge into ongoing order tracking</p></div><span class="lab-chip">Checkout completion</span></div>
+    <div class="demo-section__meta"><div><h2>SP-ACC-009 ? Thank you / order confirmation</h2><p>Post-purchase confirmation, next steps and the bridge into ongoing order tracking</p></div><span class="lab-chip">Checkout completion</span></div>
     <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop">
-      <div class="sp-thankyou-grid">
-        <div class="sp-thankyou-main">
-          <div class="sp-thankyou-status"><span class="sp-thankyou-check">✓</span><div><p class="sp-account-eyebrow">Order confirmed</p><h3 class="sp-account-title">Thank you. Your order has been received.</h3><p class="sp-account-copy">A confirmation has been sent to customer@example.com. Keep this page focused on reassurance, what happens next, and where to check the order later.</p></div></div>
-          <div class="sp-thankyou-steps"><article><span>01</span><div><strong>Order received</strong><p>Your order is confirmed.</p></div></article><article><span>02</span><div><strong>Preparation</strong><p>We prepare and pack the order with care.</p></div></article><article><span>03</span><div><strong>Tracking</strong><p>Delivery updates appear when available.</p></div></article></div>
-          <div class="sp-account-actions"><a class="sp-account-btn" href="#account-contract">View order status</a><a class="sp-account-btn sp-account-btn--ghost" href="#account-contract">Continue shopping</a></div>
-          <p class="sp-account-note">Demo only. Production data comes from Shopify's Thank You / Order Status checkout surface.</p>
+      <div class="sp-thankyou-card">
+        <div class="sp-thankyou-hero">
+          <span class="sp-thankyou-check" aria-hidden="true">?</span>
+          <div><p class="sp-account-eyebrow">Order confirmed</p><h3 class="sp-account-title">Thank you. Your order is confirmed.</h3><p class="sp-account-copy">We?ve received your order and sent the confirmation to customer@example.com.</p></div>
         </div>
-        <aside class="sp-thankyou-summary"><p class="sp-account-eyebrow">Order summary</p><h4>Order #SP-1042</h4><div class="sp-detail-list"><div class="sp-detail-row"><span>Items</span><strong>1</strong></div><div class="sp-detail-row"><span>Total</span><strong>₹2,499</strong></div><div class="sp-detail-row"><span>Payment</span><strong>Paid</strong></div></div><a class="sp-inline-action" href="#account-contract">Get help with this order →</a></aside>
+        <div class="sp-thankyou-body">
+          <aside class="sp-thankyou-summary sp-thankyou-summary--compact">
+            <div class="sp-thankyou-summary__head"><div><p class="sp-account-eyebrow">Order summary</p><h4>Order #SP-1042</h4></div><span class="sp-status">Confirmed</span></div>
+            <div class="sp-detail-list"><div class="sp-detail-row"><span>Items</span><strong>1</strong></div><div class="sp-detail-row"><span>Total</span><strong>?2,499</strong></div><div class="sp-detail-row"><span>Payment</span><strong>Paid</strong></div></div>
+          </aside>
+          <div class="sp-thankyou-next">
+            <p class="sp-account-eyebrow">What happens next</p>
+            <div class="sp-thankyou-step-list">
+              <div class="sp-thankyou-step"><span>01</span><div><strong>We prepare your order</strong><p>Your confirmed order moves into preparation and packing.</p></div></div>
+              <div class="sp-thankyou-step"><span>02</span><div><strong>Tracking follows</strong><p>Delivery and tracking details appear when they become available.</p></div></div>
+              <div class="sp-thankyou-step"><span>03</span><div><strong>Check status anytime</strong><p>Return to your order status for the latest available update.</p></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="sp-thankyou-actions">
+          <a class="sp-account-btn" href="#account-contract">View order status</a>
+          <a class="sp-account-btn sp-account-btn--ghost" href="#account-contract">Continue shopping</a>
+          <a class="sp-thankyou-help" href="#account-contract">Need help with this order? <span>Get support ?</span></a>
+        </div>
+        <p class="sp-account-note sp-thankyou-demo-note">Demo only. Production information comes from Shopify?s Thank You / Order Status surface.</p>
       </div>
     </div>
   </section>
