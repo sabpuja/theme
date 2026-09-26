@@ -18,9 +18,14 @@
     <p>A fluid-first system for account access, account creation/welcome, dashboard, orders, order details, thank-you/order confirmation, profile, empty states and support. These blocks are designed as reusable UI contracts so the same visual language can be mapped to Shopify customer-account surfaces and extensions.</p>
   </div>
 
+  <div class="demo-toolbar" aria-label="Preview viewport controls">
+    <span class="demo-toolbar__label">Preview all account blocks at:</span>
+    <div class="demo-toolbar__buttons"><button class="is-active" type="button" data-demo-viewport="desktop" aria-pressed="true">Desktop</button><button type="button" data-demo-viewport="tablet" aria-pressed="false">Tablet</button><button type="button" data-demo-viewport="mobile" aria-pressed="false">Mobile</button></div>
+  </div>
+
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-001A · Simple branded login</h2><p>Single centered login card with Sabpuja identity, username/email and password</p></div><span class="lab-chip">Classic credentials</span></div>
-    <div class="sp-account-screen sp-account-screen--soft"><div class="sp-auth-single"><div class="sp-auth-card sp-auth-card--simple">
+    <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop"><div class="sp-auth-single"><div class="sp-auth-card sp-auth-card--simple">
       <img class="sp-auth-logo" src="/theme/theme-assets/sabpuja-logo-horizontal.svg" alt="Sabpuja">
       <div class="sp-auth-card__head"><p class="sp-account-eyebrow">Welcome back</p><h3 class="sp-account-title">Sign in to Sabpuja</h3><p class="sp-account-copy">A focused login with only the fields and actions a returning customer needs.</p></div>
       <div class="sp-field"><label for="demo-login-user">Email or username</label><input class="sp-input" id="demo-login-user" type="text" autocomplete="username" placeholder="you@example.com"></div>
@@ -35,7 +40,7 @@
 
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-001B · Passwordless login</h2><p>Current Shopify-style email-first access with the same Sabpuja visual language</p></div><span class="lab-chip">Passwordless</span></div>
-    <div class="sp-account-screen"><div class="sp-auth-single"><div class="sp-auth-card sp-auth-card--simple">
+    <div class="demo-frame sp-account-screen" data-viewport="desktop"><div class="sp-auth-single"><div class="sp-auth-card sp-auth-card--simple">
       <img class="sp-auth-logo" src="/theme/theme-assets/sabpuja-logo-horizontal.svg" alt="Sabpuja">
       <div class="sp-auth-card__head"><p class="sp-account-eyebrow">Your account</p><h3 class="sp-account-title">Sign in with your email</h3><p class="sp-account-copy">Enter the email used with your Sabpuja orders to continue securely.</p></div>
       <div class="sp-field"><label for="demo-email">Email</label><input class="sp-input" id="demo-email" type="email" autocomplete="email" placeholder="you@example.com"></div>
@@ -48,7 +53,7 @@
 
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-002A · Simple branded signup</h2><p>Single centered create-account card with clear, familiar fields</p></div><span class="lab-chip">Classic signup</span></div>
-    <div class="sp-account-screen sp-account-screen--soft"><div class="sp-auth-single"><div class="sp-auth-card sp-auth-card--simple">
+    <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop"><div class="sp-auth-single"><div class="sp-auth-card sp-auth-card--simple">
       <img class="sp-auth-logo" src="/theme/theme-assets/sabpuja-logo-horizontal.svg" alt="Sabpuja">
       <div class="sp-auth-card__head"><p class="sp-account-eyebrow">Create account</p><h3 class="sp-account-title">Join Sabpuja</h3><p class="sp-account-copy">Keep account creation short. Ask only for what is needed to identify and secure the account.</p></div>
       <div class="sp-name-grid"><div class="sp-field"><label for="demo-first-name">First name</label><input class="sp-input" id="demo-first-name" type="text" autocomplete="given-name" placeholder="First name"></div><div class="sp-field"><label for="demo-last-name">Last name</label><input class="sp-input" id="demo-last-name" type="text" autocomplete="family-name" placeholder="Last name"></div></div>
@@ -64,7 +69,7 @@
 
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-002B · Passwordless welcome</h2><p>Minimal new-customer entry for passwordless customer accounts</p></div><span class="lab-chip">Current account model</span></div>
-    <div class="sp-account-screen"><div class="sp-auth-single"><div class="sp-auth-card sp-auth-card--simple">
+    <div class="demo-frame sp-account-screen" data-viewport="desktop"><div class="sp-auth-single"><div class="sp-auth-card sp-auth-card--simple">
       <img class="sp-auth-logo" src="/theme/theme-assets/sabpuja-logo-horizontal.svg" alt="Sabpuja">
       <div class="sp-auth-card__head"><p class="sp-account-eyebrow">New to Sabpuja?</p><h3 class="sp-account-title">Start with your email</h3><p class="sp-account-copy">Use your email to create or access your account and keep orders connected without creating another password.</p></div>
       <div class="sp-field"><label for="demo-new-email">Email</label><input class="sp-input" id="demo-new-email" type="email" autocomplete="email" placeholder="you@example.com"></div>
@@ -75,7 +80,7 @@
 
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-003 · Account dashboard</h2><p>Identity, navigation and useful at-a-glance summaries</p></div><span class="lab-chip">Dashboard</span></div>
-    <div class="sp-account-screen sp-account-screen--soft">
+    <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop">
       <div class="sp-account-shell">
         <aside class="sp-account-sidebar"><div class="sp-account-identity"><span class="sp-account-avatar">C</span><div><strong>Customer</strong><span>customer@example.com</span></div></div><nav class="sp-account-nav" aria-label="Account"><a aria-current="page" href="#account-contract">Overview <span>›</span></a><a href="#account-contract">Orders <span>›</span></a><a href="#account-contract">Profile <span>›</span></a><a href="#account-contract">Support <span>›</span></a></nav></aside>
         <div class="sp-account-main"><div class="sp-account-head"><div><p class="sp-account-eyebrow">Account overview</p><h3>Good to see you</h3><p>Start with what is useful now, not a wall of account settings.</p></div><a class="sp-account-btn sp-account-btn--ghost" href="#account-contract">View all orders</a></div><div class="sp-dashboard-grid"><article class="sp-summary-card"><span class="sp-summary-card__label">Latest order</span><h4>Order #SP-1042</h4><p>Prepared for dispatch. Open the order for full status details.</p></article><article class="sp-summary-card"><span class="sp-summary-card__label">Orders</span><h4>3 orders</h4><p>Keep history easy to scan and sort by recency.</p></article><article class="sp-summary-card"><span class="sp-summary-card__label">Need help?</span><h4>Support from the order context</h4><p>Guide customers to the right support path without hunting through the site.</p></article></div></div>
@@ -85,27 +90,27 @@
 
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-004 · Orders list</h2><p>Scannable order history for desktop through narrow mobile widths</p></div><span class="lab-chip">Orders</span></div>
-    <div class="sp-account-screen"><div class="sp-account-head"><div><p class="sp-account-eyebrow">Order history</p><h3>Your orders</h3><p>Order number, date, status and total stay visible before the customer opens details.</p></div></div><div class="sp-order-list"><article class="sp-order-card"><div><div class="sp-order-meta"><span class="sp-order-number">#SP-1042</span><span class="sp-order-date">26 Sep 2026</span><span class="sp-status">Preparing</span><span class="sp-order-total">₹2,499</span></div><p class="sp-order-copy">1 item · current order</p></div><a class="sp-order-link" href="#account-contract">View order →</a></article><article class="sp-order-card"><div><div class="sp-order-meta"><span class="sp-order-number">#SP-1018</span><span class="sp-order-date">18 Aug 2026</span><span class="sp-status sp-status--good">Delivered</span><span class="sp-order-total">₹1,999</span></div><p class="sp-order-copy">2 items · completed order</p></div><a class="sp-order-link" href="#account-contract">View order →</a></article></div></div>
+    <div class="demo-frame sp-account-screen" data-viewport="desktop"><div class="sp-account-head"><div><p class="sp-account-eyebrow">Order history</p><h3>Your orders</h3><p>Order number, date, status and total stay visible before the customer opens details.</p></div></div><div class="sp-order-list"><article class="sp-order-card"><div><div class="sp-order-meta"><span class="sp-order-number">#SP-1042</span><span class="sp-order-date">26 Sep 2026</span><span class="sp-status">Preparing</span><span class="sp-order-total">₹2,499</span></div><p class="sp-order-copy">1 item · current order</p></div><a class="sp-order-link" href="#account-contract">View order →</a></article><article class="sp-order-card"><div><div class="sp-order-meta"><span class="sp-order-number">#SP-1018</span><span class="sp-order-date">18 Aug 2026</span><span class="sp-status sp-status--good">Delivered</span><span class="sp-order-total">₹1,999</span></div><p class="sp-order-copy">2 items · completed order</p></div><a class="sp-order-link" href="#account-contract">View order →</a></article></div></div>
   </section>
 
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-005 · Order detail</h2><p>Status journey, items, totals and support context</p></div><span class="lab-chip">Order detail</span></div>
-    <div class="sp-account-screen sp-account-screen--soft"><div class="sp-account-head"><div><p class="sp-account-eyebrow">Order #SP-1042</p><h3>Order details</h3><p>Keep status first, then the transaction details customers need to verify.</p></div><span class="sp-status">Preparing</span></div><div class="sp-order-detail"><article class="sp-detail-card"><h4>Status</h4><div class="sp-timeline"><div class="sp-timeline-step is-done"><span class="sp-timeline-dot">✓</span><div><strong>Order placed</strong><span>Order received successfully</span></div></div><div class="sp-timeline-step is-done"><span class="sp-timeline-dot">✓</span><div><strong>Confirmed</strong><span>Preparation has started</span></div></div><div class="sp-timeline-step"><span class="sp-timeline-dot">3</span><div><strong>Dispatched</strong><span>Tracking appears when available</span></div></div><div class="sp-timeline-step"><span class="sp-timeline-dot">4</span><div><strong>Delivered</strong><span>Final status</span></div></div></div></article><aside class="sp-detail-card"><h4>Summary</h4><div class="sp-detail-list"><div class="sp-detail-row"><span>Items</span><strong>1</strong></div><div class="sp-detail-row"><span>Total</span><strong>₹2,499</strong></div><div class="sp-detail-row"><span>Payment</span><strong>Paid</strong></div></div><a class="sp-inline-action" href="#account-contract">Get help with this order →</a></aside></div></div>
+    <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop"><div class="sp-account-head"><div><p class="sp-account-eyebrow">Order #SP-1042</p><h3>Order details</h3><p>Keep status first, then the transaction details customers need to verify.</p></div><span class="sp-status">Preparing</span></div><div class="sp-order-detail"><article class="sp-detail-card"><h4>Status</h4><div class="sp-timeline"><div class="sp-timeline-step is-done"><span class="sp-timeline-dot">✓</span><div><strong>Order placed</strong><span>Order received successfully</span></div></div><div class="sp-timeline-step is-done"><span class="sp-timeline-dot">✓</span><div><strong>Confirmed</strong><span>Preparation has started</span></div></div><div class="sp-timeline-step"><span class="sp-timeline-dot">3</span><div><strong>Dispatched</strong><span>Tracking appears when available</span></div></div><div class="sp-timeline-step"><span class="sp-timeline-dot">4</span><div><strong>Delivered</strong><span>Final status</span></div></div></div></article><aside class="sp-detail-card"><h4>Summary</h4><div class="sp-detail-list"><div class="sp-detail-row"><span>Items</span><strong>1</strong></div><div class="sp-detail-row"><span>Total</span><strong>₹2,499</strong></div><div class="sp-detail-row"><span>Payment</span><strong>Paid</strong></div></div><a class="sp-inline-action" href="#account-contract">Get help with this order →</a></aside></div></div>
   </section>
 
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-006 · Profile & account details</h2><p>Contact information, delivery details and account-management entry points</p></div><span class="lab-chip">Profile</span></div>
-    <div class="sp-account-screen"><div class="sp-account-head"><div><p class="sp-account-eyebrow">Profile</p><h3>Your details</h3><p>Separate information into small editable cards instead of a long settings form.</p></div></div><div class="sp-profile-grid"><article class="sp-profile-card"><h4>Contact</h4><p>Customer</p><p>customer@example.com</p><a class="sp-inline-action" href="#account-contract">Manage contact details →</a></article><article class="sp-profile-card"><h4>Delivery details</h4><p>Keep saved address or delivery information easy to review.</p><a class="sp-inline-action" href="#account-contract">Manage addresses →</a></article><article class="sp-profile-card"><h4>Account access</h4><p>Use the platform’s secure account-access settings rather than exposing unnecessary credentials in-theme.</p><a class="sp-inline-action" href="#account-contract">Account settings →</a></article></div></div>
+    <div class="demo-frame sp-account-screen" data-viewport="desktop"><div class="sp-account-head"><div><p class="sp-account-eyebrow">Profile</p><h3>Your details</h3><p>Separate information into small editable cards instead of a long settings form.</p></div></div><div class="sp-profile-grid"><article class="sp-profile-card"><h4>Contact</h4><p>Customer</p><p>customer@example.com</p><a class="sp-inline-action" href="#account-contract">Manage contact details →</a></article><article class="sp-profile-card"><h4>Delivery details</h4><p>Keep saved address or delivery information easy to review.</p><a class="sp-inline-action" href="#account-contract">Manage addresses →</a></article><article class="sp-profile-card"><h4>Account access</h4><p>Use the platform’s secure account-access settings rather than exposing unnecessary credentials in-theme.</p><a class="sp-inline-action" href="#account-contract">Account settings →</a></article></div></div>
   </section>
 
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-007 · Empty state</h2><p>Helpful next action when a customer has no orders or saved data</p></div><span class="lab-chip">Empty state</span></div>
-    <div class="sp-account-screen"><div class="sp-empty-state"><span class="sp-empty-icon">ॐ</span><h4>No orders yet</h4><p>Empty states should explain what is missing and offer one useful next action instead of looking like an error.</p><div class="sp-account-actions"><a class="sp-account-btn" href="#account-contract">Explore puja essentials</a></div></div></div>
+    <div class="demo-frame sp-account-screen" data-viewport="desktop"><div class="sp-empty-state"><span class="sp-empty-icon">ॐ</span><h4>No orders yet</h4><p>Empty states should explain what is missing and offer one useful next action instead of looking like an error.</p><div class="sp-account-actions"><a class="sp-account-btn" href="#account-contract">Explore puja essentials</a></div></div></div>
   </section>
 
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-008 · Contextual support</h2><p>Roomier support choices with clear hierarchy and more breathing space</p></div><span class="lab-chip">Support</span></div>
-    <div class="sp-account-screen sp-account-screen--soft">
+    <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop">
       <div class="sp-support-shell">
         <div class="sp-support-intro"><p class="sp-account-eyebrow">Need help?</p><h3 class="sp-account-title">Start with what you need help with.</h3><p class="sp-account-copy">Keep support calm and contextual. Customers should immediately understand where to go without scanning a dense wall of options.</p><div class="sp-support-reassurance"><span>Fast routing</span><span>Order context preserved</span><span>Clear next step</span></div></div>
         <div class="sp-support-grid">
@@ -119,7 +124,7 @@
 
   <section class="demo-section">
     <div class="demo-section__meta"><div><h2>SP-ACC-009 · Thank you / order confirmation</h2><p>Post-purchase confirmation, next steps and the bridge into ongoing order tracking</p></div><span class="lab-chip">Checkout completion</span></div>
-    <div class="sp-account-screen sp-account-screen--soft">
+    <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop">
       <div class="sp-thankyou-grid">
         <div class="sp-thankyou-main">
           <div class="sp-thankyou-status"><span class="sp-thankyou-check">✓</span><div><p class="sp-account-eyebrow">Order confirmed</p><h3 class="sp-account-title">Thank you. Your order has been received.</h3><p class="sp-account-copy">A confirmation has been sent to customer@example.com. Keep this page focused on reassurance, what happens next, and where to check the order later.</p></div></div>
