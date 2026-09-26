@@ -9,6 +9,9 @@ on:
       - 'assets/sabpuja-daily-puja-kit-hero.webp'
       - 'assets/sabpuja-zodiac-hero-main.webp'
       - 'assets/sabpuja-zodiac-aries-hero.webp'
+      - 'assets/sabpuja-zodiac-taurus-hero.webp'
+      - 'assets/sabpuja-zodiac-gemini-hero.webp'
+      - 'assets/sabpuja-zodiac-cancer-hero.webp'
       - 'assets/sabpuja-zodiac-lifestyle.webp'
       - 'assets/sabpuja-navratri-puja-kit-lifestyle.webp'
       - '.github/workflows/component-lab-pages.yml'
@@ -41,6 +44,9 @@ jobs:
           cp assets/sabpuja-daily-puja-kit-hero.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-hero-main.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-aries-hero.webp .pages-output/theme-assets/
+          cp assets/sabpuja-zodiac-taurus-hero.webp .pages-output/theme-assets/
+          cp assets/sabpuja-zodiac-gemini-hero.webp .pages-output/theme-assets/
+          cp assets/sabpuja-zodiac-cancer-hero.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-lifestyle.webp .pages-output/theme-assets/
           cp assets/sabpuja-navratri-puja-kit-lifestyle.webp .pages-output/theme-assets/
       - name: Upload Component Lab
