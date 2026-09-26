@@ -1,0 +1,65 @@
+{{ 'sabpuja-benefits-trust.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign variant = section.settings.variant | default: 'icon_cards'
+  assign heading_tag = section.settings.heading_tag | default: 'h2'
+%}
+
+<section{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %} class="sp-benefits-trust sp-benefits-trust--{{ variant }} sp-benefits-trust--{{ section.settings.background }} sp-benefits-trust--width-{{ section.settings.width }} sp-benefits-trust--align-{{ section.settings.alignment }}">
+  <div class="sp-benefits-trust__inner">
+    {% unless variant == 'compact_strip' %}
+      {% if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank %}
+        <div class="sp-benefits-trust__head">
+          {% if section.settings.eyebrow != blank %}<p class="sp-benefits-trust__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+          {% if section.settings.heading != blank %}<{{ heading_tag }} class="sp-benefits-trust__heading">{{ section.settings.heading | escape }}</{{ heading_tag }}>{% endif %}
+          {% if section.settings.body != blank %}<div class="sp-benefits-trust__body">{{ section.settings.body }}</div>{% endif %}
+        </div>
+      {% endif %}
+    {% endunless %}
+
+    <div class="sp-benefits-trust__items" role="list">
+      {% for block in section.blocks %}
+        <article class="sp-benefits-trust__item" role="listitem" {{ block.shopify_attributes }}>
+          {% unless variant == 'numbered' %}
+            <span class="sp-benefits-trust__icon" aria-hidden="true">{% render 'sabpuja-icon', name: block.settings.icon, class: 'sp-benefits-trust__svg' %}</span>
+          {% endunless %}
+          <div class="sp-benefits-trust__item-copy">
+            {% if block.settings.badge != blank %}<span class="sp-benefits-trust__badge">{{ block.settings.badge | escape }}</span>{% endif %}
+            {% if block.settings.heading != blank %}<h3 class="sp-benefits-trust__item-title">{{ block.settings.heading | escape }}</h3>{% endif %}
+            {% if block.settings.body != blank %}<p class="sp-benefits-trust__item-text">{{ block.settings.body | escape }}</p>{% endif %}
+            {% if block.settings.link_label != blank and block.settings.link != blank %}<a class="sp-benefits-trust__item-link" href="{{ block.settings.link }}">{{ block.settings.link_label | escape }} →</a>{% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja Benefits & Trust",
+  "settings": [
+    {"type":"text","id":"anchor_id","label":"Anchor ID"},
+    {"type":"select","id":"variant","label":"Layout variant","default":"icon_cards","options":[{"value":"compact_strip","label":"Compact trust strip"},{"value":"icon_cards","label":"Icon cards"},{"value":"numbered","label":"Numbered benefits"},{"value":"badge_rail","label":"Badge rail"},{"value":"split","label":"Split reassurance"},{"value":"premium_dark","label":"Premium dark"}]},
+    {"type":"select","id":"heading_tag","label":"Heading level","default":"h2","options":[{"value":"h2","label":"H2"},{"value":"h3","label":"H3"}]},
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"Why Sabpuja"},
+    {"type":"text","id":"heading","label":"Heading","default":"Clear reassurance without visual clutter"},
+    {"type":"richtext","id":"body","label":"Supporting copy","default":"<p>Use only supportable benefits and trust statements. Avoid invented ratings, guarantees, delivery promises or purity claims.</p>"},
+    {"type":"select","id":"alignment","label":"Heading alignment","default":"left","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"}]},
+    {"type":"select","id":"background","label":"Section background","default":"ivory","options":[{"value":"white","label":"White"},{"value":"ivory","label":"Ivory"},{"value":"cream","label":"Cream"},{"value":"sacred-brown","label":"Sacred Brown"}]},
+    {"type":"select","id":"width","label":"Section width","default":"contained","options":[{"value":"contained","label":"Contained"},{"value":"wide","label":"Wide"},{"value":"full","label":"Full width"}]}
+  ],
+  "blocks": [
+    {"type":"benefit","name":"Benefit / trust item","settings":[
+      {"type":"select","id":"icon","label":"Icon","default":"check","options":[{"value":"check","label":"Check"},{"value":"package","label":"Package"},{"value":"shield","label":"Shield"},{"value":"info","label":"Information"},{"value":"book","label":"Guide"},{"value":"sparkles","label":"Sparkles"},{"value":"heart","label":"Heart"},{"value":"truck","label":"Delivery"},{"value":"return","label":"Return"}]},
+      {"type":"text","id":"badge","label":"Optional badge"},
+      {"type":"text","id":"heading","label":"Heading","default":"Thoughtfully organized"},
+      {"type":"textarea","id":"body","label":"Supporting copy","default":"Use this space for one concise, supportable customer benefit."},
+      {"type":"text","id":"link_label","label":"Optional link label"},
+      {"type":"url","id":"link","label":"Optional link"}
+    ]}
+  ],
+  "max_blocks": 8,
+  "presets": [{"name":"Sabpuja Benefits & Trust","blocks":[{"type":"benefit","settings":{"icon":"package","heading":"Thoughtfully organized"}},{"type":"benefit","settings":{"icon":"info","heading":"Clear product information"}},{"type":"benefit","settings":{"icon":"book","heading":"Simple guidance"}},{"type":"benefit","settings":{"icon":"check","heading":"Easy to review"}}]}]
+}
+{% endschema %}
