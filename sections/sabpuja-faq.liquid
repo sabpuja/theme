@@ -3,10 +3,18 @@
 {% liquid
   assign variant = section.settings.variant | default: 'standard'
   assign heading_tag = section.settings.heading_tag | default: 'h2'
+  assign subheading_tag = 'h3'
+  if heading_tag == 'h3'
+    assign subheading_tag = 'h4'
+  endif
   assign faq_count = 0
+  assign schema_count = 0
   for block in section.blocks
-    if block.type == 'faq'
+    if block.type == 'faq' and block.settings.question != blank
       assign faq_count = faq_count | plus: 1
+      if block.settings.answer != blank
+        assign schema_count = schema_count | plus: 1
+      endif
     endif
   endfor
 %}
@@ -54,7 +62,7 @@
           {% if section.settings.support_eyebrow != blank %}<p class="sp-faq__support-eyebrow">{{ section.settings.support_eyebrow | escape }}</p>{% endif %}
           {% if section.settings.support_heading != blank %}<{{ subheading_tag }} class="sp-faq__support-title">{{ section.settings.support_heading | escape }}</{{ subheading_tag }}>{% endif %}
           {% if section.settings.support_text != blank %}<div class="sp-faq__support-text">{{ section.settings.support_text }}</div>{% endif %}
-          {% if section.settings.support_label != blank and section.settings.support_link != blank %}<a class="sp-faq__support-link" href="{{ section.settings.support_link }}">{{ section.settings.support_label | escape }} →</a>{% endif %}
+          {% if section.settings.support_label != blank and section.settings.support_link != blank %}<a class="sp-faq__support-link" href="{{ section.settings.support_link }}">{{ section.settings.support_label | escape }} &rarr;</a>{% endif %}
         </aside>
         {{ faq_markup }}
       </div>
