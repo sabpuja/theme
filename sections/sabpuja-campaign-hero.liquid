@@ -1,0 +1,190 @@
+{{ 'sabpuja-campaign-hero.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign sp_variant = section.settings.variant | default: 'split'
+  assign sp_heading_tag = section.settings.heading_level | default: 'h2'
+  assign sp_image = section.settings.image
+  assign sp_mobile_image = section.settings.mobile_image
+  assign sp_product = section.settings.product
+  assign sp_primary_url = section.settings.primary_link
+  assign sp_primary_label = section.settings.primary_label
+  assign sp_alt = section.settings.image_alt
+
+  if sp_variant == 'product_led' and sp_product != blank
+    if sp_image == blank
+      assign sp_image = sp_product.featured_image
+    endif
+    if sp_primary_url == blank
+      assign sp_primary_url = sp_product.url
+    endif
+    if sp_primary_label == blank
+      assign sp_primary_label = 'View product'
+    endif
+  endif
+
+  if sp_alt == blank and sp_image != blank and sp_image.alt != blank
+    assign sp_alt = sp_image.alt
+  endif
+%}
+
+<section
+  id="sp-campaign-hero-{{ section.id }}"
+  class="sp-campaign-hero sp-campaign-hero--{{ sp_variant }} sp-campaign-hero--{{ section.settings.background }} sp-campaign-hero--align-{{ section.settings.alignment }} sp-campaign-hero--width-{{ section.settings.width }}"
+  aria-labelledby="sp-campaign-hero-title-{{ section.id }}"
+>
+  {% if section.settings.link_entire_hero and sp_primary_url != blank %}
+    <a class="sp-campaign-hero__overlay-link" href="{{ sp_primary_url }}" aria-label="{{ sp_primary_label | default: section.settings.heading | escape }}"></a>
+  {% endif %}
+
+  <div class="sp-campaign-hero__inner">
+    <div class="sp-campaign-hero__copy">
+      {% if section.settings.eyebrow != blank %}
+        <p class="sp-campaign-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <{{ sp_heading_tag }} id="sp-campaign-hero-title-{{ section.id }}" class="sp-campaign-hero__heading">{{ section.settings.heading | escape }}</{{ sp_heading_tag }}>
+      {% endif %}
+
+      {% if section.settings.body != blank %}
+        <div class="sp-campaign-hero__body">{{ section.settings.body | escape | newline_to_br }}</div>
+      {% endif %}
+
+      {% if sp_variant == 'product_led' and sp_product != blank %}
+        <div class="sp-campaign-hero__product-meta">
+          <span class="sp-campaign-hero__price">{{ sp_product.price | money }}</span>
+          {% if sp_product.selected_or_first_available_variant.sku != blank %}
+            <span class="sp-campaign-hero__meta-pill">SKU {{ sp_product.selected_or_first_available_variant.sku | escape }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if sp_primary_label != blank or section.settings.secondary_label != blank %}
+        <div class="sp-campaign-hero__actions">
+          {% if sp_primary_label != blank and sp_primary_url != blank %}
+            <a class="sp-campaign-hero__button" href="{{ sp_primary_url }}">{{ sp_primary_label | escape }}</a>
+          {% endif %}
+          {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}
+            <a class="sp-campaign-hero__secondary" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label | escape }}</a>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.microcopy_1 != blank or section.settings.microcopy_2 != blank or section.settings.microcopy_3 != blank %}
+        <div class="sp-campaign-hero__microcopy" aria-label="Highlights">
+          {% if section.settings.microcopy_1 != blank %}<span>{{ section.settings.microcopy_1 | escape }}</span>{% endif %}
+          {% if section.settings.microcopy_2 != blank %}<span>{{ section.settings.microcopy_2 | escape }}</span>{% endif %}
+          {% if section.settings.microcopy_3 != blank %}<span>{{ section.settings.microcopy_3 | escape }}</span>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% unless sp_variant == 'minimal' %}
+      <div class="sp-campaign-hero__media{% if sp_image == blank %} sp-campaign-hero__media--empty{% endif %}">
+        {% if sp_image != blank %}
+          <picture>
+            {% if sp_mobile_image != blank %}
+              <source media="(max-width: 749px)" srcset="{{ sp_mobile_image | image_url: width: 900 }}">
+            {% endif %}
+            {{ sp_image | image_url: width: 2000 | image_tag: widths: '480, 720, 960, 1200, 1600, 2000', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'lazy', alt: sp_alt }}
+          </picture>
+        {% else %}
+          <div class="sp-campaign-hero__placeholder" aria-hidden="true"></div>
+        {% endif %}
+      </div>
+    {% endunless %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja Campaign Hero",
+  "tag": "section",
+  "class": "section-sabpuja-campaign-hero",
+  "settings": [
+    {
+      "type": "select",
+      "id": "variant",
+      "label": "Variant",
+      "default": "split",
+      "options": [
+        { "value": "full_width_image", "label": "Full-width image" },
+        { "value": "split", "label": "Split" },
+        { "value": "product_led", "label": "Product-led" },
+        { "value": "editorial", "label": "Editorial" },
+        { "value": "minimal", "label": "Minimal text" },
+        { "value": "dark_devotional", "label": "Dark devotional" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Heading level",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Sabpuja" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your Puja, Prepared with Care." },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Use this reusable hero to introduce a campaign, collection or featured product." },
+    { "type": "image_picker", "id": "image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Optional mobile image" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" },
+    { "type": "product", "id": "product", "label": "Product for product-led variant" },
+    { "type": "text", "id": "primary_label", "label": "Primary CTA label", "default": "Explore" },
+    { "type": "url", "id": "primary_link", "label": "Primary CTA link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary CTA label" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary CTA link" },
+    { "type": "checkbox", "id": "link_entire_hero", "label": "Make non-interactive hero area clickable using primary link", "default": false },
+    { "type": "text", "id": "microcopy_1", "label": "Highlight 1" },
+    { "type": "text", "id": "microcopy_2", "label": "Highlight 2" },
+    { "type": "text", "id": "microcopy_3", "label": "Highlight 3" },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "default": "ivory",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ivory", "label": "Ivory" },
+        { "value": "cream", "label": "Warm cream" },
+        { "value": "sacred-brown", "label": "Sacred Brown" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Content alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Section width",
+      "default": "contained",
+      "options": [
+        { "value": "contained", "label": "Contained" },
+        { "value": "wide", "label": "Wide" },
+        { "value": "full", "label": "Full width" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sabpuja Campaign Hero",
+      "settings": {
+        "variant": "split",
+        "heading_level": "h2",
+        "background": "ivory"
+      }
+    }
+  ]
+}
+{% endschema %}
