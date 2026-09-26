@@ -9,6 +9,7 @@ on:
       - 'assets/sabpuja-benefits-trust.css'
       - 'assets/sabpuja-kit-contents.css'
       - 'assets/sabpuja-ritual-journey.css'
+      - 'assets/sabpuja-devotional-editorial.css'
       - 'assets/sabpuja-daily-puja-kit-hero.webp'
       - 'assets/sabpuja-zodiac-hero-main.webp'
       - 'assets/sabpuja-zodiac-aries-hero.webp'
@@ -48,6 +49,7 @@ jobs:
           cp assets/sabpuja-benefits-trust.css .pages-output/theme-assets/
           cp assets/sabpuja-kit-contents.css .pages-output/theme-assets/
           cp assets/sabpuja-ritual-journey.css .pages-output/theme-assets/
+          cp assets/sabpuja-devotional-editorial.css .pages-output/theme-assets/
           cp assets/sabpuja-daily-puja-kit-hero.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-hero-main.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-aries-hero.webp .pages-output/theme-assets/
