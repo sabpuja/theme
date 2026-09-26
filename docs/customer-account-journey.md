@@ -15,8 +15,10 @@ References:
 - https://shopify.dev/docs/api/checkout-ui-extensions/latest/targets
 
 ## Block system
-- SP-ACC-001 — Sign in
-- SP-ACC-002 — Create account / welcome
+- SP-ACC-001A — Simple branded login (credentials-capable flows)
+- SP-ACC-001B — Passwordless login
+- SP-ACC-002A — Simple branded signup (credentials-capable flows)
+- SP-ACC-002B — Passwordless welcome
 - SP-ACC-003 — Account dashboard
 - SP-ACC-004 — Orders list
 - SP-ACC-005 — Order detail
@@ -29,7 +31,7 @@ References:
 Account UI follows the same Sabpuja fluid-first foundation as storefront components. Typography, spacing, sizing and grids use `clamp()`, intrinsic layout, `auto-fit`, `minmax()` and wrapping. Container queries are reserved for true structural changes such as converting the dashboard sidebar into a horizontal navigation rail.
 
 ## UX rules
-1. Keep authentication email-first and simple; do not invent a second password system around Shopify accounts.
+1. Keep authentication simple and branded. Maintain both credential-based visual variants for compatible/legacy flows and passwordless variants for current Shopify customer accounts; do not invent a second password backend in the theme.
 2. Dashboard home prioritizes current orders and useful next actions over settings.
 3. Orders remain scannable: order number, date, status and total appear before opening details.
 4. Order details prioritize status, then transaction detail, then contextual support.
@@ -38,6 +40,8 @@ Account UI follows the same Sabpuja fluid-first foundation as storefront compone
 7. Account blocks must meet keyboard, focus, contrast and semantic-label requirements.
 8. Demo content must never be presented as real customer data.
 9. The Thank You page should confirm the purchase, set expectations, expose order-status access, and avoid distracting the customer with unrelated actions.
+10. Social sign-in options are optional variants and should only appear when the corresponding provider is enabled.
+11. Contextual support should use generous spacing and one clearly labeled route per customer need rather than dense utility cards.
 
 ## Implementation mapping
 The Component Lab is the visual contract. Theme-rendered surfaces may use storefront blocks where Shopify supports them. Customer-account pages that live on Shopify's account surface should be implemented with the appropriate customer account UI extension or Shopify account customization mechanism. The Thank You and Order Status experience belongs to Shopify checkout/post-purchase surfaces and should use the supported Checkout UI extension targets rather than being recreated as a theme template. Legacy customer Liquid templates should not be treated as the long-term target unless explicitly required for a confirmed legacy-account configuration.
