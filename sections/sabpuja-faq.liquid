@@ -27,7 +27,7 @@
           {% if block.type == 'group_heading' %}
             {% if variant == 'grouped' %}
               <div class="sp-faq__group-head" {{ block.shopify_attributes }}>
-                {% if block.settings.heading != blank %}<h3 class="sp-faq__group-title">{{ block.settings.heading | escape }}</h3>{% endif %}
+                {% if block.settings.heading != blank %}<{{ subheading_tag }} class="sp-faq__group-title">{{ block.settings.heading | escape }}</{{ subheading_tag }}>{% endif %}
                 {% if block.settings.text != blank %}<p class="sp-faq__group-text">{{ block.settings.text | escape }}</p>{% endif %}
               </div>
             {% endif %}
@@ -52,7 +52,7 @@
       <div class="sp-faq__layout">
         <aside class="sp-faq__support">
           {% if section.settings.support_eyebrow != blank %}<p class="sp-faq__support-eyebrow">{{ section.settings.support_eyebrow | escape }}</p>{% endif %}
-          {% if section.settings.support_heading != blank %}<h3 class="sp-faq__support-title">{{ section.settings.support_heading | escape }}</h3>{% endif %}
+          {% if section.settings.support_heading != blank %}<{{ subheading_tag }} class="sp-faq__support-title">{{ section.settings.support_heading | escape }}</{{ subheading_tag }}>{% endif %}
           {% if section.settings.support_text != blank %}<div class="sp-faq__support-text">{{ section.settings.support_text }}</div>{% endif %}
           {% if section.settings.support_label != blank and section.settings.support_link != blank %}<a class="sp-faq__support-link" href="{{ section.settings.support_link }}">{{ section.settings.support_label | escape }} →</a>{% endif %}
         </aside>
@@ -64,7 +64,7 @@
   </div>
 </section>
 
-{% if section.settings.enable_faq_schema and faq_count > 0 %}
+{% if section.settings.enable_faq_schema and schema_count > 0 %}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -81,7 +81,7 @@
                 "@type": "Answer",
                 "text": {{ block.settings.answer | strip_html | json }}
               }
-            }{% if schema_seen < faq_count %},{% endif %}
+            }{% if schema_seen < schema_count %},{% endif %}
           {% endif %}
         {% endfor %}
       ]
