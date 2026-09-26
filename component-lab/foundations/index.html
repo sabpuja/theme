@@ -10,7 +10,42 @@
 <body>
 <header class="lab-header"><div class="lab-header__inner"><a class="lab-brand" href="/theme/"><span class="lab-brand__mark">S</span><span>Sabpuja Component Lab</span></a><nav class="lab-nav" aria-label="Primary"><a href="/theme/components/">Components</a><a href="/theme/blocks/">Blocks</a><a aria-current="page" href="/theme/foundations/">Foundations</a><a href="/theme/tools/image-lab/">Image Lab</a></nav></div></header>
 <main class="lab-main">
-  <div class="lab-page-head"><div class="lab-breadcrumb"><a href="/theme/">Home</a> / Foundations</div><p class="lab-eyebrow">Design system</p><h1>Foundations</h1><p>Canonical visual rules for new Sabpuja components: current brand colors, Poppins headings, Inter body copy, proportional spacing and restrained corner radii.</p></div>
+  <div class="lab-page-head"><div class="lab-breadcrumb"><a href="/theme/">Home</a> / Foundations</div><p class="lab-eyebrow">Design system</p><h1>Foundations</h1><p>Canonical visual and responsive rules for new Sabpuja components: current brand colors, Poppins headings, Inter body copy, proportional spacing, restrained radii, and fluid-first layouts.</p></div>
+
+  <section class="lab-section">
+    <div class="lab-section__head"><div><p class="lab-eyebrow">Responsive architecture</p><h2 class="lab-section-title">Fluid first, breakpoint light</h2><p class="lab-section-copy">Screen width is a continuum, not three device buckets. New Sabpuja components should scale smoothly across the available space instead of jumping between desktop, tablet and mobile presets.</p></div></div>
+    <div class="block-demo-grid">
+      <article class="block-panel"><h2>Use fluid values</h2><p>Use <code>clamp()</code>, <code>min()</code>, <code>max()</code>, intrinsic sizing and percentages for typography, spacing, gutters, media sizes and component dimensions.</p></article>
+      <article class="block-panel"><h2>Use intrinsic layout</h2><p>Prefer Grid/Flex with <code>auto-fit</code>, <code>minmax()</code>, wrapping and content-based sizing so layouts adapt naturally without device-specific widths.</p></article>
+      <article class="block-panel"><h2>Use container context</h2><p>Reusable sections should respond to the space their own container receives. Prefer container queries over viewport media queries when a true structural switch is required.</p></article>
+      <article class="block-panel"><h2>Breakpoints are exceptional</h2><p>Use a query only when layout structure, interaction, art direction or accessibility genuinely must change. Do not add arbitrary breakpoints just to resize fonts, gaps or padding.</p></article>
+    </div>
+
+    <div class="lab-card" style="margin-top:18px">
+      <p class="lab-eyebrow">Canonical fluid tokens</p>
+      <pre class="lab-code"><code>:root {
+  --sp-gutter: clamp(1rem, .6rem + 2vw, 2.5rem);
+  --sp-section-y: clamp(2.25rem, 1.25rem + 4vw, 5rem);
+  --sp-grid-gap: clamp(.875rem, .65rem + 1vw, 1.5rem);
+  --sp-h1: clamp(2rem, 1.4rem + 3vw, 4rem);
+  --sp-h2: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
+  --sp-body: clamp(.975rem, .94rem + .15vw, 1.075rem);
+}
+
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: var(--sp-grid-gap);
+}
+
+.sp-component {
+  container-type: inline-size;
+  padding-inline: var(--sp-gutter);
+}</code></pre>
+    </div>
+
+    <div class="lab-note" style="margin-top:18px"><strong>Important:</strong> the Component Lab’s Desktop / Tablet / Mobile controls and the QA sizes at 1280×720, ~768×1024 and ~390×844 are representative regression test points only. They must not become the design’s CSS breakpoint model.</div>
+  </section>
 
   <section class="lab-section">
     <div class="lab-section__head"><div><p class="lab-eyebrow">Color</p><h2 class="lab-section-title">Brand palette</h2></div></div>
@@ -25,16 +60,16 @@
   </section>
 
   <section class="lab-section">
-    <div class="lab-section__head"><div><p class="lab-eyebrow">Typography</p><h2 class="lab-section-title">Poppins + Inter</h2><p class="lab-section-copy">Poppins is reserved for headings and high-emphasis display text. Inter handles body copy, labels and interface text.</p></div></div>
+    <div class="lab-section__head"><div><p class="lab-eyebrow">Typography</p><h2 class="lab-section-title">Poppins + Inter</h2><p class="lab-section-copy">Poppins is reserved for headings and high-emphasis display text. Inter handles body copy, labels and interface text. Type sizes should use bounded fluid scales with <code>clamp()</code> rather than breakpoint jumps.</p></div></div>
     <div class="lab-card">
       <div class="type-sample"><span class="type-sample__label">Display · Poppins</span><div class="type-sample__display">Your Puja, Prepared with Care.</div></div>
       <div class="type-sample"><span class="type-sample__label">H1 · Poppins</span><div class="type-sample__h1">Everything essential, thoughtfully brought together.</div></div>
-      <div class="type-sample"><span class="type-sample__label">Body · Inter</span><p class="type-sample__body">Sabpuja components should feel calm, clear and practical. Body copy remains easy to scan on both desktop and mobile without decorative type competing with the content.</p></div>
+      <div class="type-sample"><span class="type-sample__label">Body · Inter</span><p class="type-sample__body">Sabpuja components should feel calm, clear and practical. Body copy remains easy to scan on both large and small screens without decorative type competing with the content.</p></div>
     </div>
   </section>
 
   <section class="lab-section">
-    <div class="lab-section__head"><div><p class="lab-eyebrow">Spacing</p><h2 class="lab-section-title">4px base rhythm</h2></div></div>
+    <div class="lab-section__head"><div><p class="lab-eyebrow">Spacing</p><h2 class="lab-section-title">4px base rhythm + fluid interpolation</h2><p class="lab-section-copy">The 4px rhythm defines relationships and endpoints. Between those endpoints, section spacing and gaps should interpolate fluidly with <code>clamp()</code>.</p></div></div>
     <div class="lab-card spacing-demo">
       <div class="spacing-row"><strong>4</strong><div class="spacing-bar" style="width:4px"></div><span>4px</span></div>
       <div class="spacing-row"><strong>8</strong><div class="spacing-bar" style="width:8px"></div><span>8px</span></div>
@@ -49,7 +84,7 @@
 
   <section class="lab-section">
     <div class="block-demo-grid">
-      <article class="block-panel"><h2>Layout widths</h2><p><strong>Component max:</strong> 1160–1240px</p><p><strong>Reading width:</strong> ~680–760px</p><p><strong>Mobile gutter:</strong> 16–20px</p></article>
+      <article class="block-panel"><h2>Layout widths</h2><p><strong>Component max:</strong> 1160–1240px</p><p><strong>Reading width:</strong> ~680–760px</p><p><strong>Gutter:</strong> fluid, approximately 16–40px via <code>clamp()</code></p></article>
       <article class="block-panel"><h2>Radius</h2><p><strong>Controls:</strong> pill or 10px</p><p><strong>Cards:</strong> 16–18px</p><p><strong>Feature sections:</strong> 20–24px</p></article>
     </div>
   </section>
