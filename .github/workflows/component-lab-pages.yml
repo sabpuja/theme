@@ -7,9 +7,11 @@ on:
     paths:
       - 'component-lab/**'
       - 'assets/sabpuja-benefits-trust.css'
+      - 'assets/sabpuja-kit-contents.css'
       - 'assets/sabpuja-daily-puja-kit-hero.webp'
       - 'assets/sabpuja-zodiac-hero-main.webp'
       - 'assets/sabpuja-zodiac-aries-hero.webp'
+      - 'assets/sabpuja-zodiac-aries-contents.webp'
       - 'assets/sabpuja-zodiac-taurus-hero.webp'
       - 'assets/sabpuja-zodiac-gemini-hero.webp'
       - 'assets/sabpuja-zodiac-cancer-hero.webp'
@@ -43,9 +45,11 @@ jobs:
           cp -R component-lab .pages-output
           mkdir -p .pages-output/theme-assets
           cp assets/sabpuja-benefits-trust.css .pages-output/theme-assets/
+          cp assets/sabpuja-kit-contents.css .pages-output/theme-assets/
           cp assets/sabpuja-daily-puja-kit-hero.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-hero-main.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-aries-hero.webp .pages-output/theme-assets/
+          cp assets/sabpuja-zodiac-aries-contents.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-taurus-hero.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-gemini-hero.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-cancer-hero.webp .pages-output/theme-assets/
