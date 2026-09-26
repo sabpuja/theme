@@ -1,0 +1,117 @@
+{{ 'sabpuja-final-cta.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign variant = section.settings.variant | default: 'image_banner'
+  assign heading_tag = section.settings.heading_tag | default: 'h2'
+  assign selected_product = section.settings.product
+  assign heading_text = section.settings.heading
+  if heading_text == blank and selected_product != blank
+    assign heading_text = selected_product.title
+  endif
+  assign primary_url = section.settings.primary_link
+  if primary_url == blank and selected_product != blank
+    assign primary_url = selected_product.url
+  endif
+  assign cta_image = section.settings.image
+  if cta_image == blank and selected_product != blank
+    assign cta_image = selected_product.featured_image
+  endif
+  assign image_alt = section.settings.image_alt
+  if image_alt == blank and cta_image != blank
+    assign image_alt = cta_image.alt
+  endif
+  if image_alt == blank and heading_text != blank
+    assign image_alt = heading_text
+  endif
+%}
+
+<section{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %} class="sp-final-cta sp-final-cta--{{ variant }} sp-final-cta--{{ section.settings.background }} sp-final-cta--width-{{ section.settings.width }} sp-final-cta--align-{{ section.settings.alignment }}">
+  <div class="sp-final-cta__inner">
+    <div class="sp-final-cta__panel">
+      {% if variant == 'image_banner' %}
+        <div class="sp-final-cta__media">
+          {% if cta_image != blank %}
+            <picture>
+              {% if section.settings.mobile_image != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.mobile_image | image_url: width: 900 }}">{% endif %}
+              {{ cta_image | image_url: width: 2000 | image_tag: widths: '640,900,1200,1600,2000', sizes: '100vw', loading: 'lazy', alt: image_alt }}
+            </picture>
+          {% endif %}
+        </div>
+      {% elsif variant == 'product_focus' %}
+        <div class="sp-final-cta__media">
+          {% if cta_image != blank %}
+            <picture>
+              {% if section.settings.mobile_image != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.mobile_image | image_url: width: 900 }}">{% endif %}
+              {{ cta_image | image_url: width: 1400 | image_tag: widths: '480,720,960,1200,1400', sizes: '(min-width: 900px) 50vw, 100vw', loading: 'lazy', alt: image_alt }}
+            </picture>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="sp-final-cta__content">
+        {% if section.settings.eyebrow != blank %}<p class="sp-final-cta__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+        {% if heading_text != blank %}<{{ heading_tag }} class="sp-final-cta__heading">{{ heading_text | escape }}</{{ heading_tag }}>{% endif %}
+        {% if section.settings.body != blank %}<div class="sp-final-cta__body">{{ section.settings.body }}</div>{% endif %}
+
+        {% if variant == 'product_focus' and selected_product != blank and section.settings.show_price %}
+          <div class="sp-final-cta__product-meta">
+            <span class="sp-final-cta__price">{{ selected_product.price | money }}</span>
+            {% if selected_product.compare_at_price > selected_product.price %}<span class="sp-final-cta__compare">{{ selected_product.compare_at_price | money }}</span>{% endif %}
+            {% if section.settings.show_availability %}<span class="sp-final-cta__pill">{% if selected_product.available %}Available{% else %}Unavailable{% endif %}</span>{% endif %}
+          </div>
+        {% endif %}
+
+        {% unless variant == 'split' %}
+          {% if section.settings.primary_label != blank or section.settings.secondary_label != blank %}
+            <div class="sp-final-cta__actions">
+              {% if section.settings.primary_label != blank and primary_url != blank %}<a class="sp-final-cta__button" href="{{ primary_url }}">{{ section.settings.primary_label | escape }}</a>{% endif %}
+              {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}<a class="sp-final-cta__button sp-final-cta__button--ghost" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label | escape }}</a>{% endif %}
+            </div>
+          {% endif %}
+        {% endunless %}
+
+        {% if section.settings.microcopy != blank %}<p class="sp-final-cta__microcopy">{{ section.settings.microcopy | escape }}</p>{% endif %}
+      </div>
+
+      {% if variant == 'split' %}
+        <div class="sp-final-cta__actions">
+          {% if section.settings.primary_label != blank and primary_url != blank %}<a class="sp-final-cta__button" href="{{ primary_url }}">{{ section.settings.primary_label | escape }}</a>{% endif %}
+          {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}<a class="sp-final-cta__button sp-final-cta__button--ghost" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label | escape }}</a>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja Final CTA",
+  "settings": [
+    {"type":"text","id":"anchor_id","label":"Anchor ID"},
+    {"type":"select","id":"variant","label":"Layout variant","default":"image_banner","options":[{"value":"image_banner","label":"Image banner"},{"value":"solid_saffron","label":"Solid saffron"},{"value":"sacred_brown","label":"Sacred Brown"},{"value":"product_focus","label":"Product focused"},{"value":"minimal","label":"Minimal"},{"value":"split","label":"Split CTA"}]},
+    {"type":"select","id":"heading_tag","label":"Heading level","default":"h2","options":[{"value":"h2","label":"H2"},{"value":"h3","label":"H3"}]},
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"Ready when you are"},
+    {"type":"text","id":"heading","label":"Heading","default":"Take the next step with confidence"},
+    {"type":"richtext","id":"body","label":"Supporting copy","default":"<p>Use one clear next action and keep the supporting copy useful, specific and easy to scan.</p>"},
+    {"type":"text","id":"microcopy","label":"Microcopy","info":"Optional short reassurance below the actions."},
+    {"type":"header","content":"Actions"},
+    {"type":"text","id":"primary_label","label":"Primary CTA label","default":"Explore Sabpuja"},
+    {"type":"url","id":"primary_link","label":"Primary CTA link"},
+    {"type":"text","id":"secondary_label","label":"Secondary CTA label"},
+    {"type":"url","id":"secondary_link","label":"Secondary CTA link"},
+    {"type":"header","content":"Product-focused variant"},
+    {"type":"product","id":"product","label":"Product"},
+    {"type":"checkbox","id":"show_price","label":"Show Shopify price","default":true},
+    {"type":"checkbox","id":"show_availability","label":"Show product availability","default":false},
+    {"type":"header","content":"Media"},
+    {"type":"image_picker","id":"image","label":"Image override"},
+    {"type":"image_picker","id":"mobile_image","label":"Mobile image override"},
+    {"type":"text","id":"image_alt","label":"Image alt text"},
+    {"type":"header","content":"Layout"},
+    {"type":"select","id":"alignment","label":"Content alignment","default":"left","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"}]},
+    {"type":"select","id":"background","label":"Section background","default":"white","options":[{"value":"white","label":"White"},{"value":"ivory","label":"Ivory"},{"value":"cream","label":"Cream"},{"value":"sacred-brown","label":"Sacred Brown"}]},
+    {"type":"select","id":"width","label":"Section width","default":"contained","options":[{"value":"contained","label":"Contained"},{"value":"wide","label":"Wide"},{"value":"full","label":"Full width"}]}
+  ],
+  "presets": [{"name":"Sabpuja Final CTA"}]
+}
+{% endschema %}
