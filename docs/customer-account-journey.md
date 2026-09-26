@@ -26,6 +26,13 @@ References:
 - SP-ACC-007 — Empty state
 - SP-ACC-008 — Contextual support
 - SP-ACC-009 — Thank you / order confirmation
+- SP-ACC-010A — Desktop account sidebar
+- SP-ACC-010B — Compact account rail
+- SP-ACC-010C — Mobile account menu
+- SP-ACC-011A — Saved address cards
+- SP-ACC-011B — Add / edit address form
+- SP-ACC-011C — Address remove confirmation
+- SP-ACC-011D — No saved addresses
 
 ## Responsive foundation
 Account UI follows the same Sabpuja fluid-first foundation as storefront components. Typography, spacing, sizing and grids use `clamp()`, intrinsic layout, `auto-fit`, `minmax()` and wrapping. Container queries are reserved for true structural changes such as converting the dashboard sidebar into a horizontal navigation rail.
@@ -43,6 +50,8 @@ Account UI follows the same Sabpuja fluid-first foundation as storefront compone
 10. Social sign-in options are optional variants and should only appear when the corresponding provider is enabled.
 11. Contextual support should use generous spacing and one clearly labeled route per customer need rather than dense utility cards.
 12. Account navigation should keep identity, primary destinations, active state, and sign-out visually distinct; mobile should use an account menu rather than shrinking a desktop sidebar.
+13. Address management must make the default address obvious, keep routine editing separate from destructive actions, and confirm removal before deleting a saved address.
+14. Address forms should group delivery fields logically and collapse to a single-column form on narrow containers.
 
 ## Implementation mapping
 The Component Lab is the visual contract. Theme-rendered surfaces may use storefront blocks where Shopify supports them. Customer-account pages that live on Shopify's account surface should be implemented with the appropriate customer account UI extension or Shopify account customization mechanism. The Thank You and Order Status experience belongs to Shopify checkout/post-purchase surfaces and should use the supported Checkout UI extension targets rather than being recreated as a theme template. Legacy customer Liquid templates should not be treated as the long-term target unless explicitly required for a confirmed legacy-account configuration.

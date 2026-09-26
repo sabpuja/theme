@@ -15,7 +15,7 @@
     <div class="lab-breadcrumb"><a href="/theme/">Home</a> / <a href="/theme/blocks/">Blocks</a> / Account journey</div>
     <p class="lab-eyebrow">SP-ACC · Customer journey system</p>
     <h1>Account Journey Blocks</h1>
-    <p>A fluid-first system for account access, account creation/welcome, dashboard, orders, order details, thank-you/order confirmation, account navigation, profile, empty states and support. These blocks are designed as reusable UI contracts so the same visual language can be mapped to Shopify customer-account surfaces and extensions.</p>
+    <p>A fluid-first system for account access, account creation/welcome, dashboard, orders, order details, address management, thank-you/order confirmation, account navigation, profile, empty states and support. These blocks are designed as reusable UI contracts so the same visual language can be mapped to Shopify customer-account surfaces and extensions.</p>
   </div>
 
   <div class="demo-toolbar" aria-label="Preview viewport controls">
@@ -191,6 +191,58 @@
           <a class="sp-mobile-account-signout" href="#account-contract">Sign out of Sabpuja</a>
         </div>
       </div>
+    </div>
+  </section>
+
+
+  <section class="demo-section">
+    <div class="demo-section__meta"><div><h2>SP-ACC-011A &middot; Saved address cards</h2><p>Scannable saved addresses with a clear default, edit/remove actions and one add-address CTA</p></div><span class="lab-chip">Address overview</span></div>
+    <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop">
+      <div class="sp-address-head"><div><p class="sp-account-eyebrow">Addresses</p><h3 class="sp-account-title">Saved delivery addresses</h3><p class="sp-account-copy">Keep the default obvious and make every address easy to review before editing.</p></div><a class="sp-account-btn" href="#account-contract">Add new address</a></div>
+      <div class="sp-address-grid">
+        <article class="sp-address-card is-default"><div class="sp-address-card__head"><div><span class="sp-address-label">Default address</span><h4>Customer Name</h4></div><span class="sp-address-badge">Default</span></div><address>Demo address line 1<br>Demo locality<br>City, State 000000<br>India</address><p class="sp-address-phone">Phone: +91 XXXX XXX XXX</p><div class="sp-address-actions"><a href="#account-contract">Edit</a><button type="button">Remove</button></div></article>
+        <article class="sp-address-card"><div class="sp-address-card__head"><div><span class="sp-address-label">Saved address</span><h4>Customer Name</h4></div></div><address>Alternate demo address<br>Demo locality<br>City, State 000000<br>India</address><p class="sp-address-phone">Phone: +91 XXXX XXX XXX</p><div class="sp-address-actions"><a href="#account-contract">Edit</a><button type="button">Remove</button><a class="sp-address-secondary" href="#account-contract">Make default</a></div></article>
+      </div>
+      <p class="sp-account-note">Demo address data only. Production values must come from the customer account address data.</p>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <div class="demo-section__meta"><div><h2>SP-ACC-011B &middot; Add / edit address</h2><p>A compact address form with logical field grouping and a clear save/cancel hierarchy</p></div><span class="lab-chip">Address form</span></div>
+    <div class="demo-frame sp-account-screen" data-viewport="desktop">
+      <form class="sp-address-form" action="#account-contract">
+        <div class="sp-address-form__head"><div><p class="sp-account-eyebrow">Delivery address</p><h3 class="sp-account-title">Add a new address</h3><p class="sp-account-copy">Ask only for information required to deliver the order and keep related fields together.</p></div></div>
+        <div class="sp-address-form__grid">
+          <div class="sp-field"><label for="address-first">First name</label><input class="sp-input" id="address-first" type="text" autocomplete="given-name" placeholder="First name"></div>
+          <div class="sp-field"><label for="address-last">Last name</label><input class="sp-input" id="address-last" type="text" autocomplete="family-name" placeholder="Last name"></div>
+          <div class="sp-field sp-address-field--wide"><label for="address-line1">Address</label><input class="sp-input" id="address-line1" type="text" autocomplete="address-line1" placeholder="House / flat / building and street"></div>
+          <div class="sp-field sp-address-field--wide"><label for="address-line2">Apartment, suite, landmark <span>(optional)</span></label><input class="sp-input" id="address-line2" type="text" autocomplete="address-line2" placeholder="Apartment, landmark or additional details"></div>
+          <div class="sp-field"><label for="address-city">City</label><input class="sp-input" id="address-city" type="text" autocomplete="address-level2" placeholder="City"></div>
+          <div class="sp-field"><label for="address-state">State</label><input class="sp-input" id="address-state" type="text" autocomplete="address-level1" placeholder="State"></div>
+          <div class="sp-field"><label for="address-pin">PIN code</label><input class="sp-input" id="address-pin" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="PIN code"></div>
+          <div class="sp-field"><label for="address-phone">Phone</label><input class="sp-input" id="address-phone" type="tel" autocomplete="tel" placeholder="Phone number"></div>
+          <div class="sp-field sp-address-field--wide"><label for="address-country">Country / region</label><select class="sp-input" id="address-country" autocomplete="country-name"><option selected>India</option></select></div>
+        </div>
+        <label class="sp-address-check"><input type="checkbox"> <span>Set as default delivery address</span></label>
+        <div class="sp-address-form__actions"><button class="sp-account-btn" type="button">Save address</button><button class="sp-account-btn sp-account-btn--ghost" type="button">Cancel</button></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <div class="demo-section__meta"><div><h2>SP-ACC-011C &middot; Address actions / remove confirmation</h2><p>Destructive actions stay explicit, reversible where possible and visually separate from routine editing</p></div><span class="lab-chip">Safety state</span></div>
+    <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop">
+      <div class="sp-address-confirm-shell">
+        <article class="sp-address-card sp-address-card--muted"><div class="sp-address-card__head"><div><span class="sp-address-label">Saved address</span><h4>Customer Name</h4></div></div><address>Demo address line<br>City, State 000000<br>India</address></article>
+        <div class="sp-address-confirm" role="dialog" aria-labelledby="remove-address-title"><span class="sp-address-confirm__icon" aria-hidden="true">!</span><p class="sp-account-eyebrow">Remove address</p><h3 id="remove-address-title">Remove this saved address?</h3><p>This removes the address from the account. It does not change delivery details on orders that were already placed.</p><div class="sp-address-confirm__actions"><button class="sp-account-btn sp-account-btn--danger" type="button">Remove address</button><button class="sp-account-btn sp-account-btn--ghost" type="button">Keep address</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <div class="demo-section__meta"><div><h2>SP-ACC-011D &middot; No saved addresses</h2><p>Brand-led empty state that explains the benefit and offers one clear next action</p></div><span class="lab-chip">Empty state</span></div>
+    <div class="demo-frame sp-account-screen" data-viewport="desktop">
+      <div class="sp-address-empty"><img src="/theme/theme-assets/sabpuja-logo-horizontal.svg" alt="Sabpuja"><p class="sp-account-eyebrow">Addresses</p><h3>No saved addresses yet</h3><p>Add a delivery address when you want it available for future account and order flows.</p><a class="sp-account-btn" href="#account-contract">Add an address</a></div>
     </div>
   </section>
 
