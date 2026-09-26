@@ -1,0 +1,122 @@
+{{ 'sabpuja-kit-contents.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign variant = section.settings.variant | default: 'split'
+  assign heading_tag = section.settings.heading_tag | default: 'h2'
+  assign contents_image = section.settings.image
+  assign image_alt = section.settings.image_alt
+  if image_alt == blank and contents_image != blank
+    assign image_alt = contents_image.alt
+  endif
+  if image_alt == blank and section.settings.heading != blank
+    assign image_alt = section.settings.heading
+  endif
+%}
+
+<section{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %} class="sp-kit-contents sp-kit-contents--{{ variant }} sp-kit-contents--{{ section.settings.background }} sp-kit-contents--width-{{ section.settings.width }} sp-kit-contents--align-{{ section.settings.alignment }} sp-kit-contents--media-{{ section.settings.media_position }}">
+  <div class="sp-kit-contents__inner">
+    <header class="sp-kit-contents__head">
+      <div class="sp-kit-contents__head-copy">
+        {% if section.settings.eyebrow != blank %}<p class="sp-kit-contents__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+        {% if section.settings.heading != blank %}<{{ heading_tag }} class="sp-kit-contents__heading">{{ section.settings.heading | escape }}</{{ heading_tag }}>{% endif %}
+        {% if section.settings.body != blank %}<div class="sp-kit-contents__body">{{ section.settings.body }}</div>{% endif %}
+      </div>
+      {% if section.settings.show_item_count and section.blocks.size > 0 %}<span class="sp-kit-contents__count">{{ section.blocks.size }} items shown</span>{% endif %}
+    </header>
+
+    {% if variant == 'split' %}
+      <div class="sp-kit-contents__layout">
+        <div class="sp-kit-contents__media{% if section.settings.media_fit == 'contain' %} sp-kit-contents__media--contain{% endif %}">
+          {% if contents_image != blank %}
+            <picture>
+              {% if section.settings.mobile_image != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.mobile_image | image_url: width: 900 }}">{% endif %}
+              {{ contents_image | image_url: width: 1800 | image_tag: widths: '540,720,960,1200,1500,1800', sizes: '(min-width: 990px) 52vw, 100vw', loading: 'lazy', alt: image_alt }}
+            </picture>
+          {% else %}
+            <div class="sp-kit-contents__placeholder" aria-hidden="true"></div>
+          {% endif %}
+        </div>
+        <div class="sp-kit-contents__content">
+          <ul class="sp-kit-contents__list" role="list">
+            {% for block in section.blocks %}
+              <li class="sp-kit-contents__item" {{ block.shopify_attributes }}><div class="sp-kit-contents__item-card"><span class="sp-kit-contents__icon">{% render 'sabpuja-icon', name: block.settings.icon %}</span><div class="sp-kit-contents__item-copy"><h3 class="sp-kit-contents__item-title">{{ block.settings.title | escape }}</h3>{% if block.settings.note != blank %}<p class="sp-kit-contents__item-note">{{ block.settings.note | escape }}</p>{% endif %}{% if section.settings.show_badges and block.settings.badge != blank %}<span class="sp-kit-contents__badge">{{ block.settings.badge | escape }}</span>{% endif %}</div></div></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+    {% elsif variant == 'image_first' %}
+      <div class="sp-kit-contents__media{% if section.settings.media_fit == 'contain' %} sp-kit-contents__media--contain{% endif %}">
+        {% if contents_image != blank %}
+          <picture>{% if section.settings.mobile_image != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.mobile_image | image_url: width: 900 }}">{% endif %}{{ contents_image | image_url: width: 2000 | image_tag: widths: '540,720,960,1200,1600,2000', sizes: '100vw', loading: 'lazy', alt: image_alt }}</picture>
+        {% else %}<div class="sp-kit-contents__placeholder" aria-hidden="true"></div>{% endif %}
+      </div>
+      <ul class="sp-kit-contents__list" role="list">
+        {% for block in section.blocks %}<li class="sp-kit-contents__item" {{ block.shopify_attributes }}><div class="sp-kit-contents__item-card"><span class="sp-kit-contents__icon">{% render 'sabpuja-icon', name: block.settings.icon %}</span><div class="sp-kit-contents__item-copy"><h3 class="sp-kit-contents__item-title">{{ block.settings.title | escape }}</h3>{% if block.settings.note != blank %}<p class="sp-kit-contents__item-note">{{ block.settings.note | escape }}</p>{% endif %}{% if section.settings.show_badges and block.settings.badge != blank %}<span class="sp-kit-contents__badge">{{ block.settings.badge | escape }}</span>{% endif %}</div></div></li>{% endfor %}
+      </ul>
+
+    {% elsif variant == 'numbered' %}
+      <ol class="sp-kit-contents__numbered">
+        {% for block in section.blocks %}<li class="sp-kit-contents__item" {{ block.shopify_attributes }}><div class="sp-kit-contents__item-copy"><h3 class="sp-kit-contents__item-title">{{ block.settings.title | escape }}</h3>{% if block.settings.note != blank %}<p class="sp-kit-contents__item-note">{{ block.settings.note | escape }}</p>{% endif %}{% if section.settings.show_badges and block.settings.badge != blank %}<span class="sp-kit-contents__badge">{{ block.settings.badge | escape }}</span>{% endif %}</div></li>{% endfor %}
+      </ol>
+
+    {% elsif variant == 'checklist' %}
+      <ul class="sp-kit-contents__checklist" role="list">
+        {% for block in section.blocks %}<li class="sp-kit-contents__check" {{ block.shopify_attributes }}><span class="sp-kit-contents__check-icon">{% render 'sabpuja-icon', name: 'check' %}</span><div><strong>{{ block.settings.title | escape }}</strong>{% if block.settings.note != blank %}<p class="sp-kit-contents__item-note">{{ block.settings.note | escape }}</p>{% endif %}</div></li>{% endfor %}
+      </ul>
+
+    {% elsif variant == 'accordion' %}
+      <div class="sp-kit-contents__accordion">
+        {% for block in section.blocks %}
+          <details class="sp-kit-contents__details"{% if section.settings.open_first and forloop.first %} open{% endif %} {{ block.shopify_attributes }}>
+            <summary><span class="sp-kit-contents__icon">{% render 'sabpuja-icon', name: block.settings.icon %}</span><span>{{ block.settings.title | escape }}</span><span class="sp-kit-contents__chevron">{% render 'sabpuja-icon', name: 'chevron-down' %}</span></summary>
+            {% if block.settings.note != blank or block.settings.badge != blank %}<div class="sp-kit-contents__details-body">{% if block.settings.note != blank %}{{ block.settings.note | escape }}{% endif %}{% if section.settings.show_badges and block.settings.badge != blank %}<div><span class="sp-kit-contents__badge">{{ block.settings.badge | escape }}</span></div>{% endif %}</div>{% endif %}
+          </details>
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <ul class="sp-kit-contents__list" role="list">
+        {% for block in section.blocks %}<li class="sp-kit-contents__item" {{ block.shopify_attributes }}><div class="sp-kit-contents__item-card"><span class="sp-kit-contents__icon">{% render 'sabpuja-icon', name: block.settings.icon %}</span><div class="sp-kit-contents__item-copy"><h3 class="sp-kit-contents__item-title">{{ block.settings.title | escape }}</h3>{% if block.settings.note != blank %}<p class="sp-kit-contents__item-note">{{ block.settings.note | escape }}</p>{% endif %}{% if section.settings.show_badges and block.settings.badge != blank %}<span class="sp-kit-contents__badge">{{ block.settings.badge | escape }}</span>{% endif %}</div></div></li>{% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if section.settings.footer_note != blank %}<div class="sp-kit-contents__note">{{ section.settings.footer_note }}</div>{% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja Kit Contents",
+  "settings": [
+    {"type":"text","id":"anchor_id","label":"Anchor ID"},
+    {"type":"select","id":"variant","label":"Layout variant","default":"split","options":[{"value":"split","label":"50 / 50 split"},{"value":"image_first","label":"Image first"},{"value":"grid","label":"Fluid item grid"},{"value":"numbered","label":"Numbered contents"},{"value":"checklist","label":"Compact checklist"},{"value":"accordion","label":"Disclosure accordion"}]},
+    {"type":"select","id":"heading_tag","label":"Heading level","default":"h2","options":[{"value":"h2","label":"H2"},{"value":"h3","label":"H3"}]},
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"Inside the kit"},
+    {"type":"text","id":"heading","label":"Heading","default":"What’s included"},
+    {"type":"richtext","id":"body","label":"Supporting copy","default":"<p>Use this section to show exactly what the customer receives.</p>"},
+    {"type":"checkbox","id":"show_item_count","label":"Show item count","default":true},
+    {"type":"checkbox","id":"show_badges","label":"Show item badges","default":true},
+    {"type":"image_picker","id":"image","label":"Contents image"},
+    {"type":"image_picker","id":"mobile_image","label":"Mobile contents image override"},
+    {"type":"text","id":"image_alt","label":"Image alt text"},
+    {"type":"select","id":"media_fit","label":"Image fit","default":"contain","options":[{"value":"contain","label":"Contain"},{"value":"cover","label":"Cover"}]},
+    {"type":"select","id":"media_position","label":"Split image position","default":"left","options":[{"value":"left","label":"Left"},{"value":"right","label":"Right"}]},
+    {"type":"checkbox","id":"open_first","label":"Open first accordion item","default":true},
+    {"type":"richtext","id":"footer_note","label":"Supporting note"},
+    {"type":"select","id":"alignment","label":"Heading alignment","default":"left","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"}]},
+    {"type":"select","id":"background","label":"Section background","default":"white","options":[{"value":"white","label":"White"},{"value":"ivory","label":"Ivory"},{"value":"cream","label":"Cream"},{"value":"sacred-brown","label":"Sacred Brown"}]},
+    {"type":"select","id":"width","label":"Section width","default":"contained","options":[{"value":"contained","label":"Contained"},{"value":"wide","label":"Wide"},{"value":"full","label":"Full width"}]}
+  ],
+  "blocks": [
+    {"type":"item","name":"Kit item","settings":[
+      {"type":"text","id":"title","label":"Item name","default":"Item name"},
+      {"type":"textarea","id":"note","label":"Item note"},
+      {"type":"text","id":"badge","label":"Badge / group"},
+      {"type":"select","id":"icon","label":"Icon","default":"package","options":[{"value":"package","label":"Package"},{"value":"check","label":"Check"},{"value":"sparkles","label":"Sparkles"},{"value":"book","label":"Book"},{"value":"heart","label":"Heart"},{"value":"info","label":"Info"}]}
+    ]}
+  ],
+  "max_blocks": 30,
+  "presets": [{"name":"Sabpuja Kit Contents"}]
+}
+{% endschema %}
