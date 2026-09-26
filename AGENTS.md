@@ -18,6 +18,20 @@ These rules apply to all automated and human-assisted work in `sabpuja/theme`.
 - Use Lucide for functional UI icons.
 - Do not invent prices, discounts, scarcity, ratings, customer counts, product contents, or outcome claims.
 
+## Responsive architecture — FLUID FIRST
+
+Sabpuja uses a **fluid-first, breakpoint-light** responsive system.
+
+- Treat screen size as a continuum, not desktop/tablet/mobile buckets.
+- Use `clamp()`, `min()`, `max()`, intrinsic Grid/Flex, `auto-fit`, `minmax()`, percentages, `fr`, `aspect-ratio`, and logical properties before viewport media queries.
+- Use bounded fluid values for typography, section spacing, gutters, gaps, ordinary component dimensions, and media sizing.
+- Reusable components should respond to the space their own container receives. Prefer container queries over viewport media queries when a structural switch depends on component width.
+- Do not create arbitrary breakpoint ladders such as 1440 / 1200 / 990 / 768 / 640 / 480 simply to change font sizes, padding, gaps, radii, or ordinary sizing.
+- A media/container query is allowed only for a genuine structural, interaction, art-direction, or accessibility change.
+- Existing QA viewport sizes are regression sampling points only; they are not CSS breakpoint requirements.
+
+Canonical guidance lives in `docs/fluid-responsive-foundation.md` and the Component Lab Foundations page.
+
 ## Storefront density — LOCKED
 
 The compact Sabpuja storefront density is a cross-theme invariant. Do not independently enlarge a section.
@@ -68,6 +82,8 @@ Any change affecting header, hero, typography, container width, cards, media asp
 - **1280×720 desktop**
 - approximately **768×1024 tablet**
 - approximately **390×844 mobile**
+
+These are representative QA sampling sizes, not required implementation breakpoints.
 
 A change fails if it fixes one section but makes an adjacent section noticeably larger, less browsable, less readable, or visually inconsistent.
 
