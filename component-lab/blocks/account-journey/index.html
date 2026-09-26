@@ -15,7 +15,7 @@
     <div class="lab-breadcrumb"><a href="/theme/">Home</a> / <a href="/theme/blocks/">Blocks</a> / Account journey</div>
     <p class="lab-eyebrow">SP-ACC · Customer journey system</p>
     <h1>Account Journey Blocks</h1>
-    <p>A fluid-first system for account access, account creation/welcome, dashboard, orders, order details, thank-you/order confirmation, profile, empty states and support. These blocks are designed as reusable UI contracts so the same visual language can be mapped to Shopify customer-account surfaces and extensions.</p>
+    <p>A fluid-first system for account access, account creation/welcome, dashboard, orders, order details, thank-you/order confirmation, account navigation, profile, empty states and support. These blocks are designed as reusable UI contracts so the same visual language can be mapped to Shopify customer-account surfaces and extensions.</p>
   </div>
 
   <div class="demo-toolbar" aria-label="Preview viewport controls">
@@ -153,6 +153,47 @@
       </div>
     </div>
   </section>
+  <section class="demo-section">
+    <div class="demo-section__meta"><div><h2>SP-ACC-010A ? Desktop account sidebar</h2><p>Persistent account navigation with identity, active state and a separated sign-out action</p></div><span class="lab-chip">Desktop navigation</span></div>
+    <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop">
+      <div class="sp-account-menu-shell">
+        <aside class="sp-account-menu-card" aria-label="Account navigation preview">
+          <div class="sp-account-menu-brand"><img src="/theme/theme-assets/sabpuja-logo-horizontal.svg" alt="Sabpuja"><span>Your account</span></div>
+          <div class="sp-account-menu-person"><span class="sp-account-avatar">C</span><div><strong>Customer</strong><span>customer@example.com</span></div></div>
+          <nav class="sp-account-menu-list" aria-label="Account sections"><a href="#account-contract"><span>Overview</span><span>?</span></a><a aria-current="page" href="#account-contract"><span>Orders</span><span>?</span></a><a href="#account-contract"><span>Addresses</span><span>?</span></a><a href="#account-contract"><span>Profile</span><span>?</span></a><a href="#account-contract"><span>Support</span><span>?</span></a></nav>
+          <a class="sp-account-menu-signout" href="#account-contract">Sign out</a>
+        </aside>
+        <div class="sp-account-menu-content"><p class="sp-account-eyebrow">Orders</p><h3 class="sp-account-title">Account navigation should stay calm and predictable.</h3><p class="sp-account-copy">The persistent sidebar keeps the active destination obvious while account identity and sign-out remain visually separate from the main navigation.</p><div class="sp-menu-placeholder-grid"><span></span><span></span><span></span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <div class="demo-section__meta"><div><h2>SP-ACC-010B ? Compact account rail</h2><p>Horizontal account navigation for medium-width surfaces without introducing a second sidebar</p></div><span class="lab-chip">Tablet / compact</span></div>
+    <div class="demo-frame sp-account-screen" data-viewport="desktop">
+      <div class="sp-account-rail">
+        <div class="sp-account-rail__identity"><span class="sp-account-avatar">C</span><div><strong>Customer</strong><span>Your account</span></div></div>
+        <nav class="sp-account-rail__nav" aria-label="Compact account navigation"><a aria-current="page" href="#account-contract">Overview</a><a href="#account-contract">Orders</a><a href="#account-contract">Addresses</a><a href="#account-contract">Profile</a><a href="#account-contract">Support</a></nav>
+        <a class="sp-account-rail__signout" href="#account-contract">Sign out</a>
+      </div>
+      <div class="sp-account-rail-demo"><p class="sp-account-eyebrow">Account overview</p><h3>Keep navigation visible without dominating the page.</h3><p>On narrower account surfaces, the rail can scroll horizontally while preserving touch targets and the active state.</p></div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <div class="demo-section__meta"><div><h2>SP-ACC-010C ? Mobile account menu</h2><p>Open-state mobile menu with account identity, primary destinations, support and sign out</p></div><span class="lab-chip">Mobile menu</span></div>
+    <div class="demo-frame sp-account-screen sp-account-screen--soft" data-viewport="desktop">
+      <div class="sp-mobile-account-demo">
+        <div class="sp-mobile-account-bar"><div><p class="sp-account-eyebrow">Your account</p><strong>Overview</strong></div><button type="button" aria-expanded="true">Menu <span aria-hidden="true">?</span></button></div>
+        <div class="sp-mobile-account-sheet">
+          <div class="sp-mobile-account-sheet__head"><div class="sp-account-menu-person"><span class="sp-account-avatar">C</span><div><strong>Customer</strong><span>customer@example.com</span></div></div><span class="sp-mobile-account-sheet__label">Account menu</span></div>
+          <nav class="sp-mobile-account-links" aria-label="Mobile account navigation"><a aria-current="page" href="#account-contract"><span><small>01</small>Overview</span><span>?</span></a><a href="#account-contract"><span><small>02</small>Orders</span><span>?</span></a><a href="#account-contract"><span><small>03</small>Addresses</span><span>?</span></a><a href="#account-contract"><span><small>04</small>Profile</span><span>?</span></a><a href="#account-contract"><span><small>05</small>Support</span><span>?</span></a></nav>
+          <a class="sp-mobile-account-signout" href="#account-contract">Sign out of Sabpuja</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="lab-section" id="account-contract"><div class="lab-note"><strong>Implementation contract:</strong> account blocks are visual and interaction contracts, not a promise that every screen is rendered by the Shopify theme. Current Shopify customer accounts use platform account surfaces and can be extended with customer account UI extensions. The Thank You / Order Status step belongs to Shopify checkout post-purchase surfaces and maps to supported Checkout UI extension targets. We will map each approved block to the correct Shopify surface rather than forcing legacy theme templates where they do not belong.</div></section>
 </main>
 <footer class="lab-footer">SP-ACC · Account Journey Blocks · Sabpuja Component Lab</footer>

@@ -1,7 +1,7 @@
 # Sabpuja Customer Account Journey
 
 ## Purpose
-This document defines the reusable customer-account journey that complements the storefront component system. It covers account access, new-customer welcome/account creation, dashboard, orders, order details, the Thank You / order-confirmation step, profile, empty states and contextual support.
+This document defines the reusable customer-account journey that complements the storefront component system. It covers account access, new-customer welcome/account creation, dashboard, orders, order details, the Thank You / order-confirmation step, account navigation, profile, empty states and contextual support.
 
 ## Current Shopify architecture
 Sabpuja should design for Shopify's current customer-account model rather than build a new password system in the theme. Shopify documents customer accounts as supporting passwordless sign-in, and customer-account pages can be extended with customer account UI extensions.
@@ -42,6 +42,7 @@ Account UI follows the same Sabpuja fluid-first foundation as storefront compone
 9. The Thank You page should confirm the purchase, set expectations, expose order-status access, and avoid distracting the customer with unrelated actions.
 10. Social sign-in options are optional variants and should only appear when the corresponding provider is enabled.
 11. Contextual support should use generous spacing and one clearly labeled route per customer need rather than dense utility cards.
+12. Account navigation should keep identity, primary destinations, active state, and sign-out visually distinct; mobile should use an account menu rather than shrinking a desktop sidebar.
 
 ## Implementation mapping
 The Component Lab is the visual contract. Theme-rendered surfaces may use storefront blocks where Shopify supports them. Customer-account pages that live on Shopify's account surface should be implemented with the appropriate customer account UI extension or Shopify account customization mechanism. The Thank You and Order Status experience belongs to Shopify checkout/post-purchase surfaces and should use the supported Checkout UI extension targets rather than being recreated as a theme template. Legacy customer Liquid templates should not be treated as the long-term target unless explicitly required for a confirmed legacy-account configuration.
