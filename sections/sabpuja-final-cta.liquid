@@ -53,22 +53,32 @@
         {% if heading_text != blank %}<{{ heading_tag }} class="sp-final-cta__heading">{{ heading_text | escape }}</{{ heading_tag }}>{% endif %}
         {% if section.settings.body != blank %}<div class="sp-final-cta__body">{{ section.settings.body }}</div>{% endif %}
 
-        {% if variant == 'product_focus' and selected_product != blank and section.settings.show_price %}
-          <div class="sp-final-cta__product-meta">
-            <span class="sp-final-cta__price">{{ selected_product.price | money }}</span>
-            {% if selected_product.compare_at_price != blank and selected_product.compare_at_price > selected_product.price %}<span class="sp-final-cta__compare">{{ selected_product.compare_at_price | money }}</span>{% endif %}
-            {% if section.settings.show_availability %}<span class="sp-final-cta__pill">{% if selected_product.available %}Available{% else %}Unavailable{% endif %}</span>{% endif %}
+        {% if variant == 'product_focus' %}
+          <div class="sp-final-cta__purchase-row">
+            {% if selected_product != blank and section.settings.show_price %}
+              <div class="sp-final-cta__product-meta">
+                <span class="sp-final-cta__price">{{ selected_product.price | money }}</span>
+                {% if selected_product.compare_at_price != blank and selected_product.compare_at_price > selected_product.price %}<span class="sp-final-cta__compare">{{ selected_product.compare_at_price | money }}</span>{% endif %}
+              </div>
+            {% endif %}
+            {% if section.settings.primary_label != blank and primary_url != blank %}
+              <div class="sp-final-cta__actions sp-final-cta__actions--purchase">
+                <a class="sp-final-cta__button" href="{{ primary_url }}">{{ section.settings.primary_label | escape }}</a>
+              </div>
+            {% endif %}
+            {% if selected_product != blank and section.settings.show_availability %}<span class="sp-final-cta__pill">{% if selected_product.available %}Available{% else %}Unavailable{% endif %}</span>{% endif %}
           </div>
-        {% endif %}
-
-        {% unless variant == 'split' %}
+          {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}
+            <div class="sp-final-cta__actions sp-final-cta__actions--secondary"><a class="sp-final-cta__button sp-final-cta__button--ghost" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label | escape }}</a></div>
+          {% endif %}
+        {% elsif variant != 'split' %}
           {% if section.settings.primary_label != blank or section.settings.secondary_label != blank %}
             <div class="sp-final-cta__actions">
               {% if section.settings.primary_label != blank and primary_url != blank %}<a class="sp-final-cta__button" href="{{ primary_url }}">{{ section.settings.primary_label | escape }}</a>{% endif %}
               {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}<a class="sp-final-cta__button sp-final-cta__button--ghost" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label | escape }}</a>{% endif %}
             </div>
           {% endif %}
-        {% endunless %}
+        {% endif %}
 
         {% if section.settings.microcopy != blank %}<p class="sp-final-cta__microcopy">{{ section.settings.microcopy | escape }}</p>{% endif %}
       </div>
