@@ -15,7 +15,7 @@
     <div class="lab-breadcrumb"><a href="/theme/">Home</a> / <a href="/theme/blocks/">Blocks</a> / Account journey</div>
     <p class="lab-eyebrow">SP-ACC · Customer journey system</p>
     <h1>Account Journey Blocks</h1>
-    <p>A fluid-first system for account access, account creation/welcome, dashboard, orders, order details, profile, empty states and support. These blocks are designed as reusable UI contracts so the same visual language can be mapped to Shopify customer-account surfaces and extensions.</p>
+    <p>A fluid-first system for account access, account creation/welcome, dashboard, orders, order details, thank-you/order confirmation, profile, empty states and support. These blocks are designed as reusable UI contracts so the same visual language can be mapped to Shopify customer-account surfaces and extensions.</p>
   </div>
 
   <section class="demo-section">
@@ -80,6 +80,20 @@
     <div class="sp-account-screen sp-account-screen--dark"><p class="sp-account-eyebrow">Need help?</p><h3 class="sp-account-title">Support should know where the customer came from.</h3><p class="sp-account-copy">Order-specific help, general account help and shopping guidance should remain distinct.</p><div class="sp-support-row"><article class="sp-support-card"><h4>Order help</h4><p>Questions about an existing order, delivery or item.</p><a href="#account-contract">Get order support →</a></article><article class="sp-support-card"><h4>Account help</h4><p>Questions about sign-in or account information.</p><a href="#account-contract">Account support →</a></article><article class="sp-support-card"><h4>Shopping help</h4><p>Need help choosing before placing another order.</p><a href="#account-contract">Browse guidance →</a></article></div></div>
   </section>
 
+  <section class="demo-section">
+    <div class="demo-section__meta"><div><h2>SP-ACC-009 · Thank you / order confirmation</h2><p>Post-purchase confirmation, next steps and the bridge into ongoing order tracking</p></div><span class="lab-chip">Checkout completion</span></div>
+    <div class="sp-account-screen sp-account-screen--soft">
+      <div class="sp-thankyou-grid">
+        <div class="sp-thankyou-main">
+          <div class="sp-thankyou-status"><span class="sp-thankyou-check">✓</span><div><p class="sp-account-eyebrow">Order confirmed</p><h3 class="sp-account-title">Thank you. Your order has been received.</h3><p class="sp-account-copy">A confirmation has been sent to customer@example.com. Keep this page focused on reassurance, what happens next, and where to check the order later.</p></div></div>
+          <div class="sp-thankyou-steps"><article><span>01</span><div><strong>Order received</strong><p>Your order is confirmed.</p></div></article><article><span>02</span><div><strong>Preparation</strong><p>We prepare and pack the order with care.</p></div></article><article><span>03</span><div><strong>Tracking</strong><p>Delivery updates appear when available.</p></div></article></div>
+          <div class="sp-account-actions"><a class="sp-account-btn" href="#account-contract">View order status</a><a class="sp-account-btn sp-account-btn--ghost" href="#account-contract">Continue shopping</a></div>
+          <p class="sp-account-note">Demo only. Production data comes from Shopify's Thank You / Order Status checkout surface.</p>
+        </div>
+        <aside class="sp-thankyou-summary"><p class="sp-account-eyebrow">Order summary</p><h4>Order #SP-1042</h4><div class="sp-detail-list"><div class="sp-detail-row"><span>Items</span><strong>1</strong></div><div class="sp-detail-row"><span>Total</span><strong>₹2,499</strong></div><div class="sp-detail-row"><span>Payment</span><strong>Paid</strong></div></div><a class="sp-inline-action" href="#account-contract">Get help with this order →</a></aside>
+      </div>
+    </div>
+  </section>
   <section class="lab-section" id="account-contract"><div class="lab-note"><strong>Implementation contract:</strong> account blocks are visual and interaction contracts, not a promise that every screen is rendered by the Shopify theme. Current Shopify customer accounts use platform account surfaces and can be extended with customer account UI extensions. We will map each approved block to the correct Shopify surface rather than forcing legacy theme templates where they do not belong.</div></section>
 </main>
 <footer class="lab-footer">SP-ACC · Account Journey Blocks · Sabpuja Component Lab</footer>
