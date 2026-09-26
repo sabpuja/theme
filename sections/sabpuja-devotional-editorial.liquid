@@ -1,0 +1,111 @@
+{{ 'sabpuja-devotional-editorial.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign variant = section.settings.variant | default: 'image_left'
+  assign heading_tag = section.settings.heading_tag | default: 'h2'
+  assign editorial_image = section.settings.image
+  assign image_alt = section.settings.image_alt
+  if image_alt == blank and editorial_image != blank
+    assign image_alt = editorial_image.alt
+  endif
+  if image_alt == blank and section.settings.heading != blank
+    assign image_alt = section.settings.heading
+  endif
+%}
+
+{% capture media_markup %}
+  <div class="sp-devotional-editorial__media">
+    {% if editorial_image != blank %}
+      <picture>
+        {% if section.settings.mobile_image != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.mobile_image | image_url: width: 900 }}">{% endif %}
+        {{ editorial_image | image_url: width: 2000 | image_tag: widths: '540,720,960,1200,1600,2000', sizes: '(min-width: 990px) 52vw, 100vw', loading: 'lazy', alt: image_alt }}
+      </picture>
+    {% else %}
+      <div class="sp-devotional-editorial__placeholder" aria-hidden="true"></div>
+    {% endif %}
+  </div>
+{% endcapture %}
+
+{% capture notes_markup %}
+  {% if section.blocks.size > 0 %}
+    <div class="sp-devotional-editorial__notes">
+      {% for block in section.blocks %}
+        <article class="sp-devotional-editorial__note" {{ block.shopify_attributes }}>
+          {% if block.settings.title != blank %}<h3 class="sp-devotional-editorial__note-title">{{ block.settings.title | escape }}</h3>{% endif %}
+          {% if block.settings.text != blank %}<p class="sp-devotional-editorial__note-text">{{ block.settings.text | escape }}</p>{% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endcapture %}
+
+{% capture content_markup %}
+  <div class="sp-devotional-editorial__content">
+    {% if section.settings.eyebrow != blank %}<p class="sp-devotional-editorial__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    {% if section.settings.heading != blank %}<{{ heading_tag }} class="sp-devotional-editorial__heading">{{ section.settings.heading | escape }}</{{ heading_tag }}>{% endif %}
+    {% if section.settings.body != blank %}<div class="sp-devotional-editorial__body">{{ section.settings.body }}</div>{% endif %}
+    {{ notes_markup }}
+    {% if section.settings.primary_label != blank or section.settings.secondary_label != blank %}
+      <div class="sp-devotional-editorial__actions">
+        {% if section.settings.primary_label != blank and section.settings.primary_link != blank %}<a class="sp-devotional-editorial__button" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label | escape }}</a>{% endif %}
+        {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}<a class="sp-devotional-editorial__button sp-devotional-editorial__button--ghost" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label | escape }}</a>{% endif %}
+      </div>
+    {% endif %}
+  </div>
+{% endcapture %}
+
+<section{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | escape }}"{% endif %} class="sp-devotional-editorial sp-devotional-editorial--{{ variant }} sp-devotional-editorial--{{ section.settings.background }} sp-devotional-editorial--width-{{ section.settings.width }} sp-devotional-editorial--align-{{ section.settings.alignment }}">
+  <div class="sp-devotional-editorial__inner">
+    {% case variant %}
+      {% when 'full_width_story' %}
+        {{ media_markup }}
+        {{ content_markup }}
+      {% when 'quote_led' %}
+        <div class="sp-devotional-editorial__layout">
+          <div class="sp-devotional-editorial__quote">
+            <span class="sp-devotional-editorial__quote-mark" aria-hidden="true">“</span>
+            {% if section.settings.quote != blank %}<blockquote>{{ section.settings.quote | escape }}</blockquote>{% endif %}
+            {% if section.settings.quote_attribution != blank %}<cite>{{ section.settings.quote_attribution | escape }}</cite>{% endif %}
+          </div>
+          {{ content_markup }}
+        </div>
+      {% when 'minimal_story' %}
+        {{ content_markup }}
+      {% when 'image_right' %}
+        <div class="sp-devotional-editorial__layout">{{ content_markup }}{{ media_markup }}</div>
+      {% else %}
+        <div class="sp-devotional-editorial__layout">{{ media_markup }}{{ content_markup }}</div>
+    {% endcase %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja Devotional Story",
+  "settings": [
+    {"type":"text","id":"anchor_id","label":"Anchor ID"},
+    {"type":"select","id":"variant","label":"Layout variant","default":"image_left","options":[{"value":"image_left","label":"Image left"},{"value":"image_right","label":"Image right"},{"value":"dark_chapter","label":"Dark chapter"},{"value":"quote_led","label":"Quote led"},{"value":"full_width_story","label":"Full-width story"},{"value":"minimal_story","label":"Minimal story"}]},
+    {"type":"select","id":"heading_tag","label":"Heading level","default":"h2","options":[{"value":"h2","label":"H2"},{"value":"h3","label":"H3"}]},
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"The story behind the preparation"},
+    {"type":"text","id":"heading","label":"Heading","default":"Tradition, explained with calm and clarity"},
+    {"type":"richtext","id":"body","label":"Editorial copy","default":"<p>Use this section for context, preparation guidance and the story behind a collection without turning every paragraph into a sales message.</p>"},
+    {"type":"image_picker","id":"image","label":"Editorial image"},
+    {"type":"image_picker","id":"mobile_image","label":"Mobile image override"},
+    {"type":"text","id":"image_alt","label":"Image alt text"},
+    {"type":"textarea","id":"quote","label":"Quote / editorial principle","default":"Preparation should support the ritual, not compete with it."},
+    {"type":"text","id":"quote_attribution","label":"Quote attribution","default":"Sabpuja editorial principle"},
+    {"type":"text","id":"primary_label","label":"Primary CTA label"},
+    {"type":"url","id":"primary_link","label":"Primary CTA link"},
+    {"type":"text","id":"secondary_label","label":"Secondary CTA label"},
+    {"type":"url","id":"secondary_link","label":"Secondary CTA link"},
+    {"type":"select","id":"alignment","label":"Text alignment","default":"left","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"}]},
+    {"type":"select","id":"background","label":"Section background","default":"ivory","options":[{"value":"white","label":"White"},{"value":"ivory","label":"Ivory"},{"value":"cream","label":"Cream"},{"value":"sacred-brown","label":"Sacred Brown"}]},
+    {"type":"select","id":"width","label":"Section width","default":"contained","options":[{"value":"contained","label":"Contained"},{"value":"wide","label":"Wide"},{"value":"full","label":"Full width"}]}
+  ],
+  "blocks": [
+    {"type":"note","name":"Supporting note","settings":[{"type":"text","id":"title","label":"Title"},{"type":"textarea","id":"text","label":"Text"}]}
+  ],
+  "max_blocks": 4,
+  "presets": [{"name":"Sabpuja Devotional Story","blocks":[{"type":"note"},{"type":"note"}]}]
+}
+{% endschema %}
