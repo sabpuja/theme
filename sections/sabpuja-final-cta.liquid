@@ -56,7 +56,7 @@
         {% if variant == 'product_focus' and selected_product != blank and section.settings.show_price %}
           <div class="sp-final-cta__product-meta">
             <span class="sp-final-cta__price">{{ selected_product.price | money }}</span>
-            {% if selected_product.compare_at_price > selected_product.price %}<span class="sp-final-cta__compare">{{ selected_product.compare_at_price | money }}</span>{% endif %}
+            {% if selected_product.compare_at_price != blank and selected_product.compare_at_price > selected_product.price %}<span class="sp-final-cta__compare">{{ selected_product.compare_at_price | money }}</span>{% endif %}
             {% if section.settings.show_availability %}<span class="sp-final-cta__pill">{% if selected_product.available %}Available{% else %}Unavailable{% endif %}</span>{% endif %}
           </div>
         {% endif %}
