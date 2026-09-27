@@ -1,7 +1,7 @@
 # Sabpuja Customer Account Journey
 
 ## Purpose
-This document defines the reusable customer-account journey that complements the storefront component system. It covers account access, new-customer welcome/account creation, dashboard, orders, order details, the Thank You / order-confirmation step, account navigation, profile, empty states and contextual support.
+This document defines the reusable customer-account journey that complements the storefront component system. It covers account access, new-customer welcome/account creation, dashboard, orders, order details, reorder/buy-again, the Thank You / order-confirmation step, account navigation, profile, empty states and contextual support.
 
 ## Current Shopify architecture
 Sabpuja should design for Shopify's current customer-account model rather than build a new password system in the theme. Shopify documents customer accounts as supporting passwordless sign-in, and customer-account pages can be extended with customer account UI extensions.
@@ -38,6 +38,11 @@ References:
 - SP-ACC-012C — Cancellation request status
 - SP-ACC-012D — Refund status
 - SP-ACC-012E — Action unavailable / support fallback
+- SP-ACC-013A — Buy again from a past order
+- SP-ACC-013B — Select items to reorder
+- SP-ACC-013C — Availability changed / partial reorder
+- SP-ACC-013D — Reorder review
+- SP-ACC-013E — Nothing available to reorder
 
 ## Responsive foundation
 Account UI follows the same Sabpuja fluid-first foundation as storefront components. Typography, spacing, sizing and grids use `clamp()`, intrinsic layout, `auto-fit`, `minmax()` and wrapping. Container queries are reserved for true structural changes such as converting the dashboard sidebar into a horizontal navigation rail.
@@ -60,6 +65,9 @@ Account UI follows the same Sabpuja fluid-first foundation as storefront compone
 15. Return and cancellation interfaces must show the order system's actual eligibility/state rather than imply approval before it is confirmed.
 16. Refund status must distinguish approved, processing and completed states, and must not invent refund timing or payment-method details.
 17. When self-serve actions are unavailable, explain the state neutrally and provide order review or contextual support instead of guessing the reason.
+18. Reorder flows must re-resolve current product, variant, price and availability instead of copying historical order values into the cart.
+19. Never silently substitute an unavailable item or variant; partial reorders require clear customer confirmation.
+20. Buy-again UI should allow item-level selection and quantity review before adding current merchandise to cart.
 
 ## Implementation mapping
 The Component Lab is the visual contract. Theme-rendered surfaces may use storefront blocks where Shopify supports them. Customer-account pages that live on Shopify's account surface should be implemented with the appropriate customer account UI extension or Shopify account customization mechanism. The Thank You and Order Status experience belongs to Shopify checkout/post-purchase surfaces and should use the supported Checkout UI extension targets rather than being recreated as a theme template. Legacy customer Liquid templates should not be treated as the long-term target unless explicitly required for a confirmed legacy-account configuration.
