@@ -33,6 +33,11 @@ References:
 - SP-ACC-011B — Add / edit address form
 - SP-ACC-011C — Address remove confirmation
 - SP-ACC-011D — No saved addresses
+- SP-ACC-012A — Return eligibility / start
+- SP-ACC-012B — Return request
+- SP-ACC-012C — Cancellation request status
+- SP-ACC-012D — Refund status
+- SP-ACC-012E — Action unavailable / support fallback
 
 ## Responsive foundation
 Account UI follows the same Sabpuja fluid-first foundation as storefront components. Typography, spacing, sizing and grids use `clamp()`, intrinsic layout, `auto-fit`, `minmax()` and wrapping. Container queries are reserved for true structural changes such as converting the dashboard sidebar into a horizontal navigation rail.
@@ -52,6 +57,9 @@ Account UI follows the same Sabpuja fluid-first foundation as storefront compone
 12. Account navigation should keep identity, primary destinations, active state, and sign-out visually distinct; mobile should use an account menu rather than shrinking a desktop sidebar.
 13. Address management must make the default address obvious, keep routine editing separate from destructive actions, and confirm removal before deleting a saved address.
 14. Address forms should group delivery fields logically and collapse to a single-column form on narrow containers.
+15. Return and cancellation interfaces must show the order system's actual eligibility/state rather than imply approval before it is confirmed.
+16. Refund status must distinguish approved, processing and completed states, and must not invent refund timing or payment-method details.
+17. When self-serve actions are unavailable, explain the state neutrally and provide order review or contextual support instead of guessing the reason.
 
 ## Implementation mapping
 The Component Lab is the visual contract. Theme-rendered surfaces may use storefront blocks where Shopify supports them. Customer-account pages that live on Shopify's account surface should be implemented with the appropriate customer account UI extension or Shopify account customization mechanism. The Thank You and Order Status experience belongs to Shopify checkout/post-purchase surfaces and should use the supported Checkout UI extension targets rather than being recreated as a theme template. Legacy customer Liquid templates should not be treated as the long-term target unless explicitly required for a confirmed legacy-account configuration.
