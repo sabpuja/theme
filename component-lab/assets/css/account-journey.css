@@ -105,3 +105,15 @@
 .sp-system-card__icon--session{background:#FFF1D6;color:#7A4D00;font-size:1rem}.sp-system-logo--compact{width:min(100%,7.5rem);margin-bottom:.75rem}
 .sp-address-actions button{border-color:#E7C5A5;background:#FFF8F6;color:#A63D2F}.sp-address-check{min-height:2.5rem;align-items:center;padding:.25rem 0}.sp-address-check input{width:1rem;height:1rem;margin-top:0}
 @container (max-width:30rem){.sp-account-nav a:last-child{grid-column:1/-1}.sp-account-rail__nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem;margin:.7rem 0 0;padding:.7rem 0 0;border-top:1px solid #EFE4DA;overflow:visible}.sp-account-rail__nav a{width:100%;min-height:2.65rem;padding:.55rem .5rem;white-space:normal;text-align:center}.sp-account-rail__nav a:last-child{grid-column:1/-1}.sp-account-rail__signout{display:flex;align-items:center;justify-content:center;width:100%;min-height:2.55rem;margin-top:.75rem;border:1px solid var(--sp-border);border-radius:.75rem}}
+
+/* Mobile QA polish pass 2 - touch, rhythm and support hierarchy */
+@container (max-width:30rem){
+  .sp-account-nav a,.sp-order-link,.sp-address-actions a,.sp-address-actions button,.sp-account-rail__nav a,.sp-account-rail__signout{min-height:2.75rem}
+  .sp-profile-card .sp-inline-action{min-height:2.75rem;align-items:center}
+  .sp-support-reassurance{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:flex-start}
+  .sp-support-reassurance span{flex:0 1 auto;min-height:2rem;padding:.35rem .7rem}
+  .sp-support-shell .sp-support-card a{min-height:2.75rem}
+  .sp-thankyou-help{display:flex;min-height:2.75rem;align-items:center;justify-content:center}
+  .sp-resolution-actions .sp-inline-action{min-height:2.75rem;align-items:center;padding:.65rem .8rem;border:1px solid var(--sp-border);border-radius:.8rem;background:var(--sp-ivory);text-decoration:none}
+  .sp-resolution-summary .sp-account-btn{justify-self:stretch}
+}

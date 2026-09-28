@@ -74,6 +74,7 @@ Account UI follows the same Sabpuja fluid-first foundation as storefront compone
 24. System states must distinguish signed-out, expired-session, loading, valid-empty, recoverable-error, and connection-retry conditions rather than collapsing them into one generic error.
 25. Loading states must remain screen-reader legible, avoid flashing empty content, and respect reduced-motion preferences.
 26. Recovery UI must preserve orientation and never imply that an account or order change succeeded unless the platform confirms it.
+27. Narrow account layouts must keep all interactive controls comfortably touchable, avoid clipped navigation, and preserve visual hierarchy rather than shrinking desktop controls.
 
 ## Implementation mapping
 The Component Lab is the visual contract. Theme-rendered surfaces may use storefront blocks where Shopify supports them. Customer-account pages that live on Shopify's account surface should be implemented with the appropriate customer account UI extension or Shopify account customization mechanism. The Thank You and Order Status experience belongs to Shopify checkout/post-purchase surfaces and should use the supported Checkout UI extension targets rather than being recreated as a theme template. Legacy customer Liquid templates should not be treated as the long-term target unless explicitly required for a confirmed legacy-account configuration.
