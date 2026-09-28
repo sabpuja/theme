@@ -28,3 +28,11 @@
 .sp-nav-language{color:var(--sp-brown)}
 .sp-nav-language:focus-visible{outline:3px solid rgba(244,180,0,.35);outline-offset:2px}
 .sp-nav-language:hover{border-color:#D7B99D}
+
+/* Segmented language switch - matches approved EN/हि reference */
+.sp-nav-language{width:6rem;gap:0;padding:.18rem;border-color:#D9DDE2;background:#F3F4F6;font-size:0;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.75)}
+.sp-nav-language b,.sp-nav-language::after{display:inline-flex;flex:1 1 50%;align-items:center;justify-content:center;min-width:0;min-height:2.2rem;padding:.35rem .45rem;border-radius:999px;font-size:.82rem;font-weight:900;line-height:1;color:#6B6F78}
+.sp-nav-language b{background:var(--sp-saffron);color:#fff;box-shadow:0 .22rem .6rem rgba(211,84,0,.22)}
+.sp-nav-language::after{content:"हि"}
+.sp-nav-language.is-hi b{background:transparent;color:#6B6F78;box-shadow:none}.sp-nav-language.is-hi::after{background:var(--sp-saffron);color:#fff;box-shadow:0 .22rem .6rem rgba(211,84,0,.22)}
+.sp-nav-drawer-language{font-size:0!important;gap:0!important;padding:.18rem!important;border-radius:999px!important;background:#F3F4F6!important}.sp-nav-drawer-language::before,.sp-nav-drawer-language::after{display:inline-flex;flex:1 1 50%;align-items:center;justify-content:center;min-height:2.2rem;border-radius:999px;font-size:.8rem;font-weight:900}.sp-nav-drawer-language::before{content:"EN";background:var(--sp-saffron);color:#fff}.sp-nav-drawer-language::after{content:"हि";color:#6B6F78}
