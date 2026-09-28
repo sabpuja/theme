@@ -101,3 +101,17 @@ Before considering a density-affecting task complete, inspect at minimum:
 The compact density contract is a permanent implementation constraint. If a larger value is genuinely required, document the reason, obtain explicit approval, and regression-check the whole affected page before merging or applying it to Shopify staging.
 
 The source-of-truth product requirement is maintained in `sabpuja/core/docs/prd/storefront-density-contract.md`.
+
+## GitHub safety circuit breaker
+
+All GitHub-capable work in this repository follows `sabpuja/core/docs/policies/GITHUB-SAFETY-GUARDRAILS.md`.
+
+If GitHub returns a `403`/`429` related to restriction, suspension, abuse controls or rate limiting:
+- stop GitHub writes;
+- stop automatic retries;
+- record the exact blocker;
+- do not work around the restriction;
+- route execution away from GitHub;
+- require human approval before resuming.
+
+Do not create or modify `.github/workflows/*` without explicit human approval. Operational automation belongs on the Portable Agent Platform / Hostinger VPS; Shopify / `sabpuja.com` remains the production ecommerce runtime.
