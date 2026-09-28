@@ -21,7 +21,7 @@
   {% assign sp_secondary_image = product.images[1] %}
 {% endif %}
 
-<article class="sp-product-card{% unless product.available %} is-sold-out{% endunless %}">
+<article class="sp-product-card{% unless product.available %} is-sold-out{% endunless %}" data-product-handle="{{ product.handle | escape }}">
   <a class="sp-product-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
     {% if sp_card_image != blank %}
       <img class="sp-product-card__image sp-product-card__image--primary" src="{{ sp_card_image }}" alt="{{ product.title | escape }} by Sabpuja" loading="lazy" width="800" height="800">
