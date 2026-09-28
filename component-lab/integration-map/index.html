@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>SP-MAP Shopify Integration Map · Sabpuja Component Lab</title>
+  <meta name="description" content="Canonical pre-Shopify integration map for Sabpuja Component Lab patterns and staging theme implementation surfaces.">
+  <link rel="stylesheet" href="/theme/assets/css/lab.css">
+  <style>
+    .sp-map-shell{display:grid;gap:1.25rem}.sp-map-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.8rem}.sp-map-stat,.sp-map-row,.sp-map-note{border:1px solid #E9DDCF;border-radius:1rem;background:#fff}.sp-map-stat{padding:1rem}.sp-map-stat strong{display:block;font-family:Poppins,Arial,sans-serif;color:#4E342E;font-size:1rem}.sp-map-stat span{display:block;margin-top:.3rem;color:#75655E;line-height:1.45}.sp-map-section{display:grid;gap:.9rem}.sp-map-section__head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}.sp-map-section__head h2{margin:0}.sp-map-section__head p{margin:.25rem 0 0;color:#75655E}.sp-map-list{display:grid;gap:.75rem}.sp-map-row{padding:1rem;display:grid;grid-template-columns:minmax(8.5rem,.8fr) minmax(12rem,1.15fr) minmax(12rem,1.15fr) minmax(12rem,1.25fr);gap:1rem;align-items:start}.sp-map-row--wide{grid-template-columns:minmax(8.5rem,.7fr) minmax(12rem,1fr) minmax(12rem,1fr) minmax(12rem,1.25fr)}.sp-map-cell{min-width:0}.sp-map-label{display:block;margin-bottom:.3rem;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#75655E;font-weight:800}.sp-map-id{display:inline-flex;align-items:center;gap:.4rem;font-family:Poppins,Arial,sans-serif;font-weight:800;color:#4E342E}.sp-map-id a{color:inherit}.sp-map-path{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.82rem;line-height:1.55;overflow-wrap:anywhere;color:#33241F}.sp-map-copy{font-size:.88rem;line-height:1.55;color:#4E342E}.sp-map-status{display:inline-flex;align-items:center;padding:.28rem .55rem;border-radius:999px;background:#FFF8E7;color:#4E342E;font-size:.75rem;font-weight:800}.sp-map-status--gap{background:#fff1ec;color:#9a3c11}.sp-map-status--split{background:#f5f1ff;color:#5a4279}.sp-map-note{padding:1rem 1.1rem}.sp-map-note strong{color:#4E342E}.sp-map-note p{margin:.35rem 0 0;color:#75655E;line-height:1.55}.sp-map-order{margin:0;padding-left:1.25rem;display:grid;gap:.45rem;color:#4E342E;line-height:1.5}.sp-map-code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#FFF8E7;border-radius:.35rem;padding:.05rem .3rem;font-size:.86em}@media(max-width:980px){.sp-map-row,.sp-map-row--wide{grid-template-columns:1fr 1fr}}@media(max-width:640px){.sp-map-row,.sp-map-row--wide{grid-template-columns:1fr}.sp-map-stat{padding:.9rem}.sp-map-row{padding:.9rem}}
+  </style>
+</head>
+<body>
+<header class="lab-header"><div class="lab-header__inner"><a class="lab-brand" href="/theme/"><span class="lab-brand__mark">S</span><span>Sabpuja Component Lab</span></a><nav class="lab-nav" aria-label="Primary"><a href="/theme/components/">Components</a><a href="/theme/blocks/">Blocks</a><a href="/theme/foundations/">Foundations</a><a href="/theme/tools/image-lab/">Image Lab</a></nav></div></header>
+<main class="lab-main sp-map-shell">
+  <div class="lab-page-head">
+    <div class="lab-breadcrumb"><a href="/theme/">Home</a> / SP-MAP</div>
+    <p class="lab-eyebrow">Final pre-Shopify gate · audited 28 Sep 2026</p>
+    <h1>Shopify Integration Map</h1>
+    <p>One implementation contract from approved Component Lab patterns into the unpublished Shopify staging theme. Each row names the Lab pattern, exact Shopify surface, Shopify-owned data, and responsive rule. This map was audited against <code>staging-2026</code> at <code>0244b5b</code>. No Shopify-serving file is changed by this page.</p>
+  </div>
+
+  <section class="sp-map-summary" aria-label="Integration summary">
+    <div class="sp-map-stat"><strong>Target branch</strong><span><code>staging-2026</code> only. Live/Main remains outside this integration phase.</span></div>
+    <div class="sp-map-stat"><strong>Active global shell</strong><span><code>layout/theme.liquid</code> currently mounts <code>theme-header4</code> and <code>theme-footer5</code>.</span></div>
+    <div class="sp-map-stat"><strong>Shared commerce primitive</strong><span><code>snippets/sabpuja-product-card.liquid</code> is the canonical card anchor for collection/search/recommendation reuse.</span></div>
+    <div class="sp-map-stat"><strong>Known hard gap</strong><span><code>templates/collection.liquid</code> references <code>sabpuja-collection-grid</code>, but that section is absent from the repository.</span></div>
+  </section>
+
+  <section class="sp-map-section" aria-labelledby="order-title">
+    <div class="sp-map-section__head"><div><p class="lab-eyebrow">Dependency order</p><h2 id="order-title">Integration sequence</h2><p>Wire shared primitives before page-level consumers so one fix propagates everywhere.</p></div></div>
+    <div class="sp-map-note"><ol class="sp-map-order"><li>Freeze foundations + image rules.</li><li>Upgrade <strong>SP-PROD</strong> first; collection, search and recommendations depend on it.</li><li>Integrate <strong>SP-NAV</strong> + <strong>SP-FOOT</strong> global shell.</li><li>Repair the collection-template gap, then integrate <strong>SP-COL</strong>.</li><li>Integrate <strong>SP-SEARCH</strong>, including predictive search as a separate adapter.</li><li>Integrate <strong>SP-CART</strong> full cart, then add the drawer surface and connect header cart state.</li><li>Carry <strong>SP-COMP-001–010</strong> into their existing Sabpuja sections without cloning visual systems.</li><li>Integrate <strong>SP-ACC</strong> only on theme-owned customer pages; keep Shopify-owned account/checkout surfaces outside Liquid.</li><li>Run desktop/tablet/mobile visual QA, link crawl, accessibility pass and performance check on the unpublished staging theme before any publish decision.</li></ol></div>
+  </section>
+
+  <section class="sp-map-section" aria-labelledby="core-title">
+    <div class="sp-map-section__head"><div><p class="lab-eyebrow">Core shell + commerce</p><h2 id="core-title">Canonical implementation map</h2><p>Exact current anchors plus intended integration behavior.</p></div></div>
+    <div class="sp-map-list">
+      <article class="sp-map-row">
+        <div class="sp-map-cell"><span class="sp-map-label">Lab pattern</span><div class="sp-map-id"><a href="/theme/foundations/">Foundations</a></div><span class="sp-map-status">Shared dependency</span></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">layout/theme.liquid<br>assets/sabpuja-staging.css + component assets</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Brand tokens, typography and layout rules are theme code/settings; localized strings stay in Shopify locale files.</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Responsive contract</span><div class="sp-map-copy">Preserve fluid type/spacing and container-aware component behavior. Avoid page-specific breakpoint forks that duplicate tokens.</div></div>
+      </article>
+
+      <article class="sp-map-row">
+        <div class="sp-map-cell"><span class="sp-map-label">Lab pattern</span><div class="sp-map-id"><a href="/theme/tools/image-lab/">Image system</a></div><span class="sp-map-status">Shared dependency</span></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">snippets/sabpuja-product-image-url.liquid<br>section image settings / product.media</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Shopify product/media objects and section image pickers. Existing repo WebP/AVIF assets remain campaign/editorial sources where explicitly wired.</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Responsive contract</span><div class="sp-map-copy">Responsive <code>srcset</code>/<code>sizes</code>, lazy-load below fold, eager only for critical hero media, stable aspect ratio and no oversized desktop payload on mobile.</div></div>
+      </article>
+
+      <article class="sp-map-row">
+        <div class="sp-map-cell"><span class="sp-map-label">Lab pattern</span><div class="sp-map-id"><a href="/theme/components/global-navigation/">SP-NAV</a></div><span class="sp-map-status">Upgrade in place</span></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">layout/theme.liquid → sections/theme-header4.liquid<br>assets/sabpuja-header.css<br>assets/sabpuja-header-interactions.css<br>assets/sabpuja-header.js</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Shopify routes, collection/product handles, cart/customer state, locale translations and localization. Keep real links/data; no hard-coded demo state.</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Responsive contract</span><div class="sp-map-copy">Desktop full nav + Collections menu; sticky state; tablet compression; mobile drawer; real EN/हि segment buttons; touch targets and keyboard/focus behavior preserved.</div></div>
+      </article>
+
+      <article class="sp-map-row">
+        <div class="sp-map-cell"><span class="sp-map-label">Lab pattern</span><div class="sp-map-id"><a href="/theme/components/product-card/">SP-PROD</a></div><span class="sp-map-status">Upgrade in place</span></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">snippets/sabpuja-product-card.liquid<br>snippets/sabpuja-product-image-url.liquid<br>assets/sabpuja-catalog.css</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy"><code>product</code>: canonical URL, media, title, price, compare-at price, availability and product type. “New” only from an explicit merchandising flag. Wishlist only when its workflow is actually wired.</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Responsive contract</span><div class="sp-map-copy">One reusable 1:1 card primitive across homepage/collection/search/recommendations. Optional hover secondary image only on hover-capable devices; no critical content hidden behind hover.</div></div>
+      </article>
+
+      <article class="sp-map-row">
+        <div class="sp-map-cell"><span class="sp-map-label">Lab pattern</span><div class="sp-map-id"><a href="/theme/components/collection-grid/">SP-COL</a></div><span class="sp-map-status sp-map-status--gap">Repair before wiring</span></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">templates/collection.liquid<br>expected: sections/sabpuja-collection-grid.liquid<br>shared: snippets/sabpuja-product-card.liquid</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy"><code>collection</code>, <code>collection.products</code>, sort options, pagination and Shopify storefront filters where enabled. Astrology remedy collection keeps its explicit landing-page exception.</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Responsive contract</span><div class="sp-map-copy">Desktop filters + sort + product grid; tablet reflow; mobile two-column browse where space permits plus filter drawer; zero-results recovery; reuse SP-PROD instead of cloning card markup.</div></div>
+      </article>
+
+      <article class="sp-map-row">
+        <div class="sp-map-cell"><span class="sp-map-label">Lab pattern</span><div class="sp-map-id"><a href="/theme/components/search-system/">SP-SEARCH</a></div><span class="sp-map-status">Extend current section</span></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">templates/search.liquid → sections/sabpuja-search.liquid<br>shared: snippets/sabpuja-product-card.liquid<br>predictive adapter: new theme JS/snippet surface</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy"><code>search</code>/<code>search.results</code> for full results and Shopify predictive-search endpoint for live suggestions. Mixed non-product content stays semantically separate.</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Responsive contract</span><div class="sp-map-copy">Desktop predictive panel with keyboard focus/loading/no-match states; full results reuse SP-PROD; mobile uses a compact search surface with accessible focus/escape behavior.</div></div>
+      </article>
+
+      <article class="sp-map-row">
+        <div class="sp-map-cell"><span class="sp-map-label">Lab pattern</span><div class="sp-map-id"><a href="/theme/components/cart-system/">SP-CART</a></div><span class="sp-map-status">Full cart exists; drawer to add</span></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">templates/cart.liquid → sections/sabpuja-cart.liquid<br>assets/sabpuja-cart.css<br>drawer: new global snippet/section + JS, connected to header cart</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy"><code>cart</code>, <code>cart.items</code>, line quantities/properties, item/product availability and native checkout action. Replace temporary product-handle blockers with real catalog state once pricing/stock is canonical.</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Responsive contract</span><div class="sp-map-copy">Desktop two-column cart + sticky summary; mobile single-column hierarchy; accessible quantity/remove/update states; drawer and full cart must share cart data and update semantics.</div></div>
+      </article>
+
+      <article class="sp-map-row">
+        <div class="sp-map-cell"><span class="sp-map-label">Lab pattern</span><div class="sp-map-id"><a href="/theme/components/footer-system/">SP-FOOT</a></div><span class="sp-map-status">Upgrade in place</span></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">layout/theme.liquid → sections/theme-footer5.liquid<br>shared footer styles in Sabpuja staging assets</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Shopify routes/pages/collections/products, localized labels, support email, current approved social destinations and current shipping/service copy.</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Responsive contract</span><div class="sp-map-copy">Canonical desktop multi-column footer; tablet compression; mobile collapsed/expanded groups; legal/social utility remains reachable; no orphan links or hidden support path.</div></div>
+      </article>
+
+      <article class="sp-map-row">
+        <div class="sp-map-cell"><span class="sp-map-label">Lab pattern</span><div class="sp-map-id"><a href="/theme/blocks/account-journey/">SP-ACC</a></div><span class="sp-map-status sp-map-status--split">Split Shopify surface</span></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">templates/customers/account.liquid<br>login.liquid · register.liquid · order.liquid<br>addresses.liquid · reset/activate templates<br>Shopify-owned account/checkout extension surfaces where Liquid cannot control UI</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy"><code>customer</code>, orders, addresses, forms and Shopify account/checkout state. Do not simulate or duplicate Shopify-owned authentication/payment state in theme JavaScript.</div></div>
+        <div class="sp-map-cell"><span class="sp-map-label">Responsive contract</span><div class="sp-map-copy">Carry approved mobile account/status spacing and icon alignment into theme-owned pages. For platform-owned surfaces, reproduce only supported extension styling/content patterns.</div></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sp-map-section" aria-labelledby="content-title">
+    <div class="sp-map-section__head"><div><p class="lab-eyebrow">Reusable page sections</p><h2 id="content-title">SP-COMP-001–010</h2><p>Existing Sabpuja section anchors already line up with most approved Component Lab systems.</p></div></div>
+    <div class="sp-map-list">
+      <article class="sp-map-row sp-map-row--wide"><div class="sp-map-cell"><span class="sp-map-label">Lab</span><div class="sp-map-id"><a href="/theme/components/reviews/">SP-COMP-001 · Reviews</a></div><span class="sp-map-status">Consolidate reuse</span></div><div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">sections/sabpuja-home-reviews.liquid<br>then reuse on homepage/PDP/collection contexts</div></div><div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Only verified review data/media from the actual review source. Never fabricate names, ratings or counts.</div></div><div class="sp-map-cell"><span class="sp-map-label">Responsive</span><div class="sp-map-copy">Approved carousel/hub/PDP variants, touch-safe controls and reduced-motion behavior.</div></div></article>
+      <article class="sp-map-row sp-map-row--wide"><div class="sp-map-cell"><span class="sp-map-label">Lab</span><div class="sp-map-id"><a href="/theme/components/hero/">SP-COMP-002 · Hero</a></div></div><div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">sections/sabpuja-campaign-hero.liquid</div></div><div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Section settings: copy, CTA, desktop/mobile media, campaign destinations.</div></div><div class="sp-map-cell"><span class="sp-map-label">Responsive</span><div class="sp-map-copy">Approved full/split/product/editorial/minimal/dark layouts with art-direction rather than crop-by-accident.</div></div></article>
+      <article class="sp-map-row sp-map-row--wide"><div class="sp-map-cell"><span class="sp-map-label">Lab</span><div class="sp-map-id"><a href="/theme/components/product-showcase/">SP-COMP-003 · Product Showcase</a></div></div><div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">sections/sabpuja-product-showcase.liquid</div></div><div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Selected Shopify products/collections and section editorial settings; product facts remain product-owned.</div></div><div class="sp-map-cell"><span class="sp-map-label">Responsive</span><div class="sp-map-copy">Split-to-stack and fluid-grid variants; product subcards should reuse SP-PROD where applicable.</div></div></article>
+      <article class="sp-map-row sp-map-row--wide"><div class="sp-map-cell"><span class="sp-map-label">Lab</span><div class="sp-map-id"><a href="/theme/components/benefits-trust/">SP-COMP-004 · Benefits & Trust</a></div></div><div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">sections/sabpuja-benefits-trust.liquid</div></div><div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Section blocks/settings for approved operational/trust claims only.</div></div><div class="sp-map-cell"><span class="sp-map-label">Responsive</span><div class="sp-map-copy">Strip/grid/split variants collapse without shrinking icons or touch targets below usability.</div></div></article>
+      <article class="sp-map-row sp-map-row--wide"><div class="sp-map-cell"><span class="sp-map-label">Lab</span><div class="sp-map-id"><a href="/theme/components/kit-contents/">SP-COMP-005 · Kit Contents</a></div></div><div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">sections/sabpuja-kit-contents.liquid</div></div><div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Product metafields or explicit section blocks tied to the actual kit; never invent contents.</div></div><div class="sp-map-cell"><span class="sp-map-label">Responsive</span><div class="sp-map-copy">Split/grid/list/accordion variants switch by available container width; text remains readable without horizontal squeeze.</div></div></article>
+      <article class="sp-map-row sp-map-row--wide"><div class="sp-map-cell"><span class="sp-map-label">Lab</span><div class="sp-map-id"><a href="/theme/components/ritual-journey/">SP-COMP-006 · Ritual Journey</a></div></div><div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">sections/sabpuja-ritual-journey.liquid</div></div><div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Approved instructional/editorial steps from section blocks or product content fields.</div></div><div class="sp-map-cell"><span class="sp-map-label">Responsive</span><div class="sp-map-copy">Horizontal sequence becomes stacked/timeline/accordion pattern without losing step order.</div></div></article>
+      <article class="sp-map-row sp-map-row--wide"><div class="sp-map-cell"><span class="sp-map-label">Lab</span><div class="sp-map-id"><a href="/theme/components/devotional-editorial/">SP-COMP-007 · Devotional Editorial</a></div></div><div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">sections/sabpuja-devotional-editorial.liquid</div></div><div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Section editorial copy/media; claims stay within approved source content.</div></div><div class="sp-map-cell"><span class="sp-map-label">Responsive</span><div class="sp-map-copy">Image/text order follows approved art direction; stacked mobile retains hierarchy and reading flow.</div></div></article>
+      <article class="sp-map-row sp-map-row--wide"><div class="sp-map-cell"><span class="sp-map-label">Lab</span><div class="sp-map-id"><a href="/theme/components/faq/">SP-COMP-008 · FAQ</a></div></div><div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">sections/sabpuja-faq.liquid</div></div><div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Section blocks or page/product FAQ fields; answer content is merchant-owned.</div></div><div class="sp-map-cell"><span class="sp-map-label">Responsive</span><div class="sp-map-copy">Two-column/grouped layouts collapse to a single accessible disclosure flow; native button semantics retained.</div></div></article>
+      <article class="sp-map-row sp-map-row--wide"><div class="sp-map-cell"><span class="sp-map-label">Lab</span><div class="sp-map-id"><a href="/theme/components/related-products/">SP-COMP-009 · Related Products</a></div></div><div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">sections/sabpuja-related-products.liquid<br>shared: snippets/sabpuja-product-card.liquid</div></div><div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Shopify product recommendations or explicitly selected products. No fabricated popularity/rank labels.</div></div><div class="sp-map-cell"><span class="sp-map-label">Responsive</span><div class="sp-map-copy">Grid/carousel density changes by container; individual cards remain SP-PROD.</div></div></article>
+      <article class="sp-map-row sp-map-row--wide"><div class="sp-map-cell"><span class="sp-map-label">Lab</span><div class="sp-map-id"><a href="/theme/components/final-cta/">SP-COMP-010 · Final CTA</a></div></div><div class="sp-map-cell"><span class="sp-map-label">Shopify surface</span><div class="sp-map-path">sections/sabpuja-final-cta.liquid</div></div><div class="sp-map-cell"><span class="sp-map-label">Data source</span><div class="sp-map-copy">Section copy/media/button settings and real Shopify destinations.</div></div><div class="sp-map-cell"><span class="sp-map-label">Responsive</span><div class="sp-map-copy">Banner/split layouts stack cleanly; CTA remains visible, touch-safe and content-led on narrow screens.</div></div></article>
+    </div>
+  </section>
+
+  <section class="sp-map-section" aria-labelledby="gaps-title">
+    <div class="sp-map-section__head"><div><p class="lab-eyebrow">Before theme integration</p><h2 id="gaps-title">Known deltas to resolve</h2></div></div>
+    <div class="sp-map-list">
+      <div class="sp-map-note"><strong>1 · Collection template is currently unresolved in GitHub.</strong><p><code>templates/collection.liquid</code> routes normal collections to <code>sabpuja-collection-grid</code>, but <code>sections/sabpuja-collection-grid.liquid</code> is not present. Create/restore that canonical section from approved SP-COL before any Shopify staging sync.</p></div>
+      <div class="sp-map-note"><strong>2 · Current product card is a subset of SP-PROD.</strong><p>The existing snippet renders type, title, price and “View product”; it does not yet implement the approved compare-at/sale, sold-out, explicit-new, wishlist and optional secondary-image contracts. Upgrade the one snippet rather than creating another card family.</p></div>
+      <div class="sp-map-note"><strong>3 · Predictive search is not yet a current theme surface.</strong><p><code>sections/sabpuja-search.liquid</code> handles the full results page. SP-SEARCH predictive states need an adapter around Shopify predictive search, with keyboard/focus/loading/no-match behavior.</p></div>
+      <div class="sp-map-note"><strong>4 · SP-CART includes a drawer that the current full-cart section does not provide.</strong><p>Keep <code>sections/sabpuja-cart.liquid</code> for the cart page, then add one global drawer surface connected to the header. Both must use Shopify cart state, not separate client-side truth.</p></div>
+      <div class="sp-map-note"><strong>5 · Account Journey is intentionally split.</strong><p>Theme-owned legacy customer templates can adopt SP-ACC directly. Shopify-owned modern customer-account and checkout states must use supported extension surfaces; they should not be recreated with Liquid or fake authentication/payment state.</p></div>
+    </div>
+  </section>
+
+  <section class="lab-section"><div class="lab-note"><strong>Gate rule:</strong> integration work may target only the verified unpublished Shopify staging theme. The live theme is not an integration target. After all mappings are wired, run a full visual QA + customer-facing link crawl before any publish decision.</div></section>
+</main>
+<footer class="lab-footer">Sabpuja Component Lab · SP-MAP · Shopify Integration Map</footer>
+<script src="/theme/assets/js/lab.js" defer></script>
+</body>
+</html>
