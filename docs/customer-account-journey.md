@@ -1,7 +1,7 @@
 # Sabpuja Customer Account Journey
 
 ## Purpose
-This document defines the reusable customer-account journey that complements the storefront component system. It covers account access, new-customer welcome/account creation, dashboard, orders, order details, reorder/buy-again, the Thank You / order-confirmation step, account navigation, profile, empty states and contextual support.
+This document defines the reusable customer-account journey that complements the storefront component system. It covers account access, new-customer welcome/account creation, dashboard, orders, order details, reorder/buy-again, the Thank You / order-confirmation step, account navigation, reorder/buy-again, account/system states, profile, empty states and contextual support.
 
 ## Current Shopify architecture
 Sabpuja should design for Shopify's current customer-account model rather than build a new password system in the theme. Shopify documents customer accounts as supporting passwordless sign-in, and customer-account pages can be extended with customer account UI extensions.
@@ -68,6 +68,9 @@ Account UI follows the same Sabpuja fluid-first foundation as storefront compone
 18. Reorder flows must re-resolve current product, variant, price and availability instead of copying historical order values into the cart.
 19. Never silently substitute an unavailable item or variant; partial reorders require clear customer confirmation.
 20. Buy-again UI should allow item-level selection and quantity review before adding current merchandise to cart.
+21. System states must distinguish signed-out, expired-session, loading, valid-empty, recoverable-error, and connection-retry conditions rather than collapsing them into one generic error.
+22. Loading states must remain screen-reader legible, avoid flashing empty content, and respect reduced-motion preferences.
+23. Recovery UI must preserve orientation and never imply that an account or order change succeeded unless the platform confirms it.
 
 ## Implementation mapping
 The Component Lab is the visual contract. Theme-rendered surfaces may use storefront blocks where Shopify supports them. Customer-account pages that live on Shopify's account surface should be implemented with the appropriate customer account UI extension or Shopify account customization mechanism. The Thank You and Order Status experience belongs to Shopify checkout/post-purchase surfaces and should use the supported Checkout UI extension targets rather than being recreated as a theme template. Legacy customer Liquid templates should not be treated as the long-term target unless explicitly required for a confirmed legacy-account configuration.
