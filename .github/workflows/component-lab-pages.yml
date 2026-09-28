@@ -23,7 +23,6 @@ on:
       - 'assets/sabpuja-zodiac-cancer-hero.webp'
       - 'assets/sabpuja-zodiac-lifestyle.webp'
       - 'assets/sabpuja-navratri-puja-kit-lifestyle.webp'
-      - '.github/workflows/component-lab-pages.yml'
 
 permissions:
   contents: read
@@ -31,15 +30,16 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -71,6 +71,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./.pages-output
+          retention-days: 3
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
