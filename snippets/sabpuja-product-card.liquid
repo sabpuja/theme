@@ -1,37 +1,60 @@
 {% capture sp_card_image %}{% render 'sabpuja-product-image-url', product: product %}{% endcapture %}
 {% assign sp_card_image = sp_card_image | strip %}
-{% assign sp_card_type = 'Puja Essential' %}
-{% if product.type == 'Puja Kit' %}
-  {% assign sp_card_type = 'Puja Kit' %}
-{% elsif product.type == 'Astrological Remedy Kit' %}
-  {% assign sp_card_type = 'Astrological Remedy Kit' %}
-  {% if product.images.size > 1 %}
-    {% assign sp_card_image = product.images[1] | img_url: '800x800' %}
-  {% endif %}
+{% assign sp_variant = product.selected_or_first_available_variant | default: product.variants.first %}
+{% assign sp_price = sp_variant.price | default: product.price %}
+{% assign sp_compare_price = sp_variant.compare_at_price %}
+{% assign sp_card_on_sale = false %}
+{% if sp_compare_price > sp_price and sp_price > 0 %}
+  {% assign sp_card_on_sale = true %}
 {% endif %}
-{% case product.handle %}
-{% when 'panchmeva' %}{% assign sp_card_type = 'Puja Offering' %}
-{% when 'ganga-jal' or 'gomutra' %}{% assign sp_card_type = 'Puja Liquid' %}
-{% when 'havan-samidha' or 'guggul-resin' %}{% assign sp_card_type = 'Havan Essential' %}
-{% when 'dhoop-sticks' or 'kapoor-camphor' %}{% assign sp_card_type = 'Aarti Essential' %}
-{% when 'honey-sacred-puja-use' or 'ghee-clarified-butter' or 'supari-betel-nut' or 'akshat-rice' or 'coconut' or 'clove' or 'mishri' %}{% assign sp_card_type = 'Puja Offering' %}
-{% when 'red-cloth-lal-chunari' or 'white-cloth' or 'yellow-cloth' %}{% assign sp_card_type = 'Puja Cloth' %}
-{% when 'navagraha-samagri' %}{% assign sp_card_type = 'Puja Samagri' %}
-{% endcase %}
-<article class="sp-catalog-card sp-catalog-card--{{ product.handle | handleize }}">
-  <a class="sp-catalog-card__image" href="{{ product.url }}">
+
+{% assign sp_card_new = false %}
+{% for tag in product.tags %}
+  {% assign sp_tag = tag | downcase | strip %}
+  {% if sp_tag == 'new' or sp_tag == 'new arrival' or sp_tag == 'new-arrival' %}
+    {% assign sp_card_new = true %}
+  {% endif %}
+{% endfor %}
+
+{% assign sp_secondary_image = blank %}
+{% if product.images.size > 1 %}
+  {% assign sp_secondary_image = product.images[1] %}
+{% endif %}
+
+<article class="sp-product-card{% unless product.available %} is-sold-out{% endunless %}">
+  <a class="sp-product-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
     {% if sp_card_image != blank %}
-      <img src="{{ sp_card_image }}" alt="{{ product.title | escape }} by Sabpuja" loading="lazy" width="800" height="800">
+      <img class="sp-product-card__image sp-product-card__image--primary" src="{{ sp_card_image }}" alt="{{ product.title | escape }} by Sabpuja" loading="lazy" width="800" height="800">
+      {% if sp_secondary_image != blank %}
+        <img class="sp-product-card__image sp-product-card__image--secondary" src="{{ sp_secondary_image | img_url: '800x800' }}" alt="" loading="lazy" width="800" height="800" aria-hidden="true">
+      {% endif %}
     {% else %}
-      <span class="sp-catalog-card__image-placeholder">{{ product.title | escape }}</span>
+      <span class="sp-product-card__placeholder">{{ product.title | escape }}</span>
     {% endif %}
+
+    <span class="sp-product-card__badges" aria-hidden="true">
+      {% unless product.available %}<span class="sp-product-card__badge sp-product-card__badge--sold">Sold out</span>{% endunless %}
+      {% if product.available and sp_card_on_sale %}<span class="sp-product-card__badge sp-product-card__badge--sale">Sale</span>{% endif %}
+      {% if product.available and sp_card_new %}<span class="sp-product-card__badge">New</span>{% endif %}
+    </span>
   </a>
-  <div class="sp-catalog-card__body">
-    <div class="sp-catalog-card__type">{{ sp_card_type }}</div>
-    <h2><a href="{{ product.url }}">{{ product.title }}</a></h2>
-    <div class="sp-catalog-card__meta">
-      {% if product.price > 0 %}<strong>{{ product.price | money }}</strong>{% else %}<span>Price coming soon</span>{% endif %}
+
+  <div class="sp-product-card__body">
+    {% if product.type != blank %}<p class="sp-product-card__type">{{ product.type }}</p>{% endif %}
+    <h2 class="sp-product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h2>
+
+    <div class="sp-product-card__price">
+      {% if sp_price > 0 %}
+        {% if product.price_varies %}<strong>From {{ product.price_min | money }}</strong>{% else %}<strong>{{ sp_price | money }}</strong>{% endif %}
+        {% if sp_card_on_sale %}<s>{{ sp_compare_price | money }}</s>{% endif %}
+      {% else %}
+        <span>Price coming soon</span>
+      {% endif %}
     </div>
-    <a class="sp-catalog-card__cta" href="{{ product.url }}">{% render 'sabpuja-icon', name: 'arrow-right' %}<span>View product</span></a>
+
+    <a class="sp-product-card__cta" href="{{ product.url }}">
+      <span>{% if product.available %}View product{% else %}View details{% endif %}</span>
+      {% render 'sabpuja-icon', name: 'arrow-right' %}
+    </a>
   </div>
 </article>
