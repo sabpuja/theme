@@ -17,6 +17,7 @@
 .sp-col__chip:hover{border-color:var(--sp-saffron);color:var(--sp-saffron)!important}
 .sp-col__clear{color:var(--sp-saffron)!important;font-size:.72rem;font-weight:800;text-underline-offset:3px}
 .sp-col__layout{display:grid;grid-template-columns:minmax(13.5rem,15.5rem) minmax(0,1fr);gap:1.5rem;align-items:start}
+.sp-col__layout--wide{grid-template-columns:minmax(0,1fr)}
 .sp-col__sidebar{position:sticky;top:1rem}
 .sp-col__results{min-width:0}
 .sp-col__toolbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:0 0 1rem}
