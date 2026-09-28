@@ -46,3 +46,11 @@
 .sp-nav-actions{gap:.42rem}.sp-nav-icon-btn{flex-basis:3rem;width:3rem;height:3rem;border-color:#D9DEE5;background:#fff;color:#424A59}.sp-nav-icon-btn:hover,.sp-nav-icon-btn:focus-visible{border-color:#C9CED5;background:#FAFAFB}
 .sp-nav-language{width:6.4rem;min-height:3rem}.sp-nav-language b,.sp-nav-language::after{min-height:2.48rem;font-size:.88rem}
 .sp-nav-compact .sp-nav-brand img{width:9rem}.sp-nav-compact .sp-nav-link,.sp-nav-compact .sp-nav-language,.sp-nav-compact .sp-nav-icon-btn{min-height:2.7rem;height:2.7rem}.sp-nav-compact .sp-nav-icon-btn{width:2.7rem;flex-basis:2.7rem}
+
+/* True two-segment locale switch */
+.sp-nav-language,.sp-nav-drawer-language{display:inline-flex;align-items:center;gap:0;padding:.18rem;border:1px solid #D9DDE5;border-radius:999px;background:#F3F4F6;overflow:hidden}
+.sp-nav-language::after,.sp-nav-drawer-language::before,.sp-nav-drawer-language::after{content:none!important;display:none!important}
+.sp-nav-language-segment{display:inline-flex;align-items:center;justify-content:center;flex:1 1 50%;min-width:2.55rem;min-height:2.42rem;padding:.38rem .62rem;border:0;border-radius:999px;background:transparent;color:#6B6F78;font:inherit;font-size:.86rem;font-weight:900;line-height:1;cursor:pointer}
+.sp-nav-language-segment.is-active{background:var(--sp-saffron);color:#fff;box-shadow:0 .22rem .6rem rgba(211,84,0,.22)}
+.sp-nav-language-segment:focus-visible{outline:3px solid rgba(244,180,0,.35);outline-offset:1px}
+.sp-nav-drawer-language{grid-column:1/-1;width:100%}.sp-nav-drawer-language .sp-nav-language-segment{min-height:2.35rem}
