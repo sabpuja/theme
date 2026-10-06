@@ -79,6 +79,10 @@
     .pg-streak span{font-size:11px;color:var(--pg-muted)}
 
     .pg-timeline{margin-top:12px;border:1px solid var(--pg-line);border-radius:20px;background:rgba(255,253,248,.94);padding:16px 14px 14px;box-shadow:0 8px 28px rgba(79,45,25,.05);overflow-x:auto;scrollbar-width:none}
+    .pg-timeline--inline{margin-top:18px;background:#fffaf3;border-color:#ecd9c5;box-shadow:none}
+    .pg-timeline-label{display:flex;justify-content:space-between;gap:14px;align-items:baseline;margin:0 4px 14px;min-width:560px}
+    .pg-timeline-label strong{font-size:13px;color:var(--pg-brown)}
+    .pg-timeline-label span{font-size:11px;color:var(--pg-muted)}
     .pg-timeline::-webkit-scrollbar{display:none}
     .pg-timeline__track{position:relative;display:grid;grid-template-columns:repeat(5,minmax(112px,1fr));min-width:610px;gap:0}
     .pg-timeline__track:before{content:"";position:absolute;left:9%;right:9%;top:21px;height:3px;border-radius:999px;background:#eadfd3}
@@ -188,6 +192,10 @@
       .pg-progress-ring:after{width:40px;height:40px}
       .pg-streak{display:none}
       .pg-timeline{margin-top:10px;padding:13px 8px 11px}
+      .pg-timeline--inline{margin-top:16px}
+      .pg-timeline-label{display:block;min-width:560px;margin-bottom:12px}
+      .pg-timeline-label strong,.pg-timeline-label span{display:block}
+      .pg-timeline-label span{margin-top:3px}
       .pg-timeline__track{grid-template-columns:repeat(5,112px);min-width:560px}
       .pg-card{border-radius:22px}
       .pg-card-head,.pg-card-body{padding:20px 17px}
@@ -260,12 +268,6 @@
         <div class="pg-streak"><strong id="blessing-count">0</strong><span>blessings received</span></div>
       </div>
 
-      <div class="pg-timeline" aria-label="Puja journey timeline">
-        <div class="pg-timeline__track" id="journey-timeline">
-          <div class="pg-timeline__fill" id="timeline-fill" aria-hidden="true"></div>
-        </div>
-      </div>
-
       <div class="pg-mobile-progress" id="mobile-progress" aria-label="Guide progress"></div>
 
       <article class="pg-card" id="guide-card">
@@ -309,6 +311,16 @@
               <div class="pg-actions">
                 <button class="pg-btn pg-btn--ghost" id="back-btn" type="button">Back</button>
                 <button class="pg-btn pg-btn--primary" id="primary-btn" type="button">Complete step</button>
+              </div>
+            </div>
+
+            <div class="pg-timeline pg-timeline--inline" aria-label="Puja journey timeline">
+              <div class="pg-timeline-label">
+                <strong>Your puja journey</strong>
+                <span>See what is done and what comes next</span>
+              </div>
+              <div class="pg-timeline__track" id="journey-timeline">
+                <div class="pg-timeline__fill" id="timeline-fill" aria-hidden="true"></div>
               </div>
             </div>
           </div>
