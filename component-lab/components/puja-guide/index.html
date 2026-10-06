@@ -49,6 +49,10 @@
     .pg-select{width:100%;padding:14px 44px 14px 15px;border:1px solid var(--pg-line);border-radius:14px;background:#fff;color:var(--pg-brown);font-weight:700}
     .pg-status-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:999px;background:#fff;border:1px solid var(--pg-line);font-size:13px;font-weight:700;color:var(--pg-muted)}
     .pg-status-dot{width:8px;height:8px;border-radius:50%;background:var(--pg-green);box-shadow:0 0 0 4px rgba(52,116,90,.10)}
+    .pg-sound-toggle{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:999px;background:#fff;border:1px solid var(--pg-line);color:var(--pg-brown);font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(79,45,25,.04)}
+    .pg-sound-toggle:hover{border-color:#e8c79f;background:#fffaf3}
+    .pg-sound-toggle[aria-pressed="false"]{color:var(--pg-muted)}
+    .pg-sound-toggle__icon{font-size:15px;line-height:1}
 
     .pg-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px;margin-top:26px;align-items:start}
     .pg-rail{position:sticky;top:22px;border:1px solid var(--pg-line);border-radius:var(--pg-radius);background:rgba(255,253,248,.92);padding:18px;box-shadow:0 10px 35px rgba(79,45,25,.07)}
@@ -256,6 +260,10 @@
         </select>
       </div>
       <div class="pg-status-chip"><span class="pg-status-dot"></span> Demo progress saves on this device</div>
+      <button class="pg-sound-toggle" id="sound-toggle" type="button" aria-pressed="true" aria-label="Turn guide sound off">
+        <span class="pg-sound-toggle__icon" aria-hidden="true">🔔</span>
+        <span id="sound-toggle-label">Sound on</span>
+      </button>
     </div>
   </section>
 
@@ -450,9 +458,80 @@
   var blessingCard = document.getElementById("blessing-card");
   var rewardToast = document.getElementById("reward-toast");
   var petalLayer = document.getElementById("petal-layer");
+  var soundToggle = document.getElementById("sound-toggle");
+  var soundToggleLabel = document.getElementById("sound-toggle-label");
   var toastTimer;
+  var audioContext = null;
+  var soundEnabled = true;
+  try {
+    var storedSound = localStorage.getItem("sabpuja-guide-sound");
+    if(storedSound === "off") soundEnabled = false;
+  } catch(e) {}
 
   function save(){ localStorage.setItem("sabpuja-guide-demo", JSON.stringify(state)); }
+
+  function updateSoundControl(){
+    soundToggle.setAttribute("aria-pressed", soundEnabled ? "true" : "false");
+    soundToggle.setAttribute("aria-label", soundEnabled ? "Turn guide sound off" : "Turn guide sound on");
+    soundToggle.querySelector(".pg-sound-toggle__icon").textContent = soundEnabled ? "🔔" : "🔕";
+    soundToggleLabel.textContent = soundEnabled ? "Sound on" : "Sound off";
+  }
+
+  function ensureAudio(){
+    if(!soundEnabled) return null;
+    var AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if(!AudioCtx) return null;
+    if(!audioContext) audioContext = new AudioCtx();
+    if(audioContext.state === "suspended") audioContext.resume();
+    return audioContext;
+  }
+
+  function bellTone(ctx, when, frequency, duration, gainValue){
+    var osc = ctx.createOscillator();
+    var shimmer = ctx.createOscillator();
+    var gain = ctx.createGain();
+    var shimmerGain = ctx.createGain();
+
+    osc.type = "sine";
+    shimmer.type = "sine";
+    osc.frequency.setValueAtTime(frequency, when);
+    shimmer.frequency.setValueAtTime(frequency * 2.01, when);
+
+    gain.gain.setValueAtTime(0.0001, when);
+    gain.gain.exponentialRampToValueAtTime(gainValue, when + 0.018);
+    gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
+
+    shimmerGain.gain.setValueAtTime(0.0001, when);
+    shimmerGain.gain.exponentialRampToValueAtTime(gainValue * .22, when + 0.012);
+    shimmerGain.gain.exponentialRampToValueAtTime(0.0001, when + duration * .72);
+
+    osc.connect(gain).connect(ctx.destination);
+    shimmer.connect(shimmerGain).connect(ctx.destination);
+
+    osc.start(when);
+    shimmer.start(when);
+    osc.stop(when + duration + .05);
+    shimmer.stop(when + duration + .05);
+  }
+
+  function playStepBlessingSound(){
+    var ctx = ensureAudio();
+    if(!ctx) return;
+    var t = ctx.currentTime + .02;
+    bellTone(ctx,t,659.25,1.25,.07);
+    bellTone(ctx,t+.12,987.77,1.05,.035);
+  }
+
+  function playFinalBlessingSound(){
+    var ctx = ensureAudio();
+    if(!ctx) return;
+    var t = ctx.currentTime + .02;
+    bellTone(ctx,t,523.25,1.8,.065);
+    bellTone(ctx,t+.16,659.25,1.7,.055);
+    bellTone(ctx,t+.34,783.99,1.6,.048);
+    bellTone(ctx,t+.58,1046.50,1.5,.032);
+  }
+
   function isComplete(i){ return state.completed.indexOf(i) !== -1; }
   function pct(){
     var done = state.completed.length;
@@ -608,6 +687,7 @@
       save();
       renderStep();
       flowerShower("step");
+      playStepBlessingSound();
       showToast(steps[state.current]);
       return;
     }
@@ -625,12 +705,24 @@
     stepView.style.display="none";
     completeView.classList.add("is-visible");
     flowerShower("final");
+    playFinalBlessingSound();
     document.getElementById("progress-title").textContent="Puja complete";
     document.getElementById("progress-subtitle").textContent="All " + steps.length + " steps completed";
     document.getElementById("progress-ring").style.setProperty("--pct",100);
     document.getElementById("ring-label").textContent="100%";
     document.getElementById("progress-fill").style.width="100%";
   }
+
+  soundToggle.addEventListener("click",function(){
+    soundEnabled = !soundEnabled;
+    try { localStorage.setItem("sabpuja-guide-sound", soundEnabled ? "on" : "off"); } catch(e) {}
+    updateSoundControl();
+    if(soundEnabled){
+      var ctx = ensureAudio();
+      if(ctx) bellTone(ctx,ctx.currentTime+.02,783.99,.7,.035);
+    }
+  });
+  updateSoundControl();
 
   primaryBtn.addEventListener("click",completeCurrent);
   backBtn.addEventListener("click",function(){ if(state.current>0) openStep(state.current-1); });
