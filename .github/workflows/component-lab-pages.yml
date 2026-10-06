@@ -67,6 +67,63 @@ jobs:
           cp assets/sabpuja-zodiac-cancer-hero.webp .pages-output/theme-assets/
           cp assets/sabpuja-zodiac-lifestyle.webp .pages-output/theme-assets/
           cp assets/sabpuja-navratri-puja-kit-lifestyle.webp .pages-output/theme-assets/
+
+          # Authentic puja bell for the Interactive Puja Guide.
+          # Source: Pixabay — "Pooja Bell Fast" by T_Raviraj
+          # https://pixabay.com/sound-effects/film-special-effects-pooja-bell-fast-415391/
+          # Used under the Pixabay Content License.
+          mkdir -p .pages-output/assets/audio
+          python - <<'PY'
+          import html as html_lib
+          import re
+          import subprocess
+          from pathlib import Path
+
+          page = "https://pixabay.com/sound-effects/film-special-effects-pooja-bell-fast-415391/"
+          target = Path(".pages-output/assets/audio/pooja-bell-fast.mp3")
+
+          try:
+              source = subprocess.check_output(
+                  ["curl", "-fsSL", "--retry", "2", "-A", "Mozilla/5.0", page],
+                  text=True,
+                  timeout=45,
+              )
+              variants = [
+                  source,
+                  source.replace(r"\/", "/"),
+                  html_lib.unescape(source),
+                  html_lib.unescape(source).replace(r"\/", "/"),
+              ]
+              patterns = [
+                  r'https://cdn\.pixabay\.com/download/audio/[^"\'<> ]+?\.mp3(?:\?[^"\'<> ]*)?',
+                  r'https://cdn\.pixabay\.com/audio/[^"\'<> ]+?\.mp3(?:\?[^"\'<> ]*)?',
+              ]
+              url = None
+              for variant in variants:
+                  for pattern in patterns:
+                      match = re.search(pattern, variant)
+                      if match:
+                          url = match.group(0)
+                          break
+                  if url:
+                      break
+
+              if not url:
+                  print("Pixabay MP3 URL was not discoverable; guide will use its built-in fallback bell.")
+              else:
+                  subprocess.check_call(
+                      ["curl", "-fL", "--retry", "2", "-A", "Mozilla/5.0", url, "-o", str(target)],
+                      timeout=60,
+                  )
+                  if target.stat().st_size < 1000:
+                      target.unlink(missing_ok=True)
+                      print("Downloaded bell asset looked invalid; fallback bell will be used.")
+                  else:
+                      print(f"Fetched authentic puja bell: {target.stat().st_size} bytes")
+          except Exception as exc:
+              target.unlink(missing_ok=True)
+              print(f"Authentic bell fetch skipped ({exc}); fallback bell remains available.")
+          PY
       - name: Upload Component Lab
         uses: actions/upload-pages-artifact@v3
         with:
