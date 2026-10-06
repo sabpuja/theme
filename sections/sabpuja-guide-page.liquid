@@ -1,0 +1,125 @@
+{{ 'sabpuja-guide.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sabpuja-guide.js' | asset_url }}" defer></script>
+
+<section
+  class="sp-guide"
+  data-sp-guide-root
+  data-predictive-search-url="{{ routes.predictive_search_url }}"
+  aria-labelledby="sp-guide-title"
+>
+  <div class="sp-guide__ambient sp-guide__ambient--left" aria-hidden="true"></div>
+  <div class="sp-guide__ambient sp-guide__ambient--right" aria-hidden="true"></div>
+
+  <div class="sp-guide__card">
+    <div class="sp-guide__brand">
+      <img
+        src="{{ 'sabpuja-logo-horizontal.svg' | asset_url }}"
+        alt="Sabpuja"
+        width="280"
+        height="93"
+        loading="eager">
+    </div>
+
+    <p class="sp-guide__kicker">Your Personal Puja Guide</p>
+    <h1 class="sp-guide__title" id="sp-guide-title">Find Your Puja Guide</h1>
+    <p class="sp-guide__intro">
+      Namaste <span aria-hidden="true">🙏</span><br>
+      Use the <strong>Guide Code</strong> on your Sabpuja product, or choose a guide directly below.
+    </p>
+
+    <div class="sp-guide__methods">
+      <form class="sp-guide__method" data-sp-guide-code-form novalidate>
+        <div class="sp-guide__method-head">
+          <span class="sp-guide__step">1</span>
+          <div>
+            <h2>Find by Guide Code</h2>
+            <p>Best when you have your Sabpuja packaging with you.</p>
+          </div>
+        </div>
+
+        <label class="sp-guide__label" for="sp-guide-code">Guide Code / SKU</label>
+        <input
+          class="sp-guide__control"
+          id="sp-guide-code"
+          name="guide_code"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          autocapitalize="characters"
+          spellcheck="false"
+          placeholder="Example: SP-..."
+          aria-describedby="sp-guide-code-hint sp-guide-status">
+
+        <button class="sp-guide__button" type="submit">
+          <span>Find My Guide</span>
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <p class="sp-guide__hint" id="sp-guide-code-hint">
+          Enter the code exactly as printed near the product name or barcode.
+        </p>
+        <p class="sp-guide__status" id="sp-guide-status" data-sp-guide-status role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="sp-guide__or" aria-hidden="true"><span>or</span></div>
+
+      <form class="sp-guide__method" data-sp-guide-select-form>
+        <div class="sp-guide__method-head">
+          <span class="sp-guide__step">2</span>
+          <div>
+            <h2>Choose a Puja Guide</h2>
+            <p>Browse the guide you need without entering a code.</p>
+          </div>
+        </div>
+
+        <label class="sp-guide__label" for="sp-guide-select">Select guide</label>
+        <div class="sp-guide__select-wrap">
+          <select class="sp-guide__control sp-guide__select" id="sp-guide-select" name="guide" data-sp-guide-select>
+            <option value="">Select a Puja Guide</option>
+            <optgroup label="Puja kits">
+              <option value="/products/daily-puja-kit#puja-guide">Daily Puja Kit Guide</option>
+              <option value="/products/navratri-puja-kit#puja-guide">Navratri Puja Kit Guide</option>
+            </optgroup>
+            <optgroup label="Puja preparation">
+              <option value="/pages/puja-preparation-checklist">Puja Preparation Checklist</option>
+              <option value="/pages/common-puja-essentials">Common Puja Essentials</option>
+              <option value="/pages/how-to-choose-puja-kit">How to Choose a Puja Kit</option>
+              <option value="/pages/storage-and-care">Puja Samagri Storage &amp; Care</option>
+            </optgroup>
+            <optgroup label="Product guidance">
+              <option value="/pages/astrology-remedy-kits">Astrology Remedy Kits Explained</option>
+              <option value="/pages/how-to-read-product-pages">How to Read a Sabpuja Product Page</option>
+              <option value="/pages/help">General Help &amp; Guide</option>
+            </optgroup>
+          </select>
+          <span class="sp-guide__select-icon" aria-hidden="true">⌄</span>
+        </div>
+
+        <button class="sp-guide__button sp-guide__button--secondary" type="submit" data-sp-guide-select-button disabled>
+          <span>Open Selected Guide</span>
+          <span aria-hidden="true">→</span>
+        </button>
+        <p class="sp-guide__hint">Only currently available Sabpuja guides are listed here.</p>
+      </form>
+    </div>
+
+    <div class="sp-guide__help">
+      <details>
+        <summary>Where can I find my Guide Code?</summary>
+        <p>
+          Check near the product name or barcode on your Sabpuja packaging or product label.
+          The SKU shown with the product can also be used for lookup when it matches the purchased item.
+        </p>
+      </details>
+    </div>
+
+    <div class="sp-guide__divider" aria-hidden="true"><span>ॐ</span></div>
+    <p class="sp-guide__trust">Simple <span>•</span> Private <span>•</span> No login required</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja Puja Guide"
+}
+{% endschema %}
