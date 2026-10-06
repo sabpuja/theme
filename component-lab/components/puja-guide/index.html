@@ -549,9 +549,9 @@
 
   function getRecordedBell(){
     if(!realBellAudio){
-      // Authentic recording: Pixabay "Pooja Bell Fast" by T_Raviraj.
-      // The Pages build stores a local copy at this path; no third-party hotlink during playback.
-      realBellAudio = new Audio("/theme/assets/audio/pooja-bell-fast.mp3");
+      // Authentic field recording: "Indian Temple Bell.WAV" by ganiket (CC0),
+      // recorded in Kothi, Himachal Pradesh, India. The Pages build stores a local preview copy.
+      realBellAudio = new Audio("/theme/assets/audio/indian-temple-bell.mp3");
       realBellAudio.preload = "auto";
       realBellAudio.setAttribute("playsinline","");
     }
