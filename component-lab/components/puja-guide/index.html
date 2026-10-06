@@ -496,7 +496,7 @@
     master.gain.exponentialRampToValueAtTime(0.0001, when + (longRing ? 4.6 : 3.25));
     master.connect(compressor).connect(ctx.destination);
 
-    compressor.threshold.setValueAtTime(-18, when);
+    compressor.threshold.setValueAtTime(-12, when);
     compressor.knee.setValueAtTime(12, when);
     compressor.ratio.setValueAtTime(3, when);
     compressor.attack.setValueAtTime(.003, when);
@@ -537,7 +537,7 @@
     noiseFilter.type = "bandpass";
     noiseFilter.frequency.setValueAtTime(3200,when);
     noiseFilter.Q.setValueAtTime(1.2,when);
-    noiseGain.gain.setValueAtTime(intensity*.5,when);
+    noiseGain.gain.setValueAtTime(intensity*.95,when);
     noiseGain.gain.exponentialRampToValueAtTime(.0001,when+.065);
     noise.connect(noiseFilter).connect(noiseGain).connect(master);
     noise.start(when);
@@ -546,14 +546,14 @@
   function playStepBlessingSound(){
     var ctx = ensureAudio();
     if(!ctx) return;
-    strikeTempleBell(ctx,ctx.currentTime+.025,.045,false);
+    strikeTempleBell(ctx,ctx.currentTime+.025,.12,false);
   }
 
   function playFinalBlessingSound(){
     var ctx = ensureAudio();
     if(!ctx) return;
     // One fuller ceremonial bell ring — not a notification melody.
-    strikeTempleBell(ctx,ctx.currentTime+.025,.055,true);
+    strikeTempleBell(ctx,ctx.currentTime+.025,.16,true);
   }
 
   function isComplete(i){ return state.completed.indexOf(i) !== -1; }
@@ -743,7 +743,7 @@
     updateSoundControl();
     if(soundEnabled){
       var ctx = ensureAudio();
-      if(ctx) strikeTempleBell(ctx,ctx.currentTime+.02,.025,false);
+      if(ctx) strikeTempleBell(ctx,ctx.currentTime+.02,.10,false);
     }
   });
   updateSoundControl();
