@@ -38,6 +38,57 @@
 .sp-language-option[aria-disabled=true]{opacity:.72}
 .sp-icon-button{position:relative;width:40px;height:40px;border:1px solid #e0e3e7!important;border-radius:50%;background:#fff!important;color:#3f4652!important;display:grid!important;place-items:center;text-decoration:none!important;padding:0!important;margin:0!important;box-shadow:none!important;cursor:pointer;transition:border-color .16s ease,background .16s ease,color .16s ease,transform .16s ease}
 .sp-icon-button:hover,.sp-icon-button:focus-visible{background:var(--sp-brand-ivory)!important;border-color:#e6b58f!important;color:#b34e00!important;transform:translateY(-1px)}
+
+/* Shopify New Customer Accounts — storefront account sheet */
+.sp-account-component{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  --shopify-account-color-accent:var(--sp-brand-saffron);
+  --shopify-account-color-background:var(--sp-brand-ivory);
+  --shopify-account-color-text:#2e211d;
+  --shopify-account-color-text-subdued:#75655e;
+  --shopify-account-font-body:Inter,Arial,sans-serif;
+  --shopify-account-font-heading:Poppins,Arial,sans-serif;
+  --shopify-account-radius-button:10px;
+  --shopify-account-radius-button-small:8px;
+  --shopify-account-radius-dialog:16px;
+  --shopify-account-radius-input:10px;
+  --shopify-account-signed-in-avatar-size:40px;
+  --shopify-account-signed-in-avatar-color-background:var(--sp-brand-cream);
+  --shopify-account-signed-in-avatar-color-text:var(--sp-brand-saffron);
+}
+.sp-account-component::part(signed-out-avatar){
+  width:40px;
+  height:40px;
+  padding:0;
+  border:1px solid #e0e3e7;
+  border-radius:50%;
+  background:#fff;
+  color:#3f4652;
+  display:grid;
+  place-items:center;
+  transition:border-color .16s ease,background .16s ease,color .16s ease,transform .16s ease;
+}
+.sp-account-component::part(signed-out-avatar):hover,
+.sp-account-component::part(signed-out-avatar):focus-visible{
+  background:var(--sp-brand-ivory);
+  border-color:#e6b58f;
+  color:#b34e00;
+  transform:translateY(-1px);
+}
+.sp-account-signed-out-avatar{display:grid;width:100%;height:100%;place-items:center;color:inherit}
+.sp-account-signed-out-avatar .sp-icon{width:20px;height:20px}
+@media(max-width:980px){
+  .sp-account-component{--shopify-account-signed-in-avatar-size:42px}
+  .sp-account-component::part(signed-out-avatar){width:42px;height:42px}
+}
+@media(max-width:560px){
+  .sp-account-component{--shopify-account-signed-in-avatar-size:44px}
+  .sp-account-component::part(signed-out-avatar){width:44px;height:44px}
+}
+
 .sp-cart-count{position:absolute;right:-3px;top:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:var(--sp-brand-saffron);color:#fff;font-size:10px;line-height:18px;text-align:center;font-weight:700;border:2px solid #fff}
 .sp-mobile-menu,.sp-header-search-mobile{display:none}
 .sp-mobile-menu summary{list-style:none}.sp-mobile-menu summary::-webkit-details-marker{display:none}.sp-mobile-menu{position:relative}
