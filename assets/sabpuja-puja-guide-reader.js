@@ -153,8 +153,8 @@
     }
     function renderTimeline(){
       timeline.querySelectorAll('.pg-time-step').forEach(function(n){n.remove();});
-      timeline.style.gridTemplateColumns='repeat('+steps.length+',minmax(112px,1fr))';
-      timeline.style.minWidth=Math.max(610,steps.length*122)+'px';
+      timeline.style.removeProperty('grid-template-columns');
+      timeline.style.removeProperty('min-width');
       var ratio=steps.length>1?Math.max(0,Math.min(82,(state.completed.length/(steps.length-1))*82)):0;timelineFill.style.width=ratio+'%';
       steps.forEach(function(s,i){
         var done=complete(i),n=document.createElement('button');n.type='button';n.className='pg-time-step'+(done?' is-complete':'')+(i===state.current?' is-current':'');
@@ -168,16 +168,61 @@
     }
     function renderStep(){
       var s=steps[state.current],done=complete(state.current),mantra=relevantMantra(guide,s),extra=extraFor(guide,s,state.current,steps);
-      q('[data-pg-step-label]').textContent='Step '+(state.current+1)+' · '+s.name;q('[data-pg-step-title]').textContent=s.name;q('[data-pg-step-intro]').textContent=s.text;q('[data-pg-step-icon]').textContent=s.icon;
-      q('[data-pg-instruction-title]').textContent=s.name;q('[data-pg-instruction-copy]').textContent=s.text;
-      q('[data-pg-guide-note]').textContent='Follow this published step slowly. Use only the items that apply to this step and that are actually present in your Sabpuja kit or household puja setup.';
-      q('[data-pg-tradition-note]').textContent='If your family or priest follows a different method, follow that tradition.';
-      var mc=q('[data-pg-mantra-card]');mc.hidden=!mantra;if(mantra){q('[data-pg-mantra]').textContent=mantra.text;q('[data-pg-mantra-note]').textContent=mantra.note;}
-      var ew=q('[data-pg-extra-wrap]');ew.hidden=!extra;if(extra)q('[data-pg-extra-guidance]').textContent=extra;
-      var bc=q('[data-pg-blessing-card]');bc.classList.toggle('is-visible',done);q('[data-pg-blessing-copy]').textContent='You have completed this step. Continue when you are ready.';
-      var cs=q('[data-pg-completion-status]');cs.classList.toggle('is-done',done);cs.querySelector('span:last-child').textContent=done?'Step complete':'Complete this step when you are ready';
-      q('[data-pg-primary-btn]').textContent=done?(state.current===steps.length-1?'Finish puja':'Next step'):'Complete step';q('[data-pg-back-btn]').disabled=state.current===0;
-      q('[data-pg-step-view]').style.display='';q('[data-pg-complete-view]').classList.remove('is-visible');renderNav();renderProgress();renderTimeline();
+      q('[data-pg-step-label]').textContent='Step '+(state.current+1)+' of '+steps.length;
+      q('[data-pg-step-title]').textContent=s.name;
+      q('[data-pg-step-intro]').textContent=s.text;
+      q('[data-pg-step-icon]').textContent=s.icon;
+      q('[data-pg-instruction-title]').textContent=s.name;
+      q('[data-pg-instruction-copy]').textContent=s.text;
+
+      var prep=q('[data-pg-preparation-card]');
+      if(prep){
+        prep.hidden=state.current!==0;
+        var prepList=q('[data-pg-preparation]');
+        if(prepList&&state.current===0)prepList.innerHTML=(guide.preparation||[]).map(function(x){return '<li>'+escapeText(x)+'</li>';}).join('');
+      }
+
+      var mc=q('[data-pg-mantra-card]');
+      if(mc){
+        mc.hidden=!mantra;
+        if(mantra){q('[data-pg-mantra]').textContent=mantra.text;q('[data-pg-mantra-note]').textContent=mantra.note;}
+      }
+
+      var ew=q('[data-pg-extra-wrap]');
+      if(ew){
+        ew.hidden=!extra;
+        if(extra)q('[data-pg-extra-guidance]').textContent=extra;
+      }
+
+      var specialWrap=q('[data-pg-special-wrap]'),specialContentEl=q('[data-pg-special-content]');
+      if(specialWrap&&specialContentEl){
+        var showSpecial=state.current===0&&Array.isArray(guide.optional_ghatasthapana)&&guide.optional_ghatasthapana.length;
+        specialWrap.hidden=!showSpecial;
+        if(showSpecial)specialContentEl.innerHTML=listHtml(guide.optional_ghatasthapana);
+      }
+
+      var careWrap=q('[data-pg-care-wrap]'),careEl=q('[data-pg-care-content]');
+      if(careWrap&&careEl){
+        var care=[];
+        if(Array.isArray(guide.yantra_rudraksha_care))care=care.concat(guide.yantra_rudraksha_care);
+        if(Array.isArray(guide.safety))care=care.concat(guide.safety);
+        var showCare=state.current===steps.length-1&&care.length;
+        careWrap.hidden=!showCare;
+        if(showCare)careEl.innerHTML=listHtml(care);
+      }
+
+      var bc=q('[data-pg-blessing-card]');
+      if(bc){
+        bc.classList.toggle('is-visible',done);
+        q('[data-pg-blessing-copy]').textContent='Continue whenever you are ready.';
+      }
+
+      var primary=q('[data-pg-primary-btn]');
+      primary.textContent=state.current===steps.length-1?'Complete Puja':'Complete & Continue';
+      q('[data-pg-back-btn]').disabled=state.current===0;
+      q('[data-pg-step-view]').style.display='';
+      q('[data-pg-complete-view]').classList.remove('is-visible');
+      renderNav();renderProgress();renderTimeline();
     }
     function flowerShower(finalMode){
       if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -187,12 +232,26 @@
     }
     function toast(){var t=q('[data-pg-reward-toast]');q('[data-pg-toast-copy]').textContent='Step '+(state.current+1)+' complete. Continue when you are ready.';t.classList.add('is-visible');setTimeout(function(){t.classList.remove('is-visible');},2200);}
     function finish(){
-      q('[data-pg-step-view]').style.display='none';q('[data-pg-complete-view]').classList.add('is-visible');q('[data-pg-complete-copy]').textContent='You have completed all '+steps.length+' published steps for '+guide.title.replace(/ — .*/,'')+'. Close with gratitude according to your family tradition.';
+      q('[data-pg-step-view]').style.display='none';q('[data-pg-complete-view]').classList.add('is-visible');q('[data-pg-complete-copy]').textContent='You have completed '+guide.title.replace(/ — .*/,'')+'. Close your puja with a moment of gratitude.';
       q('[data-pg-progress-title]').textContent='Puja complete';q('[data-pg-progress-subtitle]').textContent='All '+steps.length+' steps completed';q('[data-pg-progress-ring]').style.setProperty('--pct',100);q('[data-pg-ring-label]').textContent='100%';q('[data-pg-progress-fill]').style.width='100%';flowerShower(true);
     }
     function primary(){
-      if(!complete(state.current)){state.completed.push(state.current);state.completed.sort(function(a,b){return a-b;});save();renderStep();flowerShower(false);toast();return;}
-      if(state.current<steps.length-1)openStep(state.current+1);else finish();
+      if(!complete(state.current)){
+        state.completed.push(state.current);
+        state.completed.sort(function(a,b){return a-b;});
+        save();
+        flowerShower(state.current===steps.length-1);
+        toast();
+      }
+      if(state.current<steps.length-1){
+        state.current+=1;
+        save();
+        renderStep();
+        var card=q('[data-pg-guide-card]');
+        if(card)card.scrollIntoView({behavior:'smooth',block:'start'});
+      }else{
+        finish();
+      }
     }
 
     q('[data-pg-primary-btn]').addEventListener('click',primary);
@@ -202,15 +261,9 @@
     q('[data-pg-finish-again]').addEventListener('click',function(){state.current=0;save();renderStep();});
 
     function renderHeader(){
-      q('[data-pg-title]').textContent=guide.title;
-      var short=q('[data-pg-title-short]');if(short)short.textContent=guide.title.replace(/ — .*/,'');q('[data-pg-summary]').textContent=guide.summary||'';q('[data-pg-code]').textContent='Guide code · '+guide.guide_code;q('[data-pg-version]').textContent='Published v'+guide.version;q('[data-pg-reviewed]').textContent='Reviewed · '+guide.last_reviewed;q('[data-pg-status-chip]').textContent='Published · '+guide.kit_type.replace(/-/g,' ');
-      q('[data-pg-preparation]').innerHTML=(guide.preparation||[]).map(function(x){return '<li>'+escapeText(x)+'</li>';}).join('');
-      q('[data-pg-important]').textContent=[guide.notice,guide.timing_note,guide.astrology_note].filter(Boolean).join(' ');
-      var special=specialContent(guide),panel=q('[data-pg-special-panel]'),content=q('[data-pg-special-content]');panel.hidden=!special.length;
-      content.innerHTML=special.map(function(b){return '<strong>'+escapeText(b.title)+'</strong>'+(b.items?listHtml(b.items):'<p>'+escapeText(b.text)+'</p>');}).join('');
-      var care=[];if(Array.isArray(guide.yantra_rudraksha_care))care=care.concat(guide.yantra_rudraksha_care);if(Array.isArray(guide.safety))care=care.concat(guide.safety);
-      q('[data-pg-care-content]').innerHTML=listHtml(care);
-      q('[data-pg-about-content]').innerHTML='<p>'+escapeText(guide.notice||'')+'</p>'+sourceHtml(guide.sources);
+      q('[data-pg-title]').textContent=guide.title.replace(/ — .*/,'');
+      var short=q('[data-pg-title-short]');if(short)short.textContent=guide.title.replace(/ — .*/,'');
+      q('[data-pg-summary]').textContent=guide.summary||'';
       fillSelect(select,guide.guide_code);
     }
     function renderAll(){renderHeader();renderStep();}
