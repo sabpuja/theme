@@ -8,11 +8,14 @@
     })||null;
   }
   function shortTitle(g){return String(g.title||'').replace(/ — .*/,'');}
-  function guideUrl(code){
-    var u=new URL(window.location.href);
-    u.searchParams.set('guide',code);
-    u.hash='puja-guide-reader';
-    return u.pathname+u.search+u.hash;
+  function guideUrl(guide){
+    var current=new URL(window.location.href);
+    var target=new URL('/products/'+guide.slug,window.location.origin);
+    current.searchParams.forEach(function(value,key){
+      if(key!=='guide'&&key!=='view')target.searchParams.set(key,value);
+    });
+    target.searchParams.set('view','puja-guide');
+    return target.pathname+target.search;
   }
   function fillSelect(select){
     if(!select)return;
@@ -66,7 +69,7 @@
         event.preventDefault();
         var guide=findGuide(select.value);
         if(!guide){select.focus();return;}
-        window.location.assign(guideUrl(guide.guide_code));
+        window.location.assign(guideUrl(guide));
       });
     }
 
@@ -84,7 +87,7 @@
           return;
         }
         setStatus('Guide found for '+shortTitle(guide)+'. Opening it now…','success');
-        window.location.assign(guideUrl(guide.guide_code));
+        window.location.assign(guideUrl(guide));
       });
     }
   }
