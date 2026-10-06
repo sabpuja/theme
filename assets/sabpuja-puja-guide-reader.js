@@ -7,11 +7,14 @@
       return norm(g.guide_code)===k||norm(g.sku)===k||norm(g.slug)===k;
     })||null;
   }
-  function guideUrl(code){
-    var u=new URL(window.location.href);
-    u.searchParams.set('guide',code);
-    u.hash='';
-    return u.pathname+u.search;
+  function guidePageUrl(g){
+    var current=new URL(window.location.href);
+    var target=new URL('/products/'+g.slug,window.location.origin);
+    current.searchParams.forEach(function(value,key){
+      if(key!=='guide'&&key!=='view')target.searchParams.set(key,value);
+    });
+    target.searchParams.set('view','puja-guide');
+    return target.pathname+target.search;
   }
   function escapeText(v){return String(v==null?'':v).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}
   function shortName(text,index){
@@ -128,7 +131,10 @@
 
     var select=q('[data-pg-guide-select]');
     fillSelect(select,guide.guide_code);
-    if(select) select.addEventListener('change',function(){var g=findGuide(select.value);if(g)setGuide(g);});
+    if(select) select.addEventListener('change',function(){
+      var g=findGuide(select.value);
+      if(g&&g.guide_code!==guide.guide_code) window.location.assign(guidePageUrl(g));
+    });
 
     var back=q('[data-pg-back]');
     if(back){
@@ -196,7 +202,8 @@
     q('[data-pg-finish-again]').addEventListener('click',function(){state.current=0;save();renderStep();});
 
     function renderHeader(){
-      q('[data-pg-title]').textContent=guide.title;q('[data-pg-summary]').textContent=guide.summary||'';q('[data-pg-code]').textContent='Guide code · '+guide.guide_code;q('[data-pg-version]').textContent='Published v'+guide.version;q('[data-pg-reviewed]').textContent='Reviewed · '+guide.last_reviewed;q('[data-pg-status-chip]').textContent='Published · '+guide.kit_type.replace(/-/g,' ');
+      q('[data-pg-title]').textContent=guide.title;
+      var short=q('[data-pg-title-short]');if(short)short.textContent=guide.title.replace(/ — .*/,'');q('[data-pg-summary]').textContent=guide.summary||'';q('[data-pg-code]').textContent='Guide code · '+guide.guide_code;q('[data-pg-version]').textContent='Published v'+guide.version;q('[data-pg-reviewed]').textContent='Reviewed · '+guide.last_reviewed;q('[data-pg-status-chip]').textContent='Published · '+guide.kit_type.replace(/-/g,' ');
       q('[data-pg-preparation]').innerHTML=(guide.preparation||[]).map(function(x){return '<li>'+escapeText(x)+'</li>';}).join('');
       q('[data-pg-important]').textContent=[guide.notice,guide.timing_note,guide.astrology_note].filter(Boolean).join(' ');
       var special=specialContent(guide),panel=q('[data-pg-special-panel]'),content=q('[data-pg-special-content]');panel.hidden=!special.length;
