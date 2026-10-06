@@ -260,9 +260,9 @@
         </select>
       </div>
       <div class="pg-status-chip"><span class="pg-status-dot"></span> Demo progress saves on this device</div>
-      <button class="pg-sound-toggle" id="sound-toggle" type="button" aria-pressed="true" aria-label="Turn guide sound off">
+      <button class="pg-sound-toggle" id="sound-toggle" type="button" aria-pressed="true" aria-label="Turn mandir bell sound off">
         <span class="pg-sound-toggle__icon" aria-hidden="true">🔔</span>
-        <span id="sound-toggle-label">Sound on</span>
+        <span id="sound-toggle-label">Mandir bell on</span>
       </button>
     </div>
   </section>
@@ -461,7 +461,6 @@
   var soundToggle = document.getElementById("sound-toggle");
   var soundToggleLabel = document.getElementById("sound-toggle-label");
   var toastTimer;
-  var audioContext = null;
   var realBellAudio = null;
   var realBellStopTimer = null;
   var soundEnabled = true;
@@ -474,119 +473,49 @@
 
   function updateSoundControl(){
     soundToggle.setAttribute("aria-pressed", soundEnabled ? "true" : "false");
-    soundToggle.setAttribute("aria-label", soundEnabled ? "Turn guide sound off" : "Turn guide sound on");
+    soundToggle.setAttribute("aria-label", soundEnabled ? "Turn mandir bell sound off" : "Turn mandir bell sound on");
     soundToggle.querySelector(".pg-sound-toggle__icon").textContent = soundEnabled ? "🔔" : "🔕";
-    soundToggleLabel.textContent = soundEnabled ? "Sound on" : "Sound off";
-  }
-
-  function ensureAudio(){
-    if(!soundEnabled) return null;
-    var AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if(!AudioCtx) return null;
-    if(!audioContext) audioContext = new AudioCtx();
-    if(audioContext.state === "suspended") audioContext.resume();
-    return audioContext;
-  }
-
-  function strikeTempleBell(ctx, when, intensity, longRing){
-    // Fallback only. The primary guide sound is a real recorded pooja bell.
-    var master = ctx.createGain();
-    var compressor = ctx.createDynamicsCompressor();
-    master.gain.setValueAtTime(0.0001, when);
-    master.gain.exponentialRampToValueAtTime(Math.max(.018,intensity), when + .008);
-    master.gain.exponentialRampToValueAtTime(0.0001, when + (longRing ? 4.6 : 3.25));
-    master.connect(compressor).connect(ctx.destination);
-
-    compressor.threshold.setValueAtTime(-12, when);
-    compressor.knee.setValueAtTime(12, when);
-    compressor.ratio.setValueAtTime(3, when);
-    compressor.attack.setValueAtTime(.003, when);
-    compressor.release.setValueAtTime(.4, when);
-
-    var base = longRing ? 286 : 315;
-    var ratios = [1,1.47,2.09,2.63,3.18,4.07,5.42,6.81];
-    var levels = [1,.72,.58,.42,.31,.22,.14,.09];
-
-    ratios.forEach(function(ratio,i){
-      var osc = ctx.createOscillator();
-      var gain = ctx.createGain();
-      var decay = (longRing ? 4.2 : 3.0) * (1 - i*.065);
-      osc.type = i < 2 ? "sine" : "triangle";
-      osc.frequency.setValueAtTime(base * ratio, when);
-      osc.frequency.exponentialRampToValueAtTime(base * ratio * .996, when + Math.min(.7,decay*.35));
-      gain.gain.setValueAtTime(0.0001, when);
-      gain.gain.exponentialRampToValueAtTime(intensity * levels[i], when + (.004 + i*.0015));
-      gain.gain.exponentialRampToValueAtTime(0.0001, when + decay);
-      osc.connect(gain).connect(master);
-      osc.start(when);
-      osc.stop(when + decay + .08);
-    });
-
-    var buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate*.055), ctx.sampleRate);
-    var data = buffer.getChannelData(0);
-    for(var n=0;n<data.length;n++){
-      var env = Math.pow(1 - n/data.length,5);
-      data[n] = (Math.random()*2-1) * env;
-    }
-    var noise = ctx.createBufferSource();
-    var noiseFilter = ctx.createBiquadFilter();
-    var noiseGain = ctx.createGain();
-    noise.buffer = buffer;
-    noiseFilter.type = "bandpass";
-    noiseFilter.frequency.setValueAtTime(3200,when);
-    noiseFilter.Q.setValueAtTime(1.2,when);
-    noiseGain.gain.setValueAtTime(intensity*.95,when);
-    noiseGain.gain.exponentialRampToValueAtTime(.0001,when+.065);
-    noise.connect(noiseFilter).connect(noiseGain).connect(master);
-    noise.start(when);
-  }
-
-  function playFallbackTempleBell(longRing){
-    var ctx = ensureAudio();
-    if(!ctx) return;
-    strikeTempleBell(ctx,ctx.currentTime+.02,longRing ? .16 : .12,longRing);
+    soundToggleLabel.textContent = soundEnabled ? "Mandir bell on" : "Mandir bell off";
   }
 
   function getRecordedBell(){
     if(!realBellAudio){
-      // Authentic field recording: "Indian Temple Bell.WAV" by ganiket (CC0),
-      // recorded in Kothi, Himachal Pradesh, India. The Pages build stores a local preview copy.
-      realBellAudio = new Audio("/theme/assets/audio/indian-temple-bell.mp3");
+      // Canonical Sabpuja mandir bell: user-selected real Pixabay recording,
+      // committed directly as a static Theme Lab asset. No synthesized fallback.
+      realBellAudio = new Audio("/theme/assets/audio/sabpuja-mandir-bell.mp3");
       realBellAudio.preload = "auto";
       realBellAudio.setAttribute("playsinline","");
     }
     return realBellAudio;
   }
 
-  function playRecordedTempleBell(seconds,longRing){
+  function playRecordedTempleBell(){
     if(!soundEnabled) return;
     var audio = getRecordedBell();
     clearTimeout(realBellStopTimer);
     try {
       audio.pause();
       audio.currentTime = 0;
-      audio.volume = longRing ? 1 : .92;
+      audio.volume = 1;
       var playback = audio.play();
       if(playback && typeof playback.catch === "function"){
-        playback.catch(function(){ playFallbackTempleBell(longRing); });
+        playback.catch(function(){ /* Authentic audio only: fail silently rather than synthesize. */ });
       }
       realBellStopTimer = setTimeout(function(){
         try {
           audio.pause();
           audio.currentTime = 0;
         } catch(e) {}
-      },seconds*1000);
-    } catch(e) {
-      playFallbackTempleBell(longRing);
-    }
+      },3500);
+    } catch(e) {}
   }
 
   function playStepBlessingSound(){
-    playRecordedTempleBell(2.8,false);
+    playRecordedTempleBell();
   }
 
   function playFinalBlessingSound(){
-    playRecordedTempleBell(5.0,true);
+    playRecordedTempleBell();
   }
 
   function isComplete(i){ return state.completed.indexOf(i) !== -1; }
