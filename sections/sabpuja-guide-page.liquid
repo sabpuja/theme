@@ -24,48 +24,13 @@
     <h1 class="sp-guide__title" id="sp-guide-title">Find Your Puja Guide</h1>
     <p class="sp-guide__intro">
       Namaste <span aria-hidden="true">🙏</span><br>
-      Use the <strong>Guide Code</strong> on your Sabpuja product, or choose a guide directly below.
+      Choose your <strong>Puja Guide</strong> below. If you have a Guide Code or SKU, you can use that as an alternate way to find the right guide.
     </p>
 
     <div class="sp-guide__methods">
-      <form class="sp-guide__method" data-sp-guide-code-form novalidate>
+      <form class="sp-guide__method sp-guide__method--primary" data-sp-guide-select-form>
         <div class="sp-guide__method-head">
           <span class="sp-guide__step">1</span>
-          <div>
-            <h2>Find by Guide Code</h2>
-            <p>Best when you have your Sabpuja packaging with you.</p>
-          </div>
-        </div>
-
-        <label class="sp-guide__label" for="sp-guide-code">Guide Code / SKU</label>
-        <input
-          class="sp-guide__control"
-          id="sp-guide-code"
-          name="guide_code"
-          type="text"
-          inputmode="text"
-          autocomplete="off"
-          autocapitalize="characters"
-          spellcheck="false"
-          placeholder="Example: SP-..."
-          aria-describedby="sp-guide-code-hint sp-guide-status">
-
-        <button class="sp-guide__button" type="submit">
-          <span>Find My Guide</span>
-          <span aria-hidden="true">→</span>
-        </button>
-
-        <p class="sp-guide__hint" id="sp-guide-code-hint">
-          Enter the code exactly as printed near the product name or barcode.
-        </p>
-        <p class="sp-guide__status" id="sp-guide-status" data-sp-guide-status role="status" aria-live="polite"></p>
-      </form>
-
-      <div class="sp-guide__or" aria-hidden="true"><span>or</span></div>
-
-      <form class="sp-guide__method" data-sp-guide-select-form>
-        <div class="sp-guide__method-head">
-          <span class="sp-guide__step">2</span>
           <div>
             <h2>Choose a Puja Guide</h2>
             <p>Browse the guide you need without entering a code.</p>
@@ -95,11 +60,46 @@
           <span class="sp-guide__select-icon" aria-hidden="true">⌄</span>
         </div>
 
-        <button class="sp-guide__button sp-guide__button--secondary" type="submit" data-sp-guide-select-button disabled>
+        <button class="sp-guide__button" type="submit" data-sp-guide-select-button disabled>
           <span>Open Selected Guide</span>
           <span aria-hidden="true">→</span>
         </button>
         <p class="sp-guide__hint">Only currently available Sabpuja guides are listed here.</p>
+      </form>
+
+      <div class="sp-guide__or" aria-hidden="true"><span>or use your code</span></div>
+
+      <form class="sp-guide__method sp-guide__method--secondary" data-sp-guide-code-form novalidate>
+        <div class="sp-guide__method-head">
+          <span class="sp-guide__step">2</span>
+          <div>
+            <h2>Find by Guide Code</h2>
+            <p>Best when you have your Sabpuja packaging with you.</p>
+          </div>
+        </div>
+
+        <label class="sp-guide__label" for="sp-guide-code">Guide Code / SKU</label>
+        <input
+          class="sp-guide__control"
+          id="sp-guide-code"
+          name="guide_code"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          autocapitalize="characters"
+          spellcheck="false"
+          placeholder="Example: SP-..."
+          aria-describedby="sp-guide-code-hint sp-guide-status">
+
+        <button class="sp-guide__button sp-guide__button--secondary" type="submit">
+          <span>Find My Guide</span>
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <p class="sp-guide__hint" id="sp-guide-code-hint">
+          Enter the code exactly as printed near the product name or barcode.
+        </p>
+        <p class="sp-guide__status" id="sp-guide-status" data-sp-guide-status role="status" aria-live="polite"></p>
       </form>
     </div>
 
