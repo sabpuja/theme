@@ -462,6 +462,8 @@
   var soundToggleLabel = document.getElementById("sound-toggle-label");
   var toastTimer;
   var audioContext = null;
+  var realBellAudio = null;
+  var realBellStopTimer = null;
   var soundEnabled = true;
   try {
     var storedSound = localStorage.getItem("sabpuja-guide-sound");
@@ -487,8 +489,7 @@
   }
 
   function strikeTempleBell(ctx, when, intensity, longRing){
-    // Temple-bell model: one physical strike with bright metallic attack,
-    // inharmonic brass-like partials and a long natural decay.
+    // Fallback only. The primary guide sound is a real recorded pooja bell.
     var master = ctx.createGain();
     var compressor = ctx.createDynamicsCompressor();
     master.gain.setValueAtTime(0.0001, when);
@@ -502,7 +503,6 @@
     compressor.attack.setValueAtTime(.003, when);
     compressor.release.setValueAtTime(.4, when);
 
-    // Inharmonic partial ratios approximate the complex modes of a hand-rung brass mandir bell.
     var base = longRing ? 286 : 315;
     var ratios = [1,1.47,2.09,2.63,3.18,4.07,5.42,6.81];
     var levels = [1,.72,.58,.42,.31,.22,.14,.09];
@@ -513,7 +513,6 @@
       var decay = (longRing ? 4.2 : 3.0) * (1 - i*.065);
       osc.type = i < 2 ? "sine" : "triangle";
       osc.frequency.setValueAtTime(base * ratio, when);
-      // Tiny downward settling after impact makes the strike feel physical rather than electronic.
       osc.frequency.exponentialRampToValueAtTime(base * ratio * .996, when + Math.min(.7,decay*.35));
       gain.gain.setValueAtTime(0.0001, when);
       gain.gain.exponentialRampToValueAtTime(intensity * levels[i], when + (.004 + i*.0015));
@@ -523,7 +522,6 @@
       osc.stop(when + decay + .08);
     });
 
-    // Short clapper/metal impact so it feels like somebody actually struck/rang the bell.
     var buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate*.055), ctx.sampleRate);
     var data = buffer.getChannelData(0);
     for(var n=0;n<data.length;n++){
@@ -543,17 +541,52 @@
     noise.start(when);
   }
 
-  function playStepBlessingSound(){
+  function playFallbackTempleBell(longRing){
     var ctx = ensureAudio();
     if(!ctx) return;
-    strikeTempleBell(ctx,ctx.currentTime+.025,.12,false);
+    strikeTempleBell(ctx,ctx.currentTime+.02,longRing ? .16 : .12,longRing);
+  }
+
+  function getRecordedBell(){
+    if(!realBellAudio){
+      // Authentic recording: Pixabay "Pooja Bell Fast" by T_Raviraj.
+      // The Pages build stores a local copy at this path; no third-party hotlink during playback.
+      realBellAudio = new Audio("/theme/assets/audio/pooja-bell-fast.mp3");
+      realBellAudio.preload = "auto";
+      realBellAudio.setAttribute("playsinline","");
+    }
+    return realBellAudio;
+  }
+
+  function playRecordedTempleBell(seconds,longRing){
+    if(!soundEnabled) return;
+    var audio = getRecordedBell();
+    clearTimeout(realBellStopTimer);
+    try {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.volume = longRing ? 1 : .92;
+      var playback = audio.play();
+      if(playback && typeof playback.catch === "function"){
+        playback.catch(function(){ playFallbackTempleBell(longRing); });
+      }
+      realBellStopTimer = setTimeout(function(){
+        try {
+          audio.pause();
+          audio.currentTime = 0;
+        } catch(e) {}
+      },seconds*1000);
+    } catch(e) {
+      playFallbackTempleBell(longRing);
+    }
+  }
+
+  function playStepBlessingSound(){
+    playRecordedTempleBell(2.8,false);
   }
 
   function playFinalBlessingSound(){
-    var ctx = ensureAudio();
-    if(!ctx) return;
-    // One fuller ceremonial bell ring — not a notification melody.
-    strikeTempleBell(ctx,ctx.currentTime+.025,.16,true);
+    playRecordedTempleBell(5.0,true);
   }
 
   function isComplete(i){ return state.completed.indexOf(i) !== -1; }
@@ -742,8 +775,10 @@
     try { localStorage.setItem("sabpuja-guide-sound", soundEnabled ? "on" : "off"); } catch(e) {}
     updateSoundControl();
     if(soundEnabled){
-      var ctx = ensureAudio();
-      if(ctx) strikeTempleBell(ctx,ctx.currentTime+.02,.10,false);
+      playRecordedTempleBell(2.2,false);
+    }else if(realBellAudio){
+      clearTimeout(realBellStopTimer);
+      try { realBellAudio.pause(); realBellAudio.currentTime = 0; } catch(e) {}
     }
   });
   updateSoundControl();
