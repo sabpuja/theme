@@ -49,10 +49,6 @@
     .pg-select{width:100%;padding:14px 44px 14px 15px;border:1px solid var(--pg-line);border-radius:14px;background:#fff;color:var(--pg-brown);font-weight:700}
     .pg-status-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:999px;background:#fff;border:1px solid var(--pg-line);font-size:13px;font-weight:700;color:var(--pg-muted)}
     .pg-status-dot{width:8px;height:8px;border-radius:50%;background:var(--pg-green);box-shadow:0 0 0 4px rgba(52,116,90,.10)}
-    .pg-sound-toggle{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:999px;background:#fff;border:1px solid var(--pg-line);color:var(--pg-brown);font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(79,45,25,.04)}
-    .pg-sound-toggle:hover{border-color:#e8c79f;background:#fffaf3}
-    .pg-sound-toggle[aria-pressed="false"]{color:var(--pg-muted)}
-    .pg-sound-toggle__icon{font-size:15px;line-height:1}
 
     .pg-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px;margin-top:26px;align-items:start}
     .pg-rail{position:sticky;top:22px;border:1px solid var(--pg-line);border-radius:var(--pg-radius);background:rgba(255,253,248,.92);padding:18px;box-shadow:0 10px 35px rgba(79,45,25,.07)}
@@ -260,10 +256,6 @@
         </select>
       </div>
       <div class="pg-status-chip"><span class="pg-status-dot"></span> Demo progress saves on this device</div>
-      <button class="pg-sound-toggle" id="sound-toggle" type="button" aria-pressed="true" aria-label="Turn mandir bell sound off">
-        <span class="pg-sound-toggle__icon" aria-hidden="true">🔔</span>
-        <span id="sound-toggle-label">Mandir bell on</span>
-      </button>
     </div>
   </section>
 
@@ -458,65 +450,9 @@
   var blessingCard = document.getElementById("blessing-card");
   var rewardToast = document.getElementById("reward-toast");
   var petalLayer = document.getElementById("petal-layer");
-  var soundToggle = document.getElementById("sound-toggle");
-  var soundToggleLabel = document.getElementById("sound-toggle-label");
   var toastTimer;
-  var realBellAudio = null;
-  var realBellStopTimer = null;
-  var soundEnabled = true;
-  try {
-    var storedSound = localStorage.getItem("sabpuja-guide-sound");
-    if(storedSound === "off") soundEnabled = false;
-  } catch(e) {}
 
   function save(){ localStorage.setItem("sabpuja-guide-demo", JSON.stringify(state)); }
-
-  function updateSoundControl(){
-    soundToggle.setAttribute("aria-pressed", soundEnabled ? "true" : "false");
-    soundToggle.setAttribute("aria-label", soundEnabled ? "Turn mandir bell sound off" : "Turn mandir bell sound on");
-    soundToggle.querySelector(".pg-sound-toggle__icon").textContent = soundEnabled ? "🔔" : "🔕";
-    soundToggleLabel.textContent = soundEnabled ? "Mandir bell on" : "Mandir bell off";
-  }
-
-  function getRecordedBell(){
-    if(!realBellAudio){
-      // Canonical Sabpuja mandir bell: user-selected real Pixabay recording,
-      // committed directly as a static Theme Lab asset. No synthesized fallback.
-      realBellAudio = new Audio("/theme/assets/audio/sabpuja-mandir-bell.mp3");
-      realBellAudio.preload = "auto";
-      realBellAudio.setAttribute("playsinline","");
-    }
-    return realBellAudio;
-  }
-
-  function playRecordedTempleBell(){
-    if(!soundEnabled) return;
-    var audio = getRecordedBell();
-    clearTimeout(realBellStopTimer);
-    try {
-      audio.pause();
-      audio.currentTime = 0;
-      audio.volume = 1;
-      var playback = audio.play();
-      if(playback && typeof playback.catch === "function"){
-        playback.catch(function(){ /* Authentic audio only: fail silently rather than synthesize. */ });
-      }
-      realBellStopTimer = setTimeout(function(){
-        try {
-          audio.pause();
-          audio.currentTime = 0;
-        } catch(e) {}
-      },3500);
-    } catch(e) {}
-  }
-
-  function playStepBlessingSound(){
-    playRecordedTempleBell();
-  }
-
-  function playFinalBlessingSound(){
-    playRecordedTempleBell();
-  }
 
   function isComplete(i){ return state.completed.indexOf(i) !== -1; }
   function pct(){
@@ -673,7 +609,6 @@
       save();
       renderStep();
       flowerShower("step");
-      playStepBlessingSound();
       showToast(steps[state.current]);
       return;
     }
@@ -691,26 +626,12 @@
     stepView.style.display="none";
     completeView.classList.add("is-visible");
     flowerShower("final");
-    playFinalBlessingSound();
     document.getElementById("progress-title").textContent="Puja complete";
     document.getElementById("progress-subtitle").textContent="All " + steps.length + " steps completed";
     document.getElementById("progress-ring").style.setProperty("--pct",100);
     document.getElementById("ring-label").textContent="100%";
     document.getElementById("progress-fill").style.width="100%";
   }
-
-  soundToggle.addEventListener("click",function(){
-    soundEnabled = !soundEnabled;
-    try { localStorage.setItem("sabpuja-guide-sound", soundEnabled ? "on" : "off"); } catch(e) {}
-    updateSoundControl();
-    if(soundEnabled){
-      playRecordedTempleBell(2.2,false);
-    }else if(realBellAudio){
-      clearTimeout(realBellStopTimer);
-      try { realBellAudio.pause(); realBellAudio.currentTime = 0; } catch(e) {}
-    }
-  });
-  updateSoundControl();
 
   primaryBtn.addEventListener("click",completeCurrent);
   backBtn.addEventListener("click",function(){ if(state.current>0) openStep(state.current-1); });
