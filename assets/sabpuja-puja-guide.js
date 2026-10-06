@@ -13,7 +13,7 @@
     u.hash='';
     return u.pathname+u.search;
   }
-  function escapeText(v){return String(v==null?'':v);}
+  function escapeText(v){return String(v==null?'':v).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}
   function shortName(text,index){
     var s=String(text||'').toLowerCase();
     if(s.indexOf('sankalp')>=0) return 'Sankalp';
