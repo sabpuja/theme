@@ -26,3 +26,6 @@ Shopify storefront implementation for Sab Puja.
 
 ## Development rule
 Every production change should map to a core requirement or issue and be implemented through a focused branch/PR.
+
+## Project progress memory
+Current implementation status and canonical routes are maintained in [`docs/progress-memory.md`](docs/progress-memory.md).
