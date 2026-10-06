@@ -1,26 +1,22 @@
-# Indian Temple Bell — source record
+# Sabpuja Mandir Bell — canonical source
 
-Canonical recording selected for the Sabpuja Interactive Puja Guide.
+This is the canonical bell sound for the Sabpuja Interactive Puja Guide.
 
-- **Recording:** `Indian Temple Bell.WAV`
-- **Creator:** ganiket
-- **Original source:** https://freesound.org/people/ganiket/sounds/466652/
-- **Recording location:** Kothi, Himachal Pradesh, India
-- **Recorded:** 2019
-- **Original recorder:** Zoom H6N
-- **Original duration:** 30.544 seconds
-- **Original format:** WAV, stereo, 48 kHz, 24-bit
-- **License:** Creative Commons Zero (CC0)
-- **Pixabay listing:** https://pixabay.com/sound-effects/city-indian-temple-bell-68150/
+- **User-supplied file:** `freesound_community-indian-temple-bell-68150.mp3`
+- **Downloaded by user from:** Pixabay temple sound-effects library
+- **Use:** ritual-step completion and final **Puja Sampann** celebration
+- **Character:** real struck mandir bell, natural metallic attack, room ambience, organic decay
+- **Do not replace with:** synthesized notification/chime effects
 
-## Theme Lab asset
+## Playback treatment
 
-Expected static asset filename:
+- **Step completion:** use the first clean strike with roughly 3–3.5 seconds of natural decay
+- **Puja Sampann:** allow a longer roughly 6–6.5 second ring-out
+- Keep the recording natural; only trim/fade for clean UX playback
+- User-facing Sound on/off control remains required
 
-`component-lab/assets/audio/indian-temple-bell.mp3`
+## Deployment rule
 
-The Puja Guide should play a short excerpt from this real recording for step completion and a longer excerpt for **Puja Sampann**.
+Do **not** fetch, convert, process, or acquire this audio through GitHub Actions.
 
-## Important deployment rule
-
-Do **not** fetch, convert, or process this audio through GitHub Actions. The audio asset must be committed directly as a static repository file. GitHub Actions must not be added or modified for audio acquisition.
+The final MP3 must be stored or hosted directly as a static asset and referenced by the Puja Guide without CI-based audio acquisition.
