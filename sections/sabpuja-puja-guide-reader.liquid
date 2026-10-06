@@ -4,54 +4,32 @@
 
 <section class="sp-puja-reader" data-sp-puja-reader data-default-guide="{{ product.handle }}" id="puja-guide-reader">
   <div class="pg-shell">
-    <div class="pg-breadcrumb"><a href="/pages/guide">Puja Guide Finder</a> / <span data-pg-title-short>{{ product.title }}</span></div>
+    <div class="pg-breadcrumb">
+      <a href="/pages/guide">Puja Guide Finder</a>
+      <span aria-hidden="true">/</span>
+      <span data-pg-title-short>{{ product.title }}</span>
+    </div>
+
     <section class="pg-hero">
-      <div class="pg-eyebrow">SP-GUIDE · Published Sabpuja guide</div>
+      <div class="pg-eyebrow">Your Puja Guide</div>
       <h1 data-pg-title>Sabpuja Puja Guide</h1>
       <p data-pg-summary></p>
+
       <div class="pg-guide-selector">
         <div class="pg-field">
-          <label for="lab-published-guide-select">Choose another published guide</label>
-          <select class="pg-select" id="lab-published-guide-select" data-pg-guide-select></select>
+          <label for="storefront-published-guide-select">Switch Puja Guide</label>
+          <div class="pg-select-wrap">
+            <select class="pg-select" id="storefront-published-guide-select" data-pg-guide-select></select>
+            <span aria-hidden="true">⌄</span>
+          </div>
         </div>
-        <div class="pg-status-chip"><span class="pg-status-dot"></span><span data-pg-status-chip>Published guide</span></div>
-      </div>
-      <div class="pg-guide-meta-row">
-        <span class="pg-meta-chip" data-pg-code></span>
-        <span class="pg-meta-chip" data-pg-version></span>
-        <span class="pg-meta-chip" data-pg-reviewed></span>
-      </div>
-      <div class="pg-preflight">
-        <div class="pg-preflight-card">
-          <h2>Before you begin</h2>
-          <ul data-pg-preparation></ul>
-        </div>
-        <div class="pg-preflight-card">
-          <h2>Important guidance</h2>
-          <p class="pg-important" data-pg-important></p>
-        </div>
-      </div>
-      <div class="pg-guide-panels">
-        <details data-pg-special-panel hidden>
-          <summary data-pg-special-title>Optional / tradition-specific guidance</summary>
-          <div data-pg-special-content></div>
-        </details>
-        <details data-pg-care-panel>
-          <summary>Care &amp; safety</summary>
-          <div data-pg-care-content></div>
-        </details>
-        <details data-pg-about-panel>
-          <summary>About this published guide</summary>
-          <div data-pg-about-content></div>
-        </details>
       </div>
     </section>
 
     <div class="pg-layout">
       <aside class="pg-rail" aria-label="Guide steps">
-        <div class="pg-rail-title">Your puja journey</div>
+        <div class="pg-rail-title">Your Puja Journey</div>
         <div class="pg-steps" data-pg-step-nav></div>
-        <div class="pg-rail-note"><strong>Gentle guidance:</strong> move at your own pace. You can revisit completed steps at any time.</div>
         <button class="pg-reset" data-pg-reset type="button">Reset progress</button>
       </aside>
 
@@ -63,10 +41,10 @@
             <span data-pg-progress-subtitle></span>
             <div class="pg-progress-track" aria-hidden="true"><div class="pg-progress-fill" data-pg-progress-fill></div></div>
           </div>
-          <div class="pg-streak"><strong data-pg-blessing-count>0</strong><span>steps completed</span></div>
+          <div class="pg-streak"><strong data-pg-blessing-count>0</strong><span>completed</span></div>
         </div>
 
-        <div class="pg-mobile-progress" data-pg-mobile-progress aria-label="Guide progress"></div>
+        <div class="pg-mobile-progress" data-pg-mobile-progress aria-label="Guide steps"></div>
 
         <article class="pg-card" data-pg-guide-card>
           <div data-pg-step-view>
@@ -75,47 +53,64 @@
               <h2 data-pg-step-title></h2>
               <p class="pg-intro" data-pg-step-intro></p>
             </div>
+
             <div class="pg-card-body">
+              <section class="pg-prep-card" data-pg-preparation-card hidden>
+                <div class="pg-section-mark">Before you begin</div>
+                <h3>Prepare your puja space</h3>
+                <ul data-pg-preparation></ul>
+              </section>
+
               <div class="pg-instruction">
                 <div class="pg-icon" data-pg-step-icon>🙏</div>
-                <div><strong data-pg-instruction-title></strong><p data-pg-instruction-copy></p></div>
-              </div>
-
-              <div class="pg-detail-grid">
-                <div class="pg-detail"><h3>Guide note</h3><p data-pg-guide-note></p></div>
-                <div class="pg-detail"><h3>Tradition note</h3><p data-pg-tradition-note></p></div>
+                <div>
+                  <span class="pg-instruction-label">This step</span>
+                  <strong data-pg-instruction-title></strong>
+                  <p data-pg-instruction-copy></p>
+                </div>
               </div>
 
               <div class="pg-mantra" data-pg-mantra-card hidden>
-                <small>Mantra / prayer guidance</small>
+                <small>Mantra / prayer</small>
                 <blockquote data-pg-mantra></blockquote>
                 <p data-pg-mantra-note></p>
               </div>
 
               <div class="pg-optional" data-pg-extra-wrap hidden>
-                <details>
-                  <summary>Need a little more guidance?</summary>
+                <details open>
+                  <summary>Helpful guidance</summary>
                   <p data-pg-extra-guidance></p>
+                </details>
+              </div>
+
+              <div class="pg-optional" data-pg-special-wrap hidden>
+                <details>
+                  <summary>Optional tradition-specific guidance</summary>
+                  <div class="pg-rich-list" data-pg-special-content></div>
+                </details>
+              </div>
+
+              <div class="pg-optional" data-pg-care-wrap hidden>
+                <details>
+                  <summary>Care &amp; safety</summary>
+                  <div class="pg-rich-list" data-pg-care-content></div>
                 </details>
               </div>
 
               <div class="pg-blessing" data-pg-blessing-card>
                 <div class="pg-blessing-icon">🌼</div>
-                <div><strong>Step completed</strong><p data-pg-blessing-copy></p></div>
+                <div><strong>Step complete</strong><p data-pg-blessing-copy></p></div>
               </div>
 
               <div class="pg-action-zone">
-                <div class="pg-check" data-pg-completion-status><span class="dot"></span><span>Complete this step when you are ready</span></div>
-                <div class="pg-actions">
-                  <button class="pg-btn pg-btn--ghost" data-pg-back-btn type="button">Back</button>
-                  <button class="pg-btn pg-btn--primary" data-pg-primary-btn type="button">Complete step</button>
-                </div>
+                <button class="pg-btn pg-btn--ghost" data-pg-back-btn type="button">Back</button>
+                <button class="pg-btn pg-btn--primary" data-pg-primary-btn type="button">Complete &amp; Continue</button>
               </div>
 
               <div class="pg-timeline pg-timeline--inline" aria-label="Puja journey timeline">
                 <div class="pg-timeline-label">
-                  <strong>Your puja journey</strong>
-                  <span>See what is done and what comes next</span>
+                  <strong>Your Puja Journey</strong>
+                  <span>Swipe to see all steps</span>
                 </div>
                 <div class="pg-timeline__track" data-pg-journey-timeline>
                   <div class="pg-timeline__fill" data-pg-timeline-fill aria-hidden="true"></div>
@@ -125,14 +120,13 @@
           </div>
 
           <div class="pg-complete" data-pg-complete-view>
-            <div class="pg-garland" aria-hidden="true">🌼 🌼 🌼 🌼 🌼</div>
+            <div class="pg-garland" aria-hidden="true">🌼 🌼 🌼</div>
             <div class="pg-complete-badge">🙏</div>
             <h2>Puja Sampann</h2>
-            <p data-pg-complete-copy>Your guide is complete. Close the puja with gratitude according to your family tradition.</p>
-            <div class="pg-complete-offering">Guide completed with shraddha and care</div>
+            <p data-pg-complete-copy>Your puja guide is complete.</p>
             <div class="pg-final-blessing">शुभम् भवतु · May there be auspiciousness</div>
             <div class="pg-complete-actions">
-              <button class="pg-btn pg-btn--primary" data-pg-finish-again type="button">View completed journey</button>
+              <button class="pg-btn pg-btn--primary" data-pg-finish-again type="button">View journey</button>
               <button class="pg-btn pg-btn--ghost" data-pg-restart type="button">Start again</button>
             </div>
           </div>
@@ -140,6 +134,7 @@
       </section>
     </div>
   </div>
+
   <div class="pg-petal-layer" data-pg-petal-layer aria-hidden="true"></div>
   <div class="pg-reward-toast" data-pg-reward-toast role="status" aria-live="polite">
     <div class="pg-toast-mark">✦</div>
