@@ -78,6 +78,20 @@
     .pg-streak strong{font-size:18px;color:var(--pg-saffron-dark)}
     .pg-streak span{font-size:11px;color:var(--pg-muted)}
 
+    .pg-timeline{margin-top:12px;border:1px solid var(--pg-line);border-radius:20px;background:rgba(255,253,248,.94);padding:16px 14px 14px;box-shadow:0 8px 28px rgba(79,45,25,.05);overflow-x:auto;scrollbar-width:none}
+    .pg-timeline::-webkit-scrollbar{display:none}
+    .pg-timeline__track{position:relative;display:grid;grid-template-columns:repeat(5,minmax(112px,1fr));min-width:610px;gap:0}
+    .pg-timeline__track:before{content:"";position:absolute;left:9%;right:9%;top:21px;height:3px;border-radius:999px;background:#eadfd3}
+    .pg-timeline__fill{position:absolute;left:9%;top:21px;height:3px;border-radius:999px;background:linear-gradient(90deg,var(--pg-saffron),var(--pg-marigold));transition:width .5s ease;z-index:1}
+    .pg-time-step{position:relative;z-index:2;border:0;background:transparent;padding:0 7px;text-align:center;color:var(--pg-muted);cursor:pointer}
+    .pg-time-icon{width:43px;height:43px;margin:0 auto 8px;border-radius:50%;display:grid;place-items:center;border:2px solid #e4d6c9;background:#fff;font-size:17px;box-shadow:0 4px 14px rgba(79,45,25,.05);transition:.25s ease}
+    .pg-time-step.is-current .pg-time-icon{border-color:var(--pg-saffron);box-shadow:0 0 0 5px rgba(232,93,4,.10);transform:scale(1.04)}
+    .pg-time-step.is-complete .pg-time-icon{border-color:#e1a63f;background:#fff8df;color:var(--pg-saffron-dark);box-shadow:0 0 0 4px rgba(245,158,11,.10)}
+    .pg-time-name{display:block;font-size:12px;font-weight:850;line-height:1.25;color:var(--pg-brown)}
+    .pg-time-status{display:flex;justify-content:center;align-items:center;gap:4px;margin-top:4px;font-size:10px;line-height:1.2;color:var(--pg-muted);white-space:nowrap}
+    .pg-time-step.is-complete .pg-time-status{color:var(--pg-green);font-weight:850}
+    .pg-time-step.is-current:not(.is-complete) .pg-time-status{color:var(--pg-saffron-dark);font-weight:800}
+
     .pg-card{position:relative;margin-top:18px;border:1px solid var(--pg-line);border-radius:30px;background:var(--pg-paper);box-shadow:var(--pg-shadow);overflow:hidden}
     .pg-card-head{padding:clamp(22px,4vw,40px) clamp(22px,4vw,46px) 20px;border-bottom:1px solid var(--pg-line);background:linear-gradient(180deg,#fffdf8,#fff9f0)}
     .pg-step-kicker{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px;color:var(--pg-saffron-dark);font-weight:850}
@@ -129,12 +143,15 @@
     .pg-reward-toast span{display:block;opacity:.75;font-size:11px;margin-top:1px}
 
     .pg-petal-layer{position:fixed;inset:0;z-index:65;pointer-events:none;overflow:hidden}
-    .pg-petal{position:absolute;top:-30px;width:16px;height:11px;border-radius:80% 20% 80% 20%;background:linear-gradient(135deg,#d84f67,#f08ca0);opacity:.85;animation:petalFall 2.25s linear forwards}
-    .pg-petal:nth-child(3n){background:linear-gradient(135deg,#f1a329,#ffc857)}
-    @keyframes petalFall{
-      0%{transform:translate3d(0,-20px,0) rotate(0deg);opacity:0}
-      10%{opacity:.9}
-      100%{transform:translate3d(var(--drift),105vh,0) rotate(540deg);opacity:.1}
+    .pg-falling-garland{position:absolute;top:-70px;display:block;font-size:clamp(22px,3vw,34px);line-height:1;white-space:nowrap;filter:drop-shadow(0 5px 5px rgba(89,45,20,.12));transform-origin:center;animation:garlandFall 2.7s cubic-bezier(.18,.68,.32,1) forwards}
+    .pg-falling-garland:before{content:"🌼🌹🌼";letter-spacing:-4px}
+    .pg-falling-garland:nth-child(3n):before{content:"🌸🌼🌸"}
+    .pg-falling-garland:nth-child(4n):before{content:"🌼🌼🌹"}
+    @keyframes garlandFall{
+      0%{transform:translate3d(0,-40px,0) rotate(var(--start-rotate)) scale(.72);opacity:0}
+      12%{opacity:.95}
+      50%{transform:translate3d(calc(var(--drift) * .55),48vh,0) rotate(calc(var(--start-rotate) + 120deg)) scale(1)}
+      100%{transform:translate3d(var(--drift),108vh,0) rotate(calc(var(--start-rotate) + 300deg)) scale(.88);opacity:.12}
     }
 
     .pg-complete{display:none;text-align:center;padding:clamp(30px,6vw,70px) clamp(20px,5vw,60px);background:
@@ -170,6 +187,8 @@
       .pg-progress-ring{width:52px;height:52px}
       .pg-progress-ring:after{width:40px;height:40px}
       .pg-streak{display:none}
+      .pg-timeline{margin-top:10px;padding:13px 8px 11px}
+      .pg-timeline__track{grid-template-columns:repeat(5,112px);min-width:560px}
       .pg-card{border-radius:22px}
       .pg-card-head,.pg-card-body{padding:20px 17px}
       .pg-detail-grid{grid-template-columns:1fr}
@@ -239,6 +258,12 @@
           <div class="pg-progress-track" aria-hidden="true"><div class="pg-progress-fill" id="progress-fill"></div></div>
         </div>
         <div class="pg-streak"><strong id="blessing-count">0</strong><span>blessings received</span></div>
+      </div>
+
+      <div class="pg-timeline" aria-label="Puja journey timeline">
+        <div class="pg-timeline__track" id="journey-timeline">
+          <div class="pg-timeline__fill" id="timeline-fill" aria-hidden="true"></div>
+        </div>
       </div>
 
       <div class="pg-mobile-progress" id="mobile-progress" aria-label="Guide progress"></div>
@@ -393,6 +418,8 @@
 
   var stepNav = document.getElementById("step-nav");
   var mobileProgress = document.getElementById("mobile-progress");
+  var journeyTimeline = document.getElementById("journey-timeline");
+  var timelineFill = document.getElementById("timeline-fill");
   var stepView = document.getElementById("step-view");
   var completeView = document.getElementById("complete-view");
   var primaryBtn = document.getElementById("primary-btn");
@@ -428,6 +455,27 @@
       p.textContent=(isComplete(i) ? "✓ " : (i+1)+". ") + s.name;
       p.addEventListener("click",function(){ openStep(i); });
       mobileProgress.appendChild(p);
+    });
+  }
+
+  function renderTimeline(){
+    var oldNodes = journeyTimeline.querySelectorAll(".pg-time-step");
+    oldNodes.forEach(function(node){ node.remove(); });
+    var completeCount = state.completed.length;
+    var connectorPct = steps.length > 1 ? Math.max(0,Math.min(100,(completeCount/(steps.length-1))*82)) : 0;
+    timelineFill.style.width = connectorPct + "%";
+
+    steps.forEach(function(s,i){
+      var done = isComplete(i);
+      var node = document.createElement("button");
+      node.type = "button";
+      node.className = "pg-time-step" + (done ? " is-complete" : "") + (i===state.current ? " is-current" : "");
+      node.setAttribute("aria-label","Step " + (i+1) + ": " + s.name + ". " + (done ? "Completed, blessing received." : (i===state.current ? "Current step." : "Upcoming step.")));
+      var icon = done ? "🌼" : s.icon;
+      var status = done ? '<span aria-hidden="true">✦</span> Blessing received' : (i===state.current ? "In progress" : "Upcoming");
+      node.innerHTML = '<span class="pg-time-icon">' + icon + '</span><span class="pg-time-name">Step ' + (i+1) + ' · ' + s.name + '</span><span class="pg-time-status">' + status + '</span>';
+      node.addEventListener("click",function(){ openStep(i); });
+      journeyTimeline.appendChild(node);
     });
   }
 
@@ -470,6 +518,7 @@
     completeView.classList.remove("is-visible");
     renderNav();
     renderProgress();
+    renderTimeline();
   }
 
   function openStep(i){
@@ -479,20 +528,20 @@
     document.getElementById("guide-card").scrollIntoView({behavior:"smooth",block:"start"});
   }
 
-  function petals(count){
+  function garlands(count){
     if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     petalLayer.innerHTML="";
     for(var i=0;i<count;i++){
-      var p=document.createElement("span");
-      p.className="pg-petal";
-      p.style.left=(Math.random()*100)+"vw";
-      p.style.animationDelay=(Math.random()*.55)+"s";
-      p.style.animationDuration=(1.8+Math.random()*1.2)+"s";
-      p.style.setProperty("--drift",(-80+Math.random()*160)+"px");
-      p.style.transform="rotate("+(Math.random()*180)+"deg)";
-      petalLayer.appendChild(p);
+      var g=document.createElement("span");
+      g.className="pg-falling-garland";
+      g.style.left=(-4+Math.random()*102)+"vw";
+      g.style.animationDelay=(Math.random()*.7)+"s";
+      g.style.animationDuration=(2.25+Math.random()*1.15)+"s";
+      g.style.setProperty("--drift",(-100+Math.random()*200)+"px");
+      g.style.setProperty("--start-rotate",(-30+Math.random()*60)+"deg");
+      petalLayer.appendChild(g);
     }
-    setTimeout(function(){ petalLayer.innerHTML=""; },3400);
+    setTimeout(function(){ petalLayer.innerHTML=""; },4200);
   }
 
   function showToast(step){
@@ -509,7 +558,7 @@
       state.completed.sort();
       save();
       renderStep();
-      petals(24);
+      garlands(12);
       showToast(steps[state.current]);
       return;
     }
@@ -526,7 +575,7 @@
   function showCompletion(){
     stepView.style.display="none";
     completeView.classList.add("is-visible");
-    petals(44);
+    garlands(20);
     document.getElementById("progress-title").textContent="Puja complete";
     document.getElementById("progress-subtitle").textContent="All " + steps.length + " steps completed";
     document.getElementById("progress-ring").style.setProperty("--pct",100);
