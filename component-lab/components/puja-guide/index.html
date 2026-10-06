@@ -486,50 +486,74 @@
     return audioContext;
   }
 
-  function bellTone(ctx, when, frequency, duration, gainValue){
-    var osc = ctx.createOscillator();
-    var shimmer = ctx.createOscillator();
-    var gain = ctx.createGain();
-    var shimmerGain = ctx.createGain();
+  function strikeTempleBell(ctx, when, intensity, longRing){
+    // Temple-bell model: one physical strike with bright metallic attack,
+    // inharmonic brass-like partials and a long natural decay.
+    var master = ctx.createGain();
+    var compressor = ctx.createDynamicsCompressor();
+    master.gain.setValueAtTime(0.0001, when);
+    master.gain.exponentialRampToValueAtTime(Math.max(.018,intensity), when + .008);
+    master.gain.exponentialRampToValueAtTime(0.0001, when + (longRing ? 4.6 : 3.25));
+    master.connect(compressor).connect(ctx.destination);
 
-    osc.type = "sine";
-    shimmer.type = "sine";
-    osc.frequency.setValueAtTime(frequency, when);
-    shimmer.frequency.setValueAtTime(frequency * 2.01, when);
+    compressor.threshold.setValueAtTime(-18, when);
+    compressor.knee.setValueAtTime(12, when);
+    compressor.ratio.setValueAtTime(3, when);
+    compressor.attack.setValueAtTime(.003, when);
+    compressor.release.setValueAtTime(.4, when);
 
-    gain.gain.setValueAtTime(0.0001, when);
-    gain.gain.exponentialRampToValueAtTime(gainValue, when + 0.018);
-    gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
+    // Inharmonic partial ratios approximate the complex modes of a hand-rung brass mandir bell.
+    var base = longRing ? 286 : 315;
+    var ratios = [1,1.47,2.09,2.63,3.18,4.07,5.42,6.81];
+    var levels = [1,.72,.58,.42,.31,.22,.14,.09];
 
-    shimmerGain.gain.setValueAtTime(0.0001, when);
-    shimmerGain.gain.exponentialRampToValueAtTime(gainValue * .22, when + 0.012);
-    shimmerGain.gain.exponentialRampToValueAtTime(0.0001, when + duration * .72);
+    ratios.forEach(function(ratio,i){
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      var decay = (longRing ? 4.2 : 3.0) * (1 - i*.065);
+      osc.type = i < 2 ? "sine" : "triangle";
+      osc.frequency.setValueAtTime(base * ratio, when);
+      // Tiny downward settling after impact makes the strike feel physical rather than electronic.
+      osc.frequency.exponentialRampToValueAtTime(base * ratio * .996, when + Math.min(.7,decay*.35));
+      gain.gain.setValueAtTime(0.0001, when);
+      gain.gain.exponentialRampToValueAtTime(intensity * levels[i], when + (.004 + i*.0015));
+      gain.gain.exponentialRampToValueAtTime(0.0001, when + decay);
+      osc.connect(gain).connect(master);
+      osc.start(when);
+      osc.stop(when + decay + .08);
+    });
 
-    osc.connect(gain).connect(ctx.destination);
-    shimmer.connect(shimmerGain).connect(ctx.destination);
-
-    osc.start(when);
-    shimmer.start(when);
-    osc.stop(when + duration + .05);
-    shimmer.stop(when + duration + .05);
+    // Short clapper/metal impact so it feels like somebody actually struck/rang the bell.
+    var buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate*.055), ctx.sampleRate);
+    var data = buffer.getChannelData(0);
+    for(var n=0;n<data.length;n++){
+      var env = Math.pow(1 - n/data.length,5);
+      data[n] = (Math.random()*2-1) * env;
+    }
+    var noise = ctx.createBufferSource();
+    var noiseFilter = ctx.createBiquadFilter();
+    var noiseGain = ctx.createGain();
+    noise.buffer = buffer;
+    noiseFilter.type = "bandpass";
+    noiseFilter.frequency.setValueAtTime(3200,when);
+    noiseFilter.Q.setValueAtTime(1.2,when);
+    noiseGain.gain.setValueAtTime(intensity*.5,when);
+    noiseGain.gain.exponentialRampToValueAtTime(.0001,when+.065);
+    noise.connect(noiseFilter).connect(noiseGain).connect(master);
+    noise.start(when);
   }
 
   function playStepBlessingSound(){
     var ctx = ensureAudio();
     if(!ctx) return;
-    var t = ctx.currentTime + .02;
-    bellTone(ctx,t,659.25,1.25,.07);
-    bellTone(ctx,t+.12,987.77,1.05,.035);
+    strikeTempleBell(ctx,ctx.currentTime+.025,.045,false);
   }
 
   function playFinalBlessingSound(){
     var ctx = ensureAudio();
     if(!ctx) return;
-    var t = ctx.currentTime + .02;
-    bellTone(ctx,t,523.25,1.8,.065);
-    bellTone(ctx,t+.16,659.25,1.7,.055);
-    bellTone(ctx,t+.34,783.99,1.6,.048);
-    bellTone(ctx,t+.58,1046.50,1.5,.032);
+    // One fuller ceremonial bell ring — not a notification melody.
+    strikeTempleBell(ctx,ctx.currentTime+.025,.055,true);
   }
 
   function isComplete(i){ return state.completed.indexOf(i) !== -1; }
@@ -719,7 +743,7 @@
     updateSoundControl();
     if(soundEnabled){
       var ctx = ensureAudio();
-      if(ctx) bellTone(ctx,ctx.currentTime+.02,783.99,.7,.035);
+      if(ctx) strikeTempleBell(ctx,ctx.currentTime+.02,.025,false);
     }
   });
   updateSoundControl();
