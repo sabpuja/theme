@@ -1,14 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="robots" content="noindex,nofollow">
-  <title>Interactive Puja Guide · Sabpuja Component Lab</title>
-  <meta name="description" content="Interactive step-by-step Sabpuja puja guide prototype with devotional progress, marigold flower offerings and completion blessings.">
-  <link rel="stylesheet" href="/theme/assets/css/lab.css">
-  <style>
-    :root{
+:root{
       --pg-saffron:#e85d04;
       --pg-saffron-dark:#b94400;
       --pg-marigold:#f59e0b;
@@ -22,9 +12,9 @@
       --pg-shadow:0 18px 50px rgba(79,45,25,.12);
       --pg-radius:24px;
     }
-    *{box-sizing:border-box}
-    body{background:linear-gradient(180deg,#fffaf2 0%,#fffdf9 38%,#f9f2e9 100%);color:var(--pg-brown)}
-    button,select{font:inherit}
+    .sp-puja-reader,.sp-puja-reader *{box-sizing:border-box}
+    .sp-puja-reader{background:linear-gradient(180deg,#fffaf2 0%,#fffdf9 38%,#f9f2e9 100%);color:var(--pg-brown)}
+    .sp-puja-reader button,.sp-puja-reader select{font:inherit}
     .pg-shell{max-width:1280px;margin:0 auto;padding:28px 22px 90px}
     .pg-breadcrumb{font-size:14px;color:var(--pg-muted);margin-bottom:18px}
     .pg-breadcrumb a{color:inherit}
@@ -221,170 +211,28 @@
       .pg-complete-actions{padding-bottom:72px}
     }
     @media (prefers-reduced-motion:reduce){
-      *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+      .sp-puja-reader *,.sp-puja-reader *:before,.sp-puja-reader *:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
       .pg-petal-layer{display:none}
     }
-  </style>
-</head>
-<body>
-<header class="lab-header">
-  <div class="lab-header__inner">
-    <a class="lab-brand" href="/theme/"><span class="lab-brand__mark">S</span><span>Sabpuja Component Lab</span></a>
-    <nav class="lab-nav" aria-label="Primary">
-      <a aria-current="page" href="/theme/components/">Components</a>
-      <a href="/theme/blocks/">Blocks</a>
-      <a href="/theme/foundations/">Foundations</a>
-      <a href="/theme/tools/image-lab/">Image Lab</a>
-    </nav>
-  </div>
-</header>
-
-<section class="sp-puja-reader" data-sp-puja-reader data-default-guide="SP-KIT-DAILY">
-  <div class="pg-shell">
-    <div class="pg-breadcrumb"><a href="/theme/">Home</a> / <a href="/theme/components/">Components</a> / Published Puja Guides</div>
-    <section class="pg-hero">
-      <div class="pg-eyebrow">SP-GUIDE · Published Sabpuja guide</div>
-      <h1 data-pg-title>Sabpuja Puja Guide</h1>
-      <p data-pg-summary></p>
-      <div class="pg-guide-selector">
-        <div class="pg-field">
-          <label for="lab-published-guide-select">Choose another published guide</label>
-          <select class="pg-select" id="lab-published-guide-select" data-pg-guide-select></select>
-        </div>
-        <div class="pg-status-chip"><span class="pg-status-dot"></span><span data-pg-status-chip>Published guide</span></div>
-      </div>
-      <div class="pg-guide-meta-row">
-        <span class="pg-meta-chip" data-pg-code></span>
-        <span class="pg-meta-chip" data-pg-version></span>
-        <span class="pg-meta-chip" data-pg-reviewed></span>
-      </div>
-      <div class="pg-preflight">
-        <div class="pg-preflight-card">
-          <h2>Before you begin</h2>
-          <ul data-pg-preparation></ul>
-        </div>
-        <div class="pg-preflight-card">
-          <h2>Important guidance</h2>
-          <p class="pg-important" data-pg-important></p>
-        </div>
-      </div>
-      <div class="pg-guide-panels">
-        <details data-pg-special-panel hidden>
-          <summary data-pg-special-title>Optional / tradition-specific guidance</summary>
-          <div data-pg-special-content></div>
-        </details>
-        <details data-pg-care-panel>
-          <summary>Care &amp; safety</summary>
-          <div data-pg-care-content></div>
-        </details>
-        <details data-pg-about-panel>
-          <summary>About this published guide</summary>
-          <div data-pg-about-content></div>
-        </details>
-      </div>
-    </section>
-
-    <div class="pg-layout">
-      <aside class="pg-rail" aria-label="Guide steps">
-        <div class="pg-rail-title">Your puja journey</div>
-        <div class="pg-steps" data-pg-step-nav></div>
-        <div class="pg-rail-note"><strong>Gentle guidance:</strong> move at your own pace. You can revisit completed steps at any time.</div>
-        <button class="pg-reset" data-pg-reset type="button">Reset progress</button>
-      </aside>
-
-      <section class="pg-main" aria-live="polite">
-        <div class="pg-progress-card">
-          <div class="pg-progress-ring" data-pg-progress-ring><strong data-pg-ring-label>0%</strong></div>
-          <div class="pg-progress-copy">
-            <strong data-pg-progress-title></strong>
-            <span data-pg-progress-subtitle></span>
-            <div class="pg-progress-track" aria-hidden="true"><div class="pg-progress-fill" data-pg-progress-fill></div></div>
-          </div>
-          <div class="pg-streak"><strong data-pg-blessing-count>0</strong><span>steps completed</span></div>
-        </div>
-
-        <div class="pg-mobile-progress" data-pg-mobile-progress aria-label="Guide progress"></div>
-
-        <article class="pg-card" data-pg-guide-card>
-          <div data-pg-step-view>
-            <div class="pg-card-head">
-              <div class="pg-step-kicker"><span data-pg-step-label></span><span data-pg-step-time>About 1–2 min</span></div>
-              <h2 data-pg-step-title></h2>
-              <p class="pg-intro" data-pg-step-intro></p>
-            </div>
-            <div class="pg-card-body">
-              <div class="pg-instruction">
-                <div class="pg-icon" data-pg-step-icon>🙏</div>
-                <div><strong data-pg-instruction-title></strong><p data-pg-instruction-copy></p></div>
-              </div>
-
-              <div class="pg-detail-grid">
-                <div class="pg-detail"><h3>Guide note</h3><p data-pg-guide-note></p></div>
-                <div class="pg-detail"><h3>Tradition note</h3><p data-pg-tradition-note></p></div>
-              </div>
-
-              <div class="pg-mantra" data-pg-mantra-card hidden>
-                <small>Mantra / prayer guidance</small>
-                <blockquote data-pg-mantra></blockquote>
-                <p data-pg-mantra-note></p>
-              </div>
-
-              <div class="pg-optional" data-pg-extra-wrap hidden>
-                <details>
-                  <summary>Need a little more guidance?</summary>
-                  <p data-pg-extra-guidance></p>
-                </details>
-              </div>
-
-              <div class="pg-blessing" data-pg-blessing-card>
-                <div class="pg-blessing-icon">🌼</div>
-                <div><strong>Step completed</strong><p data-pg-blessing-copy></p></div>
-              </div>
-
-              <div class="pg-action-zone">
-                <div class="pg-check" data-pg-completion-status><span class="dot"></span><span>Complete this step when you are ready</span></div>
-                <div class="pg-actions">
-                  <button class="pg-btn pg-btn--ghost" data-pg-back-btn type="button">Back</button>
-                  <button class="pg-btn pg-btn--primary" data-pg-primary-btn type="button">Complete step</button>
-                </div>
-              </div>
-
-              <div class="pg-timeline pg-timeline--inline" aria-label="Puja journey timeline">
-                <div class="pg-timeline-label">
-                  <strong>Your puja journey</strong>
-                  <span>See what is done and what comes next</span>
-                </div>
-                <div class="pg-timeline__track" data-pg-journey-timeline>
-                  <div class="pg-timeline__fill" data-pg-timeline-fill aria-hidden="true"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pg-complete" data-pg-complete-view>
-            <div class="pg-garland" aria-hidden="true">🌼 🌼 🌼 🌼 🌼</div>
-            <div class="pg-complete-badge">🙏</div>
-            <h2>Puja Sampann</h2>
-            <p data-pg-complete-copy>Your guide is complete. Close the puja with gratitude according to your family tradition.</p>
-            <div class="pg-complete-offering">Guide completed with shraddha and care</div>
-            <div class="pg-final-blessing">शुभम् भवतु · May there be auspiciousness</div>
-            <div class="pg-complete-actions">
-              <button class="pg-btn pg-btn--primary" data-pg-finish-again type="button">View completed journey</button>
-              <button class="pg-btn pg-btn--ghost" data-pg-restart type="button">Start again</button>
-            </div>
-          </div>
-        </article>
-      </section>
-    </div>
-  </div>
-  <div class="pg-petal-layer" data-pg-petal-layer aria-hidden="true"></div>
-  <div class="pg-reward-toast" data-pg-reward-toast role="status" aria-live="polite">
-    <div class="pg-toast-mark">✦</div>
-    <div><strong>Step completed</strong><span data-pg-toast-copy>Continue when you are ready.</span></div>
-  </div>
-</section>
-<script src="/theme/assets/js/published-guides.js"></script>
-<script src="/theme/assets/js/puja-guide.js" defer></script>
-<script src="/theme/assets/js/lab.js" defer></script>
-</body>
-</html>
+  
+.sp-puja-reader[hidden]{display:none!important}
+.pg-guide-meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.pg-meta-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border:1px solid var(--pg-line);border-radius:999px;background:#fff;font-size:12px;font-weight:750;color:var(--pg-muted)}
+.pg-preflight{margin-top:18px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:14px}
+.pg-preflight-card{padding:17px 18px;border:1px solid var(--pg-line);border-radius:18px;background:rgba(255,255,255,.82)}
+.pg-preflight-card h2{margin:0 0 9px;font-size:15px;line-height:1.3}
+.pg-preflight-card ul{margin:0;padding-left:20px;color:var(--pg-muted);font-size:13px;line-height:1.62}
+.pg-preflight-card li+li{margin-top:5px}
+.pg-important{margin:0;color:var(--pg-muted);font-size:13px;line-height:1.62}
+.pg-guide-panels{display:grid;gap:10px;margin-top:14px}
+.pg-guide-panels details{border:1px solid var(--pg-line);border-radius:16px;background:#fff;padding:0 16px}
+.pg-guide-panels summary{cursor:pointer;padding:14px 0;font-size:13px;font-weight:800}
+.pg-guide-panels p,.pg-guide-panels ul{margin:0 0 15px;color:var(--pg-muted);font-size:13px;line-height:1.62}
+.pg-guide-panels ul{padding-left:20px}
+.pg-guide-source-list{display:grid;gap:7px}
+.pg-guide-source-list a{color:var(--pg-saffron-dark);text-underline-offset:3px}
+.pg-guide-back{display:inline-flex;align-items:center;gap:7px;margin-bottom:14px;color:var(--pg-muted);font-size:13px;font-weight:750;text-decoration:none}
+.pg-guide-back:hover{color:var(--pg-saffron-dark)}
+.pg-mantra[hidden],.pg-optional[hidden],.pg-guide-panels details[hidden]{display:none!important}
+.pg-instruction p{white-space:pre-line}
+@media(max-width:760px){.pg-preflight{grid-template-columns:1fr}}

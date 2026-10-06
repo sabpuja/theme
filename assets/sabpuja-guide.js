@@ -1,143 +1,38 @@
 (function(){
-  function normalizeCode(value){
-    return String(value || '').trim().toUpperCase().replace(/\s+/g,'');
+  function payload(){return window.SABPUJA_PUBLISHED_GUIDES||{guides:[]};}
+  function norm(v){return String(v||'').trim().toUpperCase().replace(/\s+/g,'');}
+  function findGuide(v){
+    var k=norm(v);
+    return payload().guides.find(function(g){return norm(g.guide_code)===k||norm(g.sku)===k||norm(g.slug)===k;})||null;
   }
-
-  function productJsonUrl(productUrl){
-    var clean=String(productUrl || '').split('?')[0].split('#')[0];
-    return clean.replace(/\.js$/,'') + '.js';
+  function openGuide(g){
+    var u=new URL(window.location.href);u.searchParams.set('guide',g.guide_code);u.hash='';window.location.assign(u.pathname+u.search);
   }
-
-  function guideUrlForProduct(product, productData){
-    var url=String(product.url || '').split('?')[0].split('#')[0];
-    var handle=String((productData && productData.handle) || '').toLowerCase();
-    var type=String((productData && productData.type) || '').toLowerCase();
-
-    if(handle === 'daily-puja-kit' || handle === 'navratri-puja-kit' || type.indexOf('astrological remedy kit') !== -1){
-      return url + '#puja-guide';
-    }
-    return url;
+  function populate(select){
+    if(!select)return;
+    var kit=payload().guides.filter(function(g){return g.kit_type!=='astrological-remedy-kit';});
+    var astro=payload().guides.filter(function(g){return g.kit_type==='astrological-remedy-kit';});
+    select.innerHTML='<option value="">Select a Puja Guide</option>';
+    [['Puja kits',kit],['Astrological Remedy Kits',astro]].forEach(function(pair){
+      var og=document.createElement('optgroup');og.label=pair[0];pair[1].forEach(function(g){var o=document.createElement('option');o.value=g.guide_code;o.textContent=g.title.replace(/ — .*/,'');og.appendChild(o);});select.appendChild(og);
+    });
   }
-
-  async function findExactSku(root, rawCode){
-    var code=normalizeCode(rawCode);
-    if(!code) return null;
-
-    var base=root.getAttribute('data-predictive-search-url') || '/search/suggest';
-    var endpoint=base.replace(/\.json$/,'') + '.json'
-      + '?q=' + encodeURIComponent(rawCode.trim())
-      + '&resources[type]=product&resources[limit]=10';
-
-    var response=await fetch(endpoint,{headers:{'Accept':'application/json'}});
-    if(!response.ok) throw new Error('search_failed');
-
-    var payload=await response.json();
-    var products=payload && payload.resources && payload.resources.results
-      ? payload.resources.results.products || []
-      : [];
-
-    for(var i=0;i<products.length;i++){
-      try{
-        var productResponse=await fetch(productJsonUrl(products[i].url),{headers:{'Accept':'application/json'}});
-        if(!productResponse.ok) continue;
-        var productData=await productResponse.json();
-        var variants=Array.isArray(productData.variants) ? productData.variants : [];
-        var exact=variants.some(function(variant){return normalizeCode(variant.sku) === code;});
-        if(exact){
-          return {
-            title:productData.title || products[i].title || 'your product',
-            url:guideUrlForProduct(products[i],productData)
-          };
-        }
-      }catch(error){
-        // Continue checking the remaining predictive-search candidates.
-      }
-    }
-    return null;
+  function init(root){
+    if(root.dataset.spGuideReady==='true')return;root.dataset.spGuideReady='true';
+    var reader=document.querySelector('[data-sp-puja-reader]');
+    var guideParam=new URLSearchParams(window.location.search).get('guide');
+    if(guideParam&&findGuide(guideParam)){root.hidden=true;if(reader)reader.hidden=false;return;}
+    root.hidden=false;if(reader&&reader.dataset.requiresGuide==='true')reader.hidden=true;
+    var select=root.querySelector('[data-sp-guide-select]'),selectButton=root.querySelector('[data-sp-guide-select-button]'),selectForm=root.querySelector('[data-sp-guide-select-form]');
+    populate(select);
+    function sync(){if(selectButton)selectButton.disabled=!select.value;}
+    if(select){select.addEventListener('change',sync);sync();}
+    if(selectForm&&select)selectForm.addEventListener('submit',function(e){e.preventDefault();var g=findGuide(select.value);if(g)openGuide(g);});
+    var codeForm=root.querySelector('[data-sp-guide-code-form]'),input=root.querySelector('#sp-guide-code'),status=root.querySelector('[data-sp-guide-status]');
+    function setStatus(msg,state){if(!status)return;status.textContent=msg||'';status.classList.remove('is-error','is-success','is-loading');if(state)status.classList.add('is-'+state);}
+    if(codeForm&&input)codeForm.addEventListener('submit',function(e){e.preventDefault();var g=findGuide(input.value);if(!input.value.trim()){setStatus('Enter the Guide Code or SKU printed on your product.','error');input.focus();return;}if(g){setStatus('Guide found. Opening it now…','success');setTimeout(function(){openGuide(g);},180);}else setStatus('We could not match that code to a published Sabpuja kit guide. Check the code or choose a guide above.','error');});
   }
-
-  function initGuide(root){
-    if(root.dataset.spGuideReady === 'true') return;
-    root.dataset.spGuideReady='true';
-
-    var codeForm=root.querySelector('[data-sp-guide-code-form]');
-    var input=root.querySelector('#sp-guide-code');
-    var status=root.querySelector('[data-sp-guide-status]');
-    var codeButton=codeForm ? codeForm.querySelector('button[type="submit"]') : null;
-    var selectForm=root.querySelector('[data-sp-guide-select-form]');
-    var select=root.querySelector('[data-sp-guide-select]');
-    var selectButton=root.querySelector('[data-sp-guide-select-button]');
-
-    function setStatus(message,state){
-      if(!status) return;
-      status.textContent=message || '';
-      status.classList.remove('is-error','is-success','is-loading');
-      if(state) status.classList.add('is-' + state);
-    }
-
-    if(codeForm && input){
-      codeForm.addEventListener('submit',async function(event){
-        event.preventDefault();
-        var code=input.value.trim();
-        if(!code){
-          setStatus('Enter the Guide Code or SKU printed on your product.','error');
-          input.focus();
-          return;
-        }
-
-        setStatus('Looking for the matching Sabpuja product…','loading');
-        if(codeButton) codeButton.disabled=true;
-
-        try{
-          var match=await findExactSku(root,code);
-          if(match){
-            setStatus('Guide found for ' + match.title + '. Opening it now…','success');
-            window.setTimeout(function(){window.location.assign(match.url);},250);
-          }else{
-            setStatus('We could not match that code. Check the code and try again, or choose a guide below.','error');
-          }
-        }catch(error){
-          setStatus('Guide lookup is temporarily unavailable. Please choose a guide below or try again.','error');
-        }finally{
-          if(codeButton) codeButton.disabled=false;
-        }
-      });
-    }
-
-    if(select && selectButton){
-      function syncButton(){selectButton.disabled=!select.value;}
-      select.addEventListener('change',syncButton);
-      syncButton();
-    }
-
-    if(selectForm && select){
-      selectForm.addEventListener('submit',function(event){
-        event.preventDefault();
-        if(!select.value){
-          select.focus();
-          return;
-        }
-        window.location.assign(select.value);
-      });
-    }
-  }
-
-  function boot(){
-    document.querySelectorAll('[data-sp-guide-root]').forEach(initGuide);
-  }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded',boot,{once:true});
-  }else{
-    boot();
-  }
-
-  document.addEventListener('shopify:section:load',function(event){
-    if(event.target && event.target.matches && event.target.matches('[data-sp-guide-root]')){
-      initGuide(event.target);
-    }else if(event.target){
-      var nested=event.target.querySelector && event.target.querySelector('[data-sp-guide-root]');
-      if(nested) initGuide(nested);
-    }
-  });
+  function boot(){document.querySelectorAll('[data-sp-guide-root]').forEach(init);}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+  document.addEventListener('shopify:section:load',function(e){if(e.target)e.target.querySelectorAll('[data-sp-guide-root]').forEach(init);});
 }());
