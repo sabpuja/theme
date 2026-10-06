@@ -49,8 +49,18 @@
   --shopify-account-color-background:var(--sp-brand-ivory);
   --shopify-account-color-text:#2e211d;
   --shopify-account-color-text-subdued:#75655e;
+  --shopify-account-color-background-subdued:#fff7ef;
+  --shopify-account-color-border:#eadfd5;
+  --shopify-account-color-card-background:#fff;
+  --shopify-account-color-card-text:#2e211d;
+  --shopify-account-color-control-background:#fff;
+  --shopify-account-color-control-text:#2e211d;
+  --shopify-account-color-shadow:rgba(42,31,22,.16);
   --shopify-account-font-body:Inter,Arial,sans-serif;
+  --shopify-account-font-body-weight:500;
   --shopify-account-font-heading:Poppins,Arial,sans-serif;
+  --shopify-account-font-heading-weight:700;
+  --shopify-account-radius-base:12px;
   --shopify-account-radius-button:10px;
   --shopify-account-radius-button-small:8px;
   --shopify-account-radius-dialog:16px;
