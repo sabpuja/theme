@@ -1,1 +1,0 @@
-Expected one hero slide_3_url replacement, got 0
