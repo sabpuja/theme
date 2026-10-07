@@ -2,12 +2,19 @@
 <script src="{{ 'sabpuja-published-guides.js' | asset_url }}" defer></script>
 <script src="{{ 'sabpuja-puja-guide-reader.js' | asset_url }}" defer></script>
 
-<section class="sp-puja-reader" data-sp-puja-reader data-default-guide="{{ product.handle }}" id="puja-guide-reader">
+{% assign sp_guide_key = product.handle %}
+{% assign sp_guide_fallback_title = product.title %}
+{% if template.name == 'page' %}
+  {% assign sp_guide_key = page.metafields.sabpuja.guide_code.value | default: page.handle %}
+  {% assign sp_guide_fallback_title = page.title %}
+{% endif %}
+
+<section class="sp-puja-reader" data-sp-puja-reader data-default-guide="{{ sp_guide_key | escape }}" id="puja-guide-reader">
   <div class="pg-shell">
     <div class="pg-breadcrumb">
       <a href="/pages/guide">Puja Guide Finder</a>
       <span aria-hidden="true">/</span>
-      <span data-pg-title-short>{{ product.title }}</span>
+      <span data-pg-title-short>{{ sp_guide_fallback_title }}</span>
     </div>
 
     <section class="pg-hero">
