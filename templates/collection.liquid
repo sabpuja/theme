@@ -1,6 +1,8 @@
 <!-- Sabpuja collection template -->
 {% if collection.handle == 'astrology-remedy-kits' %}
-  {% section 'sabpuja-astrology-collection' %}
+  {% section 'sabpuja-zodiac-remedy-landing' %}
+  {{ 'sabpuja-zodiac-remedy-proportion-fix.css' | asset_url | stylesheet_tag }}
+  {% section 'sabpuja-product-reviews-shared' %}
 {% else %}
   {% section 'sabpuja-collection-grid' %}
 {% endif %}
