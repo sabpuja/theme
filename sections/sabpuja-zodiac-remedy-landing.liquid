@@ -1,5 +1,6 @@
 {{ 'sabpuja-zodiac-remedy-landing.css' | asset_url | stylesheet_tag }}
 {{ 'sabpuja-zodiac-remedy-proportion-fix.css' | asset_url | stylesheet_tag }}
+{{ 'sabpuja-benefits-trust.css' | asset_url | stylesheet_tag }}
 
 <section class="sp-zodiac" data-sp-zodiac>
   <main>
@@ -211,10 +212,46 @@
       </div>
     </section>
 
-    <section class="sp-zodiac__stories sp-zodiac__section" data-reveal>
-      <article><i>{% render 'sabpuja-icon', name: 'sparkles' %}</i><div><h3>Why These Items?</h3><p data-zodiac-why>Each item is included for its traditional and cultural significance in devotional practice, presented without promising guaranteed outcomes.</p></div></article>
-      <article><i>{% render 'sabpuja-icon', name: 'book' %}</i><div><h3>How to Use Your Kit</h3><p>Prepare your puja space, identify the sign-specific items, and follow your family tradition or priest guidance for your daily or special rituals.</p><a href="#zodiac-guide">Explore the Full Guide ↓</a></div></article>
-      <article><i>{% render 'sabpuja-icon', name: 'heart' %}</i><div><h3>A More Meaningful Practice</h3><p>This kit is designed to support your devotion, discipline and positive intentions through traditional rituals.</p></div></article>
+    <section class="sp-benefits-trust sp-benefits-trust--icon_cards sp-benefits-trust--cream sp-benefits-trust--width-contained sp-benefits-trust--align-left sp-zodiac__context-cards" data-reveal>
+      <div class="sp-benefits-trust__inner">
+        <div class="sp-benefits-trust__head">
+          <p class="sp-benefits-trust__eyebrow">Helpful context</p>
+          <h2 class="sp-benefits-trust__heading">Understand your <span data-zodiac-name>Aries</span> kit at a glance.</h2>
+          <div class="sp-benefits-trust__body">
+            <p>Why these items are included, how to prepare them, and where to continue when you are ready for the Puja Guide.</p>
+          </div>
+        </div>
+
+        <div class="sp-benefits-trust__items" role="list">
+          <article class="sp-benefits-trust__item" role="listitem">
+            <span class="sp-benefits-trust__icon" aria-hidden="true">{% render 'sabpuja-icon', name: 'sparkles' %}</span>
+            <div class="sp-benefits-trust__item-copy">
+              <span class="sp-benefits-trust__badge">Selected for your sign</span>
+              <h3 class="sp-benefits-trust__item-title">Why these items?</h3>
+              <p class="sp-benefits-trust__item-text" data-zodiac-why>Each item is included for its traditional and cultural significance in devotional practice, presented without promising guaranteed outcomes.</p>
+            </div>
+          </article>
+
+          <article class="sp-benefits-trust__item" role="listitem">
+            <span class="sp-benefits-trust__icon" aria-hidden="true">{% render 'sabpuja-icon', name: 'book' %}</span>
+            <div class="sp-benefits-trust__item-copy">
+              <span class="sp-benefits-trust__badge">Simple guidance</span>
+              <h3 class="sp-benefits-trust__item-title">How to use your kit</h3>
+              <p class="sp-benefits-trust__item-text">Prepare your puja space, identify the sign-specific items, and continue according to your family tradition or priest guidance.</p>
+              <a class="sp-benefits-trust__item-link" href="/pages/guide">Find your Puja Guide →</a>
+            </div>
+          </article>
+
+          <article class="sp-benefits-trust__item" role="listitem">
+            <span class="sp-benefits-trust__icon" aria-hidden="true">{% render 'sabpuja-icon', name: 'heart' %}</span>
+            <div class="sp-benefits-trust__item-copy">
+              <span class="sp-benefits-trust__badge">Devotional practice</span>
+              <h3 class="sp-benefits-trust__item-title">A more meaningful practice</h3>
+              <p class="sp-benefits-trust__item-text">Keep the kit organized and use the included items as support for a calm, considered devotional routine.</p>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
     <section class="sp-zodiac__editorial sp-zodiac__section" id="zodiac-guide" data-reveal>
