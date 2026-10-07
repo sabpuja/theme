@@ -104,15 +104,34 @@
 
 /* Inside */
 .sp-zodiac__inside{background:var(--sp-ivory)}
-.sp-zodiac__inside-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(420px,.95fr);gap:clamp(34px,5vw,78px);align-items:center}
-.sp-zodiac__inside-media{margin:0;border-radius:18px;overflow:hidden;box-shadow:var(--sp-shadow);background:#f0ddbf}
-.sp-zodiac__inside-media img{width:100%;aspect-ratio:4/3;object-fit:cover}
-.sp-zodiac__contents-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(22px,3vw,48px);row-gap:16px;counter-reset:item}
-.sp-zodiac__contents-list li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:flex-start;min-width:0}
-.sp-zodiac__contents-list li>b{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--sp-saffron);color:#fff;font-size:.68rem;font-weight:700;line-height:1}
-.sp-zodiac__contents-list strong{display:block;color:#3f2a23;font-size:.82rem;line-height:1.2}
-.sp-zodiac__contents-list small{display:block;margin-top:2px;color:#80675e;font-size:.69rem;line-height:1.25}
-.sp-zodiac__demo-note{margin:24px 0 0;text-align:center;color:#866d63;font-size:.7rem;line-height:1.45}
+.sp-zodiac__inside-title .sp-zodiac__eyebrow{margin-bottom:8px}
+.sp-zodiac__inside-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(420px,.92fr);gap:clamp(28px,4vw,54px);align-items:stretch}
+.sp-zodiac__inside-media{position:relative;margin:0;border:1px solid rgba(211,84,0,.10);border-radius:20px;overflow:hidden;box-shadow:var(--sp-shadow);background:#f0ddbf;align-self:start}
+.sp-zodiac__inside-media img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.sp-zodiac__inside-media figcaption{position:absolute;left:14px;right:14px;bottom:14px;display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid rgba(255,255,255,.62);border-radius:14px;background:rgba(255,251,242,.92);box-shadow:0 8px 24px rgba(78,52,46,.10);backdrop-filter:blur(10px)}
+.sp-zodiac__inside-media-mark{width:34px;height:34px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:#fff1dc;color:var(--sp-saffron)}
+.sp-zodiac__inside-media-mark .sp-ui-icon{width:18px;height:18px}
+.sp-zodiac__inside-media figcaption strong{display:block;color:#4e342e;font-size:.77rem}
+.sp-zodiac__inside-media figcaption small{display:block;margin-top:2px;color:#80675e;font-size:.64rem}
+.sp-zodiac__inside-panel{display:flex;min-width:0;flex-direction:column;padding:clamp(22px,2.6vw,32px);border:1px solid rgba(78,52,46,.11);border-radius:20px;background:rgba(255,255,255,.72);box-shadow:0 10px 28px rgba(78,52,46,.055)}
+.sp-zodiac__inside-panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-bottom:17px;border-bottom:1px solid rgba(78,52,46,.10)}
+.sp-zodiac__inside-panel-head .sp-zodiac__eyebrow{margin:0 0 7px}
+.sp-zodiac__inside-panel-head h3{max-width:390px;margin:0;color:#4e342e;font-family:Poppins,Inter,sans-serif;font-size:clamp(1.18rem,1rem + .55vw,1.55rem);line-height:1.18;letter-spacing:-.02em}
+.sp-zodiac__inside-count{flex:0 0 auto;padding:7px 10px;border:1px solid rgba(211,84,0,.15);border-radius:999px;background:#fff5e5;color:#9e420a;font-size:.65rem;font-weight:800;white-space:nowrap}
+.sp-zodiac__inside-intro{margin:14px 0 0;color:#725d54;font-size:.76rem;line-height:1.55}
+.sp-zodiac__contents-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.8vw,22px);margin-top:20px}
+.sp-zodiac__contents-group{min-width:0}
+.sp-zodiac__contents-group h4{margin:0 0 10px;color:#805342;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.sp-zodiac__contents-list{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.sp-zodiac__contents-list li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:9px;align-items:flex-start;min-width:0;padding:9px 0;border-bottom:1px solid rgba(78,52,46,.075)}
+.sp-zodiac__contents-list li:last-child{border-bottom:0}
+.sp-zodiac__contents-list li>b{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:#fff0dc;color:var(--sp-saffron);border:1px solid rgba(211,84,0,.16);font-size:.61rem;font-weight:800;line-height:1}
+.sp-zodiac__contents-list strong{display:block;color:#3f2a23;font-size:.75rem;line-height:1.25}
+.sp-zodiac__contents-list small{display:block;margin-top:2px;color:#80675e;font-size:.64rem;line-height:1.35}
+.sp-zodiac__inside-panel-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:auto;padding-top:18px;border-top:1px solid rgba(78,52,46,.10)}
+.sp-zodiac__inside-panel-foot>span{display:flex;align-items:center;gap:7px;color:#7c655b;font-size:.65rem}
+.sp-zodiac__inside-panel-foot .sp-ui-icon{width:16px;height:16px;color:var(--sp-saffron)}
+.sp-zodiac__inside-panel-foot a{color:var(--sp-saffron);font-size:.68rem;font-weight:800;text-decoration:none;border-bottom:1px solid rgba(211,84,0,.28)}
 
 /* Three story columns */
 .sp-zodiac__stories{border-top:1px solid rgba(211,84,0,.09);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3.2vw,52px);padding-top:clamp(46px,5vw,74px);padding-bottom:clamp(50px,5.8vw,86px)}
