@@ -191,9 +191,6 @@ html.sp-zodiac-lock{overflow:hidden}
   .sp-zodiac__benefits article:nth-child(-n+2){border-bottom:1px solid rgba(211,84,0,.1)}
   .sp-zodiac__inside-grid{grid-template-columns:1fr;gap:32px}
   .sp-zodiac__inside-media{max-width:760px;margin:auto}
-  .sp-zodiac__editorial{grid-template-columns:1fr}
-  .sp-zodiac__editorial figure{min-height:420px;max-height:560px}
-  .sp-zodiac__editorial>div{padding:50px clamp(30px,6vw,72px)}
   .sp-zodiac__review-layout{grid-template-columns:1fr}
   .sp-zodiac__review-summary{display:grid;grid-template-columns:48px 1fr;column-gap:14px;align-items:center}
   .sp-zodiac__review-summary>i{grid-row:1/4}
@@ -233,8 +230,6 @@ html.sp-zodiac-lock{overflow:hidden}
   .sp-zodiac__section{width:min(100% - 32px,1440px)}
   .sp-zodiac__contents-list{grid-template-columns:1fr 1fr;column-gap:14px;row-gap:14px}
   .sp-zodiac__contents-list li{grid-template-columns:27px 1fr;gap:8px}
-  .sp-zodiac__editorial figure{min-height:320px}
-  .sp-zodiac__editorial>div{padding:42px 24px 48px}
   .sp-zodiac__reviews-head{align-items:flex-start;flex-direction:column}
   .sp-zodiac__review-gallery>div:first-child{display:block}
   .sp-zodiac__review-gallery>div:first-child p{text-align:left;margin-top:5px}
