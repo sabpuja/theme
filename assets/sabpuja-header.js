@@ -389,9 +389,89 @@
     });
   }
 
+  function bootAccountModal() {
+    var modal = document.getElementById('sp-account-modal');
+    if (!modal) return;
+
+    var dialog = modal.querySelector('.sp-account-modal__dialog');
+    var openers = document.querySelectorAll('[data-sp-account-open]');
+    var closers = modal.querySelectorAll('[data-sp-account-close]');
+    var form = modal.querySelector('[data-sp-account-signin-form]');
+    var email = modal.querySelector('input[type="email"]');
+    var lastFocused = null;
+
+    function openModal(event) {
+      if (event) event.preventDefault();
+      lastFocused = document.activeElement;
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('sp-account-modal-open');
+      window.setTimeout(function () {
+        if (email) email.focus();
+      }, 20);
+    }
+
+    function closeModal() {
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('sp-account-modal-open');
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    for (var i = 0; i < openers.length; i += 1) {
+      openers[i].addEventListener('click', openModal);
+    }
+
+    for (var j = 0; j < closers.length; j += 1) {
+      closers[j].addEventListener('click', closeModal);
+    }
+
+    modal.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeModal();
+        return;
+      }
+      if (event.key !== 'Tab' || !dialog) return;
+      var focusable = Array.prototype.slice.call(dialog.querySelectorAll('button:not([disabled]),input:not([disabled]),a[href]'));
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    if (form) {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (!email || !email.value.trim() || !email.checkValidity()) {
+          if (email) email.reportValidity();
+          return;
+        }
+
+        var base = form.dataset.loginBase;
+        if (!base) return;
+
+        var url = new URL(base, window.location.origin);
+        url.searchParams.set('login_hint', email.value.trim());
+
+        var returnTo = form.dataset.returnTo;
+        if (returnTo) url.searchParams.set('return_to', returnTo);
+
+        window.location.assign(url.toString());
+      });
+    }
+  }
+
   function bootHeaderUtilities() {
     bootLanguageChooser();
     bootUtilityDetails();
+    bootAccountModal();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bootHeaderUtilities);
