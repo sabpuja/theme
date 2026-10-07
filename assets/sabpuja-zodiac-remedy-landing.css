@@ -98,7 +98,7 @@
 .sp-zodiac__benefits{display:grid;grid-template-columns:repeat(4,1fr);background:#fff5e3;border-top:1px solid rgba(211,84,0,.08);border-bottom:1px solid rgba(211,84,0,.08);padding-inline:max(clamp(30px,6vw,94px),calc((100vw - 1440px)/2));min-height:104px}
 .sp-zodiac__benefits article{display:flex;align-items:center;justify-content:center;gap:14px;padding:20px clamp(10px,1.8vw,28px);position:relative}
 .sp-zodiac__benefits article+article:before{content:"";position:absolute;left:0;top:25%;height:50%;width:1px;background:rgba(211,84,0,.13)}
-.sp-zodiac__benefits i,.sp-zodiac__stories i{width:48px;height:48px;border:1px solid rgba(211,84,0,.48);border-radius:50%;display:grid;place-items:center;color:var(--sp-saffron);font-style:normal;flex:0 0 auto}
+.sp-zodiac__benefits i{width:48px;height:48px;border:1px solid rgba(211,84,0,.48);border-radius:50%;display:grid;place-items:center;color:var(--sp-saffron);font-style:normal;flex:0 0 auto}
 .sp-zodiac__benefits strong{display:block;font-size:.85rem;font-weight:500;color:#5c453d}
 .sp-zodiac__benefits small{display:block;margin-top:3px;color:#8b746b;font-size:.68rem}
 
@@ -203,8 +203,6 @@ html.sp-zodiac-lock{overflow:hidden}
   .sp-zodiac__benefits article:nth-child(-n+2){border-bottom:1px solid rgba(211,84,0,.1)}
   .sp-zodiac__inside-grid{grid-template-columns:1fr;gap:32px}
   .sp-zodiac__inside-media{max-width:760px;margin:auto}
-  .sp-zodiac__stories{grid-template-columns:1fr;gap:28px}
-  .sp-zodiac__stories article{max-width:720px}
   .sp-zodiac__editorial{grid-template-columns:1fr}
   .sp-zodiac__editorial figure{min-height:420px;max-height:560px}
   .sp-zodiac__editorial>div{padding:50px clamp(30px,6vw,72px)}
@@ -247,8 +245,6 @@ html.sp-zodiac-lock{overflow:hidden}
   .sp-zodiac__section{width:min(100% - 32px,1440px)}
   .sp-zodiac__contents-list{grid-template-columns:1fr 1fr;column-gap:14px;row-gap:14px}
   .sp-zodiac__contents-list li{grid-template-columns:27px 1fr;gap:8px}
-  .sp-zodiac__stories article{grid-template-columns:50px 1fr;gap:12px}
-  .sp-zodiac__stories i{width:46px;height:46px}
   .sp-zodiac__editorial figure{min-height:320px}
   .sp-zodiac__editorial>div{padding:42px 24px 48px}
   .sp-zodiac__reviews-head{align-items:flex-start;flex-direction:column}
