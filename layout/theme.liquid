@@ -4,8 +4,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#D35400">
+  <meta name="theme-color" content="#B80D0D">
   <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ 'sabpuja-favicon.svg' | asset_url }}">
 
   {% if template.name == 'index' %}
     {% capture sp_seo_title %}Sabpuja — {{ 'sabpuja_custom.fixed.home_tagline' | t }}{% endcapture %}
@@ -52,6 +53,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   {{ 'sabpuja-component-foundations.css' | asset_url | stylesheet_tag }}
+  {{ 'sabpuja-brand-tokens.css' | asset_url | stylesheet_tag }}
   {{ 'sabpuja-product-card.css' | asset_url | stylesheet_tag }}
 
   <style>

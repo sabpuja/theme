@@ -1,0 +1,13 @@
+/* SabPuja Approved Brand Tokens — 2026 Rebrand */
+:root {
+  --sabpuja-brand-deep-red: #B80D0D;
+  --sabpuja-brand-vermilion: #F0341A;
+  --sabpuja-brand-saffron: #FF8A00;
+  --sabpuja-brand-golden-yellow: #FFC839;
+  --sabpuja-brand-warm-ivory: #FFF9ED;
+
+  --sabpuja-brand-logo-primary: url("sabpuja-logo-horizontal-color.svg");
+  --sabpuja-brand-logo-light: url("sabpuja-logo-horizontal-ivory.svg");
+  --sabpuja-brand-logo-dark: url("sabpuja-logo-horizontal-maroon.svg");
+  --sabpuja-brand-emblem: url("sabpuja-emblem-color.svg");
+}
