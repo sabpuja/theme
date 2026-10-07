@@ -1,6 +1,7 @@
 {{ 'sabpuja-zodiac-remedy-landing.css' | asset_url | stylesheet_tag }}
 {{ 'sabpuja-zodiac-remedy-proportion-fix.css' | asset_url | stylesheet_tag }}
 {{ 'sabpuja-benefits-trust.css' | asset_url | stylesheet_tag }}
+{{ 'sabpuja-devotional-editorial.css' | asset_url | stylesheet_tag }}
 
 <section class="sp-zodiac" data-sp-zodiac>
   <main>
@@ -254,16 +255,31 @@
       </div>
     </section>
 
-    <section class="sp-zodiac__editorial sp-zodiac__section" id="zodiac-guide" data-reveal>
+    <section class="sp-devotional-editorial sp-devotional-editorial--image_right sp-devotional-editorial--cream sp-devotional-editorial--width-contained sp-devotional-editorial--align-left sp-zodiac__editorial-chapter" id="zodiac-guide" data-reveal>
       <span id="puja-guide" aria-hidden="true"></span>
-      <figure><img src="{{ 'sabpuja-zodiac-lifestyle.webp' | asset_url }}" alt="Sabpuja Zodiac Remedy Kit in a calm devotional home setting" width="1448" height="1086" loading="lazy" decoding="async"></figure>
-      <div>
-        <p class="sp-zodiac__eyebrow">Prepared for devotional practice</p>
-        <h2>Personal to your sign.<br>Grounded in tradition.</h2>
-        <p>Each selected kit brings its sign-specific devotional items together with familiar puja essentials in a calm, organized presentation designed for your mandir, ritual space or thoughtful gifting.</p>
-        <div class="sp-zodiac__editorial-points">
-          <span>{% render 'sabpuja-icon', name: 'package' %}<b>Considered presentation</b><small>Designed to keep your ritual materials together.</small></span>
-          <span>{% render 'sabpuja-icon', name: 'sparkles' %}<b>Sign-specific context</b><small>Traditional associations explained with clear devotional boundaries.</small></span>
+      <div class="sp-devotional-editorial__inner">
+        <div class="sp-devotional-editorial__layout">
+          <div class="sp-devotional-editorial__content">
+            <p class="sp-devotional-editorial__eyebrow">Prepared for devotional practice</p>
+            <h2 class="sp-devotional-editorial__heading">Personal to your <span data-zodiac-name>Aries</span> sign.<br>Grounded in tradition.</h2>
+            <div class="sp-devotional-editorial__body">
+              <p>Each selected kit brings sign-specific devotional items together with familiar puja essentials in a calm, organized presentation for your mandir or ritual space.</p>
+            </div>
+            <div class="sp-devotional-editorial__notes">
+              <article class="sp-devotional-editorial__note">
+                <h3 class="sp-devotional-editorial__note-title">Considered presentation</h3>
+                <p class="sp-devotional-editorial__note-text">Designed to keep the included ritual materials organized and easy to review.</p>
+              </article>
+              <article class="sp-devotional-editorial__note">
+                <h3 class="sp-devotional-editorial__note-title">Sign-specific context</h3>
+                <p class="sp-devotional-editorial__note-text">Traditional associations are explained as devotional context, without promising outcomes.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="sp-devotional-editorial__media">
+            <img data-zodiac-editorial-image src="{{ 'sabpuja-zodiac-aries-hero.webp' | asset_url }}" alt="Sabpuja Aries Zodiac Remedy Kit in a devotional presentation" width="1600" height="1200" loading="lazy" decoding="async">
+          </div>
         </div>
       </div>
     </section>
@@ -362,6 +378,11 @@
     hero.src=z.hero; hero.alt='Sabpuja '+z.name+' ('+z.vedic+') Zodiac Remedy Kit';
     const contents=root.querySelector('[data-zodiac-contents]');
     contents.src=z.contents; contents.alt='Contents of the Sabpuja '+z.name+' Zodiac Remedy Kit';
+    const editorialImage=root.querySelector('[data-zodiac-editorial-image]');
+    if(editorialImage){
+      editorialImage.src=z.hero;
+      editorialImage.alt='Sabpuja '+z.name+' ('+z.vedic+') Zodiac Remedy Kit in a devotional presentation';
+    }
     const medallion=root.querySelector('[data-zodiac-medallion]');
     medallion.innerHTML=iconMarkup(z);
     root.querySelector('[data-zodiac-traits]').innerHTML=z.trait.map(item=>'<span>'+item+'</span>').join('');
