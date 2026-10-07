@@ -49,14 +49,15 @@
 }
 .sp-account-modal__dialog{
   position:relative;
-  width:min(100%,520px);
+  box-sizing:border-box;
+  width:min(100%,32rem);
   max-height:min(760px,calc(100svh - 32px));
   overflow:auto;
-  padding:clamp(28px,5vw,40px);
+  padding:clamp(1.25rem,.9rem + 1.5vw,2rem);
   border:1px solid #E9DDCF;
-  border-radius:22px;
+  border-radius:clamp(1rem,.8rem + .5vw,1.35rem);
   background:#fff;
-  box-shadow:0 28px 80px rgba(51,36,31,.22);
+  box-shadow:0 .7rem 2rem rgba(51,36,31,.12);
   color:#33241F;
   font-family:Inter,Arial,sans-serif;
 }
@@ -93,9 +94,9 @@
 }
 .sp-account-modal__logo{
   display:block;
-  width:min(100%,168px);
+  width:min(100%,10.5rem);
   height:auto;
-  margin:0 auto 22px;
+  margin:0 auto clamp(1.1rem,.85rem + .6vw,1.45rem);
 }
 .sp-account-modal__head{text-align:center}
 .sp-account-modal__eyebrow{
@@ -116,28 +117,29 @@
   letter-spacing:-.03em;
 }
 .sp-account-modal__head>p:last-child{
-  max-width:390px;
-  margin:10px auto 0;
+  max-width:25rem;
+  margin:.7rem auto 0;
   color:#75655E;
-  font-size:15px;
-  line-height:1.6;
+  font-size:clamp(.9rem,.86rem + .18vw,1rem);
+  line-height:1.65;
 }
 .sp-account-modal__form{
   display:grid;
-  gap:9px;
-  margin-top:24px;
+  gap:.4rem;
+  margin-top:1rem;
 }
 .sp-account-modal__form label{
   color:#4E342E;
-  font-size:13px;
+  font-size:.82rem;
   font-weight:800;
 }
 .sp-account-modal__form input{
+  box-sizing:border-box;
   width:100%;
-  min-height:50px;
-  padding:12px 14px;
+  min-height:3rem;
+  padding:.75rem .9rem;
   border:1px solid #D8C7B8;
-  border-radius:13px;
+  border-radius:.8rem;
   background:#fff;
   color:#33241F;
   font:inherit;
@@ -148,16 +150,16 @@
   outline-offset:1px;
 }
 .sp-account-modal__form button{
-  min-height:50px;
-  margin-top:7px;
-  padding:11px 18px;
+  min-height:2.8rem;
+  margin-top:.6rem;
+  padding:.65rem 1.1rem;
   border:1px solid #D35400;
   border-radius:999px;
   background:#D35400;
   color:#fff;
   font-family:Poppins,Arial,sans-serif;
-  font-size:14px;
-  font-weight:700;
+  font-size:.9rem;
+  font-weight:800;
   cursor:pointer;
 }
 .sp-account-modal__form button:hover,.sp-account-modal__form button:focus-visible{
@@ -167,15 +169,15 @@
   outline-offset:2px;
 }
 .sp-account-modal__form p{
-  margin:3px 0 0;
+  margin:.4rem 0 0;
   color:#75655E;
-  font-size:12px;
-  line-height:1.5;
+  font-size:.8rem;
+  line-height:1.55;
   text-align:center;
 }
 html.sp-account-modal-open{overflow:hidden}
 @media(max-width:560px){
   .sp-account-modal{padding:12px}
-  .sp-account-modal__dialog{padding:28px 20px 24px;border-radius:18px}
-  .sp-account-modal__logo{width:min(100%,150px);margin-bottom:18px}
+  .sp-account-modal__dialog{padding:1rem;border-radius:1rem}
+  .sp-account-modal__logo{width:min(100%,9rem)}
 }
