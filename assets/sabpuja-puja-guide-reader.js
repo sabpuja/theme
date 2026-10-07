@@ -4,16 +4,15 @@
   function findGuide(key){
     var k=norm(key);
     return payload().guides.find(function(g){
-      return norm(g.guide_code)===k||norm(g.sku)===k||norm(g.slug)===k;
+      return norm(g.guide_code)===k||norm(g.sku)===k||norm(g.slug)===k||norm(g.seo_slug)===k;
     })||null;
   }
   function guidePageUrl(g){
     var current=new URL(window.location.href);
-    var target=new URL('/products/'+g.slug,window.location.origin);
+    var target=new URL('/pages/'+(g.seo_slug||g.slug),window.location.origin);
     current.searchParams.forEach(function(value,key){
       if(key!=='guide'&&key!=='view')target.searchParams.set(key,value);
     });
-    target.searchParams.set('view','puja-guide');
     return target.pathname+target.search;
   }
   function escapeText(v){return String(v==null?'':v).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}

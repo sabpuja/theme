@@ -35,6 +35,8 @@
     {% assign sp_meta_description = 'sabpuja_custom.fixed.meta_collections' | t %}
   {% elsif template.name == 'page' and page.handle == 'about-us' %}
     {% assign sp_meta_description = 'sabpuja_custom.fixed.meta_about' | t %}
+  {% elsif template.name == 'page' and template.suffix == 'puja-guide' %}
+    {% assign sp_meta_description = page.metafields.sabpuja.seo_description.value | default: page.content | strip_html | strip | truncate: 155 %}
   {% elsif template.name == 'page' and page.handle == 'contact-us' %}
     {% assign sp_meta_description = 'sabpuja_custom.fixed.meta_contact' | t %}
   {% endif %}
