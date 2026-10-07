@@ -709,6 +709,7 @@
     "view_account": "मेरा अकाउंट देखें",
     "email_label": "ईमेल",
     "email_placeholder": "you@example.com",
-    "continue": "जारी रखें"
+    "continue": "जारी रखें",
+    "header_sign_in": "साइन इन करें"
   }
 }
