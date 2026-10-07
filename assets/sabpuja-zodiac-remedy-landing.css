@@ -20,7 +20,7 @@
 .sp-zodiac__section{width:min(100% - clamp(32px,7vw,112px),1440px);margin-inline:auto;padding-block:clamp(54px,6.4vw,94px)}
 .sp-zodiac__eyebrow{margin:0 0 10px;color:var(--sp-saffron);font-size:clamp(.75rem,.72rem + .18vw,.9rem);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
 .sp-zodiac__section-title{text-align:center;margin:0 auto clamp(28px,3.2vw,46px)}
-.sp-zodiac__section-title h2,.sp-zodiac__reviews-head h2,.sp-zodiac__editorial h2{margin:0;color:var(--sp-deep);font-family:Georgia,'Times New Roman',serif;font-size:clamp(2rem,1.55rem + 2vw,3.35rem);font-weight:600;line-height:1.05;letter-spacing:-.025em}
+.sp-zodiac__section-title h2,.sp-zodiac__reviews-head h2{margin:0;color:var(--sp-deep);font-family:Georgia,'Times New Roman',serif;font-size:clamp(2rem,1.55rem + 2vw,3.35rem);font-weight:600;line-height:1.05;letter-spacing:-.025em}
 .sp-zodiac__section-title p{margin:7px 0 0;font-size:clamp(.92rem,.86rem + .2vw,1.05rem);color:rgba(78,52,46,.78)}
 
 /* Atmospheric hero */
@@ -132,18 +132,6 @@
 .sp-zodiac__inside-panel-foot>span{display:flex;align-items:center;gap:7px;color:#7c655b;font-size:.65rem}
 .sp-zodiac__inside-panel-foot .sp-ui-icon{width:16px;height:16px;color:var(--sp-saffron)}
 .sp-zodiac__inside-panel-foot a{color:var(--sp-saffron);font-size:.68rem;font-weight:800;text-decoration:none;border-bottom:1px solid rgba(211,84,0,.28)}
-
-/* Editorial storytelling */
-.sp-zodiac__editorial{width:100%;padding:0;display:grid;grid-template-columns:1.08fr .92fr;background:#f5e6cf;border-top:1px solid rgba(211,84,0,.08);border-bottom:1px solid rgba(211,84,0,.08)}
-.sp-zodiac__editorial figure{margin:0;min-height:clamp(440px,42vw,650px);overflow:hidden}
-.sp-zodiac__editorial figure img{width:100%;height:100%;object-fit:cover}
-.sp-zodiac__editorial>div{padding:clamp(48px,6vw,90px) max(clamp(36px,6vw,92px),calc((100vw - 1440px)/2)) clamp(48px,6vw,90px) clamp(38px,5vw,78px);display:flex;flex-direction:column;justify-content:center}
-.sp-zodiac__editorial>div>p:not(.sp-zodiac__eyebrow){margin:20px 0 0;max-width:610px;color:#674d43;font-size:clamp(.94rem,.88rem + .18vw,1.04rem);line-height:1.65}
-.sp-zodiac__editorial-points{display:grid;gap:16px;margin-top:26px}
-.sp-zodiac__editorial-points span{display:grid;grid-template-columns:36px 1fr;gap:0 10px;align-items:center}
-.sp-zodiac__editorial-points .sp-ui-icon{grid-row:1/3;color:var(--sp-saffron);width:28px;height:28px}
-.sp-zodiac__editorial-points b{font-size:.86rem;color:#4e342e}
-.sp-zodiac__editorial-points small{font-size:.71rem;color:#826a61}
 
 /* Proof-safe review architecture */
 .sp-zodiac__reviews{padding-top:clamp(62px,7vw,100px);padding-bottom:clamp(68px,7vw,110px);background:#fffaf0}
