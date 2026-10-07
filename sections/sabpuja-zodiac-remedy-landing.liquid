@@ -165,17 +165,50 @@
     </section>
 
     <section class="sp-zodiac__inside sp-zodiac__section" data-reveal>
-      <div class="sp-zodiac__section-title">
+      <div class="sp-zodiac__section-title sp-zodiac__inside-title">
+        <p class="sp-zodiac__eyebrow">Inside your kit</p>
         <h2>What’s Inside Your <span data-zodiac-name>Aries</span> Kit?</h2>
-        <p>A thoughtfully curated selection of traditional items.</p>
+        <p>Sign-specific devotional items paired with familiar puja essentials for a simpler ritual setup.</p>
       </div>
+
       <div class="sp-zodiac__inside-grid">
         <figure class="sp-zodiac__inside-media">
           <img data-zodiac-contents src="{{ 'sabpuja-zodiac-aries-contents.webp' | asset_url }}" alt="Contents of the Sabpuja Aries Zodiac Remedy Kit" width="1600" height="1200" loading="lazy" decoding="async">
+          <figcaption>
+            <span class="sp-zodiac__inside-media-mark">{% render 'sabpuja-icon', name: 'package' %}</span>
+            <span><strong><span data-zodiac-name>Aries</span> Kit</strong><small>Arranged at a glance</small></span>
+          </figcaption>
         </figure>
-        <ol class="sp-zodiac__contents-list" data-zodiac-items></ol>
+
+        <div class="sp-zodiac__inside-panel">
+          <header class="sp-zodiac__inside-panel-head">
+            <div>
+              <p class="sp-zodiac__eyebrow">Included in your kit</p>
+              <h3>Traditional essentials, organized together.</h3>
+            </div>
+            <span class="sp-zodiac__inside-count" data-zodiac-item-count>10 essentials</span>
+          </header>
+
+          <p class="sp-zodiac__inside-intro">The first group changes with your selected Zodiac sign; the puja essentials remain familiar across the collection.</p>
+
+          <div class="sp-zodiac__contents-groups">
+            <section class="sp-zodiac__contents-group" aria-labelledby="sp-zodiac-sign-items-title">
+              <h4 id="sp-zodiac-sign-items-title">For your <span data-zodiac-name>Aries</span> sign</h4>
+              <ol class="sp-zodiac__contents-list" data-zodiac-sign-items></ol>
+            </section>
+
+            <section class="sp-zodiac__contents-group" aria-labelledby="sp-zodiac-common-items-title">
+              <h4 id="sp-zodiac-common-items-title">Puja essentials</h4>
+              <ol class="sp-zodiac__contents-list" data-zodiac-common-items></ol>
+            </section>
+          </div>
+
+          <footer class="sp-zodiac__inside-panel-foot">
+            <span>{% render 'sabpuja-icon', name: 'sparkles' %} Prepared as one coordinated kit</span>
+            <a href="/products/aries-mesha-astrological-remedy-kit" data-zodiac-contents-product-link>View full Aries product details →</a>
+          </footer>
+        </div>
       </div>
-      <p class="sp-zodiac__demo-note">Current staging assortment is shown for design demonstration; final commercial BOM and quantities remain subject to approval.</p>
     </section>
 
     <section class="sp-zodiac__stories sp-zodiac__section" data-reveal>
@@ -297,8 +330,14 @@
     root.querySelector('[data-zodiac-traits]').innerHTML=z.trait.map(item=>'<span>'+item+'</span>').join('');
     root.querySelector('[data-zodiac-product-link]').href='/products/'+z.handle;
     root.querySelector('[data-zodiac-product-link]').textContent='View full '+z.name+' product details →';
-    const list=[...z.items.map(item=>({name:item,note:noteFor(item)})),...common];
-    root.querySelector('[data-zodiac-items]').innerHTML=list.map((item,index)=>'<li><b>'+(index+1)+'</b><span><strong>'+item.name+'</strong><small>'+item.note+'</small></span></li>').join('');
+    const signItems=z.items.map(item=>({name:item,note:noteFor(item)}));
+    const totalItems=signItems.length+common.length;
+    root.querySelector('[data-zodiac-sign-items]').innerHTML=signItems.map((item,index)=>'<li><b>'+(index+1)+'</b><span><strong>'+item.name+'</strong><small>'+item.note+'</small></span></li>').join('');
+    root.querySelector('[data-zodiac-common-items]').innerHTML=common.map((item,index)=>'<li><b>'+(signItems.length+index+1)+'</b><span><strong>'+item.name+'</strong><small>'+item.note+'</small></span></li>').join('');
+    root.querySelector('[data-zodiac-item-count]').textContent=totalItems+' essentials';
+    const contentsProductLink=root.querySelector('[data-zodiac-contents-product-link]');
+    contentsProductLink.href='/products/'+z.handle;
+    contentsProductLink.textContent='View full '+z.name+' product details →';
     root.querySelector('[data-zodiac-status]').textContent='';
     document.title=z.name+' Zodiac Remedy Kit | Sabpuja';
     if(updateUrl){
