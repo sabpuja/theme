@@ -1,0 +1,133 @@
+{{ 'sabpuja-astrology-collection.css' | asset_url | stylesheet_tag }}
+{{ 'sabpuja-product-card.css' | asset_url | stylesheet_tag }}
+
+<section class="sp-ast-col" aria-labelledby="sp-ast-col-title">
+  <div class="sp-ast-col__hero">
+    <div class="sp-ast-col__hero-inner">
+      <div class="sp-ast-col__hero-copy">
+        <nav class="sp-ast-col__breadcrumb" aria-label="Breadcrumb">
+          <a href="{{ routes.root_url }}">Home</a>
+          <span aria-hidden="true">/</span>
+          <span>{{ collection.title }}</span>
+        </nav>
+
+        <p class="sp-ast-col__eyebrow">12 Zodiac Remedy Kits</p>
+        <h1 id="sp-ast-col-title">Find the kit you want to explore.</h1>
+        <p class="sp-ast-col__lead">Browse all twelve Sabpuja Astrology Remedy Kits in one place, with sign-specific devotional items, clear product details and a dedicated Puja Guide for every kit.</p>
+
+        <div class="sp-ast-col__hero-actions">
+          <a class="sp-ast-col__button sp-ast-col__button--primary" href="#all-zodiac-kits">Browse all 12 kits</a>
+          <a class="sp-ast-col__button sp-ast-col__button--ghost" href="/pages/guide">Open Puja Guide</a>
+        </div>
+
+        <div class="sp-ast-col__trust" aria-label="Sabpuja Astrology Remedy Kit highlights">
+          <span><b>12</b><small>Zodiac kits</small></span>
+          <span><b>1</b><small>Guide for every kit</small></span>
+          <span><b>Sabpuja</b><small>Prepared with care</small></span>
+        </div>
+      </div>
+
+      <figure class="sp-ast-col__hero-media">
+        <img src="{{ 'sabpuja-zodiac-family-collection.webp' | asset_url }}" alt="Sabpuja Astrology Remedy Kit collection" width="1600" height="1200" loading="eager" fetchpriority="high" decoding="async">
+      </figure>
+    </div>
+  </div>
+
+  <div class="sp-ast-col__shell">
+    <section class="sp-ast-col__chooser" aria-labelledby="sp-ast-col-chooser-title">
+      <div class="sp-ast-col__section-head">
+        <div>
+          <p class="sp-ast-col__eyebrow">Browse by sign</p>
+          <h2 id="sp-ast-col-chooser-title">Choose a Zodiac Kit</h2>
+          <p>Select the kit name you already know, or browse the complete collection below.</p>
+        </div>
+        <a href="/pages/help">Need help choosing?</a>
+      </div>
+
+      <nav class="sp-ast-col__signs" aria-label="Jump to zodiac kit">
+        <a href="#kit-aries"><span>♈</span><strong>Aries</strong><small>Mesha</small></a>
+        <a href="#kit-taurus"><span>♉</span><strong>Taurus</strong><small>Vrishabha</small></a>
+        <a href="#kit-gemini"><span>♊</span><strong>Gemini</strong><small>Mithuna</small></a>
+        <a href="#kit-cancer"><span>♋</span><strong>Cancer</strong><small>Karka</small></a>
+        <a href="#kit-leo"><span>♌</span><strong>Leo</strong><small>Simha</small></a>
+        <a href="#kit-virgo"><span>♍</span><strong>Virgo</strong><small>Kanya</small></a>
+        <a href="#kit-libra"><span>♎</span><strong>Libra</strong><small>Tula</small></a>
+        <a href="#kit-scorpio"><span>♏</span><strong>Scorpio</strong><small>Vrishchika</small></a>
+        <a href="#kit-sagittarius"><span>♐</span><strong>Sagittarius</strong><small>Dhanu</small></a>
+        <a href="#kit-capricorn"><span>♑</span><strong>Capricorn</strong><small>Makara</small></a>
+        <a href="#kit-aquarius"><span>♒</span><strong>Aquarius</strong><small>Kumbha</small></a>
+        <a href="#kit-pisces"><span>♓</span><strong>Pisces</strong><small>Meena</small></a>
+      </nav>
+    </section>
+
+    <section class="sp-ast-col__catalog" id="all-zodiac-kits" aria-labelledby="sp-ast-col-catalog-title">
+      <div class="sp-ast-col__catalog-head">
+        <div>
+          <p class="sp-ast-col__eyebrow">Complete collection</p>
+          <h2 id="sp-ast-col-catalog-title">All 12 Astrology Remedy Kits</h2>
+          {% if collection.description != blank %}
+            <div class="sp-ast-col__description">{{ collection.description }}</div>
+          {% endif %}
+        </div>
+        <span class="sp-ast-col__count">{{ collection.products_count }} kits</span>
+      </div>
+
+      <div class="sp-ast-col__grid">
+        {% for product in collection.products %}
+          {% assign sp_sign = product.handle | split: '-' | first %}
+          <div class="sp-ast-col__product" id="kit-{{ sp_sign | escape }}">
+            {% render 'sabpuja-product-card', product: product %}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="sp-ast-col__explain" aria-labelledby="sp-ast-col-explain-title">
+      <div class="sp-ast-col__explain-copy">
+        <p class="sp-ast-col__eyebrow">One family, twelve kits</p>
+        <h2 id="sp-ast-col-explain-title">A clearer way to compare before you choose.</h2>
+        <p>Every kit follows the same Sabpuja experience, while the devotional focus and selected traditional items vary by kit. Open any product to see the exact contents, imagery and guide connected to that kit.</p>
+
+        <div class="sp-ast-col__feature-grid">
+          <article>
+            <span>{% render 'sabpuja-icon', name: 'sparkles' %}</span>
+            <div><strong>Sign-specific kit</strong><p>Each product page shows the exact kit name, contents and devotional context.</p></div>
+          </article>
+          <article>
+            <span>{% render 'sabpuja-icon', name: 'book' %}</span>
+            <div><strong>Dedicated Puja Guide</strong><p>Your kit connects to its own step-by-step guide after purchase or QR scan.</p></div>
+          </article>
+          <article>
+            <span>{% render 'sabpuja-icon', name: 'package' %}</span>
+            <div><strong>Prepared as one set</strong><p>Reusable sacred items and puja materials are organized together for a simpler ritual setup.</p></div>
+          </article>
+        </div>
+      </div>
+
+      <figure class="sp-ast-col__explain-media">
+        <img src="{{ 'sabpuja-zodiac-premium-detail.webp' | asset_url }}" alt="Detailed presentation of a Sabpuja Zodiac Remedy Kit" width="1600" height="1200" loading="lazy" decoding="async">
+      </figure>
+    </section>
+
+    <section class="sp-ast-col__guide-cta" aria-labelledby="sp-ast-col-guide-title">
+      <figure>
+        <img src="{{ 'sabpuja-zodiac-lifestyle.webp' | asset_url }}" alt="Sabpuja Astrology Remedy Kit in a devotional home setting" width="1448" height="1086" loading="lazy" decoding="async">
+      </figure>
+      <div>
+        <p class="sp-ast-col__eyebrow">Already have your kit?</p>
+        <h2 id="sp-ast-col-guide-title">Your Puja Guide is ready when you are.</h2>
+        <p>Use the Guide Code or choose your kit directly to open the matching step-by-step Puja Guide.</p>
+        <div class="sp-ast-col__hero-actions">
+          <a class="sp-ast-col__button sp-ast-col__button--primary" href="/pages/guide">Find my Puja Guide</a>
+          <a class="sp-ast-col__button sp-ast-col__button--ghost" href="/pages/help">Get help</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Astrology Remedy Collection"
+}
+{% endschema %}
