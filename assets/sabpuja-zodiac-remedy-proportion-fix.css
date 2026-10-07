@@ -527,53 +527,6 @@
   padding-top: 15px;
 }
 
-/* Story cards */
-.sp-zodiac__stories {
-  gap: 16px;
-  padding-top: 52px;
-  padding-bottom: 52px;
-  border-top: 0;
-}
-
-.sp-zodiac__stories article {
-  grid-template-columns: 44px 1fr;
-  gap: 12px;
-  min-height: 180px;
-  padding: 22px;
-  border: 1px solid rgba(78,52,46,.10);
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 8px 20px rgba(78,52,46,.045);
-}
-
-.sp-zodiac__stories i {
-  width: 42px;
-  height: 42px;
-  border-color: rgba(211,84,0,.32);
-  background: var(--sp-cream);
-}
-
-.sp-zodiac__stories h3 {
-  margin: 1px 0 7px;
-  color: var(--sp-brown);
-  font-size: 17px;
-  font-weight: 650;
-  line-height: 1.25;
-}
-
-.sp-zodiac__stories p {
-  color: #6F5B52;
-  font-size: 13px;
-  line-height: 1.58;
-}
-
-.sp-zodiac__stories a {
-  margin-top: 12px;
-  color: var(--sp-saffron);
-  font-size: 11.5px;
-  font-weight: 750;
-}
-
 /* Lifestyle/editorial chapter */
 .sp-zodiac__editorial.sp-zodiac__section {
   width: min(var(--sp-zodiac-page), calc(100% - 40px));
@@ -750,15 +703,6 @@
     width: 100%;
     max-width: 760px;
     margin-inline: auto;
-  }
-
-  .sp-zodiac__stories {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .sp-zodiac__stories article {
-    min-height: 0;
   }
 
   .sp-zodiac__editorial.sp-zodiac__section {
@@ -979,21 +923,6 @@
     gap: 8px;
   }
 
-  .sp-zodiac__stories {
-    gap: 12px;
-    padding-top: 38px;
-    padding-bottom: 38px;
-  }
-
-  .sp-zodiac__stories article {
-    min-height: 0;
-    padding: 18px;
-  }
-
-  .sp-zodiac__stories p {
-    font-size: 12.5px;
-  }
-
   .sp-zodiac__editorial.sp-zodiac__section {
     width: calc(100% - 28px);
     margin-bottom: 38px;
@@ -1051,3 +980,8 @@
     scroll-behavior: auto !important;
   }
 }
+/* Zodiac landing adapter for canonical SP-COMP-004B Benefits & Trust */
+.sp-zodiac__context-cards{border-top:1px solid rgba(211,84,0,.08);border-bottom:1px solid rgba(211,84,0,.08)}
+.sp-zodiac__context-cards .sp-benefits-trust__inner{width:min(100%,var(--sp-zodiac-page))}
+.sp-zodiac__context-cards .sp-benefits-trust__heading span{color:var(--sp-saffron)}
+@media screen and (max-width:720px){.sp-zodiac__context-cards{--sp-section-x:14px;--sp-section-y:38px}}
