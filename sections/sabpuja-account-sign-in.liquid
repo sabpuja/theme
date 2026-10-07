@@ -1,0 +1,72 @@
+{{ 'sabpuja-account-sign-in.css' | asset_url | stylesheet_tag }}
+
+<section class="sp-auth-page" aria-labelledby="sp-auth-title">
+  <div class="sp-auth-shell">
+    <article class="sp-auth-card">
+      <a class="sp-auth-logo" href="{{ routes.root_url }}" aria-label="{{ 'sabpuja_account_signin.home_label' | t }}">
+        <img
+          src="{{ 'sabpuja-logo-horizontal-color.svg' | asset_url }}"
+          alt="Sabpuja"
+          width="2172"
+          height="724"
+          loading="eager"
+          decoding="async"
+        >
+      </a>
+
+      {% if customer %}
+        <div class="sp-auth-signed-in">
+          <div class="sp-auth-status-icon" aria-hidden="true">{% render 'sabpuja-icon', name: 'check' %}</div>
+          <p class="sp-auth-eyebrow">{{ 'sabpuja_account_signin.eyebrow' | t }}</p>
+          <h1 id="sp-auth-title">{{ 'sabpuja_account_signin.signed_in_title' | t }}</h1>
+          <p class="sp-auth-copy">{{ 'sabpuja_account_signin.signed_in_body' | t }}</p>
+          <div class="sp-auth-actions">
+            <a class="sp-auth-link sp-auth-link--primary" href="{{ routes.account_url }}">{{ 'sabpuja_account_signin.view_account' | t }}</a>
+            <a class="sp-auth-link sp-auth-link--secondary" href="{{ routes.all_products_collection_url }}">{{ 'sabpuja_account_signin.continue_shopping' | t }}</a>
+          </div>
+        </div>
+      {% else %}
+        <p class="sp-auth-eyebrow">{{ 'sabpuja_account_signin.eyebrow' | t }}</p>
+        <h1 id="sp-auth-title">{{ 'sabpuja_account_signin.title' | t }}</h1>
+        <p class="sp-auth-copy">{{ 'sabpuja_account_signin.body' | t }}</p>
+
+        <div class="sp-auth-benefits" role="list">
+          <div class="sp-auth-benefit" role="listitem">
+            <span class="sp-auth-benefit__icon">{% render 'sabpuja-icon', name: 'package' %}</span>
+            <span>{{ 'sabpuja_account_signin.benefit_orders' | t }}</span>
+          </div>
+          <div class="sp-auth-benefit" role="listitem">
+            <span class="sp-auth-benefit__icon">{% render 'sabpuja-icon', name: 'user' %}</span>
+            <span>{{ 'sabpuja_account_signin.benefit_profile' | t }}</span>
+          </div>
+          <div class="sp-auth-benefit" role="listitem">
+            <span class="sp-auth-benefit__icon">{% render 'sabpuja-icon', name: 'shield' %}</span>
+            <span>{{ 'sabpuja_account_signin.benefit_secure' | t }}</span>
+          </div>
+        </div>
+
+        <div class="sp-auth-secure-action">
+          <shopify-account class="sp-auth-account" menu="customer-account-main-menu">
+            <span slot="signed-out-avatar" class="sp-auth-trigger">
+              <span>{{ 'sabpuja_account_signin.continue_securely' | t }}</span>
+              {% render 'sabpuja-icon', name: 'arrow-right', class: 'sp-auth-trigger__icon' %}
+            </span>
+          </shopify-account>
+          <p class="sp-auth-note">{{ 'sabpuja_account_signin.passwordless_note' | t }}</p>
+        </div>
+
+        <div class="sp-auth-footer">
+          <a href="{{ routes.all_products_collection_url }}">{{ 'sabpuja_account_signin.continue_shopping' | t }}</a>
+          <a href="/policies/privacy-policy">{{ 'sabpuja_account_signin.privacy' | t }}</a>
+        </div>
+      {% endif %}
+    </article>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sabpuja account sign-in",
+  "settings": []
+}
+{% endschema %}
