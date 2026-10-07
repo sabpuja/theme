@@ -118,15 +118,23 @@
 
         {% if shop.customer_accounts_enabled %}
           {% if customer %}
-            <shopify-account class="sp-account-component" menu="{{ section.settings.customer_account_menu | default: 'customer-account-main-menu' }}"></shopify-account>
-          {% else %}
-            {% assign sp_sign_in_page = pages['sign-in'] %}
             <a
               class="sp-icon-button sp-account-icon-button"
-              href="{% if sp_sign_in_page != blank %}{{ sp_sign_in_page.url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+              href="{{ routes.account_url }}"
               aria-label="{{ 'sabpuja_custom.auto.s014' | t }}"
               title="{{ 'sabpuja_custom.auto.s014' | t }}"
               rel="nofollow"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-icon"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+            </a>
+          {% else %}
+            <a
+              class="sp-icon-button sp-account-icon-button"
+              href="{{ routes.storefront_login_url }}"
+              aria-label="{{ 'sabpuja_account_signin.header_sign_in' | t }}"
+              title="{{ 'sabpuja_account_signin.header_sign_in' | t }}"
+              rel="nofollow"
+              data-sp-account-open
             >
               <svg aria-hidden="true" viewBox="0 0 24 24" class="sp-icon"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
             </a>
@@ -164,6 +172,13 @@
             </button>
             <a href="{{ routes.root_url }}">{% render 'sabpuja-icon', name: 'home' %}<span>{{ 'sabpuja_custom.auto.s124' | t }}</span></a>
             <a href="{{ routes.all_products_collection_url }}">{% render 'sabpuja-icon', name: 'shop' %}<span>{{ 'sabpuja_custom.auto.s236' | t }}</span></a>
+            {% if shop.customer_accounts_enabled %}
+              {% if customer %}
+                <a href="{{ routes.account_url }}" rel="nofollow">{% render 'sabpuja-icon', name: 'user' %}<span>{{ 'sabpuja_custom.auto.s014' | t }}</span></a>
+              {% else %}
+                <a href="{{ routes.storefront_login_url }}" rel="nofollow" data-sp-account-open>{% render 'sabpuja-icon', name: 'user' %}<span>{{ 'sabpuja_account_signin.header_sign_in' | t }}</span></a>
+              {% endif %}
+            {% endif %}
             <div class="sp-mobile-menu-label">{{ 'sabpuja_custom.auto.s051' | t }}</div>
             <a href="{{ routes.all_products_collection_url }}?sort_by=best-selling">{{ 'sabpuja_custom.auto.s098' | t }}</a>
             <a href="{{ collections['puja-kit'].url }}">{% render 'sabpuja-icon', name: 'package' %}<span>{{ 'sabpuja_custom.auto.s199' | t }}</span></a>
@@ -186,6 +201,63 @@
     </form>
   </div>
 </header>
+{% unless customer %}
+<div class="sp-account-modal" id="sp-account-modal" hidden aria-hidden="true">
+  <div class="sp-account-modal__backdrop" data-sp-account-close></div>
+  <section
+    class="sp-account-modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sp-account-modal-title"
+    aria-describedby="sp-account-modal-copy"
+  >
+    <button
+      class="sp-account-modal__close"
+      type="button"
+      data-sp-account-close
+      aria-label="{{ 'sabpuja_custom.auto.s050' | t }}"
+    >×</button>
+
+    <img
+      class="sp-account-modal__logo"
+      src="{{ 'sabpuja-logo-horizontal-color.svg' | asset_url }}"
+      alt="Sabpuja"
+      width="2172"
+      height="724"
+      loading="lazy"
+      decoding="async"
+    >
+
+    <div class="sp-account-modal__head">
+      <p class="sp-account-modal__eyebrow">{{ 'sabpuja_account_signin.eyebrow' | t }}</p>
+      <h2 id="sp-account-modal-title">{{ 'sabpuja_account_signin.title' | t }}</h2>
+      <p id="sp-account-modal-copy">{{ 'sabpuja_account_signin.body' | t }}</p>
+    </div>
+
+    <form
+      class="sp-account-modal__form"
+      data-sp-account-signin-form
+      data-login-base="{{ routes.storefront_login_url | escape }}"
+      data-return-to="{{ routes.account_url | escape }}"
+      novalidate
+    >
+      <label for="sp-account-modal-email">{{ 'sabpuja_account_signin.email_label' | t }}</label>
+      <input
+        id="sp-account-modal-email"
+        name="email"
+        type="email"
+        inputmode="email"
+        autocomplete="email"
+        required
+        placeholder="{{ 'sabpuja_account_signin.email_placeholder' | t }}"
+      >
+      <button type="submit">{{ 'sabpuja_account_signin.continue' | t }}</button>
+      <p>{{ 'sabpuja_account_signin.passwordless_note' | t }}</p>
+    </form>
+  </section>
+</div>
+{% endunless %}
+
 <!-- Sabpuja first-visit language chooser -->
 <div class="sp-language-modal" id="sp-language-modal" hidden aria-hidden="true">
   <div class="sp-language-modal__backdrop" data-sp-language-close></div>
