@@ -133,14 +133,6 @@
 .sp-zodiac__inside-panel-foot .sp-ui-icon{width:16px;height:16px;color:var(--sp-saffron)}
 .sp-zodiac__inside-panel-foot a{color:var(--sp-saffron);font-size:.68rem;font-weight:800;text-decoration:none;border-bottom:1px solid rgba(211,84,0,.28)}
 
-/* Three story columns */
-.sp-zodiac__stories{border-top:1px solid rgba(211,84,0,.09);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3.2vw,52px);padding-top:clamp(46px,5vw,74px);padding-bottom:clamp(50px,5.8vw,86px)}
-.sp-zodiac__stories article{display:grid;grid-template-columns:58px 1fr;gap:16px;align-items:start}
-.sp-zodiac__stories i{width:54px;height:54px}
-.sp-zodiac__stories h3{margin:2px 0 8px;color:#58281e;font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.2rem,1.03rem + .35vw,1.48rem)}
-.sp-zodiac__stories p{margin:0;color:#6e574f;font-size:.83rem;line-height:1.55}
-.sp-zodiac__stories a{display:inline-block;margin-top:15px;color:var(--sp-saffron);font-size:.75rem;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(211,84,0,.35)}
-
 /* Editorial storytelling */
 .sp-zodiac__editorial{width:100%;padding:0;display:grid;grid-template-columns:1.08fr .92fr;background:#f5e6cf;border-top:1px solid rgba(211,84,0,.08);border-bottom:1px solid rgba(211,84,0,.08)}
 .sp-zodiac__editorial figure{margin:0;min-height:clamp(440px,42vw,650px);overflow:hidden}
