@@ -36,7 +36,6 @@
 .sp-zodiac h3,
 .sp-zodiac__section-title h2,
 .sp-zodiac__product-copy h2,
-.sp-zodiac__editorial h2,
 .sp-zodiac__date,
 .sp-zodiac__product-emotion,
 .sp-zodiac__price-line > strong,
@@ -526,62 +525,6 @@
   padding-top: 15px;
 }
 
-/* Lifestyle/editorial chapter */
-.sp-zodiac__editorial.sp-zodiac__section {
-  width: min(var(--sp-zodiac-page), calc(100% - 40px));
-  margin: 0 auto 54px;
-  padding: 0;
-  grid-template-columns: 1fr 1fr;
-  border: 1px solid rgba(211,84,0,.10);
-  border-radius: 18px;
-  overflow: hidden;
-  background: #F7E8D3;
-  box-shadow: 0 10px 26px rgba(78,52,46,.06);
-}
-
-.sp-zodiac__editorial figure {
-  min-height: 390px;
-  max-height: 430px;
-}
-
-.sp-zodiac__editorial > div {
-  padding: 40px 42px;
-}
-
-.sp-zodiac__editorial > div > p:not(.sp-zodiac__eyebrow) {
-  margin-top: 14px;
-  color: #68534A;
-  font-size: 13.5px;
-  line-height: 1.65;
-}
-
-.sp-zodiac__editorial-points {
-  gap: 13px;
-  margin-top: 20px;
-}
-
-.sp-zodiac__editorial-points span {
-  grid-template-columns: 32px 1fr;
-  gap: 1px 9px;
-}
-
-.sp-zodiac__editorial-points .sp-ui-icon {
-  width: 24px;
-  height: 24px;
-}
-
-.sp-zodiac__editorial-points b {
-  color: var(--sp-brown);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.sp-zodiac__editorial-points small {
-  color: #7D675E;
-  font-size: 10.5px;
-  line-height: 1.4;
-}
-
 /* Tablet */
 @media screen and (max-width: 1180px) {
   .sp-zodiac__sign-track {
@@ -617,8 +560,7 @@
   .sp-zodiac__section,
   .sp-zodiac__landing-hero-inner,
   .sp-zodiac__product,
-  .sp-zodiac__benefits,
-  .sp-zodiac__editorial.sp-zodiac__section {
+  .sp-zodiac__benefits {
     width: calc(100% - 32px);
   }
 
@@ -703,20 +645,6 @@
     max-width: 760px;
     margin-inline: auto;
   }
-
-  .sp-zodiac__editorial.sp-zodiac__section {
-    grid-template-columns: 1fr;
-    margin-bottom: 44px;
-  }
-
-  .sp-zodiac__editorial figure {
-    min-height: 340px;
-    max-height: 450px;
-  }
-
-  .sp-zodiac__editorial > div {
-    padding: 34px;
-  }
 }
 
 /* Mobile */
@@ -730,8 +658,7 @@
     margin-bottom: 24px;
   }
 
-  .sp-zodiac__section-title h2,
-  .sp-zodiac__editorial h2 {
+  .sp-zodiac__section-title h2 {
     font-size: 26px;
   }
 
@@ -921,25 +848,6 @@
     flex-direction: column;
     gap: 8px;
   }
-
-  .sp-zodiac__editorial.sp-zodiac__section {
-    width: calc(100% - 28px);
-    margin-bottom: 38px;
-    border-radius: 16px;
-  }
-
-  .sp-zodiac__editorial figure {
-    min-height: 280px;
-    max-height: 380px;
-  }
-
-  .sp-zodiac__editorial > div {
-    padding: 30px 24px 32px;
-  }
-
-  .sp-zodiac__editorial > div > p:not(.sp-zodiac__eyebrow) {
-    font-size: 13px;
-  }
 }
 
 @media screen and (max-width: 480px) {
@@ -984,3 +892,12 @@
 .sp-zodiac__context-cards .sp-benefits-trust__inner{width:min(100%,var(--sp-zodiac-page))}
 .sp-zodiac__context-cards .sp-benefits-trust__heading span{color:var(--sp-saffron)}
 @media screen and (max-width:720px){.sp-zodiac__context-cards{--sp-section-x:14px;--sp-section-y:38px}}
+/* Zodiac landing adapter for canonical SP-COMP-007 Devotional Editorial */
+.sp-zodiac__editorial-chapter{border-top:1px solid rgba(211,84,0,.08);border-bottom:1px solid rgba(211,84,0,.08)}
+.sp-zodiac__editorial-chapter .sp-devotional-editorial__inner{width:min(100%,var(--sp-zodiac-page))}
+.sp-zodiac__editorial-chapter .sp-devotional-editorial__heading span{color:var(--sp-saffron)}
+.sp-zodiac__editorial-chapter .sp-devotional-editorial__media{min-height:clamp(330px,31vw,440px)}
+@media screen and (max-width:720px){
+  .sp-zodiac__editorial-chapter{--sp-section-x:14px;--sp-section-y:38px}
+  .sp-zodiac__editorial-chapter .sp-devotional-editorial__media{min-height:260px;order:-1}
+}
