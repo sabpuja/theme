@@ -3,6 +3,8 @@
 <link href="{{ 'sabpuja-header-interactions.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
 <script src="{{ 'sabpuja-header.js' | asset_url }}" defer></script>
 
+{% assign sp_account_dashboard_url = routes.account_url | append: '/pages/01a116ca-e167-790c-8982-1de9ec7a94b1' %}
+
 <div class="sp-announcement" role="status">
   <div class="sp-container">Delhi NCR delivery in 1–3 business days <span aria-hidden="true">•</span> ₹100 flat shipping <span aria-hidden="true">•</span> Prepaid orders</div>
 </div>
@@ -120,7 +122,7 @@
           {% if customer %}
             <a
               class="sp-icon-button sp-account-icon-button"
-              href="{{ routes.account_url }}"
+              href="{{ sp_account_dashboard_url }}"
               aria-label="{{ 'sabpuja_custom.auto.s014' | t }}"
               title="{{ 'sabpuja_custom.auto.s014' | t }}"
               rel="nofollow"
@@ -174,7 +176,7 @@
             <a href="{{ routes.all_products_collection_url }}">{% render 'sabpuja-icon', name: 'shop' %}<span>{{ 'sabpuja_custom.auto.s236' | t }}</span></a>
             {% if shop.customer_accounts_enabled %}
               {% if customer %}
-                <a href="{{ routes.account_url }}" rel="nofollow">{% render 'sabpuja-icon', name: 'user' %}<span>{{ 'sabpuja_custom.auto.s014' | t }}</span></a>
+                <a href="{{ sp_account_dashboard_url }}" rel="nofollow">{% render 'sabpuja-icon', name: 'user' %}<span>{{ 'sabpuja_custom.auto.s014' | t }}</span></a>
               {% else %}
                 <a href="{{ routes.storefront_login_url }}" rel="nofollow" data-sp-account-open>{% render 'sabpuja-icon', name: 'user' %}<span>{{ 'sabpuja_account_signin.header_sign_in' | t }}</span></a>
               {% endif %}
@@ -238,7 +240,7 @@
       class="sp-account-modal__form"
       data-sp-account-signin-form
       data-login-base="{{ routes.storefront_login_url | escape }}"
-      data-return-to="{{ routes.account_url | escape }}"
+      data-return-to="{{ sp_account_dashboard_url | escape }}"
       novalidate
     >
       <label for="sp-account-modal-email">{{ 'sabpuja_account_signin.email_label' | t }}</label>
