@@ -13,7 +13,7 @@ These rules apply to all automated and human-assisted work in `sabpuja/theme`.
 ## Brand
 
 - Spell the brand **Sabpuja**.
-- Source colors, typography, and official logo geometry from `sabpuja/design-system`.
+- Source colors, typography, and official logo geometry from `sabpuja/design-system`. Before using any brand mark, read `sabpuja/design-system/assets/logo/brand-assets.json`; use only `approved-current` assets from `assets/logo/current/`. Theme files are runtime mirrors only, and `archive/` assets must never be used for new work.
 - Competitor references may guide density, hierarchy, and browseability only; never copy competitor colors, typography, identity, or artwork.
 - Use Lucide for functional UI icons.
 - Do not invent prices, discounts, scarcity, ratings, customer counts, product contents, or outcome claims.

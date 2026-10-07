@@ -1,8 +1,13 @@
-# SabPuja approved brand assets — 2026-10-07
+# Sabpuja approved brand assets — 2026-10-07
 
-Status: **APPROVED NEW BRAND IDENTITY**
+Status: **APPROVED CURRENT IDENTITY**
 
-Active production asset family:
+Canonical approval authority is now:
+`sabpuja/design-system/assets/logo/brand-assets.json`
+
+This theme stores runtime copies only.
+
+Active runtime asset family:
 - `assets/sabpuja-logo-horizontal-color.svg` — primary header/default logo.
 - `assets/sabpuja-logo-stacked-color.svg` — stacked brand lockup.
 - `assets/sabpuja-emblem-color.svg` — compact emblem.
@@ -10,7 +15,7 @@ Active production asset family:
 - `assets/sabpuja-logo-horizontal-ivory.svg` — dark-background variant.
 - `assets/sabpuja-favicon.svg` — browser favicon.
 - `assets/sabpuja-brand-tokens.css` — approved palette/asset tokens.
-- `assets/sabpuja-logo-horizontal.svg` — compatibility alias of the approved primary logo.
+- `assets/sabpuja-logo-horizontal.svg` — compatibility alias.
 
 Approved palette:
 - Deep Red `#B80D0D`
@@ -19,6 +24,6 @@ Approved palette:
 - Golden Yellow `#FFC839`
 - Warm Ivory `#FFF9ED`
 
-The dated legacy identity is preserved under `docs/brand/archive/2026-10-07-legacy-logo/`.
+Legacy identity snapshots remain under `docs/brand/archive/2026-10-07-legacy-logo/`.
 
-Do not replace these approved assets with generated variants without an explicit new brand approval.
+Do not replace these assets with generated variants without explicit new brand approval.
