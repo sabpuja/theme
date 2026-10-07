@@ -64,8 +64,7 @@
   margin: 0 auto 30px;
 }
 
-.sp-zodiac__section-title h2,
-.sp-zodiac__editorial h2 {
+.sp-zodiac__section-title h2 {
   color: var(--sp-brown);
   font-size: clamp(28px, 2.4vw, 34px);
   font-weight: 650;
