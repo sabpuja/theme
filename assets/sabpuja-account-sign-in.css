@@ -1,227 +1,140 @@
-/* Sabpuja branded sign-in page — SP-ACC */
-.sp-auth-page{
-  --sp-auth-saffron:#D35400;
-  --sp-auth-gold:#F4B400;
-  --sp-auth-sacred:#4E342E;
-  --sp-auth-deep:#33241F;
-  --sp-auth-cream:#FFF8E7;
-  --sp-auth-ivory:#FFFBEF;
-  min-height:min(760px,calc(100svh - 120px));
+.sp-account-signin{
+  --sp-saffron:#D35400;
+  --sp-gold:#F4B400;
+  --sp-brown:#4E342E;
+  --sp-deep:#33241F;
+  --sp-cream:#FFF8E7;
+  --sp-ivory:#FFFBEF;
+  --sp-muted:#75655E;
+  --sp-border:#E9DDCF;
+  --sp-shadow:0 1rem 2.75rem rgba(51,36,31,.08);
+  min-height:calc(100svh - 120px);
   display:grid;
   place-items:center;
-  padding:clamp(28px,5vw,64px) clamp(16px,4vw,40px);
-  background:
-    radial-gradient(circle at 18% 12%,rgba(244,180,0,.12),transparent 30%),
-    radial-gradient(circle at 86% 82%,rgba(211,84,0,.08),transparent 28%),
-    var(--sp-auth-ivory);
-  color:var(--sp-auth-deep);
-  font-family:Inter,Arial,sans-serif;
+  padding:clamp(24px,5vw,56px) 16px;
+  background:linear-gradient(135deg,var(--sp-ivory),#fff 72%);
+  color:var(--sp-deep);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
-.sp-auth-shell{width:min(100%,620px);margin-inline:auto}
-.sp-auth-card{
-  position:relative;
-  overflow:hidden;
+.sp-account-signin *{box-sizing:border-box}
+.sp-account-signin .sp-account-screen{
+  container-type:inline-size;
+  width:min(100%,40rem);
+  margin-inline:auto;
+  padding:clamp(1rem,.7rem + 1.2vw,2rem);
+  border:1px solid var(--sp-border);
+  border-radius:clamp(1rem,.8rem + .7vw,1.5rem);
   background:#fff;
-  border:1px solid rgba(78,52,46,.14);
-  border-radius:22px;
-  padding:clamp(28px,5vw,48px);
-  box-shadow:0 24px 70px rgba(51,36,31,.12);
-  text-align:center;
+  box-shadow:var(--sp-shadow);
 }
-.sp-auth-card::before{
-  content:"";
-  position:absolute;
-  inset:0 0 auto;
-  height:4px;
-  background:linear-gradient(90deg,var(--sp-auth-saffron),var(--sp-auth-gold));
+.sp-account-signin .sp-auth-single{width:min(100%,32rem);margin-inline:auto}
+.sp-account-signin .sp-auth-card{
+  padding:clamp(1.25rem,.9rem + 1.5cqw,2rem);
+  border:1px solid var(--sp-border);
+  border-radius:clamp(1rem,.8rem + .5cqw,1.35rem);
+  background:#fff;
+  box-shadow:0 .7rem 2rem rgba(51,36,31,.07);
 }
-.sp-auth-logo{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:clamp(190px,38vw,230px);
-  margin:0 auto clamp(16px,2vw,20px);
-  text-decoration:none;
+.sp-account-signin .sp-auth-logo-link{display:block;width:max-content;max-width:100%;margin:0 auto}
+.sp-account-signin .sp-auth-logo{
+  display:block;
+  width:min(100%,10.5rem);
+  height:auto;
+  margin:0 auto clamp(1.1rem,.85rem + .6cqw,1.45rem);
 }
-.sp-auth-logo img{display:block;width:100%;height:auto}
-.sp-auth-eyebrow{
-  margin:0 0 8px;
-  color:var(--sp-auth-saffron);
-  font-family:Inter,Arial,sans-serif;
-  font-size:12px;
-  font-weight:700;
+.sp-account-signin .sp-auth-card__head{text-align:center}
+.sp-account-signin .sp-account-eyebrow{
+  margin:0 0 .45rem;
+  color:var(--sp-saffron);
+  font-size:clamp(.7rem,.66rem + .12cqw,.78rem);
+  font-weight:800;
   letter-spacing:.12em;
   text-transform:uppercase;
 }
-.sp-auth-card h1{
+.sp-account-signin .sp-account-title{
   margin:0;
-  color:var(--sp-auth-deep);
-  font-family:Poppins,Arial,sans-serif;
-  font-size:clamp(30px,5vw,40px);
-  font-weight:700;
-  line-height:1.12;
-  letter-spacing:-.025em;
+  color:var(--sp-deep);
+  font-family:Poppins,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:clamp(1.55rem,1.2rem + 1.7cqw,2.7rem);
+  line-height:1.08;
+  letter-spacing:-.03em;
 }
-.sp-auth-copy{
-  max-width:48ch;
-  margin:12px auto 0;
-  color:var(--sp-auth-sacred);
-  font-size:15px;
+.sp-account-signin .sp-account-copy{
+  max-width:25rem;
+  margin:.7rem auto 0;
+  color:var(--sp-muted);
+  font-size:clamp(.9rem,.86rem + .18cqw,1rem);
   line-height:1.65;
 }
-.sp-auth-benefits{
-  display:grid;
-  gap:10px;
-  margin:clamp(22px,4vw,30px) 0;
-  padding:16px;
-  border:1px solid rgba(78,52,46,.10);
-  border-radius:16px;
-  background:var(--sp-auth-cream);
-  text-align:left;
-}
-.sp-auth-benefit{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  min-height:38px;
-  color:var(--sp-auth-deep);
-  font-size:13px;
-  font-weight:600;
-  line-height:1.4;
-}
-.sp-auth-benefit__icon{
-  display:grid;
-  width:30px;
-  height:30px;
-  flex:0 0 30px;
-  place-items:center;
-  border-radius:9px;
+.sp-account-signin .sp-field{display:grid;gap:.4rem;margin-top:1rem}
+.sp-account-signin .sp-field label{font-size:.82rem;font-weight:800;color:var(--sp-brown)}
+.sp-account-signin .sp-input{
+  width:100%;
+  min-height:3rem;
+  padding:.75rem .9rem;
+  border:1px solid #D8C7B8;
+  border-radius:.8rem;
   background:#fff;
-  color:var(--sp-auth-saffron);
-  box-shadow:0 4px 12px rgba(51,36,31,.06);
+  color:var(--sp-deep);
+  font:inherit;
 }
-.sp-auth-benefit__icon .sp-ui-icon{width:16px;height:16px}
-.sp-auth-secure-action{margin-top:4px}
-.sp-auth-account{
-  display:block;
-  width:100%;
-  --shopify-account-color-accent:var(--sp-auth-saffron);
-  --shopify-account-color-accent-hover:#B94A00;
-  --shopify-account-color-accent-text:#fff;
-  --shopify-account-color-background:var(--sp-auth-ivory);
-  --shopify-account-color-background-subdued:var(--sp-auth-cream);
-  --shopify-account-color-text:var(--sp-auth-deep);
-  --shopify-account-color-text-subdued:var(--sp-auth-sacred);
-  --shopify-account-color-border:rgba(78,52,46,.18);
-  --shopify-account-color-card-background:#fff;
-  --shopify-account-color-card-text:var(--sp-auth-deep);
-  --shopify-account-color-control-background:#fff;
-  --shopify-account-color-control-text:var(--sp-auth-deep);
-  --shopify-account-color-shadow:rgba(51,36,31,.16);
-  --shopify-account-font-body:Inter,Arial,sans-serif;
-  --shopify-account-font-body-weight:500;
-  --shopify-account-font-heading:Poppins,Arial,sans-serif;
-  --shopify-account-font-heading-weight:700;
-  --shopify-account-radius-base:12px;
-  --shopify-account-radius-button:10px;
-  --shopify-account-radius-button-small:8px;
-  --shopify-account-radius-dialog:18px;
-  --shopify-account-radius-input:10px;
+.sp-account-signin .sp-input:focus{
+  outline:3px solid rgba(244,180,0,.35);
+  border-color:var(--sp-saffron);
 }
-.sp-auth-account::part(signed-out-avatar){
+.sp-account-signin .sp-account-actions{
   display:flex;
-  width:100%;
-  min-height:54px;
-  align-items:center;
-  justify-content:center;
-  padding:0 20px;
-  border:1px solid var(--sp-auth-deep);
-  border-radius:10px;
-  background:var(--sp-auth-deep);
-  color:#fff;
-  box-shadow:0 8px 20px rgba(51,36,31,.14);
-  transition:background .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease;
-}
-.sp-auth-account::part(signed-out-avatar):hover,
-.sp-auth-account::part(signed-out-avatar):focus-visible{
-  border-color:var(--sp-auth-sacred);
-  background:var(--sp-auth-sacred);
-  transform:translateY(-1px);
-  box-shadow:0 10px 24px rgba(51,36,31,.18);
-  outline:3px solid rgba(244,180,0,.28);
-  outline-offset:2px;
-}
-.sp-auth-trigger{
-  display:flex;
-  width:100%;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  color:inherit;
-  font-family:Poppins,Arial,sans-serif;
-  font-size:14px;
-  font-weight:700;
-}
-.sp-auth-trigger__icon{width:17px;height:17px}
-.sp-auth-note{
-  margin:11px 0 0;
-  color:var(--sp-auth-sacred);
-  font-size:12px;
-  line-height:1.5;
-}
-.sp-auth-footer{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
-  margin-top:24px;
-  padding-top:18px;
-  border-top:1px solid rgba(78,52,46,.10);
-}
-.sp-auth-footer a{
-  color:var(--sp-auth-saffron)!important;
-  font-size:12px;
-  font-weight:700;
-  text-decoration:none!important;
-}
-.sp-auth-footer a:hover,.sp-auth-footer a:focus-visible{text-decoration:underline!important}
-.sp-auth-signed-in{display:flex;flex-direction:column;align-items:center}
-.sp-auth-status-icon{
-  display:grid;
-  width:48px;
-  height:48px;
-  margin:0 0 16px;
-  place-items:center;
-  border-radius:50%;
-  background:var(--sp-auth-cream);
-  color:var(--sp-auth-saffron);
-}
-.sp-auth-status-icon .sp-ui-icon{width:22px;height:22px}
-.sp-auth-actions{
-  display:flex;
-  justify-content:center;
-  gap:10px;
   flex-wrap:wrap;
-  margin-top:24px;
+  gap:.65rem;
+  align-items:center;
+  margin-top:1rem;
 }
-.sp-auth-link{
+.sp-account-signin .sp-account-btn{
   display:inline-flex;
-  min-height:46px;
+  min-height:2.8rem;
   align-items:center;
   justify-content:center;
-  padding:0 18px;
-  border-radius:10px;
-  font-family:Poppins,Arial,sans-serif;
-  font-size:13px;
-  font-weight:700;
-  text-decoration:none!important;
+  padding:.65rem 1.1rem;
+  border:1px solid var(--sp-saffron);
+  border-radius:999px;
+  background:var(--sp-saffron);
+  color:#fff;
+  font:inherit;
+  font-weight:800;
+  text-decoration:none;
+  cursor:pointer;
 }
-.sp-auth-link--primary{background:var(--sp-auth-deep);color:#fff!important}
-.sp-auth-link--primary:hover{background:var(--sp-auth-sacred);color:#fff!important}
-.sp-auth-link--secondary{border:1px solid rgba(78,52,46,.18);background:var(--sp-auth-cream);color:var(--sp-auth-deep)!important}
+.sp-account-signin .sp-account-btn:hover{background:#B94A00;border-color:#B94A00}
+.sp-account-signin .sp-account-btn:focus-visible{
+  outline:3px solid var(--sp-gold);
+  outline-offset:3px;
+}
+.sp-account-signin .sp-account-btn--full{width:100%}
+.sp-account-signin .sp-account-note{
+  margin:.8rem 0 0;
+  color:var(--sp-muted);
+  font-size:.8rem;
+  line-height:1.55;
+  text-align:center;
+}
+.sp-account-signin .sp-auth-switch{
+  margin:1rem 0 0;
+  text-align:center;
+  color:var(--sp-muted);
+  font-size:.82rem;
+}
+.sp-account-signin .sp-auth-switch a{
+  color:var(--sp-saffron);
+  font-weight:800;
+  text-decoration:none;
+}
+.sp-account-signin .sp-auth-switch a:hover{text-decoration:underline}
+@container (max-width:30rem){
+  .sp-account-signin .sp-account-screen{padding:.85rem;border-radius:1rem}
+  .sp-account-signin .sp-auth-card{padding:1rem}
+  .sp-account-signin .sp-auth-logo{width:min(100%,9rem)}
+  .sp-account-signin .sp-account-actions .sp-account-btn{flex:1 1 100%}
+}
 @media(max-width:560px){
-  .sp-auth-page{min-height:auto;padding:24px 14px 34px}
-  .sp-auth-card{border-radius:18px;padding:28px 20px}
-  .sp-auth-logo{width:min(210px,72vw)}
-  .sp-auth-footer{gap:12px;flex-wrap:wrap}
+  .sp-account-signin{min-height:auto;padding:20px 12px 32px}
 }
