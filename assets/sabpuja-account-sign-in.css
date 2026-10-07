@@ -40,7 +40,7 @@
   align-items:center;
   justify-content:center;
   width:clamp(190px,38vw,230px);
-  margin:0 auto clamp(22px,3vw,30px);
+  margin:0 auto clamp(16px,2vw,20px);
   text-decoration:none;
 }
 .sp-auth-logo img{display:block;width:100%;height:auto}
