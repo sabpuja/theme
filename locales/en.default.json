@@ -1187,5 +1187,21 @@
     "makara": "Makara",
     "kumbha": "Kumbha",
     "meena": "Meena"
+  },
+  "sabpuja_account_signin": {
+    "home_label": "Sabpuja home",
+    "eyebrow": "Your Sabpuja account",
+    "title": "Welcome back",
+    "body": "Sign in securely to view orders, manage your details, and continue where you left off.",
+    "benefit_orders": "View current and past orders",
+    "benefit_profile": "Manage profile and delivery details",
+    "benefit_secure": "Secure passwordless sign-in",
+    "continue_securely": "Continue to secure sign in",
+    "passwordless_note": "No password to remember. Shopify securely handles authentication.",
+    "continue_shopping": "Continue shopping",
+    "privacy": "Privacy policy",
+    "signed_in_title": "You’re already signed in",
+    "signed_in_body": "Open your account to review orders and manage your profile.",
+    "view_account": "View my account"
   }
 }
