@@ -1190,18 +1190,21 @@
   },
   "sabpuja_account_signin": {
     "home_label": "Sabpuja home",
-    "eyebrow": "Your Sabpuja account",
-    "title": "Welcome back",
-    "body": "Sign in securely to view orders, manage your details, and continue where you left off.",
+    "eyebrow": "Your account",
+    "title": "Sign in with your email",
+    "body": "Enter the email used with your Sabpuja orders to continue securely.",
     "benefit_orders": "View current and past orders",
     "benefit_profile": "Manage profile and delivery details",
     "benefit_secure": "Quick & secure sign-in",
     "continue_securely": "Continue to secure sign in",
-    "passwordless_note": "We’ll send a secure sign-in code to your email. No password needed.",
+    "passwordless_note": "We’ll send a verification code to this email. No password needed.",
     "continue_shopping": "Continue shopping",
     "privacy": "Privacy policy",
     "signed_in_title": "You’re already signed in",
     "signed_in_body": "Open your account to review orders and manage your profile.",
-    "view_account": "View my account"
+    "view_account": "View my account",
+    "email_label": "Email",
+    "email_placeholder": "you@example.com",
+    "continue": "Continue"
   }
 }
