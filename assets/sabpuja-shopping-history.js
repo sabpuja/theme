@@ -5,6 +5,11 @@
   var SAVED_KEY = 'wishlist-storage'; // Existing theme wishlist storage contract.
   var RECENT_KEY = 'recently-viewed';  // Existing theme recently-viewed storage contract.
   var LIMIT = 18;
+  // Category/festival navigation tiles without an individual product URL are excluded.
+  var CARD_SELECTOR = '.sp-product-card, .product-item[data-product-item], ' +
+    '.sp2026-popular__card, .sp2026-featured__card, ' +
+    '.sp-product-showcase__card, .sp-related-products__card, ' +
+    '.sp-kit-card[data-product-handle]';
 
   function validHandle(value) {
     return typeof value === 'string' && /^[a-z0-9][a-z0-9-]{0,130}$/i.test(value);
@@ -105,10 +110,10 @@
   function hydrateCards(root) {
     if (!root || !root.querySelectorAll) return;
     var matches = [];
-    if (root.matches && root.matches('.sp-product-card, .product-item[data-product-item]')) {
+    if (root.matches && root.matches(CARD_SELECTOR)) {
       matches.push(root);
     }
-    root.querySelectorAll('.sp-product-card, .product-item[data-product-item]').forEach(function (card) {
+    root.querySelectorAll(CARD_SELECTOR).forEach(function (card) {
       matches.push(card);
     });
     var savedHandles = readList(SAVED_KEY);
@@ -116,7 +121,9 @@
       if (card.querySelector('[data-sp-save-handle]')) return;
       var handle = cardHandle(card);
       if (!validHandle(handle)) return;
-      var title = card.querySelector('.sp-product-card__title, .product-item-title, .product-item-name, h2, h3');
+      var title = card.querySelector('.sp-product-card__title, .product-item-title, .product-item-name, ' +
+        '.sp2026-popular__name, .sp2026-featured__name, .sp-product-showcase__card-title, ' +
+        '.sp-related-products__title, h2, h3');
       var button = makeSaveButton(handle, title ? title.textContent.trim() : handle, false);
       card.classList.add('sp-has-universal-save');
       card.appendChild(button);
@@ -131,8 +138,8 @@
       changes.forEach(function (change) {
         change.addedNodes.forEach(function (node) {
           if (node.nodeType !== 1 || !node.querySelectorAll) return;
-          if (node.matches && node.matches('.sp-product-card, .product-item[data-product-item]') ||
-            node.querySelector('.sp-product-card, .product-item[data-product-item]')) {
+          if (node.matches && node.matches(CARD_SELECTOR) ||
+            node.querySelector(CARD_SELECTOR)) {
             hydrateCards(node);
           }
         });
