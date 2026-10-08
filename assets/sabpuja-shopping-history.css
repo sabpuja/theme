@@ -3,9 +3,18 @@
 .sp-save-button svg{width:1rem;height:1rem;flex:none}
 .sp-save-button.is-saved{color:#B80D0D;border-color:#E3B1A7;background:#FFF3ED}
 .sp-save-button.is-saved svg{fill:currentColor}
-.sp-product-card{position:relative}
-.sp-product-card>.sp-save-button{position:absolute;top:.4rem;right:.4rem;z-index:2;min-height:34px;padding:.36rem .5rem;font-size:.68rem}
-.sp-product-card>.sp-save-button svg{width:.88rem;height:.88rem}
+.sp-product-card.sp-has-universal-save,.product-item.sp-has-universal-save{position:relative}
+.sp-product-card.sp-has-universal-save>.sp-save-button,.product-item.sp-has-universal-save>.sp-save-button{
+  position:absolute;inset-block-start:.45rem;inset-inline-end:.45rem;z-index:5;
+  width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;
+  box-shadow:0 2px 9px rgba(49,23,13,.11)
+}
+.sp-product-card.sp-has-universal-save>.sp-save-button svg,.product-item.sp-has-universal-save>.sp-save-button svg{width:1.15rem;height:1.15rem}
+.sp-product-card.sp-has-universal-save>.sp-save-button .sp-save-button__label,
+.product-item.sp-has-universal-save>.sp-save-button .sp-save-button__label{display:none}
+/* Only hide a legacy theme heart once its replacement is installed. */
+.product-item.sp-has-universal-save [data-wishlist],
+.product-item.sp-has-universal-save [data-wishlist-remove]{display:none!important}
 .sp-save-button--pdp{width:auto;max-width:100%;margin-top:.4rem}
 .sp-save-button:focus-visible,.sp-history-product a:focus-visible{outline:3px solid #F4B400;outline-offset:3px}
 .sp-history{max-width:1120px;margin:0 auto;padding:clamp(1.5rem,3.5vw,2.6rem) clamp(1rem,3vw,1.6rem) 3rem;font-family:Inter,Arial,sans-serif}
@@ -31,5 +40,5 @@
 .sp-history-product__actions .sp-save-button{min-height:36px}
 .sp-history-product__view{font-size:.8rem}
 .sp-history-loading{font-size:.86rem;color:#70625B}
-@media(max-width:520px){.sp-product-card>.sp-save-button .sp-save-button__label{display:none}.sp-history-product__actions{justify-content:space-between}}
+@media(max-width:520px){.sp-history-product__actions{justify-content:space-between}}
 @media(prefers-reduced-motion:reduce){.sp-save-button{transition:none}}
