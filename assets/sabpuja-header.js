@@ -454,14 +454,11 @@
           return;
         }
 
-        var base = form.dataset.loginBase;
-        if (!base) return;
+        var destination = form.dataset.accountDestination;
+        if (!destination) return;
 
-        var url = new URL(base, window.location.origin);
+        var url = new URL(destination, window.location.origin);
         url.searchParams.set('login_hint', email.value.trim());
-
-        var returnTo = form.dataset.returnTo;
-        if (returnTo) url.searchParams.set('return_to', returnTo);
 
         window.location.assign(url.toString());
       });
