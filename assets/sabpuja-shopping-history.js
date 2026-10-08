@@ -4,7 +4,7 @@
 
   var SAVED_KEY = 'wishlist-storage'; // Existing theme wishlist storage contract.
   var RECENT_KEY = 'recently-viewed';  // Existing theme recently-viewed storage contract.
-  var LIMIT = 18;
+  var RECENT_LIMIT = 18; // Browsing history can be short; wishlist must not silently truncate.
   // Category/festival navigation tiles without an individual product URL are excluded.
   var CARD_SELECTOR = '.sp-product-card, .product-item[data-product-item], ' +
     '.sp2026-popular__card, .sp2026-featured__card, ' +
@@ -19,7 +19,8 @@
     try {
       var parsed = JSON.parse(window.localStorage.getItem(key) || '[]');
       if (!Array.isArray(parsed)) return [];
-      return Array.from(new Set(parsed.filter(validHandle))).slice(-LIMIT);
+      var handles = Array.from(new Set(parsed.filter(validHandle)));
+      return key === RECENT_KEY ? handles.slice(-RECENT_LIMIT) : handles;
     } catch (error) {
       return [];
     }
@@ -27,7 +28,9 @@
 
   function writeList(key, handles) {
     try {
-      window.localStorage.setItem(key, JSON.stringify(handles.slice(-LIMIT)));
+      window.localStorage.setItem(key, JSON.stringify(
+        key === RECENT_KEY ? handles.slice(-RECENT_LIMIT) : handles
+      ));
       return true;
     } catch (error) {
       return false;
@@ -238,7 +241,7 @@
     empty.hidden = true;
     grid.hidden = false;
     grid.appendChild(el('p', 'sp-history-loading', 'Loading products…'));
-    Promise.all(handles.slice(-12).reverse().map(loadProduct)).then(function (products) {
+    Promise.all((type === 'saved' ? handles : handles.slice(-12)).slice().reverse().map(loadProduct)).then(function (products) {
       grid.replaceChildren();
       products.filter(Boolean).forEach(function (product) { grid.appendChild(productCard(product)); });
       if (!grid.childElementCount) {
