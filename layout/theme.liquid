@@ -55,6 +55,7 @@
   {{ 'sabpuja-component-foundations.css' | asset_url | stylesheet_tag }}
   {{ 'sabpuja-brand-tokens.css' | asset_url | stylesheet_tag }}
   {{ 'sabpuja-product-card.css' | asset_url | stylesheet_tag }}
+  {{ 'sabpuja-shopping-history.css' | asset_url | stylesheet_tag }}
 
   <style>
     html,body{margin:0!important;padding:0!important}
@@ -67,10 +68,11 @@
     .sp-staging-badge,.sp-demo-note,.sp-zodiac__demo-note{display:none!important}
   </style>
 
+  <script src="{{ 'sabpuja-shopping-history.js' | asset_url }}" defer></script>
   {{ content_for_header }}
   <script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script>
 </head>
-<body class="sabpuja-staging template-{{ template.name }}{% if template.suffix != blank %} suffix-{{ template.suffix }}{% endif %}">
+<body class="sabpuja-staging template-{{ template.name }}{% if template.suffix != blank %} suffix-{{ template.suffix }}{% endif %}"{% if template.name == 'product' %} data-sp-product-handle="{{ product.handle | escape }}"{% endif %}>
   {% section 'theme-header4' %}
   <main id="MainContent" role="main">
     {{ content_for_layout }}
