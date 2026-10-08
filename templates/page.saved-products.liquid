@@ -1,0 +1,27 @@
+{{ 'sabpuja-shopping-history.css' | asset_url | stylesheet_tag }}
+<section class="sp-history" aria-labelledby="spHistoryHeading">
+  <header class="sp-history__head">
+    <p class="sp-history__eyebrow">Your Sabpuja shopping</p>
+    <h1 id="spHistoryHeading">{{ page.title | default: 'Saved & Recently Viewed' }}</h1>
+    <p class="sp-history__lead">Pick up where you left off. Save puja essentials and revisit products you explored.</p>
+    <p class="sp-history__notice">Saved and recently viewed products are stored in this browser. They do not yet sync across devices or customer-account sign-ins.</p>
+  </header>
+
+  <section class="sp-history__section" aria-labelledby="spHistorySavedTitle">
+    <h2 id="spHistorySavedTitle">Saved products</h2>
+    <p>Items you marked for later while browsing Sabpuja.</p>
+    <div class="sp-history__grid" data-sp-history-grid="saved" aria-live="polite"></div>
+    <div class="sp-history__empty" data-sp-history-empty="saved" hidden>
+      No saved products yet. <a href="/collections/puja-kit">Explore puja kits</a> or <a href="/collections/puja-items">browse puja items</a>.
+    </div>
+  </section>
+
+  <section class="sp-history__section" aria-labelledby="spHistoryRecentTitle">
+    <h2 id="spHistoryRecentTitle">Recently viewed</h2>
+    <p>Products you opened on this browser, most recent first.</p>
+    <div class="sp-history__grid" data-sp-history-grid="recent" aria-live="polite"></div>
+    <div class="sp-history__empty" data-sp-history-empty="recent" hidden>
+      Nothing viewed yet. <a href="/collections/all">Browse all products</a> to get started.
+    </div>
+  </section>
+</section>
