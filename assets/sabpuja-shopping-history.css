@@ -30,5 +30,5 @@
 .sp-history-product__actions .sp-save-button{min-height:36px}
 .sp-history-product__view{font-size:.8rem}
 .sp-history-loading{font-size:.86rem;color:#70625B}
-@media(max-width:520px){.sp-product-card>.sp-save-button__label{display:none}.sp-history-product__actions{justify-content:space-between}}
+@media(max-width:520px){.sp-product-card>.sp-save-button .sp-save-button__label{display:none}.sp-history-product__actions{justify-content:space-between}}
 @media(prefers-reduced-motion:reduce){.sp-save-button{transition:none}}
