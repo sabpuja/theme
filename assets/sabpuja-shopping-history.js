@@ -128,6 +128,9 @@
     card.appendChild(link);
     var price = moneyInMinorUnits(product.price);
     if (price) card.appendChild(el('p', 'sp-history-product__price', price));
+    if (product.available === false) {
+      card.appendChild(el('p', 'sp-history-product__availability', 'Currently unavailable — saved for later'));
+    }
     var actions = el('div', 'sp-history-product__actions');
     actions.appendChild(makeSaveButton(product.handle, product.title, true));
     var view = el('a', 'sp-history-product__view', 'View product →');
@@ -141,7 +144,7 @@
     return fetch('/products/' + encodeURIComponent(handle) + '.js', { credentials: 'same-origin' })
       .then(function (response) { if (!response.ok) throw new Error('Unavailable product'); return response.json(); })
       .then(function (product) {
-        return product && validHandle(product.handle) && product.available !== false ? product : null;
+        return product && validHandle(product.handle) ? product : null;
       })
       .catch(function () { return null; });
   }
