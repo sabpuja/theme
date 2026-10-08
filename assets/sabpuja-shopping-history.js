@@ -33,14 +33,25 @@
     return readList(SAVED_KEY).indexOf(handle) !== -1;
   }
 
+  function updateSaveButton(button, savedHandles) {
+    var handle = button.getAttribute('data-sp-save-handle');
+    var saved = savedHandles.indexOf(handle) !== -1;
+    var name = button.getAttribute('data-sp-product-name') || handle;
+    button.setAttribute('aria-pressed', String(saved));
+    button.setAttribute('aria-label', (saved ? 'Remove from saved products' : 'Save product') + ': ' + name);
+    button.setAttribute('title', saved ? 'Saved' : 'Save for later');
+    button.classList.toggle('is-saved', saved);
+    var label = button.querySelector('.sp-save-button__label');
+    if (label) {
+      label.textContent = saved ? 'Saved' :
+        (button.classList.contains('sp-save-button--pdp') ? 'Save for later' : 'Save');
+    }
+  }
+
   function refreshSaveButtons() {
+    var savedHandles = readList(SAVED_KEY);
     document.querySelectorAll('[data-sp-save-handle]').forEach(function (button) {
-      var handle = button.getAttribute('data-sp-save-handle');
-      var saved = isSaved(handle);
-      button.setAttribute('aria-pressed', String(saved));
-      button.setAttribute('aria-label', (saved ? 'Remove from saved products' : 'Save product') + ': ' + (button.getAttribute('data-sp-product-name') || handle));
-      button.setAttribute('title', saved ? 'Saved' : 'Save for later');
-      button.classList.toggle('is-saved', saved);
+      updateSaveButton(button, savedHandles);
     });
   }
 
@@ -68,13 +79,71 @@
     return button;
   }
 
-  function initSaveButtons() {
-    document.querySelectorAll('.sp-product-card[data-product-handle]').forEach(function (card) {
-      var handle = card.getAttribute('data-product-handle');
-      if (!validHandle(handle) || card.querySelector('[data-sp-save-handle]')) return;
-      var title = card.querySelector('.sp-product-card__title');
-      card.appendChild(makeSaveButton(handle, title ? title.textContent.trim() : handle, false));
+  // Support modern Sabpuja catalog cards and the theme's legacy product-item cards.
+  // Resolve the product handle only from the existing card's own data or product URL.
+  function cardHandle(card) {
+    var handle = card.getAttribute('data-product-handle');
+    if (validHandle(handle)) return handle;
+    var nativeSave = card.querySelector('[data-wishlist],[data-wishlist-remove]');
+    if (nativeSave) {
+      handle = nativeSave.getAttribute('data-wishlist') ||
+        nativeSave.getAttribute('data-wishlist-remove');
+      if (validHandle(handle)) return handle;
+    }
+    var link = card.querySelector('a[href*="/products/"]');
+    if (!link) return '';
+    try {
+      var url = new URL(link.getAttribute('href'), window.location.origin);
+      if (url.origin !== window.location.origin) return '';
+      var match = url.pathname.match(/\/products\/([a-z0-9-]+)(?:\/|$)/i);
+      return match && validHandle(match[1]) ? match[1] : '';
+    } catch (error) {
+      return '';
+    }
+  }
+
+  function hydrateCards(root) {
+    if (!root || !root.querySelectorAll) return;
+    var matches = [];
+    if (root.matches && root.matches('.sp-product-card, .product-item[data-product-item]')) {
+      matches.push(root);
+    }
+    root.querySelectorAll('.sp-product-card, .product-item[data-product-item]').forEach(function (card) {
+      matches.push(card);
     });
+    var savedHandles = readList(SAVED_KEY);
+    matches.forEach(function (card) {
+      if (card.querySelector('[data-sp-save-handle]')) return;
+      var handle = cardHandle(card);
+      if (!validHandle(handle)) return;
+      var title = card.querySelector('.sp-product-card__title, .product-item-title, .product-item-name, h2, h3');
+      var button = makeSaveButton(handle, title ? title.textContent.trim() : handle, false);
+      card.classList.add('sp-has-universal-save');
+      card.appendChild(button);
+      updateSaveButton(button, savedHandles);
+    });
+  }
+
+  function observeNewProductCards() {
+    if (!window.MutationObserver) return;
+    // Deferred sections, AJAX collection pagination and recommendation sliders.
+    var observer = new MutationObserver(function (changes) {
+      changes.forEach(function (change) {
+        change.addedNodes.forEach(function (node) {
+          if (node.nodeType !== 1 || !node.querySelectorAll) return;
+          if (node.matches && node.matches('.sp-product-card, .product-item[data-product-item]') ||
+            node.querySelector('.sp-product-card, .product-item[data-product-item]')) {
+            hydrateCards(node);
+          }
+        });
+      });
+    });
+    observer.observe(document.body, {childList: true, subtree: true});
+  }
+
+  function initSaveButtons() {
+    hydrateCards(document);
+    observeNewProductCards();
 
     var productHandle = document.body.getAttribute('data-sp-product-handle');
     if (validHandle(productHandle)) {
