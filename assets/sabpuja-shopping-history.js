@@ -6,7 +6,7 @@
   var RECENT_KEY = 'recently-viewed';  // Existing theme recently-viewed storage contract.
   var RECENT_LIMIT = 18; // Browsing history can be short; wishlist must not silently truncate.
   // Category/festival navigation tiles without an individual product URL are excluded.
-  var CARD_SELECTOR = '.sp-product-card, .product-item[data-product-item], ' +
+  var CARD_SELECTOR = '.sp-product-card, .sp-catalog-card, .product-item[data-product-item], ' +
     '.sp2026-popular__card, .sp2026-featured__card, ' +
     '.sp-product-showcase__card, .sp-related-products__card, ' +
     '.sp-kit-card[data-product-handle]';
