@@ -26,6 +26,7 @@
 .sp-history-product__image{width:100%;aspect-ratio:1;object-fit:contain;border-radius:9px;background:#FAF7F2}
 .sp-history-product__title{font-size:.89rem;line-height:1.4;margin:.65rem 0 0}
 .sp-history-product__price{font-weight:750;margin:.25rem 0;color:#44312A}
+.sp-history-product__availability{font-size:.77rem;line-height:1.45;color:#95512B;margin:.1rem 0 .35rem;font-weight:650}
 .sp-history-product__actions{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-top:auto}
 .sp-history-product__actions .sp-save-button{min-height:36px}
 .sp-history-product__view{font-size:.8rem}
