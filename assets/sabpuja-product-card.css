@@ -1,4 +1,4 @@
-/* SP-PROD — canonical Shopify product card */
+/* SP-PROD - canonical Shopify product card */
 .sp-product-card{position:relative;display:flex;min-width:0;height:100%;flex-direction:column;overflow:hidden;border:1px solid var(--sp-border);border-radius:16px;background:var(--sp-white);box-shadow:0 .15rem .7rem rgba(51,36,31,.035);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
 .sp-product-card:hover{border-color:var(--sp-border-strong);box-shadow:0 12px 28px rgba(51,36,31,.075);transform:translateY(-1px)}
 .sp-product-card__media{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;border-bottom:1px solid var(--sp-border);background:#fffaf4;color:inherit;text-decoration:none}
@@ -48,3 +48,13 @@
   .sp-product-card,.sp-product-card__image,.sp-product-card__cta{transition:none!important}
   .sp-product-card:hover{transform:none}
 }
+
+/* SP-PROD consistent shop, search and related card treatment */
+.sp-product-card{border-color:#ead9cd;border-radius:18px;box-shadow:0 7px 23px rgba(51,36,31,.045)}
+.sp-product-card:hover{border-color:#dcae8c;box-shadow:0 12px 28px rgba(51,36,31,.10)}
+.sp-product-card__media{background:#fff7ed}
+.sp-product-card__body{padding:clamp(13px,1.5vw,19px)}
+.sp-product-card__type{font-size:10px;letter-spacing:.11em}
+.sp-product-card__title{min-height:2.75em;line-height:1.38;overflow-wrap:anywhere}
+.sp-product-card__cta{border-radius:11px}
+@media(max-width:650px){.sp-product-card__body{padding:11px}.sp-product-card__title{font-size:13px}.sp-product-card__type{font-size:9px}}
