@@ -85,7 +85,7 @@
               <strong>Filter products</strong>
               <button type="button" data-sp-filter-close aria-label="Close filters">×</button>
             </div>
-            {% render 'sabpuja-collection-filters', collection: collection, scope: 'mobile' %}
+            {% render 'sabpuja-collection-filters', collection: collection, scope: 'mobile', category_menu: section.settings.category_menu %}
           </div>
         </details>
       {% endif %}
@@ -106,32 +106,34 @@
       </form>
     </div>
 
+      <div class="sp-col__toolbar">
+        <span class="sp-col__count">{{ collection.products_count }} product{% unless collection.products_count == 1 %}s{% endunless %}</span>
+
+        <form class="sp-col__sort" action="{{ collection.url }}" method="get">
+          <label for="SortBy">Sort by</label>
+          {% for filter in collection.filters %}
+            {% for active_value in filter.active_values %}<input type="hidden" name="{{ active_value.param_name }}" value="{{ active_value.value | escape }}">{% endfor %}
+            {% if filter.type == 'price_range' %}
+            {% if filter.min_value.value != blank %}<input type="hidden" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}">{% endif %}
+            {% if filter.max_value.value != blank %}<input type="hidden" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}">{% endif %}
+            {% endif %}
+          {% endfor %}
+          {% assign sp_sort_by = collection.sort_by | default: collection.default_sort_by %}
+          <select id="SortBy" name="sort_by" onchange="this.form.submit()">
+            {% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == sp_sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}
+          </select>
+        </form>
+      </div>
+
     <div class="sp-col__layout{% if collection.filters == empty %} sp-col__layout--wide{% endif %}">
       {% if collection.filters != empty %}
         <aside class="sp-col__sidebar" aria-label="Product filters">
-          {% render 'sabpuja-collection-filters', collection: collection, scope: 'desktop' %}
+          {% render 'sabpuja-collection-filters', collection: collection, scope: 'desktop', category_menu: section.settings.category_menu %}
         </aside>
       {% endif %}
 
       <div class="sp-col__results">
-        <div class="sp-col__toolbar">
-          <span class="sp-col__count">{{ collection.products_count }} product{% unless collection.products_count == 1 %}s{% endunless %}</span>
 
-          <form class="sp-col__sort" action="{{ collection.url }}" method="get">
-            <label for="SortBy">Sort by</label>
-            {% for filter in collection.filters %}
-              {% for active_value in filter.active_values %}<input type="hidden" name="{{ active_value.param_name }}" value="{{ active_value.value | escape }}">{% endfor %}
-              {% if filter.type == 'price_range' %}
-                {% if filter.min_value.value != blank %}<input type="hidden" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}">{% endif %}
-                {% if filter.max_value.value != blank %}<input type="hidden" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}">{% endif %}
-              {% endif %}
-            {% endfor %}
-            {% assign sp_sort_by = collection.sort_by | default: collection.default_sort_by %}
-            <select id="SortBy" name="sort_by" onchange="this.form.submit()">
-              {% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == sp_sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}
-            </select>
-          </form>
-        </div>
 
         {% paginate collection.products by section.settings.products_per_page %}
           {% if collection.products_count > 0 %}
