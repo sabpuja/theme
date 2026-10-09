@@ -41,7 +41,11 @@
 
   <div class="sp-product-card__body">
     {% if product.type != blank %}<p class="sp-product-card__type">{{ product.type }}</p>{% endif %}
-    <h2 class="sp-product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h2>
+    {% if heading_tag == 'h3' %}
+      <h3 class="sp-product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    {% else %}
+      <h2 class="sp-product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h2>
+    {% endif %}
 
     <div class="sp-product-card__price">
       {% if sp_price > 0 %}
@@ -52,6 +56,10 @@
       {% endif %}
     </div>
 
+    <p class="sp-product-card__availability{% unless product.available %} is-unavailable{% endunless %}">
+      <span class="sp-product-card__availability-dot" aria-hidden="true"></span>
+      {% if product.available %}Available{% else %}Currently unavailable{% endif %}
+    </p>
     <a class="sp-product-card__cta" href="{{ product.url }}">
       <span>{% if product.available %}View product{% else %}View details{% endif %}</span>
       {% render 'sabpuja-icon', name: 'arrow-right' %}
