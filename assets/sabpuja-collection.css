@@ -153,3 +153,56 @@ body.sp-col-filter-drawer-open{overflow:hidden}
 .sp-col__grid{gap:clamp(13px,1.3vw,22px)}
 @media(max-width:580px){.sp-col__head--editorial{gap:12px;padding:22px 18px;border-radius:17px}.sp-col__head-count{min-width:75px;min-height:75px;padding:8px}.sp-col__head-count strong{font-size:25px}.sp-col__head-count span{font-size:9px}.sp-col__head--editorial h1,.sp-col__head--editorial h2#sp-col-title{font-size:clamp(25px,7vw,36px)}.sp-col__shortcuts{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:thin}}
 @media(max-width:380px){.sp-col__head--editorial{display:block}.sp-col__head-count{width:max-content;min-height:0;flex-direction:row;gap:7px;margin-top:14px;padding:8px 11px}.sp-col__head-count strong{font-size:20px}}
+
+
+/* SP-COL-001A alignment and facet styling refinements, 2026-10-09 */
+.sp-col__container{width:min(1320px,calc(100% - clamp(28px,5vw,66px)))}
+.sp-col__toolbar{min-height:56px;margin:0 0 15px;padding:4px 0 11px;border-bottom:0}
+.sp-col__sort{gap:12px}
+.sp-col__sort label{color:#795f50;font-size:12px;font-weight:700}
+.sp-col__sort select{min-height:46px;border-color:#e8d5c5;border-radius:13px;padding:0 35px 0 14px;background:#fff;font-size:12px;font-weight:750}
+.sp-col__count{color:#836351;font-size:13px;font-weight:700}
+.sp-col__layout{align-items:start;gap:clamp(18px,2.15vw,28px);grid-template-columns:minmax(220px,245px) minmax(0,1fr)}
+.sp-col__layout--wide{grid-template-columns:minmax(0,1fr)}
+.sp-col__sidebar{position:sticky;top:100px;max-height:calc(100dvh - 115px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.sp-col__sidebar .sp-col-filters{border:1px solid #e9d7c8;border-radius:18px;background:#fffefd;box-shadow:none}
+.sp-col-filters__head{padding:19px 17px;background:#fffefa;border-color:#eee0d5}
+.sp-col-filters__head strong{font:700 15px/1.3 Poppins,Arial,sans-serif}
+.sp-col-filter{padding:17px;border-color:#eaded4}
+.sp-col-filter legend,.sp-col-filter__heading{display:block;width:100%;margin:0 0 12px;padding:0;color:#372922;font:750 13px/1.4 Poppins,Arial,sans-serif}
+.sp-col-filter__options{gap:6px}
+.sp-col-filter__option{min-height:39px;gap:9px;font-size:13px}
+.sp-col-filter__option input{width:17px;height:17px;accent-color:#d35400}
+.sp-col-filter__option small{font-size:11px}
+.sp-col-filter__price{gap:10px}
+.sp-col-filter__price label{font-size:12px}
+.sp-col-filter__price input{min-width:0;border-radius:11px}
+.sp-col-filters__actions{padding:13px 17px;background:#fffefa}
+.sp-col-filters__apply{min-height:44px;border-radius:12px;font-size:12px}
+.sp-col-filter--browse{display:block}
+.sp-col-filter__browse-list{display:grid;gap:6px}
+.sp-col-filter__browse-link{display:flex;align-items:center;justify-content:space-between;gap:7px;min-height:37px;padding:7px 8px;border:1px solid transparent;border-radius:10px;color:#695044!important;text-decoration:none!important;font:650 12px/1.35 Inter,Arial,sans-serif}
+.sp-col-filter__browse-link:hover,.sp-col-filter__browse-link:focus-visible{border-color:#eacdb5;background:#fff5ea;color:#b64b06!important}
+.sp-col-filter__browse-link.is-active{border-color:#efc49e;background:#fff1e3;color:#a74707!important}
+.sp-col-filter__browse-count{font-variant-numeric:tabular-nums;color:#977e6d;font-size:11px}
+.sp-col__grid{align-items:stretch;gap:clamp(13px,1.5vw,20px)}
+.sp-col__results{min-width:0}
+.sp-col__shortcut{border-radius:999px;min-height:42px;padding-inline:14px}
+@container(max-width:72rem){
+ .sp-col__layout{grid-template-columns:minmax(198px,225px) minmax(0,1fr)}
+ .sp-col__grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@container(max-width:56rem){
+ .sp-col__layout{grid-template-columns:minmax(0,1fr)}
+ .sp-col__sidebar{display:none}
+ .sp-col__toolbar{min-height:0;margin-bottom:8px}
+ .sp-col__toolbar .sp-col__sort{display:none}
+ .sp-col__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .sp-col__mobile-tools{margin-top:2px}
+}
+@media(max-width:56rem){
+ .sp-col__layout{grid-template-columns:minmax(0,1fr)}
+ .sp-col__sidebar{display:none}
+}
+@media(max-width:360px){.sp-col__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}}
+@media(max-width:315px){.sp-col__grid{grid-template-columns:1fr}}
