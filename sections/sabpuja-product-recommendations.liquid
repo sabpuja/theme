@@ -1,0 +1,46 @@
+{{ 'sabpuja-product-card.css' | asset_url | stylesheet_tag }}
+<style>
+.sp-cross-sell{background:var(--sp-ivory);padding:clamp(30px,5vw,66px) 0}
+.sp-cross-sell__inner{width:min(1240px,calc(100% - 42px));margin:0 auto}
+.sp-cross-sell__heading{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.sp-cross-sell__heading p{margin:0 0 6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sp-saffron);font-weight:800}
+.sp-cross-sell__heading h2{margin:0;font:700 clamp(24px,3vw,35px)/1.16 Poppins,Arial,sans-serif;color:var(--sp-ink)}
+.sp-cross-sell__heading>a{display:inline-flex;align-items:center;min-height:44px;color:var(--sp-saffron)!important;font:700 13px Inter,Arial,sans-serif;text-decoration:none}
+.sp-cross-sell__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media(max-width:1020px){.sp-cross-sell__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){.sp-cross-sell__inner{width:min(100% - 26px,1240px)}.sp-cross-sell__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+@media(max-width:320px){.sp-cross-sell__grid{grid-template-columns:1fr}}
+</style>
+{% assign sp_recommendation_collection = section.settings.recommendation_collection | default: product.collections.first %}
+{% assign sp_recommendation_products = section.settings.recommendation_products %}
+<section class="sp-cross-sell" aria-labelledby="sp-cross-sell-title">
+  <div class="sp-cross-sell__inner">
+    <div class="sp-cross-sell__heading">
+      <div><p>Explore Sabpuja</p><h2 id="sp-cross-sell-title">You may also like</h2></div>
+      <a href="{{ routes.all_products_collection_url }}">Shop all products {% render 'sabpuja-icon', name: 'arrow-right' %}</a>
+    </div>
+    <div class="sp-cross-sell__grid" data-sp-recommendation-grid>
+      {% assign sp_recommended_count = 0 %}
+      {% if sp_recommendation_products != blank %}
+        {% for related in sp_recommendation_products %}
+          {% if related != blank and related.id != product.id %}
+            {% render 'sabpuja-product-card', product: related, heading_tag: 'h3' %}
+            {% assign sp_recommended_count = sp_recommended_count | plus: 1 %}
+            {% if sp_recommended_count >= section.settings.max_products %}{% break %}{% endif %}
+          {% endif %}
+        {% endfor %}
+      {% elsif sp_recommendation_collection != blank %}
+        {% for related in sp_recommendation_collection.products limit: 12 %}
+          {% if related != blank and related.id != product.id %}
+            {% render 'sabpuja-product-card', product: related, heading_tag: 'h3' %}
+            {% assign sp_recommended_count = sp_recommended_count | plus: 1 %}
+            {% if sp_recommended_count >= section.settings.max_products %}{% break %}{% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"Sabpuja recommendations","settings":[{"type":"product_list","id":"recommendation_products","label":"Handpicked related products","limit":8,"info":"Optional. Products are selected and updated in Shopify. Leave empty to use the collection."},{"type":"collection","id":"recommendation_collection","label":"Related collection","info":"Optional. Falls back to the product's first Shopify collection."},{"type":"range","id":"max_products","label":"Maximum product cards","min":2,"max":8,"step":1,"default":4}]}
+{% endschema %}
