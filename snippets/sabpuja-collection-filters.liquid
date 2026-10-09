@@ -7,6 +7,26 @@
     <a href="{{ collection.url }}">Clear</a>
   </div>
 
+
+  {% if category_menu != blank %}
+    {% assign sp_browse_menu = linklists[category_menu] %}
+    {% if sp_browse_menu.links.size > 0 %}
+      <nav class="sp-col-filter sp-col-filter--browse" aria-label="Browse collection categories">
+        <strong class="sp-col-filter__heading">Browse collections</strong>
+        <div class="sp-col-filter__browse-list">
+          {% for sp_link in sp_browse_menu.links %}
+            {% if sp_link.type == 'collection_link' %}
+              <a class="sp-col-filter__browse-link{% if sp_link.object.handle == collection.handle %} is-active{% endif %}" href="{{ sp_link.url }}"{% if sp_link.object.handle == collection.handle %} aria-current="page"{% endif %}>
+                <span>{{ sp_link.title | escape }}</span>
+                <span class="sp-col-filter__browse-count">{{ sp_link.object.products_count }}</span>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </nav>
+    {% endif %}
+  {% endif %}
+
   {% for filter in collection.filters %}
     <fieldset class="sp-col-filter">
       <legend>{{ filter.label }}</legend>
