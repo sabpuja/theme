@@ -1,4 +1,4 @@
-/* SP-COL — canonical Shopify collection / product grid */
+/* SP-COL - canonical Shopify collection / product grid */
 .sp-col{container-type:inline-size;min-height:60vh;padding:1.35rem 0 4.5rem;background:var(--sp-ivory);color:var(--sp-ink)}
 .sp-col__container{width:min(1320px,calc(100% - 48px));margin:0 auto}
 .sp-col__breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:.45rem;margin:0 0 1.05rem;color:var(--sp-muted);font-size:.72rem}
@@ -102,3 +102,54 @@
 @media(prefers-reduced-motion:reduce){
   .sp-col *{scroll-behavior:auto!important;transition:none!important}
 }
+
+/* SP-COL-001A canonical desktop and responsive browse rail */
+.sp-col__head h2#sp-col-title{margin:0;font:700 clamp(2rem,4.2vw,3.35rem)/1.08 Poppins,Inter,Arial,sans-serif;letter-spacing:-.035em;color:var(--sp-ink)}
+.sp-col__progress-track{display:block;width:min(360px,100%);height:7px;margin:0 auto 12px;overflow:hidden;border-radius:999px;background:#f0e1d4}
+.sp-col__progress-bar{display:block;height:100%;border-radius:inherit;background:var(--sp-saffron)}
+.sp-col__sidebar{max-height:calc(100vh - 36px);overflow-y:auto;scrollbar-width:thin}
+.sp-col__mobile-tools .sp-col-mobile-filters>summary .sp-ui-icon{width:17px;height:17px}
+.sp-col-mobile-filters__scrim,.sp-col-mobile-filters__head{display:none}
+@container(max-width:56rem){
+  .sp-col-mobile-filters[open]>.sp-col-mobile-filters__scrim{display:block;position:fixed;inset:0;z-index:11010;border:0;border-radius:0;background:rgba(28,19,15,.55);cursor:pointer}
+  .sp-col-mobile-filters[open]>.sp-col-mobile-filters__panel{display:flex;flex-direction:column;position:fixed;top:0;right:0;bottom:0;z-index:11011;width:min(430px,92vw);max-height:100dvh;margin:0;overflow-y:auto;overscroll-behavior:contain;background:#fff9f3;box-shadow:-12px 0 40px rgba(28,19,15,.18)}
+  .sp-col-mobile-filters__head{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:1;min-height:62px;box-sizing:border-box;padding:14px 18px;border-bottom:1px solid var(--sp-border);background:#fff9f3}
+  .sp-col-mobile-filters__head strong{font:700 16px/1.3 Poppins,Arial,sans-serif;color:var(--sp-ink)}
+  .sp-col-mobile-filters__head button{width:40px;height:40px;border:1px solid var(--sp-border-strong);border-radius:10px;background:#fff;color:var(--sp-brown);font-size:27px;cursor:pointer}
+  .sp-col-mobile-filters__panel .sp-col-filters{flex:1;overflow:visible;border:0;border-radius:0;box-shadow:none;background:#fff9f3}
+  .sp-col-mobile-filters__panel .sp-col-filters__head{display:none}
+  .sp-col-mobile-filters__panel .sp-col-filters__actions{position:sticky;bottom:0;z-index:1;padding:14px 18px;box-shadow:0 -10px 22px rgba(51,36,31,.06)}
+  .sp-col-mobile-filters__panel .sp-col-filter__option{min-height:44px}
+  .sp-col-mobile-filters>summary{gap:8px}
+}
+@media(max-width:56rem){
+  .sp-col-mobile-filters[open]>.sp-col-mobile-filters__scrim{display:block;position:fixed;inset:0;z-index:11010;border:0;border-radius:0;background:rgba(28,19,15,.55)}
+  .sp-col-mobile-filters[open]>.sp-col-mobile-filters__panel{display:flex;flex-direction:column;position:fixed;top:0;right:0;bottom:0;z-index:11011;width:min(430px,92vw);max-height:100dvh;margin:0;overflow-y:auto;background:#fff9f3}
+  .sp-col-mobile-filters__head{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:62px;padding:14px 18px}
+}
+body.sp-col-filter-drawer-open{overflow:hidden}
+@media(max-width:380px){.sp-col__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:320px){.sp-col__grid{grid-template-columns:1fr}}
+
+/* SP-COL editable premium discovery */
+.sp-col{background:#fffcf8}
+.sp-col__head--editorial{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:30px;overflow:hidden;padding:clamp(24px,3.5vw,45px);margin-bottom:18px;border:1px solid #eedacf;border-top:4px solid #d35400;border-radius:22px;background:linear-gradient(115deg,#fff1df 0%,#fffcf8 76%);box-shadow:0 10px 27px rgba(51,36,31,.05)}
+.sp-col__head--editorial:after{content:"";position:absolute;z-index:-1;right:-45px;bottom:-95px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(244,180,0,.15),transparent 72%);pointer-events:none}
+.sp-col__head-copy{max-width:700px;min-width:0}
+.sp-col__head--editorial h1,.sp-col__head--editorial h2#sp-col-title{margin:0;font:750 clamp(31px,3.8vw,53px)/1.08 Poppins,Arial,sans-serif;letter-spacing:-.035em;color:#33241f}
+.sp-col__head--editorial .sp-col__eyebrow{margin-bottom:10px;color:#b34c09;letter-spacing:.15em}
+.sp-col__head--editorial .sp-col__description{margin-top:13px;max-width:550px;color:#715749;font:400 15px/1.65 Inter,Arial,sans-serif}
+.sp-col__head-count{display:flex;align-items:center;justify-content:center;flex-direction:column;flex:0 0 auto;min-width:125px;min-height:105px;padding:16px;border:1px solid #f0d7c2;border-radius:16px;background:rgba(255,255,255,.8);text-align:center}
+.sp-col__head-count strong{font:800 36px/1.1 Poppins,Arial,sans-serif;color:#a94a0b}
+.sp-col__head-count span{font:650 11px/1.45 Inter,Arial,sans-serif;color:#795d4a}
+.sp-col__shortcuts{gap:10px;margin-bottom:12px;padding:5px 0 18px}
+.sp-col__shortcut{gap:7px;min-height:45px;padding:10px 15px;border-color:#edd9c8;border-radius:12px;font-size:12px;box-shadow:0 4px 12px rgba(56,33,23,.03)}
+.sp-col__shortcut .sp-ui-icon{width:16px;height:16px}
+.sp-col__layout{gap:clamp(18px,2.1vw,30px)}
+.sp-col__sidebar .sp-col-filters{border-color:#edddce;border-radius:19px;box-shadow:0 9px 26px rgba(51,36,31,.055)}
+.sp-col__sidebar .sp-col-filters__head{background:#fff7ed}
+.sp-col__toolbar{min-height:52px;margin-bottom:16px;padding-bottom:10px}
+.sp-col__count{font-size:13px;font-weight:800}
+.sp-col__grid{gap:clamp(13px,1.3vw,22px)}
+@media(max-width:580px){.sp-col__head--editorial{gap:12px;padding:22px 18px;border-radius:17px}.sp-col__head-count{min-width:75px;min-height:75px;padding:8px}.sp-col__head-count strong{font-size:25px}.sp-col__head-count span{font-size:9px}.sp-col__head--editorial h1,.sp-col__head--editorial h2#sp-col-title{font-size:clamp(25px,7vw,36px)}.sp-col__shortcuts{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:thin}}
+@media(max-width:380px){.sp-col__head--editorial{display:block}.sp-col__head-count{width:max-content;min-height:0;flex-direction:row;gap:7px;margin-top:14px;padding:8px 11px}.sp-col__head-count strong{font-size:20px}}
