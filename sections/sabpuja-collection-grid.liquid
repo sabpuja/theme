@@ -1,4 +1,5 @@
 {{ 'sabpuja-collection.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sabpuja-collection-interactions.js' | asset_url }}" defer></script>
 
 {% assign sp_active_filter_count = 0 %}
 {% for filter in collection.filters %}
@@ -10,7 +11,7 @@
   {% endif %}
 {% endfor %}
 
-<section class="sp-col" aria-labelledby="sp-col-title">
+<section class="sp-col" data-sp-col aria-labelledby="sp-col-title">
   <div class="sp-col__container">
     <nav class="sp-col__breadcrumb" aria-label="Breadcrumb">
       <a href="{{ routes.root_url }}">Home</a>
@@ -18,19 +19,33 @@
       <span>{{ collection.title }}</span>
     </nav>
 
-    <header class="sp-col__head">
-      <div>
-        <p class="sp-col__eyebrow">Shop Sabpuja</p>
-        <h1 id="sp-col-title">{{ collection.title }}</h1>
-        {% if collection.description != blank %}<div class="sp-col__description">{{ collection.description }}</div>{% endif %}
+    <header class="sp-col__head sp-col__head--editorial">
+      <div class="sp-col__head-copy">
+        {% if section.settings.eyebrow != blank %}<p class="sp-col__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+        {% if collection.handle == 'astrology-remedy-kits' %}<h2 id="sp-col-title">{{ collection.title }}</h2>{% else %}<h1 id="sp-col-title">{{ collection.title }}</h1>{% endif %}
+        {% if collection.description != blank %}
+          <div class="sp-col__description">{{ collection.description }}</div>
+        {% elsif section.settings.intro != blank %}
+          <p class="sp-col__description">{{ section.settings.intro | escape }}</p>
+        {% endif %}
       </div>
+      {% if section.settings.show_product_count %}
+        <div class="sp-col__head-count" aria-label="{{ collection.products_count }} products in this collection">
+          <strong>{{ collection.products_count }}</strong><span>products to explore</span>
+        </div>
+      {% endif %}
     </header>
 
+    {% assign sp_shortcut_menu = linklists[section.settings.category_menu] %}
     <nav class="sp-col__shortcuts" aria-label="Shop by collection">
-      <a class="sp-col__shortcut{% if collection.handle == 'all' %} is-active{% endif %}" href="{{ routes.all_products_collection_url }}"{% if collection.handle == 'all' %} aria-current="page"{% endif %}>All products</a>
-      {% if collections['puja-kit'] != blank %}<a class="sp-col__shortcut{% if collection.handle == 'puja-kit' %} is-active{% endif %}" href="{{ collections['puja-kit'].url }}"{% if collection.handle == 'puja-kit' %} aria-current="page"{% endif %}>Puja Kits</a>{% endif %}
-      {% if collections['astrology-remedy-kits'] != blank %}<a class="sp-col__shortcut{% if collection.handle == 'astrology-remedy-kits' %} is-active{% endif %}" href="{{ collections['astrology-remedy-kits'].url }}"{% if collection.handle == 'astrology-remedy-kits' %} aria-current="page"{% endif %}>Astrology Remedy Kits</a>{% endif %}
-      {% if collections['puja-items'] != blank %}<a class="sp-col__shortcut{% if collection.handle == 'puja-items' %} is-active{% endif %}" href="{{ collections['puja-items'].url }}"{% if collection.handle == 'puja-items' %} aria-current="page"{% endif %}>Puja Items</a>{% endif %}
+      {% if section.settings.show_shop_all %}
+      <a class="sp-col__shortcut{% if collection.handle == 'all' %} is-active{% endif %}" href="{{ routes.all_products_collection_url }}"{% if collection.handle == 'all' %} aria-current="page"{% endif %}>{% render 'sabpuja-icon', name: 'grid' %}<span>{{ section.settings.shop_all_label | escape }}</span></a>
+      {% endif %}
+      {% for sp_category in sp_shortcut_menu.links %}
+        {% if sp_category.type == 'collection_link' %}
+          <a class="sp-col__shortcut{% if sp_category.object.handle == collection.handle %} is-active{% endif %}" href="{{ sp_category.url }}"{% if sp_category.object.handle == collection.handle %} aria-current="page"{% endif %}>{% render 'sabpuja-icon', name: 'package' %}<span>{{ sp_category.title | escape }}</span></a>
+        {% endif %}
+      {% endfor %}
     </nav>
 
     {% if sp_active_filter_count > 0 %}
@@ -45,7 +60,7 @@
               <a class="sp-col__chip" href="{{ filter.url_to_remove }}">
                 <span>
                   {% if filter.min_value.value != blank %}{{ filter.min_value.value | money }}{% else %}{{ 0 | money }}{% endif %}
-                  –
+                  to
                   {% if filter.max_value.value != blank %}{{ filter.max_value.value | money }}{% else %}{{ filter.range_max | money }}{% endif %}
                 </span>
                 <span aria-hidden="true">×</span>
@@ -59,9 +74,19 @@
 
     <div class="sp-col__mobile-tools">
       {% if collection.filters != empty %}
-        <details class="sp-col-mobile-filters">
-          <summary>Filter{% if sp_active_filter_count > 0 %} ({{ sp_active_filter_count }}){% endif %}</summary>
-          <div class="sp-col-mobile-filters__panel">{% render 'sabpuja-collection-filters', collection: collection, scope: 'mobile' %}</div>
+        <details class="sp-col-mobile-filters" data-sp-filter-drawer>
+          <summary aria-label="Open product filters">
+            {% render 'sabpuja-icon', name: 'grid' %}
+            <span>Filters{% if sp_active_filter_count > 0 %} ({{ sp_active_filter_count }}){% endif %}</span>
+          </summary>
+          <button type="button" class="sp-col-mobile-filters__scrim" aria-label="Close filters" data-sp-filter-close tabindex="-1"></button>
+          <div class="sp-col-mobile-filters__panel" role="region" aria-label="Product filters">
+            <div class="sp-col-mobile-filters__head">
+              <strong>Filter products</strong>
+              <button type="button" data-sp-filter-close aria-label="Close filters">×</button>
+            </div>
+            {% render 'sabpuja-collection-filters', collection: collection, scope: 'mobile' %}
+          </div>
         </details>
       {% endif %}
 
@@ -108,7 +133,7 @@
           </form>
         </div>
 
-        {% paginate collection.products by 20 %}
+        {% paginate collection.products by section.settings.products_per_page %}
           {% if collection.products_count > 0 %}
             <div class="sp-col__grid">
               {% for product in collection.products %}
@@ -121,7 +146,7 @@
             {% assign sp_progress = sp_rendered | times: 100.0 | divided_by: collection.products_count %}
             <div class="sp-col__progress" aria-label="Product browsing progress">
               <div class="sp-col__progress-track" aria-hidden="true"><span class="sp-col__progress-bar" style="width:{{ sp_progress }}%"></span></div>
-              <p>Showing {{ paginate.current_offset | plus: 1 }}–{{ sp_rendered }} of {{ collection.products_count }} products</p>
+              <p>Showing {{ paginate.current_offset | plus: 1 }} to {{ sp_rendered }} of {{ collection.products_count }} products</p>
             </div>
 
             {% if paginate.pages > 1 %}
@@ -146,5 +171,5 @@
 </section>
 
 {% schema %}
-{"name":"Sabpuja collection grid","settings":[]}
+{"name":"Sabpuja collection grid","settings":[{"type":"header","content":"Introduction"},{"type":"text","id":"eyebrow","label":"Small heading","default":"Discover Sabpuja"},{"type":"text","id":"intro","label":"Fallback description","default":"Explore puja kits and essentials thoughtfully organized for everyday worship."},{"type":"checkbox","id":"show_product_count","label":"Show introduction product count","default":true},{"type":"header","content":"Category navigation"},{"type":"link_list","id":"category_menu","label":"Collection links menu","default":"main-menu","info":"Only collection links from the chosen Shopify navigation menu are shown."},{"type":"checkbox","id":"show_shop_all","label":"Include Shop All","default":true},{"type":"text","id":"shop_all_label","label":"Shop All text","default":"Shop All"},{"type":"header","content":"Product browsing"},{"type":"range","id":"products_per_page","label":"Products per page","min":8,"max":32,"step":4,"default":20}]}
 {% endschema %}
