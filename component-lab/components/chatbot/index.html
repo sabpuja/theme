@@ -1,76 +1,392 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>SP-CHAT-001 | Sabpuja Assistant | Component Lab</title><link rel="stylesheet" href="/theme/assets/css/lab.css">
-<style>
-:root{--chat-red:#9e1722;--chat-dark:#75101b;--chat-cream:#fff9ed;--chat-line:#eadccf;--chat-ink:#382e2a}
-*{box-sizing:border-box}button,input{font:inherit}.sp-chatlab{width:min(calc(100% - 32px),1380px);padding-top:32px}.sp-chatlab .lab-page-head{max-width:980px;margin-bottom:18px}.sp-chatlab .lab-page-head h1{font-size:clamp(31px,4vw,49px)}.sp-chatlab .lab-page-head p{font-size:15px;line-height:1.65;margin:10px 0}.sc-note{padding:12px 16px;border-radius:12px;background:#fffaef;border:1px solid #eadcbd;display:flex;align-items:center;gap:9px;font-size:12px;color:#675448;margin-bottom:22px}.sc-note strong{color:var(--chat-red)}.sc-dot{width:8px;height:8px;background:#dda545;border-radius:50%;flex-shrink:0}
-.sc-workspace{display:grid;grid-template-columns:255px minmax(0,1fr);gap:18px;align-items:start}.sc-settings{position:sticky;top:88px;background:#fff;padding:20px 16px;border:1px solid var(--chat-line);border-radius:18px;box-shadow:0 10px 30px #45301a09}.sc-kicker{font-size:11px;font-weight:800;color:var(--chat-red);text-transform:uppercase;letter-spacing:.1em}.sc-settings h2{font-size:19px;margin:3px 0 3px;font-family:Poppins,Arial,sans-serif;letter-spacing:-.025em}.sc-settings p{font-size:12px;color:#85776e;line-height:1.5;margin:0}.sc-group{border-top:1px solid #eee5dc;margin-top:16px;padding-top:14px}.sc-group h3{font-size:12px;margin:0 0 8px;color:#4a3931}.sc-options{display:grid;gap:5px}.sc-options button{border:1px solid transparent;background:transparent;text-align:left;color:#73665b;font-size:12px;min-height:35px;padding:8px 10px;border-radius:10px;cursor:pointer}.sc-options button:hover{background:#f9f3ec}.sc-options button.is-active{background:#fff1eb;color:#8e1321;border-color:#ecd5c8;font-weight:800}.sc-inline{display:flex;flex-wrap:wrap;gap:5px}.sc-inline button{flex:1;min-height:34px;border:1px solid #e8dfd5;border-radius:9px;background:white;color:#7d6f65;font-size:11px;padding:6px 8px;cursor:pointer}.sc-inline button.is-active{background:#951923;border-color:#951923;color:white;font-weight:800}.sc-reset{width:100%;margin-top:17px;min-height:38px;border-radius:9px;border:1px solid #a92f36;color:#98252e;background:#fff;cursor:pointer;font-size:12px;font-weight:800}
-.sc-preview{background:white;min-width:0;border-radius:18px;padding:14px;border:1px solid var(--chat-line);box-shadow:0 10px 30px #45301a09}.sc-preview-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:3px 2px 14px}.sc-preview-head strong{display:block;font:700 15px Poppins,Arial,sans-serif;margin-top:2px;color:#362b28}.sc-preview-status{border-radius:20px;padding:5px 9px;background:#f0f6ed;color:#4f7955;font-size:11px;font-weight:750;white-space:nowrap}.sc-preview-status:before{content:"";width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:7px;background:#6dab71}.sc-surface{overflow:auto;padding:4px 0 10px;scrollbar-width:thin}.sc-device{position:relative;background:#fffaf2;border:1px solid #e8dbcd;border-radius:14px;width:100%;height:650px;margin:0 auto;overflow:hidden;transition:width .2s ease}.sc-device[data-size=tablet]{width:min(100%,710px);height:690px}.sc-device[data-size=mobile]{width:min(100%,390px);height:690px;border-radius:21px}
-.sc-announce{height:27px;background:#771420;color:#fae9d6;text-align:center;font-size:10px;padding:5px}.sc-sitehead{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fffcf7;border-bottom:1px solid #eee1d4;height:62px;padding:0 27px}.sc-sitebrand{display:flex;align-items:center;gap:8px;font:800 20px Poppins,Arial,sans-serif;color:#9a1120;white-space:nowrap}.sc-sitebrand img{width:37px;height:37px;object-fit:contain}.sc-sitehead nav{display:flex;gap:16px;font-size:11px;color:#5b4944;font-weight:700}.sc-siteicons{display:flex;gap:12px;color:#9a1120;font-size:17px}.sc-sitebody{padding:clamp(22px,5%,58px);background:radial-gradient(circle at 94% 0%,#fff0cf,transparent 32%);height:calc(100% - 89px)}.sc-sitebody small{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:#ab633b;font-weight:800}.sc-sitebody h2{font:700 clamp(24px,3.4vw,39px)/1.15 Poppins,Arial,sans-serif;color:#5e2625;letter-spacing:-.04em;max-width:560px;margin:15px 0}.sc-sitebody p{font-size:13px;color:#83716b;line-height:1.75;max-width:490px}.sc-sitecta{display:inline-block;background:#941721;color:white;border-radius:10px;padding:10px 15px;font-size:12px;font-weight:800;margin:12px 0}.sc-sitecards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:600px;margin-top:26px}.sc-tile{background:white;border:1px solid #eee0d1;border-radius:13px;padding:9px}.sc-tile-art{background:linear-gradient(120deg,#ffeed5,#f3e2cf);height:75px;display:grid;place-items:center;border-radius:9px;font-size:28px;color:#bf8146}.sc-tile strong{display:block;font-size:11px;color:#603c31;margin-top:7px}.sc-tile span{display:block;font-size:10px;color:#ab694c}.sc-device[data-size=mobile] .sc-sitehead nav,.sc-device[data-size=tablet] .sc-sitehead nav{display:none}.sc-device[data-size=mobile] .sc-sitehead{padding:0 15px;height:56px}.sc-device[data-size=mobile] .sc-sitebody{padding:24px 19px}.sc-device[data-size=mobile] .sc-sitecards{gap:6px}.sc-device[data-size=mobile] .sc-tile{padding:6px}.sc-device[data-size=mobile] .sc-tile-art{height:50px}.sc-device[data-size=mobile] .sc-tile strong{font-size:9px}
-.sc-float{position:absolute;inset:0;pointer-events:none}.sc-launch{pointer-events:auto;position:absolute;right:15px;bottom:17px;display:flex;align-items:center;gap:8px;background:#951721;color:white;border:none;border-radius:999px;padding:8px 16px 8px 9px;min-height:49px;box-shadow:0 10px 28px #41171a44;font-weight:800;font-size:12px;cursor:pointer}.sc-launch img{background:#fffaef;border-radius:50%;width:33px;height:33px;padding:2px}.sc-window{pointer-events:auto;position:absolute;right:17px;bottom:81px;width:min(380px,calc(100% - 34px));height:545px;max-height:calc(100% - 93px);background:#fffefa;border:1px solid #e6d7c7;border-radius:18px;overflow:hidden;box-shadow:0 22px 60px #34181845;display:flex;flex-direction:column}.sc-float[data-open=false] .sc-window{display:none}.sc-chathead{display:flex;align-items:center;justify-content:space-between;gap:9px;background:#94151f;color:white;padding:14px}.sc-identity{display:flex;align-items:center;gap:10px;min-width:0}.sc-avatar{display:grid;place-items:center;width:42px;height:42px;flex-shrink:0;background:#fff8e8;border-radius:13px}.sc-avatar img{width:39px;height:39px;object-fit:contain}.sc-identity strong{display:block;font:750 14px Poppins,Arial,sans-serif;white-space:nowrap}.sc-identity small{display:block;color:#ffdfd3;margin-top:2px;font-size:10px}.sc-identity small:before{content:"";width:7px;height:7px;background:#a9d48b;display:inline-block;border-radius:50%;margin-right:6px}.sc-chathead button{border:0;border-radius:8px;background:transparent;color:white;width:32px;height:32px;font-size:24px;cursor:pointer}.sc-chathead button:hover{background:#ffffff30}.sc-micro{min-height:31px;background:#fff7e7;border-bottom:1px solid #f0e5d9;text-align:center;font-size:10px;color:#9b733e;padding:8px}.sc-transcript{display:flex;flex-direction:column;gap:11px;flex:1;overflow:auto;min-height:120px;padding:14px 12px 8px;scrollbar-width:thin}.sc-message{display:flex;align-items:flex-end;gap:7px;max-width:95%;font-size:12px;line-height:1.65}.sc-message--user{margin-left:auto;max-width:85%}.sc-mini{width:23px;height:23px;flex-shrink:0;background:#fff4e7;border:1px solid #efdfd0;border-radius:7px}.sc-mini img{width:21px;height:21px}.sc-bubble{padding:10px 12px;border:1px solid #eee3d6;background:#f8f1e9;border-radius:13px 13px 13px 3px;overflow-wrap:anywhere}.sc-message--user .sc-bubble{border-radius:13px 13px 3px 13px;background:#9b1824;border-color:#9b1824;color:white}.sc-bubble p{margin:0 0 8px}.sc-bubble p:last-child{margin:0}.sc-bubble strong{color:#592c27}.sc-source{display:flex;align-items:center;gap:8px;border:1px solid #e8d9c9;border-radius:9px;background:white;margin-top:10px;padding:10px;color:#9a1b24;text-decoration:none;font-size:11px;font-weight:750}.sc-source span{font-size:19px;color:#bc7738}.sc-source small{display:block;font-weight:400;color:#99857b}.sc-product{display:flex;gap:9px;border:1px solid #eadbcb;border-radius:11px;padding:9px;background:white;margin-top:10px}.sc-product-art{width:61px;min-width:61px;height:62px;display:grid;place-items:center;background:#f4e3d1;border-radius:8px;font-size:28px;color:#c88346}.sc-product strong{display:block;font-size:12px}.sc-product small{font-size:10px;color:#85736a}.sc-product a{font-size:11px;color:#9a202c}.sc-quick{padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px}.sc-quick[hidden]{display:none}.sc-quick button{min-height:28px;border:1px solid #e4cdb9;border-radius:999px;background:white;color:#84352a;padding:5px 9px;font-size:10px;cursor:pointer}.sc-composer{display:flex;gap:7px;padding:8px 12px 4px}.sc-composer input{min-width:0;flex:1;height:42px;border:1px solid #e3d6c7;border-radius:10px;padding:0 11px;font-size:12px;background:white}.sc-composer button{border:0;border-radius:10px;width:42px;background:#991923;color:white;cursor:pointer;font-size:19px}.sc-disclaimer{text-align:center;margin:0;font-size:9px;color:#96877d;padding:6px 8px 10px}.sc-error{border-radius:10px;border:1px solid #f0d7c2;background:#fff3e4;padding:12px;color:#733e2b;font-size:12px}.sc-error button{display:block;border:1px solid #bc9070;background:white;color:#843c2d;border-radius:8px;margin-top:10px;padding:7px 12px;cursor:pointer}.sc-loading{font-size:22px;color:#a65630;letter-spacing:4px}.sc-sources{padding:0 2px}.sc-device[data-size=mobile] .sc-window{inset:0;width:100%;height:100%;max-height:none;border:0;border-radius:0;box-shadow:none}.sc-device[data-size=mobile] .sc-transcript{padding:18px}.sc-device[data-size=mobile] .sc-message{font-size:13px}.sc-device[data-size=mobile] .sc-composer{padding:10px 15px}.sc-device[data-size=mobile] .sc-disclaimer{padding-bottom:14px}.sc-previewfoot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#94867c;font-size:11px;padding:10px 3px 0}
-.sc-contract{margin-top:42px}.sc-contract h2{font:700 27px Poppins,Arial,sans-serif;color:#4e302c;margin:0 0 8px}.sc-contract>p{color:#81726b;font-size:14px;max-width:770px;margin:0 0 20px}.sc-contract-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.sc-contract-grid article{border:1px solid #e8dbce;border-radius:15px;background:white;padding:20px}.sc-contract-grid b{color:#4e302c;font-size:13px}.sc-contract-grid p{color:#8a766c;font-size:12px;line-height:1.6;margin:9px 0 0}.sc-contract-grid .symbol{display:grid;place-items:center;width:37px;height:37px;background:#f8ebdc;color:#a34a2d;border-radius:11px;font-size:23px;margin-bottom:12px}
-.sp-chatlab button:focus-visible,.sp-chatlab input:focus-visible,.sp-chatlab a:focus-visible{outline:3px solid #ce912b;outline-offset:2px}
-@media(max-width:900px){.sc-workspace{grid-template-columns:225px minmax(0,1fr)}.sc-contract-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:720px){.sc-workspace{grid-template-columns:1fr}.sc-settings{position:static}.sc-options{grid-template-columns:repeat(2,minmax(0,1fr))}.sc-device{height:600px}.sc-preview{padding:10px}.sc-note{flex-wrap:wrap}.sc-contract-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:440px){.sc-contract-grid{grid-template-columns:1fr}.sc-device[data-size=mobile]{height:665px}}
-@media(prefers-reduced-motion:reduce){.sc-device{transition:none}}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Sabpuja Assistant UI and UX component lab. Interactive review-only customer experiences, responsive states and escalation flows.">
+  <title>SP-CHAT | Sabpuja Assistant | Component Lab</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap');
+:root{--sp-muted:#77675e}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f8f5ef;color:#392d28;font:400 14px/1.6 Inter,'Noto Sans Devanagari',Arial,sans-serif}a{color:inherit}img{display:block;max-width:100%}button,input{font:inherit}.lab-header{position:sticky;top:0;z-index:30;background:#fffbf6;border-bottom:1px solid #ebddd0}.lab-header__inner{width:min(calc(100% - 32px),1240px);min-height:66px;display:flex;align-items:center;gap:24px;margin:0 auto}.lab-brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 15px Poppins,sans-serif;color:#74121b;white-space:nowrap}.lab-brand__mark{width:33px;height:33px;display:grid;place-items:center;background:#981a25;color:white;border-radius:50%}.lab-nav{display:flex;align-items:center;gap:13px;margin-left:auto}.lab-nav a{font-size:12px;text-decoration:none;color:#685b53;font-weight:650}.lab-nav [aria-current=page]{color:#a42d32}.lab-main{width:min(calc(100% - 32px),1240px);margin:0 auto;padding:45px 0 80px}.lab-page-head h1{font:700 clamp(32px,4vw,50px)/1.2 Poppins,sans-serif;letter-spacing:-.03em;color:#552825;margin:10px 0}.lab-eyebrow{font-size:11px;font-weight:850;color:#a64429;text-transform:uppercase;letter-spacing:.11em}.lab-breadcrumb{font-size:12px;color:#968377}.lab-breadcrumb a{color:#9e452d}.lab-page-head p{font-size:14px;color:#82746c}.lab-footer{text-align:center;padding:28px 16px;color:#98877d;border-top:1px solid #eee2d6;font-size:12px}.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:700px){.lab-nav{display:none}.lab-main{padding-top:20px}}
 </style>
-</head><body><header class="lab-header"><div class="lab-header__inner"><a class="lab-brand" href="/theme/"><span class="lab-brand__mark">S</span><span>Sabpuja Component Lab</span></a><nav class="lab-nav" aria-label="Primary"><a aria-current="page" href="/theme/components/">Components</a><a href="/theme/blocks/">Blocks</a><a href="/theme/foundations/">Foundations</a><a href="/theme/tools/image-lab/">Image Lab</a></nav></div></header>
-<main class="lab-main sp-chatlab"><div class="lab-page-head"><div class="lab-breadcrumb"><a href="/theme/">Home</a> / <a href="/theme/components/">Components</a> / AI Assistant</div><p class="lab-eyebrow">SP-CHAT-001 | Customer assistance system</p><h1>Sabpuja AI Assistant</h1><p>Explore how customers will find puja guides, discover products and receive support. Switch between screen sizes, website pages, language and conversation states before connecting Hermes.</p></div><div class="sc-note" role="note"><span class="sc-dot"></span><strong>Interactive UI prototype</strong><span>Scripted examples only. No live AI, prices, order data or customer records.</span></div>
-<div class="sc-workspace"><aside class="sc-settings" aria-label="Chatbot design preview settings"><span class="sc-kicker">Design playground</span><h2>Preview settings</h2><p>Explore the full customer journey. No store changes are made.</p>
-<div class="sc-group"><h3>Screen size</h3><div class="sc-inline" id="sc-devices"><button class="is-active" data-size="desktop" aria-pressed="true">Desktop</button><button data-size="tablet" aria-pressed="false">Tablet</button><button data-size="mobile" aria-pressed="false">Mobile</button></div></div>
-<div class="sc-group"><h3>Website context</h3><div class="sc-options" id="sc-contexts"><button class="is-active" data-context="home" aria-pressed="true">⌂ &nbsp; Homepage</button><button data-context="product" aria-pressed="false">▧ &nbsp; Product page</button><button data-context="guide" aria-pressed="false">☷ &nbsp; Puja guide</button><button data-context="support" aria-pressed="false">♡ &nbsp; Support</button><button data-context="account" aria-pressed="false">♙ &nbsp; Account</button></div></div>
-<div class="sc-group"><h3>Conversation state</h3><div class="sc-options" id="sc-scenarios"><button class="is-active" data-scenario="welcome" aria-pressed="true">01 &nbsp; New visitor</button><button data-scenario="guide" aria-pressed="false">02 &nbsp; Puja instructions</button><button data-scenario="product" aria-pressed="false">03 &nbsp; Product discovery</button><button data-scenario="support" aria-pressed="false">04 &nbsp; Support question</button><button data-scenario="handoff" aria-pressed="false">05 &nbsp; Human handoff</button><button data-scenario="loading" aria-pressed="false">06 &nbsp; Typing / loading</button><button data-scenario="error" aria-pressed="false">07 &nbsp; Connection error</button><button data-scenario="fallback" aria-pressed="false">08 &nbsp; Unknown answer</button></div></div>
-<div class="sc-group"><h3>Language</h3><div class="sc-inline" id="sc-languages"><button class="is-active" data-language="en" aria-pressed="true">English</button><button data-language="hi" aria-pressed="false">हिन्दी</button><button data-language="hinglish" aria-pressed="false">Hinglish</button></div></div><button class="sc-reset" id="sc-reset" type="button">Reset and open chat</button></aside>
-<section class="sc-preview" aria-label="Interactive storefront simulation"><div class="sc-preview-head"><div><span class="sc-kicker">Customer view</span><strong id="sc-location">Homepage, desktop</strong></div><span class="sc-preview-status">Design demo</span></div>
-<div class="sc-surface"><div class="sc-device" id="sc-device" data-size="desktop"><div class="sc-announce">Sabpuja | Puja made simple</div><div class="sc-sitehead"><div class="sc-sitebrand"><img src="/theme/assets/images/sabpuja-chat-emblem.svg" alt=""><span>Sabpuja</span></div><nav aria-label="Illustrative navigation"><span>Shop all</span><span>Puja kits</span><span>Puja guides</span><span>About</span></nav><span class="sc-siteicons" aria-hidden="true">⌕ &nbsp; ♡</span></div><div class="sc-sitebody" id="sc-page"><small>Devotion, made simple</small><h2>Everything for daily moments of devotion.</h2><p>Thoughtfully organized puja essentials and clear guidance, step by step.</p><span class="sc-sitecta">Explore puja kits ↗</span></div>
-<div class="sc-float" id="sc-float" data-open="true"><button class="sc-launch" id="sc-launch" aria-expanded="true" aria-controls="sc-window"><img src="/theme/assets/images/sabpuja-chat-emblem.svg" alt="">Ask Sabpuja <span aria-hidden="true">✦</span></button><section class="sc-window" id="sc-window" role="region" aria-label="Sabpuja Assistant conversation" tabindex="-1"><div class="sc-chathead"><div class="sc-identity"><span class="sc-avatar"><img src="/theme/assets/images/sabpuja-chat-emblem.svg" alt=""></span><span><strong>Sabpuja Assistant</strong><small>Here to help</small></span></div><span><button id="sc-new" type="button" aria-label="Start new conversation" title="Start new conversation">↻</button><button id="sc-close" type="button" aria-label="Close chat" title="Close chat">×</button></span></div><div class="sc-micro">✦ &nbsp; Puja and shopping guidance</div><div class="sc-transcript" id="sc-transcript" role="log" aria-live="polite" aria-label="Demo messages"></div><div class="sc-quick" id="sc-quick"></div><form class="sc-composer" id="sc-composer"><label class="visually-hidden" for="sc-input">Ask Sabpuja Assistant</label><input id="sc-input" maxlength="500" placeholder="Ask about puja..." autocomplete="off"><button type="submit" aria-label="Send">➤</button></form><p class="sc-disclaimer">AI preview. Follow your family or priest's tradition.</p></section></div></div></div>
-<div class="sc-previewfoot"><span id="sc-note">Example responses for UI review only.</span><span id="sc-dimension">Desktop preview</span></div></section></div>
-<section class="sc-contract"><p class="lab-eyebrow">One assistant, all customer-facing surfaces</p><h2>Consistent from discovery to support</h2><p>These patterns share the same conversation design. Real knowledge will come from approved Obsidian content and published guides, while actual product facts will come from Shopify.</p><div class="sc-contract-grid"><article><span class="symbol">⌂</span><b>Homepage and collections</b><p>Welcoming suggestions, education and navigation to suitable kits.</p></article><article><span class="symbol">▧</span><b>Product detail</b><p>Contextual product questions, relevant guide links and verified product facts.</p></article><article><span class="symbol">☷</span><b>Puja guides</b><p>Step-by-step explanations with source links and tradition notes.</p></article><article><span class="symbol">♡</span><b>Account and support</b><p>Safe customer handoff, help pages and authenticated order access later.</p></article></div></section>
-<div class="sc-note" style="margin-top:23px"><strong>Integration boundary:</strong><span>This page is a UI demonstration only. No live Shopify, customer account, Obsidian, or Hermes connections.</span></div></main><footer class="lab-footer">Sabpuja Component Lab | SP-CHAT-001 | Preview only</footer>
-<script>
+  <style>/* SP-CHAT-001, review-only UI. Brand identity from approved Oct 2026 palette. */
+:root{--chat-maroon:#9c1017;--chat-deep:#740b13;--chat-brand:#B80D0D;--chat-gold:#f1bf53;--chat-ivory:#fff9ed;--chat-border:#e8dbcd;--chat-ink:#332a28;--chat-muted:#796e68;--chat-soft:#f6eee5}
+.chat-lab{width:min(calc(100% - 36px),1440px);padding-top:39px}
+.chat-lab .lab-page-head{max-width:1000px;margin-bottom:20px}
+.chat-lab .lab-page-head h1{font-size:clamp(32px,4vw,49px)}
+.chat-lab .lab-page-head p{font-size:15px;line-height:1.7;max-width:840px;margin:11px 0 0}
+.chat-lab__notice{display:flex;align-items:center;flex-wrap:wrap;gap:9px 13px;padding:12px 17px;margin-bottom:23px;border:1px solid #efdfbd;border-radius:13px;background:#fffbef;color:#665241;font-size:12px;line-height:1.5}
+.chat-lab__notice strong{color:#7a341e;font-size:12px}
+.chat-lab__notice-dot{flex:0 0 8px;height:8px;border-radius:50%;background:#d18a2a;box-shadow:0 0 0 4px #f5e2b9}
+.chat-lab__workspace{display:grid;grid-template-columns:minmax(235px,272px) minmax(0,1fr);align-items:start;gap:21px}
+.chat-controls{background:white;border:1px solid #ebdfd3;border-radius:19px;padding:20px 17px 15px;box-shadow:0 8px 20px #34241b09;position:sticky;top:88px}
+.chat-controls__eyebrow,.chat-preview__eyebrow{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:#9c1017}
+.chat-controls__title h2{font-family:Poppins,Arial,sans-serif;font-size:19px;margin:4px 0;letter-spacing:-.02em;color:#322522}
+.chat-controls__title p{font-size:12px;color:#81746e;line-height:1.6;margin:4px 0 0}
+.chat-controls__fieldset{padding:17px 0 0;margin:17px 0 0;border:0;border-top:1px solid #f0e7dd;min-width:0}
+.chat-controls__fieldset legend{float:left;width:100%;font-weight:750;font-size:12px;margin-bottom:10px;color:#4b3a36}
+.chat-controls__fieldset legend+*{clear:both}
+.chat-controls__segmented{display:flex;flex-wrap:wrap;gap:3px;padding:4px;border-radius:11px;background:#f6f2ed}
+.chat-controls__segmented button{min-height:34px;flex:1 1 auto;border:0;background:transparent;color:#796e68;padding:7px 8px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap}
+.chat-controls__segmented button.is-active{color:#82121b;background:white;box-shadow:0 2px 7px #2b1a1414}
+.chat-controls__options{display:grid;gap:4px}
+.chat-controls__options button{display:flex;align-items:center;gap:9px;border:1px solid transparent;border-radius:10px;min-height:35px;padding:7px 10px;text-align:left;background:transparent;color:#635752;cursor:pointer;font-size:12px;font-weight:650}
+.chat-controls__options button:hover{background:#fbf6f0}
+.chat-controls__options button.is-active{border-color:#f0d8cc;background:#fff3ed;color:#921522}
+.chat-controls__options button span:not(.chat-choice-icon){flex:1}
+.chat-choice-icon{width:17px;display:inline-grid;place-items:center;font-size:18px;color:#bd8060}
+.chat-controls__actions{display:flex;gap:7px;padding-top:20px}
+.chat-controls__reset{min-height:36px;flex:1;padding:8px 9px;border:1px solid #9c1017;border-radius:10px;background:#9c1017;color:white;cursor:pointer;font-size:11px;font-weight:750}
+.chat-controls__reset--secondary{background:white;color:#9c1017}
+.chat-preview{background:#fff;border:1px solid #ebdfd3;border-radius:19px;min-width:0;padding:16px;box-shadow:0 8px 22px #34241b09}
+.chat-preview__top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px;padding:3px 3px 1px}
+.chat-preview__top strong{display:block;font:700 15px Poppins,Arial,sans-serif;color:#372c2a;margin-top:3px}
+.chat-preview__live{display:inline-flex;align-items:center;gap:8px;background:#f3f7f2;color:#4b7653;border:1px solid #deebdb;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:750;white-space:nowrap}
+.chat-preview__live span{width:7px;height:7px;border-radius:100%;background:#68aa70}
+.chat-device-scroll{min-width:0;width:100%;overflow:auto;padding:4px 0 14px;scrollbar-width:thin;scrollbar-color:#dec9bc transparent}
+.chat-device{--chat-screen-width:1120px;position:relative;width:min(100%,var(--chat-screen-width));height:660px;margin:0 auto;overflow:hidden;background:#fffaf3;border:1px solid #e6dcd4;border-radius:14px;box-shadow:0 2px 11px #27110d0b;transition:width .22s ease,height .22s ease}
+.chat-device[data-viewport=tablet]{--chat-screen-width:700px;height:715px}
+.chat-device[data-viewport=mobile]{--chat-screen-width:390px;height:725px;border-radius:22px}
+.site-mock{height:100%;overflow:hidden;background:linear-gradient(180deg,#fffdfa,#fff7e9)}
+.site-mock__announce{background:#791017;color:#f5e6d6;text-align:center;font-size:10px;letter-spacing:.04em;padding:5px}
+.site-mock__header{height:60px;padding:0 clamp(14px,3%,32px);display:flex;align-items:center;gap:12px;justify-content:space-between;border-bottom:1px solid #f0e2d4;background:#fffbf5}
+.site-mock__brand{display:flex;align-items:center;gap:7px;font:800 20px/1 Poppins,Arial,sans-serif;color:#97101c;letter-spacing:-.03em;white-space:nowrap}
+.site-mock__brand img{width:36px;height:36px;object-fit:contain}
+.site-mock__header nav{display:flex;align-items:center;gap:clamp(6px,2vw,22px);font-size:11px;font-weight:750;color:#544740;white-space:nowrap}
+.site-mock__header-actions{display:flex;gap:13px;color:#6c3027;font-size:21px}
+.site-mock__body{height:calc(100% - 86px);padding:clamp(24px,5%,70px);position:relative;background:radial-gradient(ellipse at 95% 10%,#ffedc957 0,transparent 35%),radial-gradient(ellipse at 2% 95%,#fdd5bb41 0,transparent 35%)}
+.site-mock__kicker{color:#ac562d;text-transform:uppercase;font-size:10px;font-weight:850;letter-spacing:.14em;margin-bottom:12px}
+.site-mock__body h2{color:#5d2527;font:700 clamp(22px,3.5vw,42px)/1.18 Poppins,Arial,sans-serif;letter-spacing:-.04em;max-width:570px;margin:0 0 13px}
+.site-mock__body p{font-size:13px;color:#85726c;line-height:1.75;max-width:480px;margin:0 0 23px}
+.site-mock__cta{display:inline-flex;align-items:center;gap:13px;color:white;background:#971522;border-radius:10px;padding:11px 16px;font-size:11px;font-weight:750}
+.site-mock__cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;max-width:625px;margin-top:35px}
+.site-mock__tile{padding:12px 12px 14px;min-width:0;border-radius:13px;background:#fff;border:1px solid #f1e5da;box-shadow:0 8px 22px #53301e09}
+.site-mock__tile-art{display:grid;place-items:center;height:82px;border-radius:9px;margin-bottom:8px;background:linear-gradient(135deg,#fff4e2,#eed5b5);font-size:36px;color:#c27948}
+.site-mock__tile strong{font-size:11px;display:block;color:#5f3a31;overflow-wrap:anywhere}
+.site-mock__tile small{color:#b36a49;font-size:10px}
+.site-mock__body[data-page=product] .site-mock__kicker,.site-mock__body[data-page=guide] .site-mock__kicker,.site-mock__body[data-page=support] .site-mock__kicker,.site-mock__body[data-page=account] .site-mock__kicker{margin-top:2px}
+.site-mock__body[data-page=product] h2,.site-mock__body[data-page=guide] h2,.site-mock__body[data-page=support] h2,.site-mock__body[data-page=account] h2{font-size:clamp(22px,3.2vw,37px)}
+.site-mock__body[data-page=product] .site-mock__tile-art{height:110px}
+.chat-device[data-viewport=mobile] .site-mock__header,.chat-device[data-viewport=tablet] .site-mock__header{height:54px}
+.chat-device[data-viewport=mobile] .site-mock__header nav,.chat-device[data-viewport=tablet] .site-mock__header nav{display:none}
+.chat-device[data-viewport=mobile] .site-mock__body{padding:26px 19px}
+.chat-device[data-viewport=mobile] .site-mock__cards{gap:7px;margin-top:30px}
+.chat-device[data-viewport=mobile] .site-mock__tile{padding:6px}
+.chat-device[data-viewport=mobile] .site-mock__tile-art{height:64px}
+.chat-device[data-viewport=mobile] .site-mock__tile strong{font-size:9px}
+.assistant-demo{position:absolute;inset:0;pointer-events:none;z-index:5}
+.assistant-launcher{pointer-events:auto;display:flex;align-items:center;gap:9px;position:absolute;right:17px;bottom:20px;height:52px;padding:7px 15px 7px 9px;border:1px solid #831119;background:#91121d;border-radius:999px;color:#fff;cursor:pointer;box-shadow:0 8px 28px #4f15143d;font-size:13px;font-weight:800;transition:transform .16s ease}
+.assistant-launcher:hover{transform:translateY(-2px)}
+.assistant-launcher img{width:34px;height:34px;object-fit:contain;background:#fff9ee;border-radius:50%;padding:3px}
+.assistant-launcher__spark{font-size:14px;color:#ffcd6e}
+.assistant-window{display:flex;pointer-events:auto;flex-direction:column;position:absolute;right:18px;bottom:83px;width:min(380px,calc(100% - 36px));height:548px;max-height:calc(100% - 95px);border:1px solid #e6d6c6;border-radius:18px;background:#fffefa;box-shadow:0 22px 70px #37171347;overflow:hidden;transition:transform .2s ease,opacity .2s ease}
+.assistant-demo[data-open=false] .assistant-window{visibility:hidden;opacity:0;transform:translateY(16px);pointer-events:none}
+.assistant-window__header{display:flex;align-items:center;justify-content:space-between;gap:9px;background:#90111b;color:white;padding:14px 15px;min-height:74px}
+.assistant-window__identity{display:flex;align-items:center;gap:11px;min-width:0}
+.assistant-window__avatar{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:12px;background:#fff8e7;box-shadow:inset 0 0 0 1px #ffffff40}
+.assistant-window__avatar img{width:37px;height:37px;object-fit:contain}
+.assistant-window__identity strong{display:block;font:750 14px Poppins,Arial,sans-serif;letter-spacing:-.02em;white-space:nowrap}
+.assistant-window__identity span{display:flex;gap:7px;align-items:center;color:#f5dcd4;font-size:10px;margin-top:2px;white-space:nowrap}
+.assistant-window__identity i{width:7px;height:7px;background:#b9df9f;display:inline-block;border-radius:50%;box-shadow:0 0 0 3px #ffffff23}
+.assistant-window__header-actions{display:flex;gap:3px;flex-shrink:0}
+.assistant-window__header-actions button{background:transparent;color:#fff;border:0;border-radius:8px;font-size:23px;line-height:1;width:33px;height:34px;cursor:pointer}
+.assistant-window__header-actions button:hover{background:#ffffff23}
+.assistant-window__intro{display:flex;align-items:center;justify-content:center;gap:7px;min-height:31px;font-size:10px;font-weight:680;color:#987144;border-bottom:1px solid #f3e8dc;background:#fffaf1}
+.assistant-window__intro span{color:#be762b;font-size:13px}
+.assistant-window__transcript{display:flex;flex-direction:column;gap:10px;min-height:100px;flex:1;overflow-y:auto;overscroll-behavior:contain;padding:16px 12px 8px;background:#fffefa;scrollbar-width:thin;scrollbar-color:#e3cdb7 transparent}
+.assistant-msg{display:flex;align-items:flex-end;gap:7px;max-width:96%;font-size:12px;line-height:1.65;white-space:normal}
+.assistant-msg--user{margin-left:auto;max-width:89%}
+.assistant-msg__mini-avatar{width:23px;height:23px;flex:0 0 23px;background:#fff4e5;border:1px solid #eee0d1;display:grid;place-items:center;border-radius:8px}
+.assistant-msg__mini-avatar img{width:21px;height:21px;object-fit:contain}
+.assistant-msg__bubble{background:#f8f2e9;padding:11px 13px;border:1px solid #f0e5d8;border-radius:13px 13px 13px 3px;max-width:100%;overflow-wrap:anywhere}
+.assistant-msg__bubble p{margin:0 0 8px}.assistant-msg__bubble p:last-child{margin-bottom:0}
+.assistant-msg__bubble strong{color:#572b26}
+.assistant-msg--user .assistant-msg__bubble{background:#9a1824;border-color:#9a1824;color:white;border-radius:13px 13px 3px 13px}
+.assistant-msg__bubble a{color:#8e1824;font-weight:750;text-decoration:underline;text-underline-offset:3px}
+.assistant-msg__bubble ul{margin:6px 0 0;padding-left:18px}
+.assistant-source{display:flex;align-items:center;gap:8px;margin-top:10px;padding:10px;border-radius:10px;background:white;border:1px solid #e8d9c9;text-decoration:none!important;color:#6f3126!important;font-size:11px;font-weight:700}
+.assistant-source__icon{width:29px;height:29px;display:grid;place-items:center;border-radius:9px;background:#fff3df;color:#ab531d;font-size:15px;flex-shrink:0}
+.assistant-source__body{flex:1;min-width:0;line-height:1.3}.assistant-source__body small{display:block;color:#948479;font-size:10px;margin-top:3px;font-weight:450}
+.assistant-product{display:flex;gap:10px;padding:10px;border:1px solid #e9d7c6;background:white;border-radius:11px;margin-top:10px}
+.assistant-product__art{width:62px;min-width:62px;height:67px;display:grid;place-items:center;background:#f7e8d2;border-radius:9px;font-size:28px;color:#c17a44}
+.assistant-product__body{font-size:11px}.assistant-product__body strong{display:block;color:#4b302a}.assistant-product__body small{display:block;margin-top:4px;color:#8b7d73}.assistant-product__body a{display:inline-block;margin-top:7px}
+.assistant-feedback{display:flex;align-items:center;gap:4px;margin:2px 0 2px 30px;font-size:10px;color:#90827a}
+.assistant-feedback button{border:1px solid transparent;border-radius:7px;background:none;color:#8e7e74;min-height:26px;min-width:29px;cursor:pointer;font-size:13px}
+.assistant-feedback button:hover,.assistant-feedback button[aria-pressed=true]{background:#f6e9db;color:#8c1520}
+.assistant-window__suggestions{display:flex;gap:6px;flex-wrap:wrap;padding:10px 12px 8px;background:#fffefa}
+.assistant-window__suggestions[hidden]{display:none}
+.assistant-window__suggestions button{border:1px solid #e9cdba;background:#fffcf7;color:#8a3529;min-height:28px;padding:5px 9px;border-radius:999px;font-size:10px;cursor:pointer;text-align:left}
+.assistant-window__suggestions button:hover{background:#fff0e5}
+.assistant-window__composer{display:flex;align-items:center;gap:8px;padding:9px 12px 4px;margin:0;background:#fffefa}
+.assistant-window__composer input{min-width:0;flex:1;height:43px;padding:0 13px;font:400 12px Inter,'Noto Sans Devanagari',sans-serif;color:#432f2b;border:1px solid #e2d6ca;border-radius:11px;background:#fff}
+.assistant-window__composer input::placeholder{color:#9b8c81}
+.assistant-window__composer button{display:grid;place-items:center;width:42px;height:42px;border:none;border-radius:11px;background:#991a25;color:#fff;cursor:pointer;flex-shrink:0}
+.assistant-window__composer button:hover{background:#7a0c16}
+.assistant-window__composer button:disabled{background:#bda8a8;cursor:not-allowed}
+.assistant-window__disclaimer{margin:0;text-align:center;padding:5px 9px 10px;font-size:9px;color:#95847a;background:#fffefa}
+.assistant-typing{display:flex;align-items:center;gap:4px;padding:6px 2px}
+.assistant-typing i{height:7px;width:7px;display:block;background:#aa6a48;border-radius:50%;animation:chatBounce 1.2s ease-in-out infinite}.assistant-typing i:nth-child(2){animation-delay:.16s}.assistant-typing i:nth-child(3){animation-delay:.32s}
+@keyframes chatBounce{0%,60%,100%{opacity:.45;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.assistant-error{border:1px solid #f2d7be;border-radius:11px;background:#fff5e9;color:#704525;padding:12px;margin:0 4px}
+.assistant-error strong{display:block;font-size:12px}.assistant-error p{margin:4px 0 9px;font-size:11px;color:#826657}.assistant-error button{min-height:30px;border:1px solid #b87d56;background:#fff;color:#8a4027;border-radius:8px;padding:4px 10px;font-size:11px;cursor:pointer}
+.assistant-handoff{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
+.assistant-handoff a{display:inline-flex;min-height:32px;align-items:center;border-radius:8px;background:#8c1722;padding:7px 10px;color:white!important;font-size:11px;text-decoration:none!important}
+.assistant-handoff a:nth-child(2){background:white;color:#8c1722!important;border:1px solid #e9d6c2}
+.chat-device[data-viewport=mobile] .assistant-window{inset:0;width:100%;max-height:none;height:100%;border:none;border-radius:0;box-shadow:none}
+.chat-device[data-viewport=mobile] .assistant-window__header{min-height:72px;padding:15px}
+.chat-device[data-viewport=mobile] .assistant-window__transcript{padding:17px}
+.chat-device[data-viewport=mobile] .assistant-window__composer{padding:10px 15px 6px}
+.chat-device[data-viewport=mobile] .assistant-window__disclaimer{padding-bottom:15px}
+.chat-device[data-viewport=mobile] .assistant-launcher{bottom:18px;right:15px}
+.chat-device[data-viewport=tablet] .assistant-window{height:565px}
+.chat-device[data-viewport=mobile] .assistant-msg{font-size:13px}
+.chat-preview__foot{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap;margin-top:4px;color:#89786c;font-size:11px}
+.chat-preview__foot>div{display:flex;gap:8px;align-items:center}.chat-preview__foot-dot{width:6px;height:6px;border-radius:50%;background:#d39949}
+.chat-design-notes{margin-top:43px}.chat-design-notes__head h2{font:700 clamp(23px,2.8vw,31px) Poppins,Arial,sans-serif;color:#4a2829;margin:0 0 6px}.chat-design-notes__head p:last-child{font-size:14px;max-width:820px;color:#7e6b60;line-height:1.7;margin:0}
+.chat-design-notes__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:20px}
+.chat-design-notes__grid article{padding:19px 17px;border:1px solid #eadbcc;background:white;border-radius:15px}
+.chat-design-notes__icon{display:grid;place-items:center;width:36px;height:36px;background:#fbebdb;border-radius:11px;color:#a33226;font-size:24px}
+.chat-design-notes__grid h3{font-size:13px;color:#522e2c;margin:11px 0 6px}.chat-design-notes__grid p{font-size:12px;color:#786b62;line-height:1.65;margin:0}
+.chat-design-notes__bottom{border-radius:13px;background:#fff7e9;border:1px solid #f0e0c7;padding:14px 17px;margin-top:24px;font-size:12px;color:#6b5a4d}
+.chat-lab button:focus-visible,.chat-lab a:focus-visible,.chat-lab input:focus-visible{outline:3px solid #c57b16;outline-offset:2px}
+@media(max-width:1010px){.chat-lab__workspace{grid-template-columns:220px minmax(0,1fr);gap:12px}.chat-controls{padding:15px 12px}.chat-preview{padding:11px}.chat-design-notes__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.chat-lab{width:min(calc(100% - 24px),1440px);padding-top:22px}.chat-lab__workspace{display:flex;flex-direction:column;gap:16px}.chat-controls{position:static;width:100%;padding:15px}.chat-controls__title h2{font-size:16px}.chat-controls__fieldset{margin-top:10px;padding-top:12px}.chat-controls__options{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.chat-preview{width:100%}.chat-device{height:600px}.chat-design-notes{margin-top:28px}.chat-design-notes__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.chat-lab__notice{font-size:11px}}
+@media(max-width:460px){.chat-controls__options button{font-size:11px;padding:6px 8px}.chat-design-notes__grid{grid-template-columns:1fr}.chat-preview__live{font-size:10px}.chat-device[data-viewport=mobile]{height:660px}}
+@media(prefers-reduced-motion:reduce){.chat-device,.assistant-window,.assistant-launcher{transition:none}.assistant-typing i{animation:none}}
+</style>
+  
+</head>
+<body>
+<header class="lab-header"><div class="lab-header__inner"><a class="lab-brand" href="/theme/"><span class="lab-brand__mark">S</span><span>Sabpuja Component Lab</span></a><nav class="lab-nav" aria-label="Primary"><a aria-current="page" href="/theme/components/">Components</a><a href="/theme/blocks/">Blocks</a><a href="/theme/foundations/">Foundations</a><a href="/theme/tools/image-lab/">Image Lab</a></nav></div></header>
+<main class="lab-main chat-lab">
+  <div class="lab-page-head">
+    <div class="lab-breadcrumb"><a href="/theme/">Home</a> / <a href="/theme/components/">Components</a> / AI Assistant</div>
+    <p class="lab-eyebrow">SP-CHAT-001 | Customer assistance system</p>
+    <h1>Sabpuja AI Assistant</h1>
+    <p>One helpful companion across the storefront. Explore the launcher, conversation window, rich guidance, product discovery, support handoff and responsive layouts before we integrate Hermes.</p>
+  </div>
+
+  <div class="chat-lab__notice" role="note"><span class="chat-lab__notice-dot" aria-hidden="true"></span><strong>Interactive UI prototype</strong><span>All conversations and page contexts here are illustrative. No AI connection, order access, live product pricing or publishing actions.</span></div>
+
+  <div class="chat-lab__workspace">
+    <aside class="chat-controls" aria-label="Chatbot preview controls">
+      <div class="chat-controls__title"><span class="chat-controls__eyebrow">Design playground</span><h2>Preview settings</h2><p>Change the interface and customer journey without leaving the page.</p></div>
+      <fieldset class="chat-controls__fieldset" id="chat-viewport-set"><legend>Screen size</legend><div class="chat-controls__segmented" role="group" aria-label="Screen size">
+        <button type="button" data-chat-viewport="desktop" aria-pressed="true" class="is-active"><span aria-hidden="true">▣</span> Desktop</button>
+        <button type="button" data-chat-viewport="tablet" aria-pressed="false">Tablet</button>
+        <button type="button" data-chat-viewport="mobile" aria-pressed="false">Mobile</button>
+      </div></fieldset>
+      <fieldset class="chat-controls__fieldset"><legend>Where the customer is</legend><div class="chat-controls__options" id="chat-context-choices">
+        <button type="button" data-chat-context="home" aria-pressed="true" class="is-active"><span class="chat-choice-icon" aria-hidden="true">⌂</span> Homepage</button>
+        <button type="button" data-chat-context="product" aria-pressed="false"><span class="chat-choice-icon" aria-hidden="true">▧</span> Product page</button>
+        <button type="button" data-chat-context="guide" aria-pressed="false"><span class="chat-choice-icon" aria-hidden="true">☷</span> Puja guide</button>
+        <button type="button" data-chat-context="support" aria-pressed="false"><span class="chat-choice-icon" aria-hidden="true">♡</span> Support</button>
+        <button type="button" data-chat-context="account" aria-pressed="false"><span class="chat-choice-icon" aria-hidden="true">♙</span> Account</button>
+      </div></fieldset>
+      <fieldset class="chat-controls__fieldset"><legend>Conversation state</legend><div class="chat-controls__options" id="chat-scenario-choices">
+        <button type="button" data-chat-scenario="welcome" aria-pressed="true" class="is-active">01 <span>New visitor</span></button>
+        <button type="button" data-chat-scenario="guide" aria-pressed="false">02 <span>Puja instructions</span></button>
+        <button type="button" data-chat-scenario="product" aria-pressed="false">03 <span>Product recommendation</span></button>
+        <button type="button" data-chat-scenario="support" aria-pressed="false">04 <span>Support question</span></button>
+        <button type="button" data-chat-scenario="handoff" aria-pressed="false">05 <span>Human handoff</span></button>
+        <button type="button" data-chat-scenario="loading" aria-pressed="false">06 <span>Assistant typing</span></button>
+        <button type="button" data-chat-scenario="error" aria-pressed="false">07 <span>Connection error</span></button>
+        <button type="button" data-chat-scenario="fallback" aria-pressed="false">08 <span>Unknown answer</span></button>
+      </div></fieldset>
+      <fieldset class="chat-controls__fieldset"><legend>Language</legend><div class="chat-controls__segmented" role="group" aria-label="Conversation language"><button type="button" data-chat-language="en" aria-pressed="true" class="is-active">English</button><button type="button" data-chat-language="hi" aria-pressed="false">हिन्दी</button><button type="button" data-chat-language="hinglish" aria-pressed="false">Hinglish</button></div></fieldset>
+      <div class="chat-controls__actions"><button type="button" id="chat-reset" class="chat-controls__reset">Reset preview</button><button type="button" id="chat-collapse" class="chat-controls__reset chat-controls__reset--secondary">Close widget</button></div>
+    </aside>
+
+    <section class="chat-preview" aria-label="Interactive storefront preview">
+      <div class="chat-preview__top"><div><span class="chat-preview__eyebrow">Live interaction preview</span><strong id="chat-preview-title">Homepage, desktop</strong></div><span class="chat-preview__live"><span aria-hidden="true"></span> Preview only</span></div>
+      <div class="chat-device-scroll"><div class="chat-device" id="chat-device" data-viewport="desktop">
+        <div class="site-mock" aria-label="Illustrative Sabpuja storefront">
+          <div class="site-mock__announce">Puja made simple. Prepared with care.</div>
+          <header class="site-mock__header"><div class="site-mock__brand"><img src="/theme/assets/images/sabpuja-chat-emblem.svg" alt="Sabpuja emblem"><span>Sabpuja</span></div><nav aria-label="Illustrative store menu"><span>Shop all</span><span>Puja kits</span><span>Puja guides</span><span>About</span></nav><div class="site-mock__header-actions"><span aria-hidden="true">⌕</span><span aria-hidden="true">♙</span><span aria-hidden="true">♡</span></div></header>
+          <div class="site-mock__body" id="chat-context-content">
+            <div class="site-mock__kicker">Devotion, made simple</div><h2>Everything for your daily moments of devotion.</h2><p>Thoughtfully organized puja essentials and clear guidance for every step.</p><div class="site-mock__cta">Explore puja kits <span aria-hidden="true">↗</span></div>
+            <div class="site-mock__cards" aria-hidden="true"><div class="site-mock__tile"><span class="site-mock__tile-art">✿</span><strong>Daily Puja Kit</strong><small>Explore kit</small></div><div class="site-mock__tile"><span class="site-mock__tile-art">❀</span><strong>Navratri Puja Kit</strong><small>Explore kit</small></div><div class="site-mock__tile"><span class="site-mock__tile-art">✺</span><strong>Diwali Puja Kit</strong><small>Explore kit</small></div></div>
+          </div>
+        </div>
+        <div class="assistant-demo" id="assistant-demo" data-open="true">
+          <button type="button" class="assistant-launcher" id="assistant-launcher" aria-label="Open Sabpuja Assistant" aria-expanded="true" aria-controls="assistant-window"><img src="/theme/assets/images/sabpuja-chat-emblem.svg" alt=""><span class="assistant-launcher__label">Ask Sabpuja</span><span class="assistant-launcher__spark" aria-hidden="true">✦</span></button>
+          <section class="assistant-window" id="assistant-window" role="region" aria-label="Sabpuja Assistant conversation" tabindex="-1">
+            <div class="assistant-window__header"><div class="assistant-window__identity"><div class="assistant-window__avatar"><img src="/theme/assets/images/sabpuja-chat-emblem.svg" alt=""></div><div><strong>Sabpuja Assistant</strong><span><i aria-hidden="true"></i> Here to help</span></div></div><div class="assistant-window__header-actions"><button type="button" id="assistant-clear" aria-label="Start new chat" title="Start a new chat">↻</button><button type="button" id="assistant-close" aria-label="Minimize chat" title="Minimize">×</button></div></div>
+            <div class="assistant-window__intro"><span aria-hidden="true">✦</span> Your puja and shopping companion</div>
+            <div class="assistant-window__transcript" id="assistant-transcript" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Conversation">
+              <div class="assistant-msg assistant-msg--bot"><span class="assistant-msg__mini-avatar"><img src="/theme/assets/images/sabpuja-chat-emblem.svg" alt=""></span><div class="assistant-msg__bubble">Namaste! 🙏 How can I help with your puja today?</div></div>
+            </div>
+            <div class="assistant-window__suggestions" id="assistant-suggestions"><button type="button" data-quick="guide">How to do daily puja?</button><button type="button" data-quick="product">Find a puja kit</button><button type="button" data-quick="support">Need help with an order</button></div>
+            <form class="assistant-window__composer" id="assistant-composer"><label class="visually-hidden" for="assistant-input">Ask Sabpuja Assistant</label><input id="assistant-input" type="text" maxlength="450" autocomplete="off" placeholder="Ask me anything about puja..."><button type="submit" aria-label="Send message" id="assistant-send"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></button></form>
+            <p class="assistant-window__disclaimer">AI preview. Follow your family or priest's tradition.</p>
+          </section>
+        </div>
+      </div></div>
+      <div class="chat-preview__foot"><div><span class="chat-preview__foot-dot" aria-hidden="true"></span><span id="chat-preview-note">Example answers are for design review only.</span></div><span id="chat-preview-size">Desktop 1120px</span></div>
+    </section>
+  </div>
+
+  <section class="chat-design-notes" aria-labelledby="chat-notes-title"><div class="chat-design-notes__head"><p class="lab-eyebrow">Design contract</p><h2 id="chat-notes-title">One assistant, every customer touchpoint</h2><p>Same compact launcher and recognizable conversation patterns, adapted to the context. All commerce facts must come from Shopify, and puja guidance must come from approved knowledge.</p></div><div class="chat-design-notes__grid"><article><span class="chat-design-notes__icon" aria-hidden="true">◫</span><h3>Homepage and collections</h3><p>Welcoming guidance, popular topics and help choosing a suitable kit.</p></article><article><span class="chat-design-notes__icon" aria-hidden="true">▧</span><h3>Product detail</h3><p>Answer questions about the current product without inventing its contents, price or availability.</p></article><article><span class="chat-design-notes__icon" aria-hidden="true">☷</span><h3>Puja guide</h3><p>Explain a step in simple language with a clear link to the published guide and relevant tradition notes.</p></article><article><span class="chat-design-notes__icon" aria-hidden="true">♡</span><h3>Support and account</h3><p>Policy answers from verified sources, with a safe handoff for personal order questions.</p></article></div></section>
+  <section class="chat-design-notes__bottom"><strong>Implementation boundary:</strong> This visual prototype contains scripted examples only. It does not connect to Hermes, Obsidian, Shopify customer data, order APIs or the staging theme. The component is not approved for production until UX review and integration QA.</section>
+</main>
+<footer class="lab-footer">Sabpuja Component Lab | SP-CHAT-001 | Preview only</footer>
+<script>/* SP-CHAT-001 scripted interaction playground. Never calls network or stores user data. */
 (() => {
- const $=s=>document.querySelector(s), device=$('#sc-device'),float=$('#sc-float'),transcript=$('#sc-transcript'),quick=$('#sc-quick'),field=$('#sc-input');
- let screen='desktop',context='home',scenario='welcome',language='en';
- const views={
- home:['Homepage','Devotion, made simple','Everything for daily moments of devotion.','Thoughtfully organized puja essentials and clear guidance, step by step.','Explore puja kits',['Daily Puja Kit','Navratri Puja Kit','Diwali Puja Kit']],
- product:['Product page','Kit essentials','Daily Puja Kit','Explore product details, and get simple guidance for using your kit.','See product details',['Included items','Guide steps','Care and safety']],
- guide:['Puja guide','Learn at your own pace','Your daily puja, step by step.','Helpful preparation, steps and safety guidance in one place.','Read puja guide',['Prepare your space','Make an offering','Complete with gratitude']],
- support:['Support','How can we help?','Help for the little details.','Explore shopping questions and contact Sabpuja support when you need assistance.','Browse help topics',['Shipping information','Return policy','Contact support']],
- account:['Account','Your Sabpuja space','Welcome back.','Find puja guides and reach support from your account.','Your account',['Your orders','Puja guides','Support']]
- };
- const words={
- en:{greet:'Namaste! 🙏 I am your Sabpuja Assistant. Ask me about puja guides, puja kits or shopping help.',hello:'How can I help you today?',guideQ:'How do I perform daily puja?',guideA:'For a simple home puja, prepare a clean space, offer a diya or flower if part of your practice, recite your preferred prayer, and close with gratitude. Family and regional practices can differ.',productQ:'Which puja kit is right for me?',productA:'You can explore a daily worship kit or a festival-specific kit. Check the product page for confirmed contents, price and availability.',supportQ:'Where can I find delivery and return details?',supportA:'Please consult Sabpuja’s current store policies for confirmed delivery and returns information, or contact support.',handoffQ:'Where is my order?',handoffA:'For privacy, I cannot access personal order details in this preview. Please use your authenticated account or reach Sabpuja support.',fallbackQ:'Can you answer something without a verified source?',fallbackA:'I could not verify that from approved Sabpuja information. Please contact support rather than relying on a guess.',errorA:'The assistant could not connect. Your message has not been sent.',source:'Read the published guide',contact:'Contact support',again:'Try again',options:[['guide','How do I do daily puja?'],['product','Find a puja kit'],['support','Delivery and returns']]},
- hi:{greet:'नमस्ते! 🙏 मैं सबपूजा असिस्टेंट हूँ। पूजा विधि, पूजा किट और सपोर्ट से जुड़े सवाल पूछें।',hello:'आज मैं आपकी कैसे मदद कर सकता हूँ?',guideQ:'दैनिक पूजा कैसे करें?',guideA:'पहले पूजा स्थान साफ करें। अपनी परंपरा के अनुसार दीपक और फूल चढ़ाएँ, प्रार्थना करें और अंत में आभार व्यक्त करें। परिवार और क्षेत्र के अनुसार विधि अलग हो सकती है।',productQ:'कौन सी पूजा किट चुनूँ?',productA:'आप दैनिक पूजा या त्योहार की किट देख सकते हैं। सही सामग्री, कीमत और उपलब्धता के लिए प्रोडक्ट पेज देखें।',supportQ:'डिलीवरी और रिटर्न की जानकारी कहाँ है?',supportA:'सही जानकारी के लिए सबपूजा की वर्तमान स्टोर पॉलिसी देखें या सपोर्ट से संपर्क करें।',handoffQ:'मेरा ऑर्डर कहाँ है?',handoffA:'सुरक्षा के लिए यह डेमो आपके निजी ऑर्डर नहीं देख सकता। कृपया अपने अकाउंट में जाएँ या सपोर्ट से संपर्क करें।',fallbackQ:'बिना किसी स्रोत के कुछ जानकारी बता सकते हैं?',fallbackA:'इसकी पुष्टि स्वीकृत सबपूजा जानकारी में नहीं मिली। कृपया सपोर्ट से पूछें।',errorA:'अभी कनेक्शन नहीं हो पाया। आपका संदेश नहीं भेजा गया।',source:'पूजा गाइड खोलें',contact:'सपोर्ट से संपर्क करें',again:'फिर कोशिश करें',options:[['guide','दैनिक पूजा कैसे करें?'],['product','पूजा किट देखें'],['support','सहायता चाहिए']]},
- hinglish:{greet:'Namaste! 🙏 Main Sabpuja Assistant hoon. Puja vidhi, puja kit aur support ke baare mein pooch sakte hain.',hello:'Aaj main aapki kaise help kar sakta hoon?',guideQ:'Daily puja kaise karein?',guideA:'Pehle puja ki jagah saaf karein. Apni parampara ke hisaab se diya aur phool arpit karein, prarthana karein aur gratitude ke saath puja complete karein. Har ghar ki vidhi alag ho sakti hai.',productQ:'Mere liye kaunsi puja kit sahi hai?',productA:'Daily worship kit ya festival kit explore kar sakte hain. Exact samagri, price aur availability product page par verify karein.',supportQ:'Delivery aur return mein help chahiye.',supportA:'Delivery aur return ki verified details current store policies mein milengi. Support se bhi baat kar sakte hain.',handoffQ:'Mera order kahan hai?',handoffA:'Privacy ke liye is demo mein personal order access nahi hai. Apne account se sign in karein ya support se contact karein.',fallbackQ:'Bina verified source ke koi information batao?',fallbackA:'Is information ki approved Sabpuja sources se confirmation nahi mili. Please support se poochhein.',errorA:'Connection nahi hua. Message send nahi hua.',source:'Daily Puja Guide dekhein',contact:'Contact support',again:'Retry',options:[['guide','Daily puja kaise karein?'],['product','Puja kit dikhao'],['support','Support chahiye']]}
- };
- function site(){const a=views[context];$('#sc-location').textContent=a[0]+', '+screen;$('#sc-dimension').textContent=screen[0].toUpperCase()+screen.slice(1)+' preview';$('#sc-page').innerHTML='<small>'+a[1]+'</small><h2>'+a[2]+'</h2><p>'+a[3]+'</p><span class="sc-sitecta">'+a[4]+' ↗</span><div class="sc-sitecards">'+a[5].map((t,i)=>'<div class="sc-tile"><div class="sc-tile-art">'+['✿','❀','✺'][i]+'</div><strong>'+t+'</strong><span>Explore</span></div>').join('')+'</div>'}
- function msg(role,body,html=false){const row=document.createElement('div');row.className='sc-message sc-message--'+role;if(role==='bot'){const av=document.createElement('span');av.className='sc-mini';const img=document.createElement('img');img.src='/theme/assets/images/sabpuja-chat-emblem.svg';img.alt='';av.append(img);row.append(av)}const p=document.createElement('div');p.className='sc-bubble';if(html)p.innerHTML=body;else p.textContent=body;row.append(p);transcript.append(row)}
- function link(title,url){return '<a class="sc-source" href="'+url+'" target="_blank" rel="noopener noreferrer"><span>☷</span><div>'+title+'<small>Sabpuja guide or support page</small></div> ↗</a>'}
- function render(){const t=words[language];transcript.replaceChildren();quick.replaceChildren();quick.hidden=true;msg('bot',t.greet);
- if(scenario==='welcome'){msg('bot',t.hello);quick.hidden=false;t.options.forEach(([id,label])=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.quick=id;quick.append(b)})}
- else{const q=t[scenario+'Q']||t.guideQ;msg('user',q);if(scenario==='guide')msg('bot','<p>'+t.guideA+'</p>'+link(t.source,'https://sabpuja.com/pages/daily-puja-vidhi'),true);
- else if(scenario==='product')msg('bot','<p>'+t.productA+'</p><div class="sc-product"><span class="sc-product-art">✿</span><div><strong>Diwali Puja Kit</strong><small>View verified product details on Sabpuja.</small><br><a href="https://sabpuja.com/products/diwali-puja-kit" target="_blank" rel="noopener noreferrer">View product ↗</a></div></div>',true);
- else if(scenario==='support')msg('bot','<p>'+t.supportA+'</p>'+link(t.contact,'https://sabpuja.com/pages/contact-us'),true);
- else if(scenario==='handoff')msg('bot','<p>'+t.handoffA+'</p>'+link('Open your account','https://sabpuja.com/account')+link(t.contact,'https://sabpuja.com/pages/contact-us'),true);
- else if(scenario==='fallback')msg('bot','<p>'+t.fallbackA+'</p>'+link(t.contact,'https://sabpuja.com/pages/contact-us'),true);
- else if(scenario==='loading')msg('bot','<div role="status" class="sc-loading" aria-label="Assistant thinking">•••</div>',true);
- else if(scenario==='error'){const div=document.createElement('div');div.className='sc-error';div.textContent=t.errorA;const b=document.createElement('button');b.type='button';b.textContent=t.again;b.onclick=()=>setScenario('guide');div.append(b);transcript.append(div)}
- }transcript.scrollTop=0;$('#sc-note').textContent='Example responses for design review only.';}
- function active(q,name){document.querySelectorAll(q).forEach(b=>{let yes=b.dataset[name]===evalState(name);b.classList.toggle('is-active',yes);b.setAttribute('aria-pressed',String(yes))})}
- function evalState(n){return n==='size'?screen:n==='context'?context:n==='scenario'?scenario:language}
- function open(){float.dataset.open='true';$('#sc-launch').setAttribute('aria-expanded','true')}
- function close(){float.dataset.open='false';$('#sc-launch').setAttribute('aria-expanded','false');$('#sc-launch').focus()}
- function setScenario(x){scenario=x;active('[data-scenario]','scenario');render();open()}
- document.querySelectorAll('[data-size]').forEach(b=>b.addEventListener('click',()=>{screen=b.dataset.size;device.dataset.size=screen;active('[data-size]','size');site()}));
- document.querySelectorAll('[data-context]').forEach(b=>b.addEventListener('click',()=>{context=b.dataset.context;active('[data-context]','context');site();setScenario(({home:'welcome',product:'product',guide:'guide',support:'support',account:'handoff'})[context])}));
- document.querySelectorAll('[data-scenario]').forEach(b=>b.addEventListener('click',()=>setScenario(b.dataset.scenario)));
- document.querySelectorAll('[data-language]').forEach(b=>b.addEventListener('click',()=>{language=b.dataset.language;active('[data-language]','language');render()}));
- $('#sc-quick').addEventListener('click',e=>{const b=e.target.closest('[data-quick]');if(b)setScenario(b.dataset.quick)});
- $('#sc-launch').addEventListener('click',()=>{if(float.dataset.open==='true')close();else{$('#sc-window').focus();open()}});
- $('#sc-close').addEventListener('click',close);$('#sc-new').addEventListener('click',()=>setScenario('welcome'));
- $('#sc-reset').addEventListener('click',()=>{screen='desktop';context='home';scenario='welcome';language='en';device.dataset.size=screen;for(const n of ['size','context','scenario','language'])active('[data-'+n+']',n);site();render();open()});
- $('#sc-composer').addEventListener('submit',e=>{e.preventDefault();const q=field.value.trim();if(!q)return;field.value='';const next=/return|delivery|ship|refund|support|डिलीवरी|रिटर्न/i.test(q)?'support':/kit|product|buy|samagri|किट/i.test(q)?'product':/puja|guide|vidhi|kaise|पूजा|विधि/i.test(q)?'guide':'fallback';setScenario(next);const user=transcript.querySelector('.sc-message--user .sc-bubble');if(user)user.textContent=q});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&float.dataset.open==='true'&&document.activeElement.closest('#sc-window'))close()});
- site();render();
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const demo = $('#assistant-demo');
+  if (!demo) return;
+  const device = $('#chat-device');
+  const launcher = $('#assistant-launcher');
+  const windowEl = $('#assistant-window');
+  const transcript = $('#assistant-transcript');
+  const suggestions = $('#assistant-suggestions');
+  const composer = $('#assistant-composer');
+  const input = $('#assistant-input');
+  const send = $('#assistant-send');
+  const note = $('#chat-preview-note');
+  const title = $('#chat-preview-title');
+  const size = $('#chat-preview-size');
+  const body = $('#chat-context-content');
+  const previewContext = {
+    home: { name:'Homepage', eyebrow:'Devotion, made simple', title:'Everything for your daily moments of devotion.', description:'Thoughtfully organized puja essentials and clear guidance for every step.', action:'Explore puja kits', cards:['Daily Puja Kit','Navratri Puja Kit','Diwali Puja Kit'] },
+    product: { name:'Product page', eyebrow:'Explore the collection', title:'Daily Puja Kit', description:'Find answers about product details and ritual use before choosing a kit. Specific contents and availability come from Shopify.', action:'View product details', cards:['About this kit','How to use it','Puja guidance'] },
+    guide: { name:'Puja guide', eyebrow:'Easy to follow, step by step', title:'Your daily puja, one step at a time.', description:'A clear place to prepare, follow your puja steps, and refer to family or regional tradition.', action:'Continue reading guide', cards:['Prepare your space','Make an offering','Complete with gratitude'] },
+    support: { name:'Support', eyebrow:'We are here to guide you', title:'How can we help?', description:'Browse common questions, product information, shipping and returns information, or reach our team.', action:'Browse help topics', cards:['Delivery questions','Returns information','Contact support'] },
+    account: { name:'Account', eyebrow:'Your Sabpuja space', title:'Welcome back.', description:'Find your orders, puja guides and support options in one convenient place.', action:'Explore account', cards:['Your orders','Puja guides','Get help'] }
+  };
+  const textByLanguage = {
+    en: {
+      first:'Namaste! 🙏 I am your Sabpuja Assistant. I can help you explore puja guides, find products and get support.',
+      opener:'How can I help you today?',
+      intro:'Your puja and shopping companion',
+      typing:'Thinking',
+      prompt:'Ask me anything about puja...',
+      suggestions:[['guide','How to do daily puja?'],['product','Find a puja kit'],['support','Delivery and support']],
+      guideQuestion:'How do I perform daily puja?',
+      guideAnswer:'For a simple home puja, start by preparing a clean space. You may offer a diya, a flower, and your chosen prayer, then close with gratitude. Customs differ by family and tradition. Please follow your family or priest\'s guidance.',
+      guideSource:'Daily Puja Vidhi',
+      productQuestion:'Can you help me choose a puja kit?',
+      productAnswer:'Of course. You can start by exploring a daily worship kit or a festival-specific kit. The contents, price and availability should always be checked on the current product page.',
+      productDescription:'Explore an existing Sabpuja kit. See the product page for confirmed details.',
+      productAction:'View product',
+      supportQuestion:'How can I check delivery or returns?',
+      supportAnswer:'For confirmed delivery and returns information, please refer to our latest published store policies. I can also help you reach our support team.',
+      supportSource:'Contact Sabpuja support',
+      handoffQuestion:'Where is my order?',
+      handoffAnswer:'For privacy, I cannot access your personal order details from this preview. Please use your authenticated account or contact Sabpuja support for help.',
+      handoffPrimary:'Open your account', handoffSecondary:'Contact support',
+      unknownQuestion:'Can you tell me something that is not in your sources?',
+      fallback:'I cannot confirm that from the approved Sabpuja sources. I would rather guide you to our support team than guess.',
+      errorTitle:'We could not connect right now', errorMessage:'Your message has not been sent. Please check your connection or try again.',retry:'Try again',
+      helpful:'Was this helpful?', thanked:'Thank you for your feedback.',
+      preview:'Example answers are for design review only.'
+    },
+    hi: {
+      first:'नमस्ते! 🙏 मैं सबपूजा असिस्टेंट हूँ। पूजा विधि, पूजा किट और सहायता से जुड़े सवाल पूछें।',
+      opener:'आज मैं आपकी कैसे मदद कर सकता हूँ?', intro:'पूजा और खरीदारी में आपका साथी',typing:'जवाब तैयार हो रहा है',prompt:'पूजा के बारे में पूछें...',
+      suggestions:[['guide','दैनिक पूजा कैसे करें?'],['product','पूजा किट देखें'],['support','सहायता चाहिए']],
+      guideQuestion:'दैनिक पूजा कैसे करें?',guideAnswer:'सरल दैनिक पूजा के लिए सबसे पहले पूजा स्थान साफ करें। अपनी परंपरा के अनुसार दीपक, फूल और प्रार्थना अर्पित कर सकते हैं। अंत में आभार प्रकट करें। परिवार और क्षेत्र के अनुसार विधि अलग हो सकती है।',guideSource:'दैनिक पूजा विधि',
+      productQuestion:'मेरे लिए कौन सी पूजा किट सही होगी?',productAnswer:'आप दैनिक पूजा की किट या त्योहार के अनुसार तैयार किट देख सकते हैं। सही सामग्री, कीमत और उपलब्धता की जानकारी के लिए संबंधित प्रोडक्ट पेज देखें।',productDescription:'सही जानकारी के लिए प्रोडक्ट पेज पर विवरण देखें।',productAction:'प्रोडक्ट देखें',
+      supportQuestion:'डिलीवरी या रिटर्न में मदद चाहिए।',supportAnswer:'डिलीवरी और रिटर्न की सही जानकारी हमारी वर्तमान स्टोर पॉलिसी में मिलेगी। जरूरत होने पर सपोर्ट टीम से संपर्क करें।',supportSource:'सपोर्ट से संपर्क करें',
+      handoffQuestion:'मेरा ऑर्डर कहाँ है?',handoffAnswer:'आपकी निजी जानकारी की सुरक्षा के लिए यह डेमो ऑर्डर नहीं देख सकता। कृपया अपने अकाउंट में जाएँ या हमारी सपोर्ट टीम से बात करें।',handoffPrimary:'मेरा अकाउंट',handoffSecondary:'सपोर्ट से संपर्क',
+      unknownQuestion:'ऐसी जानकारी बताइए जिसका स्रोत नहीं है।',fallback:'मुझे स्वीकृत सबपूजा स्रोतों में इसकी पुष्टि नहीं मिली। अनुमान लगाने के बजाय कृपया सपोर्ट टीम से पूछें।',
+      errorTitle:'अभी कनेक्ट नहीं हो पाया',errorMessage:'आपका संदेश नहीं भेजा गया। इंटरनेट जाँचें और फिर कोशिश करें।',retry:'फिर कोशिश करें',helpful:'क्या यह उपयोगी था?',thanked:'फीडबैक देने के लिए धन्यवाद।',preview:'यह केवल डिज़ाइन देखने के लिए बनाया गया डेमो है।'
+    },
+    hinglish: {
+      first:'Namaste! 🙏 Main Sabpuja Assistant hoon. Aap puja vidhi, puja kit ya support ke baare mein pooch sakte hain.',
+      opener:'Aaj main aapki kaise help kar sakta hoon?',intro:'Puja aur shopping mein aapka saathi',typing:'Jawab taiyar ho raha hai',prompt:'Puja ke baare mein poochhein...',
+      suggestions:[['guide','Daily puja kaise karein?'],['product','Puja kit dikhao'],['support','Support chahiye']],
+      guideQuestion:'Daily puja kaise karein?',guideAnswer:'Sabse pehle puja ki jagah saaf karein. Apni parampara ke hisaab se diya, phool aur prarthana arpit kar sakte hain. Ant mein dhanyavaad ke saath puja poori karein. Har ghar ki vidhi alag ho sakti hai.',guideSource:'Daily Puja Vidhi',
+      productQuestion:'Mere liye kaunsi puja kit sahi hogi?',productAnswer:'Aap daily worship kit ya festival-specific puja kit explore kar sakte hain. Exact samagri, price aur availability hamesha product page par check karein.',productDescription:'Confirmed product details ke liye product page dekhein.',productAction:'Product dekhein',
+      supportQuestion:'Delivery aur return mein help chahiye.',supportAnswer:'Delivery aur return ki verified details current store policies se check karni chahiye. Aap Sabpuja support se bhi contact kar sakte hain.',supportSource:'Contact support',
+      handoffQuestion:'Mera order kahan hai?',handoffAnswer:'Privacy ke liye main is preview se aapka order access nahi kar sakta. Please apne account mein sign in karein ya support team se baat karein.',handoffPrimary:'Mera account',handoffSecondary:'Contact support',
+      unknownQuestion:'Koi aisi baat batao jiska source nahin hai.',fallback:'Is baat ki approved Sabpuja knowledge mein confirmation nahi mili. Guess karne ke bajaye support team ki madad lena better hoga.',
+      errorTitle:'Connection mein problem hai',errorMessage:'Message send nahi hua. Connection check karke dobara try karein.',retry:'Try again',helpful:'Kya yeh helpful tha?',thanked:'Feedback ke liye shukriya.',preview:'Yeh sirf design review ke liye scripted demo hai.'
+    }
+  };
+  let viewport='desktop', context='home', scenario='welcome', language='en';
+  const safeLink = (text,url)=>`<a class="assistant-source" href="${url}" target="_blank" rel="noopener noreferrer"><span class="assistant-source__icon" aria-hidden="true">☷</span><span class="assistant-source__body">${text}<small>Sabpuja reference page</small></span><span aria-hidden="true">↗</span></a>`;
+  const renderMock = () => {
+    const p=previewContext[context];
+    body.dataset.page=context;
+    /* Fixed, local preview fixtures only. No customer text is interpolated here. */
+    body.innerHTML=`<div class="site-mock__kicker">${p.eyebrow}</div><h2>${p.title}</h2><p>${p.description}</p><div class="site-mock__cta">${p.action} <span aria-hidden="true">↗</span></div><div class="site-mock__cards" aria-hidden="true">${p.cards.map((name,i)=>`<div class="site-mock__tile"><span class="site-mock__tile-art">${['✿','❀','✺'][i]}</span><strong>${name}</strong><small>Learn more</small></div>`).join('')}</div>`;
+    title.textContent=`${p.name}, ${viewport}`;
+    size.textContent=`${viewport[0].toUpperCase()+viewport.slice(1)} ${viewport==='desktop'?'1120':viewport==='tablet'?'700':'390'}px`;
+  };
+  function msg(role,html,isText=false){
+    const item=document.createElement('div');item.className='assistant-msg assistant-msg--'+role;
+    if(role==='bot'){const avatar=document.createElement('span');avatar.className='assistant-msg__mini-avatar';const im=document.createElement('img');im.src='/theme/assets/images/sabpuja-chat-emblem.svg';im.alt='';avatar.append(im);item.append(avatar)}
+    const bubble=document.createElement('div');bubble.className='assistant-msg__bubble';if(isText)bubble.textContent=html;else bubble.innerHTML=html;item.append(bubble);transcript.append(item);
+    transcript.scrollTop=transcript.scrollHeight;return item;
+  }
+  function feedback(){
+    const lang=textByLanguage[language];const row=document.createElement('div');row.className='assistant-feedback';
+    const label=document.createElement('span');label.textContent=lang.helpful;row.append(label);
+    ['👍','👎'].forEach((sym,index)=>{const btn=document.createElement('button');btn.type='button';btn.textContent=sym;btn.setAttribute('aria-label',index?'Not helpful':'Helpful');btn.setAttribute('aria-pressed','false');btn.addEventListener('click',()=>{row.querySelectorAll('button').forEach(el=>el.setAttribute('aria-pressed',String(el===btn)));label.textContent=lang.thanked});row.append(btn)});
+    transcript.append(row);
+  }
+  function openChat(shouldFocus=false){demo.dataset.open='true';launcher.setAttribute('aria-expanded','true');if(shouldFocus)windowEl.focus()}
+  function closeChat(){demo.dataset.open='false';launcher.setAttribute('aria-expanded','false');launcher.focus()}
+  function setScenario(value){
+    scenario=value;document.querySelectorAll('[data-chat-scenario]').forEach(b=>{const on=b.dataset.chatScenario===value;b.classList.toggle('is-active',on);b.setAttribute('aria-pressed',String(on))});
+    renderConversation();openChat();
+  }
+  function renderConversation(){
+    const t=textByLanguage[language]; transcript.replaceChildren();suggestions.replaceChildren();suggestions.hidden=true;
+    document.querySelector('.assistant-window__intro').innerHTML='<span aria-hidden="true">✦</span> '+t.intro;
+    input.placeholder=t.prompt; note.textContent=t.preview;
+    msg('bot',t.first,true);
+    if(scenario==='welcome'){
+      msg('bot',`<strong>${t.opener}</strong>`);
+      t.suggestions.forEach(([key,label])=>{const b=document.createElement('button');b.type='button';b.dataset.quick=key;b.textContent=label;suggestions.append(b)});suggestions.hidden=false;
+    }else if(scenario==='loading'){
+      msg('user',t.guideQuestion,true);
+      msg('bot',`<span class="assistant-typing" role="status" aria-label="${t.typing}"><i></i><i></i><i></i></span>`);
+    }else if(scenario==='error'){
+      msg('user',t.guideQuestion,true);
+      const box=document.createElement('div');box.className='assistant-error';box.innerHTML=`<strong>${t.errorTitle}</strong><p>${t.errorMessage}</p>`;
+      const retry=document.createElement('button');retry.type='button';retry.textContent=t.retry;retry.addEventListener('click',()=>setScenario('guide'));box.append(retry);transcript.append(box);
+    }else{
+      const q= t[scenario+'Question'] || t.unknownQuestion;
+      msg('user',q,true);
+      if(scenario==='guide'){
+        msg('bot',`<p>${t.guideAnswer}</p>${safeLink(t.guideSource,'https://sabpuja.com/pages/daily-puja-vidhi')}`);
+      }else if(scenario==='product'){
+        msg('bot',`<p>${t.productAnswer}</p><div class="assistant-product"><span class="assistant-product__art" aria-hidden="true">✿</span><span class="assistant-product__body"><strong>Diwali Puja Kit</strong><small>${t.productDescription}</small><a href="https://sabpuja.com/products/diwali-puja-kit" target="_blank" rel="noopener noreferrer">${t.productAction} ↗</a></span></div>`);
+      }else if(scenario==='support'){
+        msg('bot',`<p>${t.supportAnswer}</p>${safeLink(t.supportSource,'https://sabpuja.com/pages/contact-us')}`);
+      }else if(scenario==='handoff'){
+        msg('bot',`<p>${t.handoffAnswer}</p><div class="assistant-handoff"><a href="https://shopify.com" target="_blank" rel="noopener noreferrer" data-preview-link>${t.handoffPrimary} ↗</a><a href="https://sabpuja.com/pages/contact-us" target="_blank" rel="noopener noreferrer">${t.handoffSecondary} ↗</a></div>`);
+      }else if(scenario==='fallback'){
+        msg('bot',`<p>${t.fallback}</p>${safeLink(t.supportSource,'https://sabpuja.com/pages/contact-us')}`);
+      }
+      feedback();
+    }
+    transcript.scrollTop=0;
+  }
+  function setSelected(attribute,value){document.querySelectorAll(`[${attribute}]`).forEach(b=>{const active=b.getAttribute(attribute)===value;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active))})}
+  document.querySelectorAll('[data-chat-viewport]').forEach(b=>b.addEventListener('click',()=>{viewport=b.dataset.chatViewport;device.dataset.viewport=viewport;setSelected('data-chat-viewport',viewport);renderMock()}));
+  document.querySelectorAll('[data-chat-context]').forEach(b=>b.addEventListener('click',()=>{context=b.dataset.chatContext;setSelected('data-chat-context',context);renderMock();setScenario(({home:'welcome',product:'product',guide:'guide',support:'support',account:'handoff'})[context])}));
+  document.querySelectorAll('[data-chat-scenario]').forEach(b=>b.addEventListener('click',()=>setScenario(b.dataset.chatScenario)));
+  document.querySelectorAll('[data-chat-language]').forEach(b=>b.addEventListener('click',()=>{language=b.dataset.chatLanguage;setSelected('data-chat-language',language);renderConversation()}));
+  suggestions.addEventListener('click',e=>{const b=e.target.closest('[data-quick]');if(b)setScenario(b.dataset.quick)});
+  launcher.addEventListener('click',()=>{if(demo.dataset.open==='true')closeChat();else openChat(true)});
+  $('#assistant-close').addEventListener('click',closeChat);
+  $('#chat-collapse').addEventListener('click',closeChat);
+  $('#assistant-clear').addEventListener('click',()=>setScenario('welcome'));
+  $('#chat-reset').addEventListener('click',()=>{viewport='desktop';context='home';scenario='welcome';language='en';device.dataset.viewport=viewport;setSelected('data-chat-viewport',viewport);setSelected('data-chat-context',context);setSelected('data-chat-language',language);setSelected('data-chat-scenario',scenario);renderMock();renderConversation();openChat()});
+  composer.addEventListener('submit',e=>{
+    e.preventDefault();const q=input.value.trim();if(!q)return;
+    input.value=''; const key=/delivery|return|shipping|support|help|refund|डिलीवरी|रिटर्न/i.test(q)?'support':/guide|vidhi|how|kaise|पूजा कैसे|विधि|steps/i.test(q)?'guide':/kit|product|buy|kharid|samagri|किट|सामग्री|purchase/i.test(q)?'product':'fallback';
+    setScenario(key);
+    const userMsg=transcript.querySelector('.assistant-msg--user .assistant-msg__bubble');if(userMsg)userMsg.textContent=q;
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&demo.dataset.open==='true'&&document.activeElement.closest('#assistant-window'))closeChat()});
+  document.addEventListener('click',e=>{const a=e.target.closest('[data-preview-link]');if(a){e.preventDefault();note.textContent='Account navigation is intentionally disabled in this prototype.'}});
+  // This is a visual demonstration; do not add fetch(), token storage, analytics or customer identifiers.
+  renderMock();renderConversation();
 })();
 </script></body></html>
