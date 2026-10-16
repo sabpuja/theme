@@ -45,3 +45,20 @@ npm run qa:staging
 ```
 
 Do not remove the theme-id guard; fix the staging preview authentication first. Attach results/screenshots to this draft PR and do not merge automatically. Full source sync from Shopify staging into a reviewed repository branch is a separate task.
+
+
+## 2026-10-16: Implementation phase 2 (Shopify staging only)
+
+**These entries supersede the earlier list of open implementation work.** No production theme, catalog product, pricing, checkout or shared product media mutations were made.
+
+- Replaced all active `sp-staging-*` image snippet calls across modern landing templates, product image cards, and legacy media components with `sp-approved-*` helpers. Scanned all **439 Liquid theme files** (104 modern + 332 older at scan time; count changed as snippets were added) and found two extra media references, which were migrated. Removed the 12 legacy image-map keys from unpublished `settings_data.json` after preserving the approved replacement maps. Shopify blocked physical deletion of three old snippet files under its safety policy, so those files were reduced to small compatibility aliases; they no longer contain old mapping logic.
+- Reused the identical initial **~5.5KB** CSS foundation of Daily/Navratri via `assets/sabpuja-kit-landing-foundations.css`, loaded before each kit's content-specific CSS. Centralized fluid typography, spacing, consistent Foundations palette and width tokens.
+- Added editable headings for all static landing-module headings: now **22 section settings per kit**, including delivery/payment reassurance. The original article-specific body content and images remain distinct.
+- Extracted both identical purchase-panel templates into `snippets/sp-kit-purchase-panel.liquid` while retaining Shopify product forms, data hooks, selected variant, quantity and inventory behavior.
+- Extracted both product landing JavaScript blocks into `snippets/sp-kit-landing-behavior.liquid` using the existing daily/navratri hook prefix supplied by the section; standardized JS display money formatting to omit trailing decimals for integer INR amounts.
+- Migrated **28 Daily Puja + 24 Navratri** plain content paragraphs, FAQ answers and ritual guidance into theme-local editable global settings. The landing templates now render them via `snippets/sp-kit-editorial-copy.liquid`; merchant translation of those theme-setting values should be verified during language QA.
+- Replaced layout's global inline font and margins patches with `assets/sabpuja-layout-foundations.css`. Moved the header intermediate-width override out of inline Liquid into `assets/sabpuja-header.css`. Converted `assets/sabpuja-component-foundations.css` from `!important` literals to compatibility aliases of current design tokens; aligned old brand color aliases without altering approved SVG artwork.
+- Converted both language-specific shipping announcements into header Theme Editor settings. The **active** `sections/theme-footer5.liquid` now has 12 editable footer fields including six catalog destinations, contact email, social URLs, the guide destination and support copy. Footer uses existing global layout alignment.
+- This PR's local lint checker now detects active legacy image-map references, unexpected `sp-` snippet references and obsolete settings-data keys in addition to global-width leakage/invalid section schema. Automated browser QA remains staged and **deliberately not run** as requested.
+
+**Acceptance still separate:** authenticated unpublished-theme preview, human visual QA, accessibility, 200% zoom/Hindi and cart flow; do not mark any visual/functional test passed until executed. The core component-driven implementation is present in Shopify staging, but visual acceptance and live rollout are excluded from this phase. Legacy theme files unrelated to the active Sabpuja templates and the Shopify-protected compatibility aliases may remain physically present.
