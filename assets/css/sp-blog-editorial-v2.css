@@ -97,3 +97,12 @@
 .spb-lab .spb-labmark{margin-block:.5rem}
 .spb-lab .spb-preview-stage{min-inline-size:0}
 @media (prefers-reduced-motion:reduce){.spb-lab .spb-bento-card__photo,.spb-lab .spb-journal-card,.spb-lab .spb-topic-tile{transition:none!important}}
+
+/* Keep optional QA controls out of the reader's primary navigation. */
+.spb-lab .spb-preview-tools{margin-inline-start:auto;min-inline-size:0}
+.spb-lab .spb-preview-tools summary{cursor:pointer;list-style:none;min-height:2.65rem;padding:.48rem .8rem;background:var(--sp-color-ivory);border:1px solid var(--spb-stroke);border-radius:999px;font-size:.78rem;font-weight:750;display:flex;align-items:center;gap:.5rem}
+.spb-lab .spb-preview-tools summary::-webkit-details-marker{display:none}
+.spb-lab .spb-preview-tools summary::marker{content:""}
+.spb-lab .spb-preview-tools[open]{flex-basis:100%;background:var(--spb-paper);border:1px solid var(--spb-stroke);border-radius:.75rem;padding:.6rem}
+.spb-lab .spb-preview-tools[open] summary{display:inline-flex;margin-bottom:.55rem}
+.spb-lab .spb-preview-tools .spb-actions{gap:.6rem;justify-content:flex-start}
