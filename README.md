@@ -1,5 +1,9 @@
 # Sab Puja Theme
 
+## Required for all UI contributors and agents
+
+**Read [live Sabpuja Component Lab Foundations](https://lab.srv2005300.hstgr.cloud/theme/foundations/) before editing any visual, layout, responsive or component implementation**, and follow [theme agent rules](AGENTS.md) plus [design-system agent rules](https://github.com/sabpuja/design-system/blob/main/AGENTS.md). The live Foundations is the canonical target for colors, typography, fluid layout, spacing and composition. Existing Shopify widths require a reviewed migration; this README is not deployment authorization.
+
 Shopify storefront implementation for Sab Puja.
 
 ## Owns
