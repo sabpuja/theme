@@ -106,3 +106,11 @@
 .spb-lab .spb-preview-tools[open]{flex-basis:100%;background:var(--spb-paper);border:1px solid var(--spb-stroke);border-radius:.75rem;padding:.6rem}
 .spb-lab .spb-preview-tools[open] summary{display:inline-flex;margin-bottom:.55rem}
 .spb-lab .spb-preview-tools .spb-actions{gap:.6rem;justify-content:flex-start}
+
+/* Override generic details card padding for a truly compact closed lab control. */
+.spb-lab .spb-toolbar > details.spb-preview-tools:not([open]){
+  border:0;background:transparent;padding:0;margin:0 0 0 auto;
+}
+.spb-lab .spb-toolbar > details.spb-preview-tools[open]{
+  margin:0;padding:.6rem;border:1px solid var(--spb-stroke);background:var(--spb-paper);
+}
