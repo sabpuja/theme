@@ -1,0 +1,151 @@
+/* Sabpuja SP-BLOG-FLUID-001: reusable fluid layout primitives.
+ * Import AFTER tokens/tokens.css. No hardcoded brand palette, device profiles,
+ * production article data, or JavaScript-dependent core layout.
+ * Component Lab/theme must review before runtime adoption.
+ */
+
+.sp-blog-root {
+  min-inline-size: 0;
+  font-family: var(--sp-font-body);
+  font-size: var(--sp-blog-type-body);
+  line-height: var(--sp-line-body);
+  overflow-wrap: break-word;
+}
+
+.sp-blog-root,
+.sp-blog-root *,
+.sp-blog-root *::before,
+.sp-blog-root *::after {
+  box-sizing: border-box;
+}
+
+.sp-blog-shell {
+  inline-size: 100%;
+  max-inline-size: var(--sp-blog-shell-max);
+  margin-inline: auto;
+  padding-inline: var(--sp-blog-gutter);
+  container-type: inline-size;
+}
+
+.sp-blog-reader {
+  inline-size: 100%;
+  max-inline-size: min(var(--sp-blog-reader-max), var(--sp-blog-reader-measure));
+  min-inline-size: 0;
+  margin-inline: auto;
+}
+
+.sp-blog-root :is(h1, h2, h3) {
+  font-family: var(--sp-font-heading);
+  line-height: var(--sp-line-tight);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.sp-blog-root h1 { font-size: var(--sp-blog-type-h1); }
+.sp-blog-root h2 { font-size: var(--sp-blog-type-h2); }
+.sp-blog-root h3 { font-size: var(--sp-blog-type-h3); }
+
+.sp-blog-reader :is(p, li, dd) {
+  overflow-wrap: break-word;
+}
+
+.sp-blog-reader :is(img, picture, video, iframe) {
+  max-inline-size: 100%;
+}
+
+.sp-blog-reader img,
+.sp-blog-reader video {
+  block-size: auto;
+}
+
+.sp-blog-root :is(h2, h3, h4)[id] {
+  scroll-margin-block-start: var(--sp-blog-anchor-offset);
+}
+
+.sp-blog-stack {
+  display: grid;
+  gap: var(--sp-blog-stack-gap);
+  min-inline-size: 0;
+}
+
+.sp-blog-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(min(100%, var(--sp-blog-card-min)), 1fr));
+  gap: var(--sp-blog-grid-gap);
+  min-inline-size: 0;
+}
+
+.sp-blog-card {
+  min-inline-size: 0;
+  padding: var(--sp-blog-card-padding);
+  border-radius: var(--sp-radius-card);
+}
+
+.sp-blog-feature {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--sp-blog-grid-gap);
+  align-items: center;
+  min-inline-size: 0;
+}
+
+.sp-blog-reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-blog-grid-gap);
+  min-inline-size: 0;
+  align-items: start;
+}
+
+.sp-blog-reading-layout > * { min-inline-size: 0; }
+
+/* Content-driven composition, not mobile/tablet/desktop breakpoints.
+   Requires a parent .sp-blog-shell container. */
+@container (min-width: 62rem) {
+  .sp-blog-reading-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(var(--sp-blog-toc-min), var(--sp-blog-toc-max));
+  }
+  .sp-blog-reading-layout > .sp-blog-toc {
+    position: sticky;
+    inset-block-start: var(--sp-blog-anchor-offset);
+  }
+}
+
+.sp-blog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-blog-stack-gap);
+  min-inline-size: 0;
+}
+
+.sp-blog-actions :is(button, a) {
+  min-block-size: var(--sp-control-min-height);
+}
+
+/* Wide comparisons remain fully available through an explicitly labelled,
+   keyboard-focusable scroll region; HTML table remains in initial DOM. */
+.sp-blog-comparison {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  min-inline-size: 0;
+}
+
+.sp-blog-comparison table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  min-inline-size: max-content;
+}
+
+.sp-blog-comparison:focus-visible {
+  outline: 0.2rem solid var(--sp-color-primary);
+  outline-offset: 0.2rem;
+}
+
+/* No component-specific device @media rules. Motion preference is a feature. */
+@media (prefers-reduced-motion: reduce) {
+  .sp-blog-root {
+    scroll-behavior: auto;
+  }
+}
