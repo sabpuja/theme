@@ -85,6 +85,13 @@
    announce(hindi?'Representative Hindi headings enabled for layout review':'English headings restored');
   });
  }
+ const layoutToggle=app.querySelector('[data-layout-toggle]');
+ const storyBoard=app.querySelector('[data-library-grid]');
+ layoutToggle?.addEventListener('click',()=>{
+   const grid=storyBoard?.classList.toggle('is-grid')??false;
+   layoutToggle.setAttribute('aria-pressed',String(grid));
+   layoutToggle.textContent=grid?'Use Pinterest-style layout':'Switch to even grid';
+ });
  if(search)search.addEventListener('input',filterLibrary);
  for(const b of filters)b.addEventListener('click',()=>{
   currentFilter=b.dataset.topicFilter;
