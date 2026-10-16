@@ -62,3 +62,17 @@ Do not remove the theme-id guard; fix the staging preview authentication first. 
 - This PR's local lint checker now detects active legacy image-map references, unexpected `sp-` snippet references and obsolete settings-data keys in addition to global-width leakage/invalid section schema. Automated browser QA remains staged and **deliberately not run** as requested.
 
 **Acceptance still separate:** authenticated unpublished-theme preview, human visual QA, accessibility, 200% zoom/Hindi and cart flow; do not mark any visual/functional test passed until executed. The core component-driven implementation is present in Shopify staging, but visual acceptance and live rollout are excluded from this phase. Legacy theme files unrelated to the active Sabpuja templates and the Shopify-protected compatibility aliases may remain physically present.
+
+## 2026-10-16: SP-PROD-001B compact product cards (Shopify staging only)
+
+The merchant supplied the Shop All screenshot and the approved reference: https://sabpuja.github.io/theme/components/product-card/ (SP-PROD-001B). The `Sabpuja-Staging-2026` unpublished theme `189276291388` was modified directly through Shopify theme file upsert, **not** the MAIN theme.
+
+- Replaced multiple layered legacy CSS generations with one compact `assets/sabpuja-product-card.css`; maintained 1:1 images, optional hover image, contextual badging, natural untruncated product titles, 44px CTAs and explicit stock state.
+- Updated `snippets/sabpuja-product-card.liquid`: short sanitized description (preferred product metafields, fallback to existing Shopify description), a maximum of two customer-facing highlight chips (approved `sabpuja/custom.card_highlights` metafield values or `card:`-prefixed Shopify tags), and authentic compare-at/savings using the selected variant's real Shopify price. No illustrative discount data.
+- Kit cards are no longer excluded from legitimate sale handling; variable-price cards do not show misleading compare-at savings for another variant.
+- Introduced two editable options in `sections/sabpuja-collection-grid.liquid`: show short descriptions and show public highlight chips. Both enabled by default. Canonical snippet remains shared by collection, homepage, related products and search uses.
+- Verified saved Shopify files differ from live and theme remained `UNPUBLISHED`. Section schema parsed, CSS braces balanced, media aspect ratio square, no legacy styling overrides.
+- Real sample: Aries (Mesha) currently priced ₹1,999 in Shopify with no compare-at price; the Component Lab ₹2,499/₹2,999 discount is illustrative and was **not** copied to staging.
+- Product highlight text is intentionally absent where no opt-in `card:` tags / `card_highlights` metafields exist. Future catalog enrichment may populate them, but note tags/metafields are shared across themes. No shared catalog data was edited.
+
+**Not yet accepted:** authenticated unpublished preview and visual QA at mixed responsive widths, Hindi/product-translation, real price/discount rendering and compare-at variants, content summaries, accessibility, wishlist touch target, 200% zoom. This change was source-verified only.
