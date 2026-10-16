@@ -144,11 +144,32 @@ function showReader(id){
  }
  tabs.forEach((button,i)=>{button.addEventListener("click",()=>changeTab(i,false));button.addEventListener("keydown",e=>{let n=null;if(e.key==="ArrowRight")n=(i+1)%tabs.length;else if(e.key==="ArrowLeft")n=(i-1+tabs.length)%tabs.length;else if(e.key==="Home")n=0;else if(e.key==="End")n=tabs.length-1;if(n!==null){e.preventDefault();changeTab(n,true);}});});
 }
+/* Native fragment scrolling can target a now-hidden format specimen before hydration.
+   Reassert the reader start after browser fragment handling, including initial load. */
+function scrollReaderTop(){
+ if(!/^#format-F(0[1-9]|1[0-9]|20)$/.test(location.hash))return;
+ const top=reader.getBoundingClientRect().top+window.scrollY;
+ window.scrollTo({top:Math.max(0,top-8),behavior:"instant"});
+}
+function scheduleScroll(){
+ requestAnimationFrame(scrollReaderTop);
+ setTimeout(scrollReaderTop,80);
+ setTimeout(scrollReaderTop,320);
+}
+window.addEventListener("load",()=>{
+ if(/^#format-F(0[1-9]|1[0-9]|20)$/.test(location.hash)){
+  setTimeout(scrollReaderTop,160);
+  setTimeout(scrollReaderTop,550);
+ }
+});
 function sync(){
  const hash=decodeURIComponent(location.hash.replace(/^#/,""));
  const match=/^format-(F(0[1-9]|1[0-9]|20))$/.exec(hash);
  const id=match?match[1]:(picker?picker.value:active);
- if(hash==="reader"||match){showReader(id);if(match)requestAnimationFrame(()=>reader.scrollIntoView({block:"start",behavior:"auto"}));}
+ if(hash==="reader"||match){
+  showReader(id);
+  if(match)scheduleScroll();
+ }
 }
 window.addEventListener("hashchange",sync);
 if(picker)picker.addEventListener("change",()=>{setTimeout(sync,0);});
