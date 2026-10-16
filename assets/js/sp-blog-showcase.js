@@ -24,6 +24,7 @@
  const resolve=()=>{
   const v=decodeURIComponent(location.hash.slice(1));
   if(v==='library'||v==='hub'||v==='reader')return {view:v,format:null};
+  if(/^spbr-(short|deep|interact|shop|connect)$/.test(v))return {view:'reader',format:null};
   if(/^format-F(0[1-9]|1[0-9]|20)$/.test(v))return {view:'reader',format:v.split('-').slice(1).join('-')};
   return {view:'library',format:null};
  };
