@@ -2,6 +2,20 @@
 
 These rules apply to all automated and human-assisted work in `sabpuja/theme`.
 
+## Read first: canonical live Sabpuja Foundations
+
+**Mandatory design authority:** https://lab.srv2005300.hstgr.cloud/theme/foundations/
+
+Before any agent (Codex, Claude, Copilot or others) proposes or edits storefront styling, layout, responsive behavior, font, color, spacing, header/footer, product/card, account, Puja Guide or editorial UI:
+
+1. Open and read the **current live Foundations page**, and review [`sabpuja/design-system/AGENTS.md`](https://github.com/sabpuja/design-system/blob/main/AGENTS.md), approved Component Lab patterns and implementation tokens. Do not rely on historical screenshots or outdated static palette tables.
+2. Apply fluid-first design (`clamp()`, `min()`, `max()`, intrinsic CSS Grid/Flex, `auto-fit`/`minmax()`, wrapping and container queries for genuine composition changes). Never build device-model-specific breakpoints or separate mobile/desktop copies solely to resize text/gutters. Keep Poppins headings and Inter body/UI, Hindi fallback and a unified 4px-derived rhythm. Use component max ~1160–1240px and article reading width ~680–760px as the **target canonical system** with fluid gutters.
+3. Use shared CSS tokens and canonical components; avoid inline/one-off styling, competing token palettes, hardcoded layout/text/product IDs/URLs, and global `!important` patches when a reusable or Shopify-editable solution exists. Keep source content, product/media, navigation and locale strings editable and data driven.
+4. Perform visual/functional QA across narrow-to-wide and awkward intermediate widths, Hindi/long text, 200% zoom, keyboard navigation, accessible touch targets, reduced motion, and no horizontal overflow/CTA overlaps. Record any exceptions and link the applicable approval in the PR.
+5. The live Foundations governs design intent. Existing theme density values below describe the **current deployed baseline**, not a license to ignore the approved design system. Migrating deployed widths/density to the new fluid standard requires a scoped, reviewed PR and regression checks. **This policy update does not make production code changes**.
+
+Human authorization, GitHub/Shopify safety rules, and the approved design-system logo manifest remain binding. If the live Foundations cannot be checked, note the blocker rather than assuming an old specification is current.
+
 ## Safety
 
 - Work on unpublished staging themes unless an explicit cutover instruction says otherwise.
@@ -19,6 +33,8 @@ These rules apply to all automated and human-assisted work in `sabpuja/theme`.
 - Do not invent prices, discounts, scarcity, ratings, customer counts, product contents, or outcome claims.
 
 ## Storefront density — LOCKED
+
+**2026-10-16 migration clarification:** The pixel values below preserve consistency of currently deployed compact sections during QA. They are a legacy implementation baseline, not the target specification for new UI. The owner has selected the live Foundations page above for the future shared fluid system; change deployed width, hero and density tokens only through a reviewed design-system migration with adjacent-section checks.
 
 The compact Sabpuja storefront density is a cross-theme invariant. Do not independently enlarge a section.
 
@@ -82,7 +98,7 @@ Before considering a density-affecting task complete, inspect at minimum:
 
 ## Change control
 
-The compact density contract is a permanent implementation constraint. If a larger value is genuinely required, document the reason, obtain explicit approval, and regression-check the whole affected page before merging or applying it to Shopify staging.
+The compact-density contract remains a regression constraint for already deployed sections until a reviewed fluid-system migration replaces the applicable legacy values. Do not silently widen or enlarge sections to match another page. When the new canonical Foundations calls for a change, document the migration, review it as a system, and regression-check the entire affected page before merging or applying it to Shopify staging.
 
 The source-of-truth product requirement is maintained in `sabpuja/core/docs/prd/storefront-density-contract.md`.
 
