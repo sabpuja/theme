@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, access } from 'node:fs/promises';
 import { resolve, join, relative, extname } from 'node:path';
 
 const themeDir = resolve(process.env.SABPUJA_THEME_DIR || process.argv[2] || '.');
@@ -7,6 +7,7 @@ const directories = ['assets', 'sections', 'snippets', 'templates', 'layout'];
 const warnings = [], errors = [];
 let scanned = 0;
 let fluidUsage = 0;
+const requiredSnippetReferences = new Map();
 
 async function traverse(dir) {
   const entries = await readdir(dir, { withFileTypes: true }).catch(() => []);
@@ -17,7 +18,17 @@ async function traverse(dir) {
     scanned += 1;
     const text = await readFile(file, 'utf8');
     const name = relative(themeDir, file).replaceAll('\\', '/');
-    fluidUsage += (text.match(/clamp\s*\(/g) || []).length;
+    fluidUsage += (text.match(/clamp\\s*\\(/g) || []).length;
+    for (const found of text.matchAll(/{%\\s*(?:render|include)\\s+['"](sp-[\\w-]+)['"]/g)) {
+      if (!requiredSnippetReferences.has(found[1])) requiredSnippetReferences.set(found[1], new Set());
+      requiredSnippetReferences.get(found[1]).add(name);
+    }
+    if (name.startsWith('sections/') && /(?:render|include)\\s+['"]sp-staging-/.test(text)) {
+      errors.push({ file: name, rule: 'active-staging-image-helper', message: 'Use approved theme-local media snippets; old names are compatibility only.' });
+    }
+    if (/settings\\.sp_(?:rb|stage)_[a-z0-9_]+/.test(text)) {
+      errors.push({ file: name, rule: 'obsolete-image-settings', message: 'Legacy preview image settings may not be referenced by active theme code.' });
+    }
     if (name.startsWith('sections/') && /:root\s*\{[^}]*--sp-storefront-container\s*:/s.test(text)) {
       errors.push({ file: name, rule: 'global-width-leak', message: 'Section writes to :root --sp-storefront-container; use a section-scoped property.' });
     }
@@ -43,6 +54,16 @@ async function traverse(dir) {
   }
 }
 for (const dir of directories) await traverse(join(themeDir, dir));
+for (const [snippet, callers] of requiredSnippetReferences.entries()) {
+  try { await access(join(themeDir, 'snippets', snippet + '.liquid')); }
+  catch {
+    errors.push({ file: [...callers].join(', '), rule: 'missing-shared-snippet', message: snippet + ' must exist in the pulled theme.' });
+  }
+}
+const settingsData = await readFile(join(themeDir, 'config/settings_data.json'), 'utf8').catch(() => '');
+if (/"sp_(?:rb|stage)_[a-z0-9_]+"/.test(settingsData)) {
+  errors.push({ file: 'config/settings_data.json', rule: 'inactive-staging-map-keys', message: 'Old staging image maps must not be kept after approved imagery migration.' });
+}
 if (scanned === 0) {
   console.error('No theme CSS/Liquid files found. Set SABPUJA_THEME_DIR to a pulled unpublished theme.');
   process.exit(2);
