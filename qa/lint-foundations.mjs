@@ -18,15 +18,15 @@ async function traverse(dir) {
     scanned += 1;
     const text = await readFile(file, 'utf8');
     const name = relative(themeDir, file).replaceAll('\\', '/');
-    fluidUsage += (text.match(/clamp\\s*\\(/g) || []).length;
-    for (const found of text.matchAll(/{%\\s*(?:render|include)\\s+['"](sp-[\\w-]+)['"]/g)) {
+    fluidUsage += (text.match(/clamp\s*\(/g) || []).length;
+    for (const found of text.matchAll(/{%\s*(?:render|include)\s+['"](sp-[\w-]+)['"]/g)) {
       if (!requiredSnippetReferences.has(found[1])) requiredSnippetReferences.set(found[1], new Set());
       requiredSnippetReferences.get(found[1]).add(name);
     }
-    if (name.startsWith('sections/') && /(?:render|include)\\s+['"]sp-staging-/.test(text)) {
+    if (name.startsWith('sections/') && /(?:render|include)\s+['"]sp-staging-/.test(text)) {
       errors.push({ file: name, rule: 'active-staging-image-helper', message: 'Use approved theme-local media snippets; old names are compatibility only.' });
     }
-    if (/settings\\.sp_(?:rb|stage)_[a-z0-9_]+/.test(text)) {
+    if (/settings\.sp_(?:rb|stage)_[a-z0-9_]+/.test(text)) {
       errors.push({ file: name, rule: 'obsolete-image-settings', message: 'Legacy preview image settings may not be referenced by active theme code.' });
     }
     if (name.startsWith('sections/') && /:root\s*\{[^}]*--sp-storefront-container\s*:/s.test(text)) {
