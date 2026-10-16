@@ -1,0 +1,14 @@
+{
+  "name": "sabpuja-staging-theme-qa",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Local-only audit and responsive QA for unpublished Sabpuja Shopify themes",
+  "type": "module",
+  "scripts": {
+    "lint:foundations": "node qa/lint-foundations.mjs",
+    "qa:staging": "playwright test --config qa/playwright.config.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.0"
+  }
+}
