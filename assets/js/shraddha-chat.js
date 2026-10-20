@@ -95,7 +95,7 @@
     ['👍','👎'].forEach((sym,index)=>{const btn=document.createElement('button');btn.type='button';btn.textContent=sym;btn.setAttribute('aria-label',index?'Not helpful':'Helpful');btn.setAttribute('aria-pressed','false');btn.addEventListener('click',()=>{row.querySelectorAll('button').forEach(el=>el.setAttribute('aria-pressed',String(el===btn)));label.textContent=lang.thanked});row.append(btn)});
     transcript.append(row);
   }
-  function openChat(shouldFocus=false){demo.dataset.open='true';launcher.setAttribute('aria-expanded','true');if(shouldFocus)windowEl.focus()}
+  function openChat(shouldFocus=false){demo.dataset.open='true';demo.dataset.seen='true';launcher.setAttribute('aria-expanded','true');if(shouldFocus)windowEl.focus()}
   function closeChat(){demo.dataset.open='false';launcher.setAttribute('aria-expanded','false');launcher.focus()}
   function setScenario(value){
     scenario=value;document.querySelectorAll('[data-chat-scenario]').forEach(b=>{const on=b.dataset.chatScenario===value;b.classList.toggle('is-active',on);b.setAttribute('aria-pressed',String(on))});
