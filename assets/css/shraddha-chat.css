@@ -245,3 +245,43 @@ body{background:#fbf9f6;color:var(--sp-color-text);font-family:Inter,'Noto Sans 
   .assistant-launcher.assistant-launcher--approved{transition:none}
   .assistant-launcher.assistant-launcher--approved:hover{transform:none}
 }
+
+/* SP-CHAT-001E | Gentle float and halo for the approved static artwork.
+   The original gold speech bubble, curved tail and red dot live inside the
+   approved WebP asset. No CSS redraw, no alert or unread-message claims. */
+.assistant-launcher.assistant-launcher--approved img.assistant-launcher__asset{
+  /* A low-cost resting glow so the button remains discoverable without motion. */
+  filter:drop-shadow(0 2px 5px #33241f24) drop-shadow(0 0 5px #f4b40060);
+}
+@media (prefers-reduced-motion:no-preference){
+  @keyframes sp-chat-float{
+    0%,100%{transform:translate3d(0,0,0)}
+    50%{transform:translate3d(0,-5px,0)}
+  }
+  @keyframes sp-chat-gold-halo{
+    0%,100%{filter:drop-shadow(0 3px 5px #33241f20) drop-shadow(0 0 5px #f4b40050)}
+    50%{filter:drop-shadow(0 7px 10px #33241f29) drop-shadow(0 0 12px #f4b400ac)}
+  }
+  #assistant-demo[data-open="false"] .assistant-launcher.assistant-launcher--approved:not(:hover):not(:focus-visible){
+    animation:sp-chat-float 4.8s ease-in-out infinite;
+  }
+  #assistant-demo[data-open="false"] .assistant-launcher.assistant-launcher--approved:not(:hover):not(:focus-visible) img.assistant-launcher__asset{
+    animation:sp-chat-gold-halo 4.8s ease-in-out infinite;
+  }
+  #assistant-demo[data-open="false"] .assistant-launcher.assistant-launcher--approved:is(:hover,:focus-visible){
+    animation:none;transform:translateY(-2px) scale(1.035);
+  }
+  #assistant-demo[data-open="false"] .assistant-launcher.assistant-launcher--approved:is(:hover,:focus-visible) img.assistant-launcher__asset{
+    animation:none;
+    filter:drop-shadow(0 6px 10px #33241f26) drop-shadow(0 0 11px #f4b400b0);
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  #assistant-demo .assistant-launcher.assistant-launcher--approved,
+  #assistant-demo .assistant-launcher.assistant-launcher--approved img.assistant-launcher__asset{
+    animation:none!important;transition:none!important;
+  }
+  #assistant-demo .assistant-launcher.assistant-launcher--approved:hover{
+    transform:none;
+  }
+}
