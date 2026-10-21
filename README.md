@@ -30,3 +30,7 @@ Shopify storefront implementation for Sab Puja.
 
 ## Development rule
 Every production change should map to a core requirement or issue and be implemented through a focused branch/PR.
+
+## Shopify release safety: customer account routing
+
+Before a staging theme can become the live theme, run the mandatory [account routing release gate](docs/account-routing-release-gate.md). The protected cross-platform Node.js publication entrypoint is "scripts/publish-theme-safely.mjs"; it runs the guard against the actual unpublished Shopify theme and refuses to publish on failure. No GitHub Actions are used, and a PASS alone does not authorize publication.
