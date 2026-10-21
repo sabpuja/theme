@@ -24,7 +24,7 @@ Run the remote check with --theme-id for **every** proposed publication. The gua
 
 1. Exchanges the release-guard Dev Dashboard app Client ID and secret for a short-lived Admin API token **in memory only**; no credentials or insufficient permissions means FAIL. A legacy SHOPIFY_ADMIN_API_ACCESS_TOKEN can also be supplied for a manual check.
 2. Queries Shopify Admin to confirm the app was granted **only** read_themes and read_online_store_pages, New Customer Accounts, the expected base URL, the **registered** dashboard full-page extension name/ID, and an UNPUBLISHED target theme.
-3. Uses Shopify CLI to pull six relevant files **directly from the selected theme**, preventing a stale local checkout from passing.
+3. Uses Shopify CLI to pull six relevant files **directly from the selected theme**, preventing a stale local checkout from passing. On Windows the guard invokes Shopify's Node entrypoint without an intermediate command shell, preventing Node DEP0190 shell interpolation warnings.
 4. Validates the active header, central snippet, sign-in page, desktop/mobile account links, modal destination and both JavaScript redirect flows.
 5. Exits nonzero on any mismatch. It never writes to the theme or publishes.
 
@@ -32,7 +32,7 @@ Offline --theme-dir mode checks local files only, and explicitly does not approv
 
 ## Windows setup and commands (PowerShell terminal)
 
-Requirements: Node.js 20+, installed/authenticated Shopify CLI and a Shopify Dev Dashboard app installed on the Sabpuja store with **only** read_themes and read_online_store_pages. Name: Sabpuja Release Guard (Read Only). Use the default non-embedded app URL from Shopify. Set its Client ID and secret securely; never paste or commit credentials. The guard automatically requests a new 24-hour token on each remote check.
+Requirements: Node.js 20+, installed/authenticated Shopify CLI and a Shopify Dev Dashboard app installed on the Sabpuja store with **only** read_themes and read_online_store_pages. App display name in Dev Dashboard: **SabpujaReleaseGuard-Read Only**. Use the default non-embedded app URL from Shopify. Set its Client ID and secret securely; never paste or commit credentials. The guard automatically requests a new 24-hour token on each remote check.
 
 From a checked-out sabpuja/theme repository:
 
@@ -48,6 +48,10 @@ $env:SABPUJA_GUARD_CLIENT_SECRET = [System.Net.NetworkCredential]::new('', $secu
 
 # Read-only Shopify staging validation; the script requests its own 24-hour token:
 node .\scripts\account-routing-guard.mjs --theme-id 189358014780
+
+# Always clear the credentials from your PowerShell process after the run:
+Remove-Item Env:SABPUJA_GUARD_CLIENT_ID -ErrorAction SilentlyContinue
+Remove-Item Env:SABPUJA_GUARD_CLIENT_SECRET -ErrorAction SilentlyContinue
 ~~~
 
 Offline source check (not a release approval):
@@ -83,10 +87,17 @@ The Node publisher repeats the remote guard, asks for the exact word PUBLISH, an
 ## Dev Dashboard app setup
 
 1. Open https://dev.shopify.com/dashboard and select your organization > Apps > Create app > Start from Dev Dashboard.
-2. Name the app **Sabpuja Release Guard (Read Only)**. No theme extension, checkout surface or embedded admin UI is needed.
+2. Name the app **SabpujaReleaseGuard-Read Only**. No theme extension, checkout surface or embedded admin UI is needed.
 3. Create an app version with the default non-embedded App URL `https://shopify.dev/apps/default-app-home` and exactly two API scopes: `read_themes`, `read_online_store_pages`. Do not select write scopes, customer scopes or order scopes.
 4. Release the app version and install it on **ghf6bp-fy.myshopify.com**. Confirm only the two read permissions are requested.
 5. On app Settings, retrieve the Client ID and Client secret, and set the two environment variables locally using the PowerShell example. Do not store secrets in GitHub or chat.
 6. Run the guard. It verifies actual granted scopes on every invocation, and requests a token using the client-credentials grant at Shopify's OAuth endpoint.
 
 Shopify references: https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard and https://shopify.dev/docs/apps/build/authentication-authorization/client-credentials-grant?lang=node
+
+## Verified integration evidence (2026-10-21)
+
+- The owner ran the read-only `--theme-id 189358014780` remote release guard with temporary environment credentials for the Dev Dashboard app. Shopify returned the correct account extension and unpublished theme; Shopify CLI pulled the files and reported **ACCOUNT ROUTING GATE: PASS (remote Shopify verification)**.
+- Original Windows launcher produced Node `DEP0190` due to `shell:true` and `.cmd` invocation. The revised launcher calls the installed `@shopify/cli/bin/run.js` directly with Node and `shell:false`, without changing store code.
+- On the authorized Windows device, **15 automated checks passed** and Shopify CLI v4.9.4 returned the exact unpublished staging theme via the JavaScript entrypoint with exit code 0.
+- The final credentialed remote guard should be rerun once against the revised launcher to confirm the warning is removed in the complete workflow. No credentials are written to GitHub and the release script does not publish during checks.
