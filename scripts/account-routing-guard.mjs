@@ -7,8 +7,8 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { runShopifyCli } from './shopify-cli-runner.mjs';
 
 export const CONTRACT = Object.freeze({
   store: 'ghf6bp-fy.myshopify.com',
@@ -164,17 +164,9 @@ async function verifyShopifyAccountAndTheme(themeId) {
 }
 
 function pullTheme(themeId, destination) {
-  const localCli = process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'SabpujaTools', 'shopify.cmd') : null;
-  const command = process.platform === 'win32'
-    ? (localCli && fs.existsSync(localCli) ? localCli : 'shopify.cmd')
-    : 'shopify';
   const args = ['theme', 'pull', '--store', CONTRACT.store, '--theme', themeId, '--path', destination, '--no-input'];
   for (const file of REQUIRED) args.push('--only', file);
-  const result = spawnSync(command, args, {
-    stdio: 'inherit',
-    shell: process.platform === 'win32',
-    windowsHide: false,
-  });
+  const result = runShopifyCli(args);
   if (result.error) throw new Error('Unable to start Shopify CLI: ' + result.error.message);
   if (result.status !== 0) throw new Error('Shopify CLI theme pull failed; publication blocked.');
 }
