@@ -16,8 +16,9 @@ if (args.length !== 2 || args[0] !== '--theme-id' || !/^\d+$/.test(args[1])) {
   process.exit(2);
 }
 const themeId = args[1];
-if (!process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN) {
-  console.error('Missing SHOPIFY_ADMIN_API_ACCESS_TOKEN. Publication blocked.');
+if (!(process.env.SABPUJA_GUARD_CLIENT_ID && process.env.SABPUJA_GUARD_CLIENT_SECRET) &&
+    !process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN) {
+  console.error('Missing read-only Dev Dashboard credentials. Publication blocked.');
   process.exit(1);
 }
 
