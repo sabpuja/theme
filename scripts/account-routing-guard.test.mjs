@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { CONTRACT, REQUIRED, validateThemeFiles } from './account-routing-guard.mjs';
+import { CONTRACT, REQUIRED, validateThemeFiles, requestDevDashboardToken } from './account-routing-guard.mjs';
 
 // Small representative file fixture. Remote checks always read actual Shopify files.
 function fixture() {
@@ -87,4 +87,26 @@ test('returning customer to Shopify native Orders is rejected', () => {
   files['sections/sabpuja-account-sign-in.liquid'] +=
     '\n<form data-return-to="{{ routes.account_url }}"></form>';
   assert.match(validateThemeFiles(files).join('\n'), /returns to Shopify native Orders/);
+});
+
+
+test('Dev Dashboard token exchange uses client credentials without logging a secret', async () => {
+  let captured;
+  const fakeFetch = async (url, options) => {
+    captured = { url, options };
+    return { ok: true, json: async () => ({ access_token: 'test-only-transient-token' }) };
+  };
+  const token = await requestDevDashboardToken('test-client-id', 'test-secret', fakeFetch);
+  assert.equal(token, 'test-only-transient-token');
+  assert.equal(captured.url, 'https://' + CONTRACT.store + '/admin/oauth/access_token');
+  assert.equal(captured.options.method, 'POST');
+  assert.equal(captured.options.body.get('grant_type'), 'client_credentials');
+  assert.equal(captured.options.body.get('client_id'), 'test-client-id');
+  assert.equal(captured.options.body.get('client_secret'), 'test-secret');
+});
+
+test('invalid or empty credentials fail closed', async () => {
+  await assert.rejects(requestDevDashboardToken('', 'secret'), /Missing/);
+  await assert.rejects(requestDevDashboardToken('client', 'secret', async () =>
+    ({ ok: false, status: 401 })), /failed/);
 });
