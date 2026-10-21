@@ -4,7 +4,7 @@
 
 On 2026-10-21 a theme migration replaced our registered Sabpuja dashboard destination with Shopify's native "routes.account_url". The full-page Customer Account extension still existed, but customers landed on Shopify's basic Orders page. The release guard catches this regression **before theme publication**.
 
-No GitHub Actions, new service, scheduler or Shopify Admin publish hook is required. This is a read-only local validation command plus a protected Windows PowerShell publish wrapper.
+No GitHub Actions, new service, scheduler or Shopify Admin publish hook is required. This is a read-only local validation command plus a protected Node.js publication command.
 
 ## Approved routing contract
 
@@ -30,7 +30,7 @@ Run the remote check with --theme-id for **every** proposed publication. The gua
 
 Offline --theme-dir mode checks local files only, and explicitly does not approve publication.
 
-## Windows PowerShell
+## Windows setup and commands (PowerShell terminal)
 
 Requirements: Node.js 20+, installed/authenticated Shopify CLI and an Admin API access token with permission to read themes and customer account pages. Never paste or commit tokens.
 
@@ -56,10 +56,10 @@ node .\scripts\account-routing-guard.mjs --theme-dir 'C:\path\to\pulled-theme'
 **Only when all other QA is completed and a cutover is authorized**, run:
 
 ~~~powershell
-.\scripts\publish-theme-safely.ps1 -ThemeId 189358014780
+node .\scripts\publish-theme-safely.mjs --theme-id 189358014780
 ~~~
 
-This wrapper repeats the remote guard, asks for the exact word PUBLISH, and then uses Shopify CLI's normal interactive theme publish. It intentionally does not add --force. If local PowerShell execution policy blocks .ps1, consult the machine owner for an approved process-scoped method; never loosen machine-wide policy to run this.
+The Node publisher repeats the remote guard, asks for the exact word PUBLISH, and then uses Shopify CLI's normal interactive theme publish. It intentionally does not add --force and does not require changes to Windows PowerShell execution policy.
 
 ## Limits and non-bypass policy
 
