@@ -123,7 +123,10 @@ async function verifyShopifyAccountAndTheme(themeId) {
 }
 
 function pullTheme(themeId, destination) {
-  const command = process.platform === 'win32' ? 'shopify.cmd' : 'shopify';
+  const localCli = process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'SabpujaTools', 'shopify.cmd') : null;
+  const command = process.platform === 'win32'
+    ? (localCli && fs.existsSync(localCli) ? localCli : 'shopify.cmd')
+    : 'shopify';
   const args = ['theme', 'pull', '--store', CONTRACT.store, '--theme', themeId, '--path', destination, '--no-input'];
   for (const file of REQUIRED) args.push('--only', file);
   const result = spawnSync(command, args, {
