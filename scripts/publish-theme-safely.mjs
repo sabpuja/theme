@@ -4,6 +4,8 @@
  * Explicit operator invocation only. Never called by tests or schedulers.
  */
 import { spawnSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 import { createInterface } from 'node:readline/promises';
 import { fileURLToPath } from 'node:url';
 import { CONTRACT } from './account-routing-guard.mjs';
@@ -38,7 +40,10 @@ if (answer !== 'PUBLISH') {
   process.exit(1);
 }
 
-const cli = process.platform === 'win32' ? 'shopify.cmd' : 'shopify';
+const localCli = process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'SabpujaTools', 'shopify.cmd') : null;
+const cli = process.platform === 'win32'
+  ? (localCli && existsSync(localCli) ? localCli : 'shopify.cmd')
+  : 'shopify';
 const publish = spawnSync(
   cli,
   ['theme', 'publish', '--theme', themeId, '--store', CONTRACT.store],
