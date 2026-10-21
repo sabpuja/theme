@@ -121,6 +121,6 @@ Do not create or modify `.github/workflows/*` without explicit human approval. O
 
 The Sabpuja account icon and sign-in flow must resolve to the registered **Sabpuja Account Dashboard** full-page Shopify Customer Account extension, never Shopify's native Orders route. The centralized routing snippet is the theme's only account dashboard destination.
 
-Before **any** unpublished theme is promoted to MAIN, use the read-only verification described in [docs/account-routing-release-gate.md](docs/account-routing-release-gate.md) and receive an explicit PASS from "node scripts/account-routing-guard.mjs --theme-id THEME_ID". Use the protected "scripts/publish-theme-safely.ps1" entrypoint only after full QA and cutover authorization. Missing Shopify access, any routing mismatch, or skipped checks are release blockers.
+Before **any** unpublished theme is promoted to MAIN, use the read-only verification described in [docs/account-routing-release-gate.md](docs/account-routing-release-gate.md) and receive an explicit PASS from "node scripts/account-routing-guard.mjs --theme-id THEME_ID". Use the protected "scripts/publish-theme-safely.mjs" entrypoint only after full QA and cutover authorization. Missing Shopify access, any routing mismatch, or skipped checks are release blockers.
 
 Never bypass this check using Shopify Admin's Publish button or direct unguarded CLI publish as a normal workflow. Avoid GitHub Actions. A documented release PASS is required, but successful routing checks do not replace authenticated customer QA or authorize publication.
