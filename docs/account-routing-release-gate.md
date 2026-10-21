@@ -22,8 +22,8 @@ If Shopify changes any of these, validate registration with the Admin API and de
 
 Run the remote check with --theme-id for **every** proposed publication. The guard:
 
-1. Requires SHOPIFY_ADMIN_API_ACCESS_TOKEN; no token or insufficient permissions means FAIL.
-2. Queries Shopify Admin to confirm New Customer Accounts, the expected base URL, the **registered** dashboard full-page extension name/ID, and an UNPUBLISHED target theme.
+1. Exchanges the release-guard Dev Dashboard app Client ID and secret for a short-lived Admin API token **in memory only**; no credentials or insufficient permissions means FAIL. A legacy SHOPIFY_ADMIN_API_ACCESS_TOKEN can also be supplied for a manual check.
+2. Queries Shopify Admin to confirm the app was granted **only** read_themes and read_online_store_pages, New Customer Accounts, the expected base URL, the **registered** dashboard full-page extension name/ID, and an UNPUBLISHED target theme.
 3. Uses Shopify CLI to pull six relevant files **directly from the selected theme**, preventing a stale local checkout from passing.
 4. Validates the active header, central snippet, sign-in page, desktop/mobile account links, modal destination and both JavaScript redirect flows.
 5. Exits nonzero on any mismatch. It never writes to the theme or publishes.
@@ -32,18 +32,21 @@ Offline --theme-dir mode checks local files only, and explicitly does not approv
 
 ## Windows setup and commands (PowerShell terminal)
 
-Requirements: Node.js 20+, installed/authenticated Shopify CLI and an Admin API access token with permission to read themes and customer account pages. Never paste or commit tokens.
+Requirements: Node.js 20+, installed/authenticated Shopify CLI and a Shopify Dev Dashboard app installed on the Sabpuja store with **only** read_themes and read_online_store_pages. Name: Sabpuja Release Guard (Read Only). Use the default non-embedded app URL from Shopify. Set its Client ID and secret securely; never paste or commit credentials. The guard automatically requests a new 24-hour token on each remote check.
 
 From a checked-out sabpuja/theme repository:
 
 ~~~powershell
 node --test .\scripts\account-routing-guard.test.mjs
 
-# Read the token in this session without echoing it to the console:
-$secret = Read-Host 'Shopify Admin API token' -AsSecureString
-$env:SHOPIFY_ADMIN_API_ACCESS_TOKEN = [System.Net.NetworkCredential]::new('', $secret).Password
+# Client ID is not secret; retrieve it from Dev Dashboard > App settings:
+$env:SABPUJA_GUARD_CLIENT_ID = Read-Host 'Sabpuja Release Guard Client ID'
 
-# Read-only Shopify staging validation:
+# Enter the Client secret locally without echoing it. Do not put secrets in chat:
+$secureSecret = Read-Host 'Sabpuja Release Guard Client secret' -AsSecureString
+$env:SABPUJA_GUARD_CLIENT_SECRET = [System.Net.NetworkCredential]::new('', $secureSecret).Password
+
+# Read-only Shopify staging validation; the script requests its own 24-hour token:
 node .\scripts\account-routing-guard.mjs --theme-id 189358014780
 ~~~
 
@@ -76,3 +79,14 @@ The Node publisher repeats the remote guard, asks for the exact word PUBLISH, an
 - Shopify CLI theme publish: https://shopify.dev/docs/api/shopify-cli/theme/theme-publish
 - Local repo rules: AGENTS.md
 - Global rules: sabpuja/core/docs/policies/GITHUB-SAFETY-GUARDRAILS.md
+
+## Dev Dashboard app setup
+
+1. Open https://dev.shopify.com/dashboard and select your organization > Apps > Create app > Start from Dev Dashboard.
+2. Name the app **Sabpuja Release Guard (Read Only)**. No theme extension, checkout surface or embedded admin UI is needed.
+3. Create an app version with the default non-embedded App URL `https://shopify.dev/apps/default-app-home` and exactly two API scopes: `read_themes`, `read_online_store_pages`. Do not select write scopes, customer scopes or order scopes.
+4. Release the app version and install it on **ghf6bp-fy.myshopify.com**. Confirm only the two read permissions are requested.
+5. On app Settings, retrieve the Client ID and Client secret, and set the two environment variables locally using the PowerShell example. Do not store secrets in GitHub or chat.
+6. Run the guard. It verifies actual granted scopes on every invocation, and requests a token using the client-credentials grant at Shopify's OAuth endpoint.
+
+Shopify references: https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard and https://shopify.dev/docs/apps/build/authentication-authorization/client-credentials-grant?lang=node
