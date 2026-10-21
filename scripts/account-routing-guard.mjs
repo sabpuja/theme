@@ -93,10 +93,45 @@ function readFiles(themeDir) {
   return result;
 }
 
-async function verifyShopifyAccountAndTheme(themeId) {
+/**
+ * Dev Dashboard custom apps use client credentials, not a permanent Admin API token.
+ * Request a 24-hour access token in memory for each release check. Never log it.
+ * An explicit Admin token remains supported for emergency/manual read-only checks.
+ */
+export async function requestDevDashboardToken(clientId, clientSecret, fetchImpl = fetch) {
+  if (!clientId || !clientSecret) throw new Error('Missing Dev Dashboard client credentials.');
+  const response = await fetchImpl('https://' + CONTRACT.store + '/admin/oauth/access_token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'client_credentials',
+      client_id: clientId,
+      client_secret: clientSecret,
+    }),
+    signal: AbortSignal.timeout(20000),
+  });
+  if (!response.ok) throw new Error('Shopify Dev Dashboard credential exchange failed (HTTP ' + response.status + ').');
+  const data = await response.json();
+  if (typeof data.access_token !== 'string' || !data.access_token) {
+    throw new Error('Shopify returned no Admin API access token.');
+  }
+  return data.access_token;
+}
+
+async function getGuardAccessToken() {
+  const clientId = process.env.SABPUJA_GUARD_CLIENT_ID;
+  const clientSecret = process.env.SABPUJA_GUARD_CLIENT_SECRET;
+  if (clientId || clientSecret) {
+    return requestDevDashboardToken(clientId, clientSecret);
+  }
   const token = process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN;
-  if (!token) throw new Error('Missing SHOPIFY_ADMIN_API_ACCESS_TOKEN; cannot validate registered extension. Publication blocked.');
-  const query = 'query SabpujaRoutingGate($id: ID!) { shop { myshopifyDomain customerAccountsV2 { customerAccountsVersion url } } theme(id: $id) { name role } customerAccountPages(first: 50) { nodes { __typename title handle ... on CustomerAccountAppExtensionPage { appExtensionUuid } } pageInfo { hasNextPage } } }';
+  if (token) return token;
+  throw new Error('Missing SABPUJA_GUARD_CLIENT_ID and SABPUJA_GUARD_CLIENT_SECRET. Publication blocked.');
+}
+
+async function verifyShopifyAccountAndTheme(themeId) {
+  const token = await getGuardAccessToken();
+  const query = 'query SabpujaRoutingGate($id: ID!) { shop { myshopifyDomain customerAccountsV2 { customerAccountsVersion url } } currentAppInstallation { accessScopes { handle } } theme(id: $id) { name role } customerAccountPages(first: 50) { nodes { __typename title handle ... on CustomerAccountAppExtensionPage { appExtensionUuid } } pageInfo { hasNextPage } } }';
   const response = await fetch('https://' + CONTRACT.store + '/admin/api/2026-10/graphql.json', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-Shopify-Access-Token': token },
@@ -108,6 +143,12 @@ async function verifyShopifyAccountAndTheme(themeId) {
   if (result.errors?.length) throw new Error('Shopify Admin GraphQL validation failed. Publication blocked.');
   const data = result.data;
   if (!data || data.shop?.myshopifyDomain !== CONTRACT.store) throw new Error('Connected Shopify store mismatch.');
+  const granted = data.currentAppInstallation?.accessScopes?.map((scope) => scope.handle);
+  const allowed = new Set(['read_themes', 'read_online_store_pages']);
+  if (!granted || !granted.includes('read_themes') ||
+      !granted.includes('read_online_store_pages') || granted.some((scope) => !allowed.has(scope))) {
+    throw new Error('Release Guard app has missing or excessive Shopify scopes. Require only read_themes and read_online_store_pages.');
+  }
   if (data.shop?.customerAccountsV2?.customerAccountsVersion !== 'NEW_CUSTOMER_ACCOUNTS') throw new Error('New Customer Accounts is not enabled.');
   if (data.shop?.customerAccountsV2?.url !== CONTRACT.accountBase) throw new Error('Account base URL changed; review and update contract first.');
   if (data.theme?.role !== 'UNPUBLISHED') throw new Error('Theme not found or not unpublished. MAIN theme publication blocked.');
