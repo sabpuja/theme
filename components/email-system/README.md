@@ -1,37 +1,52 @@
-# SP-EMAIL-001 · Sabpuja Email System
+# SP-EMAIL-002 · Sabpuja Email Template Library
 
-Status: Component Lab prototype, not Shopify-integrated or send-ready.
+Status: bilingual reusable Component Lab prototype. It is NOT a live Shopify notification, campaign, or automated message.
 
-## Authoritative sources
-- Live Foundations: https://sabpuja.github.io/theme/foundations/
-- Design tokens: sabpuja/design-system/tokens/tokens.css
-- Official unchanged horizontal logo: sabpuja/design-system/assets/logo/brand-assets.json approved-current
-- Source location: sabpuja/theme branch gh-pages, components/email-system/
-- Brand: Saffron #D35400; Temple Gold #F4B400; Sacred Brown #4E342E; Deep Brown #33241F; Cream #FFF8E7; Ivory #FFFBEF.
-- Poppins headings, Inter body; Arial and general system fallbacks in exported email.
+## Canonical sources
+- Live Foundations: https://lab.srv2005300.hstgr.cloud/theme/foundations/
+- UI tokens: sabpuja/design-system/tokens/tokens.css
+- Approved logo: sabpuja/design-system/assets/logo/brand-assets.json (approved-current primary_horizontal), byte-identical Component Lab mirror
+- Components preview at /theme/components/email-system/; production Shopify sending is intentionally out of scope.
 
-## Seven documented states
-1. Subscriber welcome: marketing, immediately after subscription.
-2. Abandoned checkout: eligible recipient; proposed 1h/24h/48h schedule; cancel on purchase.
-3. Order confirmation: transactional, actual new order event.
-4. Dispatched/tracking: transactional, actual fulfilment event.
-5. Delivered: transactional, actual delivered event.
-6. Post-purchase support: helpful message after verified delivery, not an unsolicited sale.
-7. Product announcement: subscribed audience, verified product.
+## 15 design states
+1. Welcome: newly opted-in subscriber
+2. Abandoned checkout: existing recovery system must be audited first; stop on purchase
+3. Order confirmation: only a genuine order event
+4. Shipping: real dispatch event with tracking link
+5. Delivered: trusted delivery event only
+6. After-sales guide support: delivered order + verified guide
+7. Product launch: published product + subscription
+8. Abandoned cart: identified, consented user; suppress after checkout or purchase
+9. Browse reminder: identified, consented user; suppress after cart/checkout/purchase
+10. Review request: verified delivered order and approved review link
+11. Related product: relevant in-stock product after genuine previous purchase
+12. Win-back: 60–90-day inactive subscriber; frequency caps
+13. Festival reminder: source-verified city/date and delivery feasibility
+14. Restock: confirmed inventory and opt-in
+15. Repeat-customer appreciation: verified repeat-order milestone, no invented benefits
 
-## Reusable building blocks
-Approved logo; preheader; content panel; single primary CTA; optional order/product/guide detail panel; support footer; unsubscribe on marketing. Lab CSS uses clamp/grid and 4px rhythm; exported email HTML intentionally uses inline styles and presentational tables because email clients do not reliably support CSS variables, grid or modern font loading.
+These are proposed triggers, not enabled workflows. Consent, frequency, eligibility and legacy abandoned-checkout conflicts require admin verification.
 
-## Placeholder inventory
-[[first_name]], [[logo_url]], [[recovery_url]], [[checkout_items]], [[order_number]], [[order_status_url]], [[tracking_url]], [[guide_url]], [[product_title]], [[product_url]], [[unsubscribe_url]] are lab placeholders, NOT verified Shopify Liquid variables. Map and validate them for the actual Shopify notification/messaging editor before sending. Do not send this exported HTML unchanged.
+## Reusable blocks
+Shared email shell: approved logo, preheader, bilingual heading and copy, optional data panel, one CTA, help footer, and unsubscribe link on marketing messages.
+The separate assets/js/email-system-modules.js creates 9 bilingual modules: cart, order, shipping, delivery, product, guide, review, festival, and repeat-customer appreciation.
+Gallery layout uses Foundations fluid typography and Grid; exported email uses tables and inline CSS for broader client compatibility.
 
-## Deployment acceptance
-- Inspect existing Shopify Settings / Notifications before replacement.
-- Configure a verified sender domain, sender address and domain authentication.
-- Verify actual item/order/fulfilment data and links, Shopify variable syntax and missing-value fallback.
-- Marketing only to recipients with appropriate consent; functional unsubscribe and suppression.
-- Prevent marketing recovery after purchase and duplicate transactional notifications.
-- Test Gmail/Outlook/Apple Mail on mobile/desktop, images blocked, long English/Hindi, 200% zoom and accessibility.
-- Never invent prices, scarcity, discounts, ratings, shipping commitments or customer reviews.
+## Placeholder contract
+All bracketed values are LAB markers, not Shopify Liquid. They MUST be mapped in the actual sending service, HTML-escaped where applicable and validated before sending.
+Examples: [[logo_url]], [[first_name]], [[checkout_items]], [[cart_url]], [[recovery_url]], [[product_title]], [[product_price]], [[product_availability]], [[product_image_block]], [[product_summary_block]], [[product_url]], [[line_item_title]], [[line_item_quantity]], [[line_item_price]], [[order_number]], [[order_line_items]], [[order_total]], [[shipping_address]], [[order_status_url]], [[carrier_name]], [[tracking_number]], [[tracking_url]], [[delivery_status]], [[guide_title]], [[purchased_kit_title]], [[guide_url]], [[verified_review_url]], [[purchased_product_title]], [[festival_name]], [[festival_city]], [[festival_date]], [[festival_collection_url]], [[delivery_eligibility]], [[verified_loyalty_milestone]], [[unsubscribe_url]].
+Raw user input is never allowed to replace an HTML block. Product/order HTML must be composed from trusted escaped values. Checkout and cart links must be private, recipient-specific Shopify links.
 
-Preview uses an exact copy of the approved SVG hosted on the same GitHub Pages origin at /theme/assets/images/email/sabpuja-logo-horizontal-color.svg. The original source of truth is sabpuja/design-system/assets/logo/current/sabpuja-logo-horizontal-color.svg. The copy must remain byte-identical; do not create a derivative or recolor it. Before sending production email, host an approved rasterized equivalent on a stable image CDN and verify email-client rendering; do not edit the logo geometry. No customer data or email transport is used on this static page.
+## Visual QA
+- 15 choices; EN/HI subjects, preheaders, full bodies and CTAs
+- Desktop/mobile and in-between widths, keyboard navigation, 200% zoom
+- Exact approved horizontal logo renders inside email iframe
+- Modules clearly distinguish demonstration placeholders from actual customer/order data
+- HTML export retains placeholders and an unsendable starter warning
+- Test Gmail, Outlook and Apple Mail with images blocked before any real send
+- Marketing only for eligible opted-in customers, with working unsubscribe
+- No unverified pricing, urgency, stock, shipping, reviews or festival dates
+- No duplicate recovery or transactional sends; existing recovery sent a confirmed email in October
+
+## Next gate
+SP-EMAIL-003: finish the authenticated Shopify notification-template/sender audit, map platform fields, perform email-client QA, and separately authorize activation. This phase makes no Shopify sending or store changes.
