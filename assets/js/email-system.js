@@ -1,7 +1,7 @@
 /* SP-EMAIL-001 | Static Component Lab preview; no customer data, analytics, or email transport. */
 (function () {
 "use strict";
-var APPROVED_LOGO = "https://raw.githubusercontent.com/sabpuja/design-system/main/assets/logo/current/sabpuja-logo-horizontal-color.svg";
+var APPROVED_LOGO = "https://sabpuja.github.io/theme/assets/images/email/sabpuja-logo-horizontal-color.svg";
 var subjects = {
  welcome:{
   label:"Subscriber welcome",kind:"Marketing / subscription",timing:"Immediately after a valid newsletter subscription.",
