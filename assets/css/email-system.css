@@ -31,3 +31,12 @@
 .sp-email-layout :is(button,select,a):focus-visible{outline:3px solid var(--sp-saffron);outline-offset:3px}
 @media(max-width:790px){.sp-email-layout{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.sp-email-device{transition:none}}
+/* SP-EMAIL-002: long reusable journey library remains navigable at any width. */
+.sp-email-sidebar { min-width: 0; }
+.sp-email-journeys { max-height: min(73vh, 720px); overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; padding-right: .15rem; }
+.sp-email-journeys button { min-height: 48px; gap: .5rem; }
+.sp-email-meta strong { color: var(--sp-brown-deep); }
+.sp-email-workspace { min-width: 0; }
+.sp-email-steps .lab-card { min-height: 0; }
+@media (max-width: 790px) { .sp-email-journeys { max-height: min(44vh, 400px); } }
+@media (prefers-reduced-motion: reduce) { .sp-email-journeys { scroll-behavior: auto; } }
