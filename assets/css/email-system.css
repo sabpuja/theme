@@ -9,7 +9,7 @@
 .sp-email-contract{margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--sp-border)}
 .sp-email-contract h3{margin:.7rem 0 .25rem;font:600 .97rem var(--sp-font-heading)}
 .sp-email-contract p{margin:0 0 1rem;color:var(--sp-muted);font-size:.86rem}
-.sp-email-contract a,.sp-email-small a{color:var(--sp-saffron);font-weight:700}
+.sp-email-contract a,.sp-email-small a{color:#C84700;font-weight:700}
 .sp-email-controls{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:1rem}
 .sp-email-controls label{display:block;font-weight:700;font-size:.82rem;margin-bottom:.3rem}
 .sp-email-controls select,.sp-email-viewport button,.sp-email-actions button{min-height:44px;padding:.5rem .85rem;border:1px solid var(--sp-border-strong);border-radius:10px;background:#fff;color:var(--sp-brown);font-weight:700}
@@ -17,9 +17,9 @@
 .sp-email-viewport button,.sp-email-actions button{cursor:pointer}
 .sp-email-viewport button.is-active,.sp-email-actions button:first-child{background:var(--sp-brown-deep);border-color:var(--sp-brown-deep);color:#fff}
 .sp-email-meta{margin-top:1rem}.sp-email-meta p{font-size:.91rem;margin:.4rem 0;overflow-wrap:anywhere}
-.sp-email-eyebrow{color:var(--sp-saffron);text-transform:uppercase;letter-spacing:.11em;font-weight:800;font-size:.72rem!important}
+.sp-email-eyebrow{color:#C84700;text-transform:uppercase;letter-spacing:.11em;font-weight:800;font-size:.72rem!important}
 .sp-email-timing{color:var(--sp-muted);padding-top:.3rem}
-.sp-email-actions{margin-top:1rem}.sp-email-actions button:nth-child(2){background:var(--sp-saffron);border-color:var(--sp-saffron);color:#fff}
+.sp-email-actions{margin-top:1rem}.sp-email-actions button:nth-child(2){background:#C84700;border-color:#C84700;color:#fff}
 #sp-email-feedback{font-size:.82rem;color:var(--sp-brown)}
 .sp-email-stage{margin-top:1rem;padding:clamp(.75rem,2vw,1.5rem);background:#ebe5dc;border:1px solid var(--sp-border);border-radius:16px;overflow:auto}
 .sp-email-device{width:100%;max-width:700px;margin:auto;border-radius:12px;overflow:hidden;background:var(--sp-ivory);box-shadow:0 15px 44px rgba(51,36,31,.14);transition:max-width .2s ease}
