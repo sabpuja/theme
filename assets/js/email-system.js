@@ -66,7 +66,7 @@ function htmlEmail(record,language,preview){
  var detail=escapeHtml(d.detail);
  if (preview) detail=detail.replace(/\[\[[^\]]+\]\]/g,"<em style='color:#75655E'>[dynamic Shopify data]</em>");
  var title=escapeHtml(d.title),body=escapeHtml(d.body),subject=escapeHtml(d.subject),preheader=escapeHtml(d.preheader);
- return '<!doctype html><html lang="'+language+'"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+subject+'</title></head>'+
+ return '<!doctype html><!-- SP-EMAIL-002 LAB STARTER: REPLACE ALL [[PLACEHOLDERS]], VERIFY ELIGIBILITY & TEST BEFORE SENDING --><html lang="'+language+'"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+subject+'</title></head>'+
  '<body style="margin:0;padding:0;background:'+ivory+';font-family:Arial,Helvetica,sans-serif;color:'+foreground+'">'+
  '<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">'+preheader+'</div>'+
  '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:'+ivory+';border-collapse:collapse"><tr><td align="center" style="padding:24px 12px 40px">'+
@@ -77,6 +77,7 @@ function htmlEmail(record,language,preview){
  '<h1 style="margin:0 0 16px;color:'+brown+';font:700 27px/1.25 Poppins,Arial,Helvetica,sans-serif">'+title+'</h1>'+
  '<p style="margin:0 0 24px;color:'+foreground+';font:16px/1.7 Inter,Arial,sans-serif">'+body+'</p>'+
  '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;margin:0 0 24px;background:'+cream+';border-left:3px solid #F4B400"><tr><td style="padding:16px 18px;color:'+brown+';font:15px/1.6 Arial,sans-serif">'+detail+'</td></tr></table>'+
+ (window.SabpujaEmailModules ? window.SabpujaEmailModules.render(selected,language,preview) : '')+
  '<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="'+saffron+'" style="border-radius:10px;background:'+saffron+';text-align:center"><a href="'+escapeHtml(action)+'" style="display:inline-block;padding:14px 23px;font:700 15px/1.3 Arial,sans-serif;color:#FFFFFF;text-decoration:none">'+escapeHtml(d.cta)+'</a></td></tr></table>'+
  '</td></tr><tr><td style="padding:24px 30px;background:'+cream+';border-top:1px solid #E9DDCF">'+
  '<p style="margin:0;color:'+muted+';font:13px/1.6 Arial,sans-serif">'+escapeHtml(note)+'</p>'+
