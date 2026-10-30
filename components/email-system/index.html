@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>SP-EMAIL-001 · Sabpuja Email System</title>
+<link rel="stylesheet" href="/theme/assets/css/lab.css"><link rel="stylesheet" href="/theme/assets/css/email-system.css">
+</head>
+<body>
+<header class="lab-header"><div class="lab-header__inner"><a class="lab-brand" href="/theme/"><span class="lab-brand__mark">S</span><span>Sabpuja Component Lab</span></a><nav class="lab-nav" aria-label="Primary"><a aria-current="page" href="/theme/components/">Components</a><a href="/theme/blocks/">Blocks</a><a href="/theme/foundations/">Foundations</a><a href="/theme/tools/image-lab/">Image Lab</a></nav></div></header>
+<main class="lab-main">
+<div class="lab-page-head"><div class="lab-breadcrumb"><a href="/theme/">Home</a> / <a href="/theme/components/">Components</a> / Email System</div>
+<p class="lab-eyebrow">SP-EMAIL-001 · Customer communications</p><h1>Sabpuja Email System</h1>
+<p>Foundations-aligned designs for the customer lifecycle. Preview seven states, compare desktop/mobile widths, switch between English and Hindi, and export a reusable HTML starter for Shopify mapping.</p></div>
+<div class="sp-email-note" role="note"><strong>Component Lab only.</strong> These are visual prototypes, not installed Shopify templates or live automations. The exported HTML contains placeholder tokens and must pass mapping, consent, sender and email-client QA before sending.</div>
+<section class="sp-email-layout" aria-label="Email component showcase">
+<aside class="sp-email-sidebar">
+<h2>Email journeys</h2>
+<div id="sp-email-journeys" class="sp-email-journeys" role="group" aria-label="Choose email type">
+<button type="button" data-email="welcome" aria-pressed="true">01 · Subscriber welcome <small>Marketing</small></button>
+<button type="button" data-email="recovery" aria-pressed="false">02 · Checkout recovery <small>Recovery</small></button>
+<button type="button" data-email="order" aria-pressed="false">03 · Order confirmation <small>Transactional</small></button>
+<button type="button" data-email="shipping" aria-pressed="false">04 · Shipping &amp; tracking <small>Transactional</small></button>
+<button type="button" data-email="delivered" aria-pressed="false">05 · Delivery confirmation <small>Transactional</small></button>
+<button type="button" data-email="support" aria-pressed="false">06 · Post-purchase support <small>Service</small></button>
+<button type="button" data-email="product" aria-pressed="false">07 · Product announcement <small>Marketing</small></button>
+</div>
+<div class="sp-email-contract"><h3>Reusable blocks</h3><p>Approved logo, preheader, one clear CTA, variable order/product/guide panel, support footer and marketing unsubscribe.</p><h3>Design authority</h3><a href="/theme/foundations/">Sabpuja Foundations</a><p>Saffron, Temple Gold, Sacred Brown, Ivory, Poppins/Inter and the 4px rhythm.</p></div>
+</aside>
+<div class="sp-email-workspace">
+<div class="sp-email-controls"><div><label for="sp-email-language">Language</label><select id="sp-email-language"><option value="en">English</option><option value="hi">हिन्दी</option></select></div>
+<div class="sp-email-viewport" role="group" aria-label="Preview width"><button type="button" class="is-active" data-width="desktop" aria-pressed="true">Desktop</button><button type="button" data-width="mobile" aria-pressed="false">Mobile</button></div></div>
+<section class="sp-email-meta" aria-live="polite"><p class="sp-email-eyebrow" id="sp-email-kind"></p><h2 id="sp-email-title">Subscriber welcome</h2>
+<p><strong>Subject:</strong> <span id="sp-email-subject"></span></p><p><strong>Preheader:</strong> <span id="sp-email-preheader"></span></p>
+<p class="sp-email-timing"><strong>Proposed send rule:</strong> <span id="sp-email-timing"></span></p>
+<div class="sp-email-actions"><button type="button" id="sp-email-copy-subject">Copy subject</button><button type="button" id="sp-email-copy-html">Copy HTML starter</button><span role="status" id="sp-email-feedback"></span></div></section>
+<div class="sp-email-stage"><div class="sp-email-device" id="sp-email-device" data-width="desktop"><iframe id="sp-email-frame" sandbox="" title="Preview of selected Sabpuja email"></iframe></div></div>
+</div>
+</section>
+<section class="lab-section" aria-labelledby="sp-email-handoff"><div class="lab-section__head"><div><p class="lab-eyebrow">Implementation contract</p><h2 class="lab-section-title" id="sp-email-handoff">Lab to Shopify handoff</h2><p class="lab-section-copy">The Lab uses fluid Foundations CSS; portable emails use tables and inline CSS for compatibility.</p></div></div>
+<div class="sp-email-steps">
+<article class="lab-card"><h3>01 · Identity</h3><p>Reuse the exact approved horizontal logo from the design-system manifest without redrawing or recolouring it.</p></article>
+<article class="lab-card"><h3>02 · Real data</h3><p>Map every placeholder to platform-verified variables. Bind recipient-specific checkout, order, product, tracking and guide URLs.</p></article>
+<article class="lab-card"><h3>03 · Consent</h3><p>Separate transactional and marketing, respect marketing opt-in and unsubscribe, and suppress recovery after purchase.</p></article>
+<article class="lab-card"><h3>04 · Email QA</h3><p>Test Gmail, Outlook, mobile, images-off, long Hindi text, links, zoom, accessibility and duplicate notifications.</p></article>
+</div><p class="sp-email-small"><a href="README.md">Read the SP-EMAIL-001 handoff and placeholder specification</a>. No messages are sent from this preview.</p>
+</section></main><footer class="lab-footer">Sabpuja Component Lab · SP-EMAIL-001 · Design preview only</footer>
+<script defer src="/theme/assets/js/email-system.js"></script>
+</body></html>
