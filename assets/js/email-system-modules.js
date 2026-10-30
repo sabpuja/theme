@@ -2,9 +2,9 @@
 (function(){
 "use strict";
 var definitions={
- welcome:"guide",recovery:"cart",cart:"cart",order:"order",shipping:"shipping",delivered:"delivery",
+ welcome:"none",recovery:"cart",cart:"cart",order:"order",shipping:"shipping",delivered:"delivery",
  support:"guide",product:"product",browse:"product",review:"review",crosssell:"product",
- winback:"guide",festival:"festival",restock:"product",vip:"appreciation"
+ winback:"none",festival:"festival",restock:"product",vip:"appreciation"
 };
 var text={
  en:{
