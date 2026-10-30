@@ -34,4 +34,4 @@ Approved logo; preheader; content panel; single primary CTA; optional order/prod
 - Test Gmail/Outlook/Apple Mail on mobile/desktop, images blocked, long English/Hindi, 200% zoom and accessibility.
 - Never invent prices, scarcity, discounts, ratings, shipping commitments or customer reviews.
 
-Preview uses the approved SVG for artwork fidelity. Before sending production email, host an approved rasterized equivalent on a stable image CDN and verify email-client rendering; do not edit the logo geometry. No customer data or email transport is used on this static page.
+Preview uses an exact copy of the approved SVG hosted on the same GitHub Pages origin at /theme/assets/images/email/sabpuja-logo-horizontal-color.svg. The original source of truth is sabpuja/design-system/assets/logo/current/sabpuja-logo-horizontal-color.svg. The copy must remain byte-identical; do not create a derivative or recolor it. Before sending production email, host an approved rasterized equivalent on a stable image CDN and verify email-client rendering; do not edit the logo geometry. No customer data or email transport is used on this static page.
