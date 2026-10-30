@@ -50,7 +50,7 @@ var selected = "welcome",lang = "en";
 var frame = document.getElementById("sp-email-frame");
 function escapeHtml(s) { return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
 function htmlEmail(record,language,preview){
- var d=record[language],foreground="#2E211D",muted="#75655E",cream="#FFF8E7",ivory="#FFFBEF",saffron="#D35400",brown="#33241F";
+ var d=record[language],foreground="#2E211D",muted="#75655E",cream="#FFF8E7",ivory="#FFFBEF",saffron="#C84700",brown="#33241F";
  var action=preview?"#preview":record.link;
  var logo=preview?APPROVED_LOGO:"[[logo_url]]";
  var footer=record.marketing?'<p style="margin:12px 0 0;font:13px/1.6 Arial,sans-serif;color:'+muted+'"><a href="'+(preview?"#preview":"[[unsubscribe_url]]")+'" style="color:'+brown+';text-decoration:underline">'+(language==="hi"?"ईमेल सदस्यता बंद करें":"Unsubscribe from marketing emails")+'</a></p>':"";
