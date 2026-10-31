@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- SP-EMAIL-003 | Shopify Messaging custom-code candidate.
+     Requires Shopify Admin QA, consent gating, sender verification, and PNG logo before sending.
+     Marketing only; DO NOT paste into native order/shipping notifications. -->
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Sabpuja में आपका स्वागत है</title>
+</head>
+<body style="margin:0;padding:0;background:#FFFBEF;color:#2E211D;font-family:Arial,Helvetica,sans-serif">
+  <div style="display:none!important;font-size:1px;line-height:1px;color:#FFFBEF;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all">पूजा की सामग्री और मार्गदर्शन अब एक ही जगह।</div>
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#FFFBEF;border-collapse:collapse">
+    <tr><td align="center" style="padding:24px 12px 40px">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;background:#FFFFFF;border:1px solid #E9DDCF;border-collapse:collapse">
+        <tr><td style="border-top:5px solid #C84700;padding:24px 26px;border-bottom:1px solid #E9DDCF">
+          <a href="{{ shop.url | escape }}" style="text-decoration:none;display:inline-block">
+            <img src="https://sabpuja.github.io/theme/assets/images/email/sabpuja-logo-horizontal-color.svg" width="146" alt="Sabpuja" style="display:block;max-width:100%;height:auto;width:146px;border:0">
+          </a>
+        </td></tr>
+        <tr><td dir="auto" style="padding:32px 26px 26px">
+          <p style="font:700 12px/1.45 Arial,Helvetica,sans-serif;letter-spacing:.5px;color:#C84700;margin:0 0 10px">आपका स्वागत है</p>
+          <h1 style="font:700 26px/1.35 Arial,Helvetica,sans-serif;color:#33241F;margin:0 0 18px">आपकी पूजा की तैयारी, अब आसान</h1>
+          <p style="font:16px/1.6 Arial,Helvetica,sans-serif;color:#2E211D;margin:0 0 14px">
+            {% if customer.first_name != blank %}नमस्ते {{ customer.first_name | escape }}!{% else %}नमस्ते!{% endif %}
+          </p>
+          <p style="font:16px/1.65 Arial,Helvetica,sans-serif;color:#2E211D;margin:0 0 22px">Sabpuja से जुड़ने के लिए धन्यवाद। पूजा किट, आवश्यक सामग्री और उपयोगी मार्गदर्शिकाएँ अपनी सुविधा से देखें।</p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin:0 0 24px;background:#FFF8E7;border-left:3px solid #F4B400">
+            <tr><td style="padding:16px 18px;font:15px/1.6 Arial,Helvetica,sans-serif;color:#4E342E">आपकी पूजा की तैयारी में एक सरल साथी।</td></tr>
+          </table>
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#C84700" style="background:#C84700">
+            <a href="{{ shop.url | escape }}" style="display:inline-block;padding:15px 24px;font:700 15px/1.4 Arial,Helvetica,sans-serif;text-decoration:none;color:#FFFFFF">Sabpuja देखें</a>
+          </td></tr></table>
+        </td></tr>
+        <tr><td style="background:#FFF8E7;border-top:1px solid #E9DDCF;padding:23px 26px">
+          <p style="margin:0 0 8px;font:13px/1.6 Arial,Helvetica,sans-serif;color:#75655E">कोई प्रश्न है? हमें लिखें: <a href="mailto:support@sabpuja.com" style="color:#33241F">support@sabpuja.com</a></p>
+          <p style="margin:0 0 10px;font:12px/1.6 Arial,Helvetica,sans-serif;color:#75655E">
+            Sabpuja · <a href="{{ shop.url | escape }}" style="color:#33241F">{{ shop.domain | escape }}</a>
+            {% if shop.address.city != blank %} · {{ shop.address.city | escape }}{% endif %}
+            {% if shop.address.country != blank %}, {{ shop.address.country | escape }}{% endif %}
+          </p>
+          <p style="margin:0;font:13px/1.6 Arial,Helvetica,sans-serif"><a href="{{ unsubscribe_url }}" style="color:#33241F;text-decoration:underline">ईमेल सदस्यता बंद करें</a></p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+  {{ open_tracking }}
+</body>
+</html>
