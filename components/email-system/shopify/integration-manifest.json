@@ -1,0 +1,141 @@
+{
+  "schema": "SP-EMAIL-003",
+  "status": "integration_development_only",
+  "store": "ghf6bp-fy.myshopify.com",
+  "theme_references": {
+    "live": {
+      "id": "189418242364",
+      "name": "Rebrand-11-Sabpuja-oct-21-2026"
+    },
+    "staging": {
+      "id": "189358014780",
+      "name": "Sabpuja-Staging-Rebrand-10-2026"
+    }
+  },
+  "note": "Email notifications are not Shopify theme assets. Theme IDs are reference-only; do not push any email files to a theme.",
+  "campaigns_enabled": false,
+  "notifications_modified": false,
+  "authoritative_component_lab": "https://sabpuja.github.io/theme/components/email-system/",
+  "journeys": [
+    {
+      "id": "welcome",
+      "className": "marketing",
+      "surface": "Shopify Messaging custom-code",
+      "proposedTrigger": "subscriber opts in",
+      "guardrail": "only subscribed, no repeat welcome",
+      "status": "starter_en_hi_prepared"
+    },
+    {
+      "id": "recovery",
+      "className": "recovery",
+      "surface": "existing Shopify recovery workflow",
+      "proposedTrigger": "abandoned checkout",
+      "guardrail": "deduplicate; suppress on completed order",
+      "status": "blocked_existing_flow_audit"
+    },
+    {
+      "id": "order",
+      "className": "transactional",
+      "surface": "Shopify Settings > Notifications",
+      "proposedTrigger": "confirmed order",
+      "guardrail": "preserve taxes, discounts, bundles, payment and delivery logic",
+      "status": "blocked_original_template_backup"
+    },
+    {
+      "id": "shipping",
+      "className": "transactional",
+      "surface": "Shopify Settings > Notifications",
+      "proposedTrigger": "confirmed fulfillment with tracking",
+      "guardrail": "never send without real tracking",
+      "status": "blocked_original_template_backup"
+    },
+    {
+      "id": "delivered",
+      "className": "transactional",
+      "surface": "Shopify Notifications/carrier integration",
+      "proposedTrigger": "trusted delivered event",
+      "guardrail": "avoid claiming delivered without carrier confirmation",
+      "status": "blocked_delivery_event_verification"
+    },
+    {
+      "id": "support",
+      "className": "service",
+      "surface": "Shopify Messaging/Flow candidate",
+      "proposedTrigger": "verified delivery + relevant published guide",
+      "guardrail": "no fake guide; verify consent / service classification",
+      "status": "blocked_trigger_and_catalog_mapping"
+    },
+    {
+      "id": "product",
+      "className": "marketing",
+      "surface": "Shopify Messaging campaign",
+      "proposedTrigger": "published in-stock product",
+      "guardrail": "opt-in only, verify product link and availability",
+      "status": "planned"
+    },
+    {
+      "id": "cart",
+      "className": "marketing",
+      "surface": "Shopify Messaging automation",
+      "proposedTrigger": "identified eligible abandoned cart",
+      "guardrail": "suppress once checkout recovery or purchase starts",
+      "status": "blocked_automation_recovery_audit"
+    },
+    {
+      "id": "browse",
+      "className": "marketing",
+      "surface": "Shopify Messaging automation",
+      "proposedTrigger": "identified consented browse session",
+      "guardrail": "suppress on cart/checkout/order",
+      "status": "blocked_identification_and_consent"
+    },
+    {
+      "id": "review",
+      "className": "marketing",
+      "surface": "Shopify Messaging/approved reviews app",
+      "proposedTrigger": "verified delivered purchase",
+      "guardrail": "valid purchase-bound review URL; no fabricated badges or ratings",
+      "status": "blocked_review_app_and_consent"
+    },
+    {
+      "id": "crosssell",
+      "className": "marketing",
+      "surface": "Shopify Messaging",
+      "proposedTrigger": "verified previous purchase + relevant product",
+      "guardrail": "only current stock and opt-in",
+      "status": "planned"
+    },
+    {
+      "id": "winback",
+      "className": "marketing",
+      "surface": "Shopify Messaging",
+      "proposedTrigger": "inactive subscriber 60–90 days",
+      "guardrail": "frequency cap, suppress recent buyers",
+      "status": "planned"
+    },
+    {
+      "id": "festival",
+      "className": "marketing",
+      "surface": "Shopify Messaging",
+      "proposedTrigger": "city-specific verified festival window",
+      "guardrail": "verify dates and delivery eligibility, no nationwide assertions",
+      "status": "blocked_calendar_and_delivery_verification"
+    },
+    {
+      "id": "restock",
+      "className": "marketing",
+      "surface": "Shopify Messaging inventory-triggered flow",
+      "proposedTrigger": "verified restocked published item",
+      "guardrail": "revalidate stock, subscription and interest",
+      "status": "planned"
+    },
+    {
+      "id": "vip",
+      "className": "marketing",
+      "surface": "Shopify Messaging",
+      "proposedTrigger": "verified repeat purchase",
+      "guardrail": "no invented perks or status",
+      "status": "planned"
+    }
+  ]
+}
